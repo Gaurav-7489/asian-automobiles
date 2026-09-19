@@ -114,7 +114,9 @@ export function InteractiveLayer() {
       pointerX = event.clientX;
       pointerY = event.clientY;
 
-      const next = (event.target as HTMLElement | null)?.closest?.("[data-magnetic]") as HTMLElement | null;
+      const next = (event.target as HTMLElement | null)?.closest?.(
+        "[data-magnetic], .creative-page a, .creative-page button, .aa-header a, .aa-header button"
+      ) as HTMLElement | null;
       if (next && next !== active) {
         reset(active);
         active = next;
@@ -126,11 +128,15 @@ export function InteractiveLayer() {
         targetScale = 1;
       }
 
-      cursorScaleTarget = next ? 1.65 : 1;
+      cursorScaleTarget = next ? 2.35 : 1;
+
+      if (active) {
+        rect = active.getBoundingClientRect();
+      }
 
       if (active && rect) {
-        targetX = Math.max(-18, Math.min(18, (event.clientX - (rect.left + rect.width / 2)) * 0.11));
-        targetY = Math.max(-18, Math.min(18, (event.clientY - (rect.top + rect.height / 2)) * 0.11));
+        targetX = Math.max(-14, Math.min(14, (event.clientX - (rect.left + rect.width / 2)) * 0.085));
+        targetY = Math.max(-14, Math.min(14, (event.clientY - (rect.top + rect.height / 2)) * 0.085));
       }
 
       start();
@@ -140,7 +146,7 @@ export function InteractiveLayer() {
       if (!active) return;
       const related = event.relatedTarget as Node | null;
       if (related && active.contains(related)) return;
-      const leaving = (event.target as HTMLElement | null)?.closest?.("[data-magnetic]");
+      const leaving = (event.target as HTMLElement | null)?.closest?.("[data-magnetic], .creative-page a, .creative-page button, .aa-header a, .aa-header button");
       if (leaving !== active) return;
       targetX = 0;
       targetY = 0;
