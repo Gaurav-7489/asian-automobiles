@@ -429,3 +429,41 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 @media(prefers-reduced-motion:reduce){
   .command-card,.gallery-tile img,.symptom,.facility-zone,.split-photo img{transition:none}
 }
+
+/* FINAL NAV THEME — black surface + white typography on every route */
+.header,
+.header-scrolled,
+.header.nav-light{color:#fff!important}
+.header .header-inner,
+.header-scrolled .header-inner,
+.header.nav-light .header-inner{
+  background:#050505!important;
+  color:#fff!important;
+  border:1px solid #ffffff1f!important;
+  box-shadow:0 18px 60px #00000035!important;
+}
+.header .brand,
+.header .brand span,
+.header .brand strong{color:#fff}
+.header .brand strong{background:#fff;color:#000}
+.header nav a,
+.header .header-phone,
+.header.nav-light nav a,
+.header.nav-light .header-phone{
+  color:#fff!important;
+}
+.header nav a:hover,
+.header .header-phone:hover,
+.header.nav-light nav a:hover,
+.header.nav-light .header-phone:hover{
+  color:#fff!important;
+  background:#ffffff0d;
+}
+.header nav a:before,
+.header.nav-light nav a:before{background:#fff!important}
+.header .menu,
+.header.nav-light .menu{
+  color:#fff!important;
+  background:#ffffff0d!important;
+  border-color:#ffffff24!important;
+}
