@@ -16,7 +16,21 @@ const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 export function ImmersiveHero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const orbRef = useRef<HTMLDivElement>(null);
+  const orbRaf = useRef(0);
   const reduceMotion = useReducedMotion();
+
+  function handlePointerMove(event: React.PointerEvent<HTMLElement>) {
+    if (reduceMotion || !orbRef.current) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    cancelAnimationFrame(orbRaf.current);
+    orbRaf.current = requestAnimationFrame(() => {
+      if (!orbRef.current) return;
+      orbRef.current.style.transform = `translate3d(${x - 210}px,${y - 210}px,0)`;
+    });
+  }
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -36,7 +50,7 @@ export function ImmersiveHero() {
   const indexScale = useTransform(smoothProgress, [0, 0.82], [0.07, 1]);
 
   return (
-    <section ref={sectionRef} className="aa-hero2">
+    <section ref={sectionRef} className="aa-hero2" onPointerMove={handlePointerMove}>
       <div className="aa-hero2-sticky">
         <motion.div
           className="aa-hero2-media"
@@ -51,6 +65,7 @@ export function ImmersiveHero() {
             quality={76}
             sizes="100vw"
           />
+          <div ref={orbRef} className="aa-hero2-orb" aria-hidden="true" />
           <div className="aa-hero2-shade" />
           <div className="aa-hero2-scan" />
         </motion.div>
@@ -93,7 +108,7 @@ export function ImmersiveHero() {
               </p>
 
               <div className="aa-hero2-actions">
-                <Link data-magnetic href="/book-service/" className="aa-hero2-primary">
+                <Link data-magnetic href="/book-service/" prefetch={false} className="aa-hero2-primary">
                   Book a service <ArrowUpRight size={15} />
                 </Link>
                 <a data-magnetic href="tel:+919349002038" className="aa-hero2-circle" aria-label="Call Asian Automobiles">
