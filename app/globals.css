@@ -21,3 +21,11 @@ a{color:inherit;text-decoration:none}
 .service-card:hover .service-icon{transform:rotate(-8deg) scale(1.08);background:#1769ff;color:#fff;border-color:#1769ff}
 @media(max-width:640px){.container-xl{width:min(100% - 28px,1180px)}.display{letter-spacing:-.06em}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.service-card{transition:none}.magnetic-glow{display:none}}
+
+.car-scene{position:absolute;inset:0;cursor:crosshair}
+.car-scene canvas{width:100%!important;height:100%!important}
+.wheel-spin{animation:wheelspin 7s linear infinite}
+.cursor-trail{position:absolute;width:18px;height:18px;border:1px solid rgba(82,207,231,.8);border-radius:999px;transform:translate(-50%,-50%) scale(.4);opacity:.65;transition:transform .65s cubic-bezier(.22,1,.36,1),opacity .65s}
+.cursor-trail-live{transform:translate(-50%,-50%) scale(2.7);opacity:0}
+@keyframes wheelspin{to{transform:rotate(360deg)}}
+@media(max-width:767px){.cursor-trail{display:none}}
