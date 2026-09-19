@@ -21,15 +21,29 @@ const img = {
 const phone="+919349002038";
 
 function CTA({label="Book a Service",href="/book-service/"}:{label?:string;href?:string}){
-  return <Link className="primary-link" href={href}>{label}<ArrowUpRight size={15}/></Link>;
+  return <Link data-magnetic prefetch={false} className="primary-link" href={href}>{label}<ArrowUpRight size={15}/></Link>;
 }
-function Call(){ return <a className="outline-link" href={"tel:"+phone}><Phone size={15}/>Call the workshop</a>; }
-function Back(){ return <Link className="back" href="/"><ArrowLeft size={15}/>Asian Automobiles / Home</Link>; }
+function Call(){ return <a data-magnetic className="outline-link" href={"tel:"+phone}><Phone size={15}/>Call the workshop</a>; }
+function Back(){ return <Link data-magnetic prefetch={false} className="back" href="/"><ArrowLeft size={15}/>Asian Automobiles / Home</Link>; }
 
 function Frame({eyebrow,title,intro,children,theme="paper"}:{eyebrow:string;title:string;intro?:string;children:ReactNode;theme?:string}){
-  return <main className={"creative-page "+theme}>
-    <section className="creative-head"><div className="wrap creative-wrap"><Back/><div className="creative-heading"><span className="eyebrow">{eyebrow}</span><h1>{title}</h1>{intro&&<p>{intro}</p>}</div></div></section>
-    {children}
+  return <main className={"creative-page immersive-page "+theme}>
+    <section className="creative-head">
+      <div className="creative-head-grid" aria-hidden="true"/>
+      <div className="wrap creative-wrap">
+        <Back/>
+        <div className="creative-heading aa-view-reveal">
+          <span className="eyebrow">{eyebrow}</span>
+          <h1>{title}</h1>
+          {intro&&<p>{intro}</p>}
+        </div>
+        <a data-magnetic href="#page-content" className="creative-compass">
+          <span>SCROLL / FOLLOW THE DETAILS</span>
+          <ArrowRight size={16}/>
+        </a>
+      </div>
+    </section>
+    <div id="page-content" className="creative-body">{children}</div>
   </main>
 }
 
@@ -49,7 +63,7 @@ function Services(){
     ["05","I need the right part","Automobile spare parts","/spare-parts/",PackageSearch]
   ];
   return <Frame eyebrow="Services / start with the symptom" title="Start with what the car is doing." intro="No need to know the workshop vocabulary first. Pick the situation that sounds like yours.">
-    <section className="service-command"><div className="wrap"><div className="command-bar"><span><Sparkles size={15}/>WHAT BROUGHT YOU HERE?</span><small>CHOOSE A STARTING POINT</small></div><div className="command-grid">{cards.map(([n,k,t,href,Icon])=><Link href={href as string} className="command-card" key={n as string}><span className="command-number">{n}</span><Icon size={22}/><small>{k}</small><h2>{t}</h2><span className="command-go"><ArrowRight size={16}/></span></Link>)}</div></div></section>
+    <section className="service-command"><div className="wrap"><div className="command-bar"><span><Sparkles size={15}/>WHAT BROUGHT YOU HERE?</span><small>CHOOSE A STARTING POINT</small></div><div className="command-grid">{cards.map(([n,k,t,href,Icon])=><Link href={href as string} data-magnetic className="command-card" key={n as string}><span className="command-number">{n}</span><Icon size={22}/><small>{k}</small><h2>{t}</h2><span className="command-go"><ArrowRight size={16}/></span></Link>)}</div></div></section>
     <section className="service-closer"><div className="wrap service-closer-grid"><div><span className="eyebrow">Still not sure?</span><h2>Tell us what<br/>the car is doing.</h2></div><div><p>You don't have to diagnose it yourself. Describe the symptom in your own words and start from there.</p><CTA label="Describe the problem" href="/request-quote/"/></div></div></section>
   </Frame>
 }
@@ -71,7 +85,7 @@ function AC(){
 function Accident(){
   return <Frame eyebrow="03 / Accident repair" title="You've already had the bad moment. The next step should feel simpler." intro="A calmer path from damage photos to repair enquiry and insurance assistance.">
     <section className="incident"><div className="wrap"><div className="incident-board"><div className="incident-label"><span>INCIDENT DESK</span><b>CASE / NEW</b></div><div className="incident-main"><div className="incident-icon"><CarFront size={34}/></div><div><small>FIRST THING</small><h2>Show us what happened.</h2><p>Photos, a short description and your contact details are enough to start the conversation.</p></div></div><div className="dropzone"><Upload size={21}/><b>Drop damage photos here</b><span>or continue with a description</span></div></div><div className="incident-steps">{[["01","Damage","Photos + description"],["02","Assessment","Repair scope"],["03","Insurance","Coordination if applicable"],["04","Repair","Agreed work + handover"]].map(([n,t,d])=><div key={n}><b>{n}</b><h3>{t}</h3><p>{d}</p></div>)}</div></div></section>
-    <section className="photo-statement"><div className="wrap"><Image src={img.repair} alt="Automotive accident repair" width={1600} height={1000} sizes="(max-width: 900px) 100vw, 55vw"/><div><span className="eyebrow">KEEP IT SIMPLE</span><h2>No insurance jargon required.</h2><p>If you need cashless repair assistance, use the insurance route. For insurer-specific eligibility or cashless-repair questions, contact the workshop before repair work begins.</p><Link className="dark-link" href="/insurance/">See insurance assistance <ArrowUpRight size={16}/></Link></div></div></section>
+    <section className="photo-statement"><div className="wrap"><Image src={img.repair} alt="Automotive accident repair" width={1600} height={1000} sizes="(max-width: 900px) 100vw, 55vw"/><div><span className="eyebrow">KEEP IT SIMPLE</span><h2>No insurance jargon required.</h2><p>If you need cashless repair assistance, use the insurance route. For insurer-specific eligibility or cashless-repair questions, contact the workshop before repair work begins.</p><Link data-magnetic className="dark-link" href="/insurance/">See insurance assistance <ArrowUpRight size={16}/></Link></div></div></section>
   </Frame>
 }
 
@@ -96,7 +110,7 @@ function Tyres(){
 
 function Parts(){
   return <Frame eyebrow="07 / Automobile spare parts" title="Don't know the part number? That's okay." intro="Start with the vehicle and the thing you need. We can turn the conversation into the right parts enquiry.">
-    <section className="parts-desk"><div className="wrap parts-grid"><div className="parts-list">{["Vehicle make / model","Year / variant","Part you need","Quantity","Photo or reference number"].map((x,i)=><div key={x}><b>0{i+1}</b><span>{x}</span><ArrowRight size={15}/></div>)}</div><div className="parts-receipt"><PackageSearch size={30}/><span>PARTS REQUEST</span><h2>Tell us what<br/>you're looking for.</h2><p>Live inventory and ecommerce are not assumed here. This is an enquiry-first route until stock data is connected.</p><Link className="primary-link" href="/request-quote/">Make a parts enquiry <ArrowUpRight size={15}/></Link></div></div></section>
+    <section className="parts-desk"><div className="wrap parts-grid"><div className="parts-list">{["Vehicle make / model","Year / variant","Part you need","Quantity","Photo or reference number"].map((x,i)=><div key={x}><b>0{i+1}</b><span>{x}</span><ArrowRight size={15}/></div>)}</div><div className="parts-receipt"><PackageSearch size={30}/><span>PARTS REQUEST</span><h2>Tell us what<br/>you're looking for.</h2><p>Live inventory and ecommerce are not assumed here. This is an enquiry-first route until stock data is connected.</p><Link data-magnetic className="primary-link" href="/request-quote/">Make a parts enquiry <ArrowUpRight size={15}/></Link></div></div></section>
   </Frame>
 }
 
@@ -136,7 +150,7 @@ function Reviews(){
 
 function Contact(){
   return <Frame eyebrow="12 / Contact & directions" title="Come by. Call first. Either way, make the next move easy." intro="283 / V-526, Govt Rest House, Kattoor Road, Irinjalakuda, Thrissur — 680121, Kerala.">
-    <section className="contact-map"><div className="wrap contact-map-grid"><div className="map-art"><div className="map-road r1"/><div className="map-road r2"/><div className="map-road r3"/><div className="map-pin"><MapPin size={24}/><span>ASIAN<br/>AUTOMOBILES</span></div><span className="map-label l1">KATTOOR ROAD</span><span className="map-label l2">IRINJALAKUDA</span></div><div className="contact-console"><div><span className="eyebrow">CONTACT CONSOLE</span><h2>Talk to the workshop.</h2></div><a href={"tel:"+phone} className="console-row"><Phone/><span><small>PHONE</small><b>+91 93490 02038</b></span><ArrowUpRight/></a><div className="console-row"><Phone/><span><small>LANDLINE</small><b>0480 2828167</b></span></div><div className="console-row muted"><Clock3/><span><small>OPENING HOURS</small><b>Call to confirm today</b></span></div><div className="console-row muted"><MessageCircle/><span><small>ENQUIRIES</small><b>Phone support available</b></span></div></div></div></section>
+    <section className="contact-map"><div className="wrap contact-map-grid"><div className="map-art"><div className="map-road r1"/><div className="map-road r2"/><div className="map-road r3"/><div className="map-pin"><MapPin size={24}/><span>ASIAN<br/>AUTOMOBILES</span></div><span className="map-label l1">KATTOOR ROAD</span><span className="map-label l2">IRINJALAKUDA</span></div><div className="contact-console"><div><span className="eyebrow">CONTACT CONSOLE</span><h2>Talk to the workshop.</h2></div><a href={"tel:"+phone} data-magnetic className="console-row"><Phone/><span><small>PHONE</small><b>+91 93490 02038</b></span><ArrowUpRight/></a><div data-magnetic className="console-row"><Phone/><span><small>LANDLINE</small><b>0480 2828167</b></span></div><div className="console-row muted"><Clock3/><span><small>OPENING HOURS</small><b>Call to confirm today</b></span></div><div className="console-row muted"><MessageCircle/><span><small>ENQUIRIES</small><b>Phone support available</b></span></div></div></div></section>
   </Frame>
 }
 
