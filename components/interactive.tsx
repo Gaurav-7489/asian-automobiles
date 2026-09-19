@@ -9,7 +9,15 @@ export function InteractiveLayer() {
     const cursor = cursorRef.current;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const coarse = window.matchMedia("(pointer: coarse)").matches;
-    if (reduced || coarse) return;
+    const nav = navigator as Navigator & {
+      connection?: { saveData?: boolean };
+      deviceMemory?: number;
+    };
+    const lowPower =
+      (typeof nav.deviceMemory === "number" && nav.deviceMemory <= 4) ||
+      (typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 4);
+
+    if (reduced || coarse || nav.connection?.saveData || lowPower) return;
 
     let active: HTMLElement | null = null;
     let rect: DOMRect | null = null;
