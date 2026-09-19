@@ -39,7 +39,7 @@ function About(){
 }
 
 function Services(){
-  const cards=[
+  const cards: Array<[string,string,string,string,typeof Wrench]> = [
     ["01","I hear / feel something","General service & repairs","/services/car-service/",Wrench],
     ["02","The cabin isn't cooling","Car AC service & repair","/services/car-ac-repair/",Wind],
     ["03","I've had an accident","Denting, painting & accident repair","/services/accident-repair/",CarFront],
