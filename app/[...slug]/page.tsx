@@ -4,6 +4,7 @@ import {
   Wrench, Wind, CarFront, ClipboardCheck, Palette, Disc3, PackageSearch,
   Route, Camera, FileCheck2, MessageCircle, ChevronRight
 } from "lucide-react";
+import type { ReactNode } from "react";
 import Link from "next/link";
 
 const img = {
@@ -23,7 +24,7 @@ function CTA({label="Book a Service",href="/book-service/"}:{label?:string;href?
 function Call(){ return <a className="outline-link" href={"tel:"+phone}><Phone size={15}/>Call the workshop</a>; }
 function Back(){ return <Link className="back" href="/"><ArrowLeft size={15}/>Asian Automobiles / Home</Link>; }
 
-function Frame({eyebrow,title,intro,children,theme="paper"}:{eyebrow:string;title:string;intro?:string;children:React.ReactNode;theme?:string}){
+function Frame({eyebrow,title,intro,children,theme="paper"}:{eyebrow:string;title:string;intro?:string;children:ReactNode;theme?:string}){
   return <main className={"creative-page "+theme}>
     <section className="creative-head"><div className="wrap creative-wrap"><Back/><div className="creative-heading"><span className="eyebrow">{eyebrow}</span><h1>{title}</h1>{intro&&<p>{intro}</p>}</div></div></section>
     {children}
@@ -155,7 +156,7 @@ function SpareRedirect(){return <Parts/>}
 export default async function Page({params}:{params:Promise<{slug?:string[]}>}){
   const {slug=[]}=await params;
   const key=slug.join("/");
-  const map:Record<string,()=>React.ReactNode>={
+  const map:Record<string,()=>ReactNode>={
     about:About,services:Services,"car-service":CarService,"car-ac-repair":AC,
     "accident-repair":Accident,"denting-painting":Denting,"wheel-alignment":Wheel,
     "tyre-services":Tyres,"spare-parts":SpareRedirect,insurance:Insurance,
