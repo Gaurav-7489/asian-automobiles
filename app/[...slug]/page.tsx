@@ -5,6 +5,7 @@ import {
   Route, Camera, FileCheck2, MessageCircle, ChevronRight
 } from "lucide-react";
 import type { ReactNode } from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -172,6 +173,103 @@ function Booking({quote=false}){
 }
 
 function SpareRedirect(){return <Parts/>}
+
+const routeMeta: Record<string, { title: string; description: string }> = {
+  about: {
+    title: "About Asian Automobiles | Irinjalakuda",
+    description: "Learn about Asian Automobiles, its multi-brand automobile service and parts business in Irinjalakuda, Kerala.",
+  },
+  services: {
+    title: "Car Service & Repair in Irinjalakuda | Asian Automobiles",
+    description: "Explore general car service, AC repair, accident restoration, denting and painting, wheel services, tyre repair and spare-parts enquiries.",
+  },
+  "services/car-service": {
+    title: "General Car Service & Repair | Asian Automobiles",
+    description: "General car service and mechanical repair enquiries in Irinjalakuda, Kerala.",
+  },
+  "services/car-ac-repair": {
+    title: "Car AC Service & Repair | Asian Automobiles",
+    description: "Car AC service and repair enquiries in Irinjalakuda, Kerala.",
+  },
+  "services/accident-repair": {
+    title: "Accident Repair & Restoration | Asian Automobiles",
+    description: "Accident restoration, denting and painting enquiries with a direct path to insurance assistance.",
+  },
+  "services/denting-painting": {
+    title: "Car Denting & Painting | Asian Automobiles",
+    description: "Denting, painting and body-repair enquiries from Asian Automobiles in Irinjalakuda.",
+  },
+  "services/wheel-alignment": {
+    title: "Wheel Alignment & Balancing | Asian Automobiles",
+    description: "Computerized wheel alignment, wheel balancing, tyre repair and rim-repair enquiries in Irinjalakuda.",
+  },
+  "services/tyre-services": {
+    title: "Tyre Services | Asian Automobiles",
+    description: "Tyre repair, balancing and related wheel-service enquiries in Irinjalakuda, Kerala.",
+  },
+  "spare-parts": {
+    title: "Automobile Spare Parts | Asian Automobiles",
+    description: "Automobile spare-parts enquiries from Asian Automobiles in Irinjalakuda.",
+  },
+  insurance: {
+    title: "Cashless Insurance Repair Assistance | Asian Automobiles",
+    description: "Start an accident-repair and insurance-assistance enquiry with Asian Automobiles.",
+  },
+  facilities: {
+    title: "Workshop Facilities | Asian Automobiles",
+    description: "Explore the workshop environment and service facilities at Asian Automobiles in Irinjalakuda.",
+  },
+  gallery: {
+    title: "Gallery | Asian Automobiles",
+    description: "Automotive service, repair, parts and workshop imagery from Asian Automobiles.",
+  },
+  reviews: {
+    title: "Customer Stories | Asian Automobiles",
+    description: "Customer feedback and service stories presented with source and context.",
+  },
+  contact: {
+    title: "Contact Asian Automobiles | Irinjalakuda",
+    description: "Call Asian Automobiles or find the workshop on Kattoor Road, Irinjalakuda, Thrissur, Kerala.",
+  },
+  faq: {
+    title: "FAQ | Asian Automobiles",
+    description: "Answers about services, insurance assistance, vehicle enquiries, booking and workshop contact.",
+  },
+  "book-service": {
+    title: "Book a Service | Asian Automobiles",
+    description: "Prepare your vehicle and service details before contacting Asian Automobiles in Irinjalakuda.",
+  },
+  "request-quote": {
+    title: "Request a Repair or Parts Quote | Asian Automobiles",
+    description: "Prepare the useful vehicle, damage or parts details for a quote conversation with Asian Automobiles.",
+  },
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug?: string[] }>;
+}): Promise<Metadata> {
+  const { slug = [] } = await params;
+  const rawKey = slug.join("/");
+  const key = rawKey.startsWith("services/") || rawKey === "services"
+    ? rawKey
+    : rawKey === "car-service" || rawKey === "car-ac-repair" || rawKey === "accident-repair" || rawKey === "denting-painting" || rawKey === "wheel-alignment" || rawKey === "tyre-services"
+      ? `services/${rawKey}`
+      : rawKey;
+  const meta = routeMeta[key];
+  if (!meta) return {};
+  return {
+    title: meta.title,
+    description: meta.description,
+    alternates: { canonical: `/${key}/` },
+    openGraph: {
+      title: meta.title,
+      description: meta.description,
+      type: "website",
+    },
+  };
+}
 
 export default async function Page({params}:{params:Promise<{slug?:string[]}>}){
   const {slug=[]}=await params;
