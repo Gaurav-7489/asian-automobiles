@@ -24,17 +24,25 @@ export type ProcessHoverItem = {
 
 export function ProcessHover({ items }: { items: ProcessHoverItem[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const rectRef = useRef<DOMRect | null>(null);
   const [active, setActive] = useState<number | null>(null);
   const reduceMotion = useReducedMotion();
 
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const x = useSpring(mx, { stiffness: 360, damping: 34, mass: 0.45 });
-  const y = useSpring(my, { stiffness: 360, damping: 34, mass: 0.45 });
+  const x = useSpring(mx, { stiffness: 420, damping: 38, mass: 0.38 });
+  const y = useSpring(my, { stiffness: 420, damping: 38, mass: 0.38 });
+
+  const measure = () => {
+    if (containerRef.current) rectRef.current = containerRef.current.getBoundingClientRect();
+  };
 
   function move(event: React.PointerEvent<HTMLDivElement>) {
-    if (reduceMotion || !containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
+    if (reduceMotion) return;
+    if (!rectRef.current) measure();
+    const rect = rectRef.current;
+    if (!rect) return;
+
     const panelW = 258;
     const panelH = 174;
     const px = Math.min(
@@ -53,8 +61,12 @@ export function ProcessHover({ items }: { items: ProcessHoverItem[] }) {
     <div
       ref={containerRef}
       className="aa-process-hover"
+      onPointerEnter={measure}
       onPointerMove={move}
-      onPointerLeave={() => setActive(null)}
+      onPointerLeave={() => {
+        setActive(null);
+        rectRef.current = null;
+      }}
     >
       <div className="aa-process-list">
         {items.map((item, index) => {
@@ -104,20 +116,20 @@ export function ProcessHover({ items }: { items: ProcessHoverItem[] }) {
           <motion.div
             className="aa-process-preview"
             style={{ x, y }}
-            initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            exit={{ opacity: 0, scale: 0.93, rotate: 2 }}
-            transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.96 }}
+            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
             aria-hidden="true"
           >
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={items[active].image}
                 className="aa-process-preview-media"
-                initial={{ opacity: 0, scale: 1.05 }}
+                initial={{ opacity: 0, scale: 1.025 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.2 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
               >
                 <Image
                   src={items[active].image}

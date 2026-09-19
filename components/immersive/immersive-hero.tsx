@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import {
   motion,
+  useMotionValue,
   useReducedMotion,
   useScroll,
   useSpring,
@@ -16,20 +17,25 @@ const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 export function ImmersiveHero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const orbRef = useRef<HTMLDivElement>(null);
-  const orbRaf = useRef(0);
+  const sectionRectRef = useRef<DOMRect | null>(null);
   const reduceMotion = useReducedMotion();
 
+  const orbTargetX = useMotionValue(0);
+  const orbTargetY = useMotionValue(0);
+  const orbX = useSpring(orbTargetX, { stiffness: 190, damping: 30, mass: 0.32 });
+  const orbY = useSpring(orbTargetY, { stiffness: 190, damping: 30, mass: 0.32 });
+
+  const measureHero = () => {
+    if (sectionRef.current) sectionRectRef.current = sectionRef.current.getBoundingClientRect();
+  };
+
   function handlePointerMove(event: React.PointerEvent<HTMLElement>) {
-    if (reduceMotion || !orbRef.current) return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    cancelAnimationFrame(orbRaf.current);
-    orbRaf.current = requestAnimationFrame(() => {
-      if (!orbRef.current) return;
-      orbRef.current.style.transform = `translate3d(${x - 180}px,${y - 180}px,0)`;
-    });
+    if (reduceMotion) return;
+    if (!sectionRectRef.current) measureHero();
+    const rect = sectionRectRef.current;
+    if (!rect) return;
+    orbTargetX.set(event.clientX - rect.left - 180);
+    orbTargetY.set(event.clientY - rect.top - 180);
   }
 
   const { scrollYProgress } = useScroll({
@@ -38,19 +44,29 @@ export function ImmersiveHero() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 34,
-    mass: 0.26,
+    stiffness: 155,
+    damping: 38,
+    mass: 0.24,
   });
 
-  const mediaScale = useTransform(smoothProgress, [0, 0.9], [1.018, 0.94]);
-  const mediaY = useTransform(smoothProgress, [0, 1], ["0%", "4.5%"]);
-  const copyY = useTransform(smoothProgress, [0, 0.78], ["0%", "-10%"]);
-  const copyOpacity = useTransform(smoothProgress, [0, 0.82], [1, 0.18]);
+  const mediaScale = useTransform(smoothProgress, [0, 0.9], [1.015, 0.945]);
+  const mediaY = useTransform(smoothProgress, [0, 1], ["0%", "4%"]);
+  const copyY = useTransform(smoothProgress, [0, 0.78], ["0%", "-8%"]);
+  const copyOpacity = useTransform(smoothProgress, [0, 0.84], [1, 0.2]);
   const progressScale = useTransform(smoothProgress, [0, 0.86], [0.06, 1]);
 
   return (
-    <section ref={sectionRef} className="aa-hero2 aa-hero2-minimal" onPointerMove={handlePointerMove}>
+    <section
+      ref={sectionRef}
+      className="aa-hero2 aa-hero2-minimal"
+      onPointerEnter={measureHero}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={() => {
+        orbTargetX.set(0);
+        orbTargetY.set(0);
+        sectionRectRef.current = null;
+      }}
+    >
       <div className="aa-hero2-sticky">
         <motion.div
           className="aa-hero2-media"
@@ -65,7 +81,11 @@ export function ImmersiveHero() {
             quality={76}
             sizes="100vw"
           />
-          <div ref={orbRef} className="aa-hero2-orb" aria-hidden="true" />
+          <motion.div
+            className="aa-hero2-orb"
+            aria-hidden="true"
+            style={reduceMotion ? undefined : { x: orbX, y: orbY }}
+          />
           <div className="aa-hero2-shade" />
         </motion.div>
 
@@ -86,12 +106,12 @@ export function ImmersiveHero() {
 
             <h1>
               <span className="aa-hero2-line">
-                <motion.i initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 0.74, ease }}>
+                <motion.i initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 0.7, ease }}>
                   Keep the drive
                 </motion.i>
               </span>
               <span className="aa-hero2-line aa-hero2-line-outline">
-                <motion.i initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 0.74, delay: 0.06, ease }}>
+                <motion.i initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 0.7, delay: 0.05, ease }}>
                   feeling right.
                 </motion.i>
               </span>
