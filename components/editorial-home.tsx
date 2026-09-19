@@ -5,13 +5,13 @@ import {
   Gauge,
   MapPin,
   Phone,
-  Plus,
   ShieldCheck,
   Sparkles,
   Wrench,
 } from "lucide-react";
 import { ImmersiveHero } from "@/components/immersive/immersive-hero";
 import { SkiperServiceStack, type StackService } from "@/components/immersive/skiper-service-stack";
+import { ProcessHover, type ProcessHoverItem } from "@/components/immersive/process-hover";
 
 const images = {
   service: "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1440&q=74",
@@ -63,11 +63,40 @@ const services: StackService[] = [
   },
 ];
 
-const process = [
-  ["01", "Choose the need", "Service, AC, accident repair, wheels and tyres, or parts."],
-  ["02", "Share the vehicle", "Give the useful details: vehicle, concern and anything you have noticed."],
-  ["03", "Connect directly", "Book online or call the workshop without hunting for contact details."],
-  ["04", "Plan the visit", "Use the verified address and directions when you are ready to come in."],
+const process: ProcessHoverItem[] = [
+  {
+    no: "01",
+    title: "Choose the need",
+    text: "Service, AC, accident repair, wheels and tyres, or parts.",
+    href: "/services/",
+    image: images.service,
+    label: "Explore services",
+  },
+  {
+    no: "02",
+    title: "Share the vehicle",
+    text: "Give the useful details: vehicle, concern and anything you have noticed.",
+    href: "/request-quote/",
+    image: images.detail,
+    label: "Share details",
+  },
+  {
+    no: "03",
+    title: "Connect directly",
+    text: "Prefer a conversation? Call the workshop and start with what you are noticing.",
+    href: "tel:+919349002038",
+    image: images.blackCar,
+    label: "Call workshop",
+    external: true,
+  },
+  {
+    no: "04",
+    title: "Plan the visit",
+    text: "Use the verified address and directions when you are ready to come in.",
+    href: "/contact/",
+    image: images.workshop,
+    label: "Get directions",
+  },
 ];
 
 const trust = [
@@ -211,16 +240,7 @@ export function EditorialHome() {
             </p>
           </div>
 
-          <div className="aa-process-list">
-            {process.map(([no, title, text]) => (
-              <div className="aa-process-row aa-view-reveal" key={no}>
-                <span>{no}</span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-                <Plus size={17} />
-              </div>
-            ))}
-          </div>
+          <ProcessHover items={process} />
         </div>
       </section>
 
