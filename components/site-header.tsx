@@ -7,7 +7,7 @@ export function SiteHeader(){
  const [open,setOpen]=useState(false); const [scrolled,setScrolled]=useState(false);
  const pathname = usePathname();
  const isHome = pathname === "/";
- const isDarkNav = !isHome;
+ const isDarkNav = true;
  const links=[["Services","/services/"],["Insurance","/insurance/"],["About","/about/"],["Facilities","/facilities/"],["Gallery","/gallery/"],["Reviews","/reviews/"],["Contact","/contact/"]];
  useEffect(()=>{const onScroll=()=>setScrolled(window.scrollY>24);window.addEventListener("scroll",onScroll,{passive:true});onScroll();return()=>window.removeEventListener("scroll",onScroll)},[]);
  return <header className={"header "+(scrolled?"header-scrolled ":"")+(isDarkNav?"nav-light":"")}><div className="wrap header-inner">
