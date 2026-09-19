@@ -21,14 +21,14 @@ export function InteractiveLayer() {
 
     let active: HTMLElement | null = null;
     let rect: DOMRect | null = null;
+    let rectDirty = true;
     let raf = 0;
+    let lastTime = performance.now();
 
     let pointerX = window.innerWidth / 2;
     let pointerY = window.innerHeight / 2;
     let cursorX = pointerX;
     let cursorY = pointerY;
-    let cursorVX = 0;
-    let cursorVY = 0;
     let cursorScale = 1;
     let cursorScaleTarget = 1;
 
@@ -49,26 +49,45 @@ export function InteractiveLayer() {
       element.style.setProperty("--mag-scale", "1");
     };
 
-    const frame = () => {
-      cursorVX = (cursorVX + (pointerX - cursorX) * 0.14) * 0.7;
-      cursorVY = (cursorVY + (pointerY - cursorY) * 0.14) * 0.7;
-      cursorX += cursorVX;
-      cursorY += cursorVY;
-      cursorScale += (cursorScaleTarget - cursorScale) * 0.18;
+    const refreshRect = () => {
+      if (!active || !rectDirty) return;
+      rect = active.getBoundingClientRect();
+      rectDirty = false;
+    };
+
+    const frame = (now: number) => {
+      const dt = Math.min(0.032, Math.max(0.001, (now - lastTime) / 1000));
+      lastTime = now;
+
+      // Frame-rate-independent cursor smoothing: same feel at 60/120/144 Hz.
+      const cursorAlpha = 1 - Math.exp(-24 * dt);
+      const scaleAlpha = 1 - Math.exp(-20 * dt);
+      cursorX += (pointerX - cursorX) * cursorAlpha;
+      cursorY += (pointerY - cursorY) * cursorAlpha;
+      cursorScale += (cursorScaleTarget - cursorScale) * scaleAlpha;
 
       if (cursor) {
         cursor.style.transform =
-          `translate3d(${cursorX}px,${cursorY}px,0) scale(${cursorScale})`;
+          `translate3d(${cursorX.toFixed(2)}px,${cursorY.toFixed(2)}px,0) scale(${cursorScale.toFixed(4)})`;
       }
 
       if (active) {
-        vx = (vx + (targetX - x) * 0.16) * 0.68;
-        vy = (vy + (targetY - y) * 0.16) * 0.68;
-        x += vx;
-        y += vy;
+        // Time-based damped spring for magnetic elements.
+        const stiffness = 190;
+        const damping = 22;
+        vx += (targetX - x) * stiffness * dt;
+        vy += (targetY - y) * stiffness * dt;
+        const decay = Math.exp(-damping * dt);
+        vx *= decay;
+        vy *= decay;
+        x += vx * dt;
+        y += vy * dt;
 
-        scaleV = (scaleV + (targetScale - scale) * 0.2) * 0.66;
-        scale += scaleV;
+        const scaleStiffness = 210;
+        const scaleDamping = 24;
+        scaleV += (targetScale - scale) * scaleStiffness * dt;
+        scaleV *= Math.exp(-scaleDamping * dt);
+        scale += scaleV * dt;
 
         active.style.setProperty("--mag-x", `${x.toFixed(2)}px`);
         active.style.setProperty("--mag-y", `${y.toFixed(2)}px`);
@@ -76,20 +95,18 @@ export function InteractiveLayer() {
       }
 
       const cursorMoving =
-        Math.abs(pointerX - cursorX) > 0.08 ||
-        Math.abs(pointerY - cursorY) > 0.08 ||
-        Math.abs(cursorVX) > 0.02 ||
-        Math.abs(cursorVY) > 0.02 ||
+        Math.abs(pointerX - cursorX) > 0.06 ||
+        Math.abs(pointerY - cursorY) > 0.06 ||
         Math.abs(cursorScaleTarget - cursorScale) > 0.002;
 
       const magneticMoving =
         active &&
-        (Math.abs(targetX - x) > 0.05 ||
-          Math.abs(targetY - y) > 0.05 ||
-          Math.abs(vx) > 0.02 ||
-          Math.abs(vy) > 0.02 ||
+        (Math.abs(targetX - x) > 0.04 ||
+          Math.abs(targetY - y) > 0.04 ||
+          Math.abs(vx) > 0.03 ||
+          Math.abs(vy) > 0.03 ||
           Math.abs(targetScale - scale) > 0.002 ||
-          Math.abs(scaleV) > 0.001);
+          Math.abs(scaleV) > 0.002);
 
       if (cursorMoving || magneticMoving) {
         raf = requestAnimationFrame(frame);
@@ -99,6 +116,7 @@ export function InteractiveLayer() {
           reset(active);
           active = null;
           rect = null;
+          rectDirty = true;
           x = y = vx = vy = 0;
           scale = 1;
           scaleV = 0;
@@ -107,36 +125,37 @@ export function InteractiveLayer() {
     };
 
     const start = () => {
-      if (!raf) raf = requestAnimationFrame(frame);
+      if (!raf) {
+        lastTime = performance.now();
+        raf = requestAnimationFrame(frame);
+      }
+    };
+
+    const onPointerOver = (event: PointerEvent) => {
+      const next = (event.target as HTMLElement | null)?.closest?.("[data-magnetic]") as HTMLElement | null;
+      if (!next || next === active) return;
+
+      reset(active);
+      active = next;
+      rect = next.getBoundingClientRect();
+      rectDirty = false;
+      x = y = vx = vy = 0;
+      targetX = targetY = 0;
+      scale = 1;
+      scaleV = 0;
+      targetScale = 1;
+      cursorScaleTarget = 2.2;
+      start();
     };
 
     const onPointerMove = (event: PointerEvent) => {
       pointerX = event.clientX;
       pointerY = event.clientY;
 
-      const next = (event.target as HTMLElement | null)?.closest?.(
-        "[data-magnetic], .creative-page a, .creative-page button, .aa-header a, .aa-header button"
-      ) as HTMLElement | null;
-      if (next && next !== active) {
-        reset(active);
-        active = next;
-        rect = next.getBoundingClientRect();
-        x = y = vx = vy = 0;
-        targetX = targetY = 0;
-        scale = 1;
-        scaleV = 0;
-        targetScale = 1;
-      }
-
-      cursorScaleTarget = next ? 2.35 : 1;
-
-      if (active) {
-        rect = active.getBoundingClientRect();
-      }
-
+      refreshRect();
       if (active && rect) {
-        targetX = Math.max(-14, Math.min(14, (event.clientX - (rect.left + rect.width / 2)) * 0.085));
-        targetY = Math.max(-14, Math.min(14, (event.clientY - (rect.top + rect.height / 2)) * 0.085));
+        targetX = Math.max(-13, Math.min(13, (event.clientX - (rect.left + rect.width / 2)) * 0.08));
+        targetY = Math.max(-13, Math.min(13, (event.clientY - (rect.top + rect.height / 2)) * 0.08));
       }
 
       start();
@@ -146,8 +165,9 @@ export function InteractiveLayer() {
       if (!active) return;
       const related = event.relatedTarget as Node | null;
       if (related && active.contains(related)) return;
-      const leaving = (event.target as HTMLElement | null)?.closest?.("[data-magnetic], .creative-page a, .creative-page button, .aa-header a, .aa-header button");
+      const leaving = (event.target as HTMLElement | null)?.closest?.("[data-magnetic]");
       if (leaving !== active) return;
+
       targetX = 0;
       targetY = 0;
       targetScale = 1;
@@ -157,7 +177,7 @@ export function InteractiveLayer() {
 
     const onPointerDown = () => {
       if (!active) return;
-      targetScale = 0.97;
+      targetScale = 0.975;
       start();
     };
 
@@ -167,16 +187,26 @@ export function InteractiveLayer() {
       start();
     };
 
+    const markRectDirty = () => {
+      rectDirty = true;
+    };
+
     window.addEventListener("pointermove", onPointerMove, { passive: true });
+    document.addEventListener("pointerover", onPointerOver, { passive: true });
     document.addEventListener("pointerout", onPointerOut, { passive: true });
     document.addEventListener("pointerdown", onPointerDown, { passive: true });
     document.addEventListener("pointerup", onPointerUp, { passive: true });
+    window.addEventListener("scroll", markRectDirty, { passive: true });
+    window.addEventListener("resize", markRectDirty, { passive: true });
 
     return () => {
       window.removeEventListener("pointermove", onPointerMove);
+      document.removeEventListener("pointerover", onPointerOver);
       document.removeEventListener("pointerout", onPointerOut);
       document.removeEventListener("pointerdown", onPointerDown);
       document.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("scroll", markRectDirty);
+      window.removeEventListener("resize", markRectDirty);
       cancelAnimationFrame(raf);
       reset(active);
     };
