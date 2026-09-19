@@ -11,7 +11,7 @@ import {
   Phone,
   X,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 const serviceLinks = [
@@ -40,9 +40,21 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
   const router = useRouter();
+
   const warm = (href: string) => router.prefetch(href);
+
+  const openServices = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setServicesOpen(true);
+  };
+
+  const scheduleServicesClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setServicesOpen(false), 260);
+  };
 
   useEffect(() => {
     let previous = false;
@@ -71,7 +83,10 @@ export function SiteHeader() {
       }
     };
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      if (closeTimer.current) clearTimeout(closeTimer.current);
+    };
   }, []);
 
   const servicesActive =
@@ -80,11 +95,11 @@ export function SiteHeader() {
   return (
     <>
       <header
-        className={`aa-header aa-header-v4 ${scrolled ? "is-scrolled" : ""} ${menuOpen ? "is-open" : ""} ${servicesOpen ? "is-services-open" : ""}`}
+        className={`aa-header aa-header-v4 aa-header-v5 ${scrolled ? "is-scrolled" : ""} ${menuOpen ? "is-open" : ""} ${servicesOpen ? "is-services-open" : ""}`}
       >
         <div className="aa-nav-main">
           <div className="aa-shell aa-header-inner">
-            <Link href="/" prefetch={false} className="aa-brand" aria-label="Asian Automobiles home">
+            <Link data-magnetic href="/" prefetch={false} className="aa-brand" aria-label="Asian Automobiles home">
               <span className="aa-brand-mark">AA</span>
               <span className="aa-brand-name">
                 <b>ASIAN AUTOMOBILES</b>
@@ -95,54 +110,91 @@ export function SiteHeader() {
             <nav className="aa-desktop-nav aa-desktop-nav-v4" aria-label="Primary navigation">
               <div
                 className="aa-nav-services"
-                onPointerEnter={() => setServicesOpen(true)}
-                onPointerLeave={() => setServicesOpen(false)}
-                onFocusCapture={() => setServicesOpen(true)}
+                onPointerEnter={openServices}
+                onPointerLeave={scheduleServicesClose}
+                onFocusCapture={openServices}
                 onBlurCapture={(event) => {
                   if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
-                    setServicesOpen(false);
+                    scheduleServicesClose();
                   }
                 }}
               >
                 <button
+                  data-magnetic
                   type="button"
                   className={servicesActive ? "is-active" : ""}
                   aria-expanded={servicesOpen}
                   aria-controls="aa-service-mega-menu"
-                  onClick={() => setServicesOpen((value) => !value)}
+                  onClick={() => {
+                    if (servicesOpen) setServicesOpen(false);
+                    else openServices();
+                  }}
                 >
-                  Services <ChevronDown size={13} />
+                  <span>Services</span> <ChevronDown size={14} />
                 </button>
 
-                <div className="aa-mega" id="aa-service-mega-menu">
+                <div
+                  className="aa-mega-bridge"
+                  aria-hidden="true"
+                  onPointerEnter={openServices}
+                />
+
+                <div
+                  className="aa-mega"
+                  id="aa-service-mega-menu"
+                  onPointerEnter={openServices}
+                  onPointerLeave={scheduleServicesClose}
+                >
                   <div className="aa-mega-top">
                     <div>
                       <span>SERVICE DIRECTORY</span>
-                      <strong>Start with what the car needs.</strong>
+                      <strong>What does the car need?</strong>
+                      <small>Pick the closest match. We’ll take it from there.</small>
                     </div>
-                    <Link href="/services/" prefetch={false} onPointerEnter={() => warm("/services/")} onFocus={() => warm("/services/")}>
+                    <Link
+                      data-magnetic
+                      href="/services/"
+                      prefetch={false}
+                      onPointerEnter={() => warm("/services/")}
+                      onFocus={() => warm("/services/")}
+                    >
                       View all services <ArrowUpRight size={14} />
                     </Link>
                   </div>
 
                   <div className="aa-mega-grid">
                     {serviceLinks.map(([label, href, meta], index) => (
-                      <Link href={href} key={href} prefetch={false} onPointerEnter={() => warm(href)} onFocus={() => warm(href)} className="aa-mega-link">
+                      <Link
+                        data-magnetic
+                        href={href}
+                        key={href}
+                        prefetch={false}
+                        onPointerEnter={() => warm(href)}
+                        onFocus={() => warm(href)}
+                        className="aa-mega-link"
+                      >
                         <span>0{index + 1}</span>
                         <div>
                           <b>{label}</b>
                           <small>{meta}</small>
                         </div>
-                        <ArrowUpRight size={15} />
+                        <ArrowUpRight size={16} />
                       </Link>
                     ))}
-                    <Link href="/book-service/" prefetch={false} onPointerEnter={() => warm("/book-service/")} onFocus={() => warm("/book-service/")} className="aa-mega-book">
-                      <CalendarDays size={18} />
+                    <Link
+                      data-magnetic
+                      href="/book-service/"
+                      prefetch={false}
+                      onPointerEnter={() => warm("/book-service/")}
+                      onFocus={() => warm("/book-service/")}
+                      className="aa-mega-book"
+                    >
+                      <CalendarDays size={19} />
                       <div>
                         <span>READY TO START?</span>
                         <b>Book a service</b>
                       </div>
-                      <ArrowRight size={17} />
+                      <ArrowRight size={18} />
                     </Link>
                   </div>
                 </div>
@@ -151,7 +203,15 @@ export function SiteHeader() {
               {navLinks.map(([label, href]) => {
                 const active = pathname === href || pathname.startsWith(href);
                 return (
-                  <Link key={href} href={href} prefetch={false} onPointerEnter={() => warm(href)} onFocus={() => warm(href)} className={active ? "is-active" : ""}>
+                  <Link
+                    data-magnetic
+                    key={href}
+                    href={href}
+                    prefetch={false}
+                    onPointerEnter={() => warm(href)}
+                    onFocus={() => warm(href)}
+                    className={active ? "is-active" : ""}
+                  >
                     {label}
                   </Link>
                 );
@@ -160,13 +220,21 @@ export function SiteHeader() {
 
             <div className="aa-header-actions">
               <a data-magnetic href="tel:+919349002038" className="aa-header-phone">
-                <Phone size={13} />
+                <Phone size={14} />
                 <span>Call workshop</span>
               </a>
-              <Link data-magnetic href="/book-service/" prefetch={false} onPointerEnter={() => warm("/book-service/")} onFocus={() => warm("/book-service/")} className="aa-header-cta">
-                Book service <ArrowUpRight size={14} />
+              <Link
+                data-magnetic
+                href="/book-service/"
+                prefetch={false}
+                onPointerEnter={() => warm("/book-service/")}
+                onFocus={() => warm("/book-service/")}
+                className="aa-header-cta"
+              >
+                <span>Book service</span> <ArrowUpRight size={15} />
               </Link>
               <button
+                data-magnetic
                 className="aa-menu-button"
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={menuOpen}
@@ -181,9 +249,9 @@ export function SiteHeader() {
         <div className="aa-mobile-panel">
           <div className="aa-mobile-panel-inner">
             <div className="aa-mobile-service-list">
-              <span className="aa-mobile-label">SERVICES</span>
+              <span className="aa-mobile-label">SERVICES / START WITH THE NEED</span>
               {serviceLinks.map(([label, href], index) => (
-                <Link href={href} key={href} prefetch={false} onPointerEnter={() => warm(href)} onFocus={() => warm(href)}>
+                <Link href={href} key={href} prefetch={false}>
                   <span>0{index + 1}</span>
                   <b>{label}</b>
                   <ArrowUpRight size={16} />
@@ -193,7 +261,7 @@ export function SiteHeader() {
 
             <div className="aa-mobile-primary-links">
               {navLinks.map(([label, href], index) => (
-                <Link href={href} key={href} prefetch={false} onPointerEnter={() => warm(href)} onFocus={() => warm(href)}>
+                <Link href={href} key={href} prefetch={false}>
                   <span>0{index + 8}</span>
                   <b>{label}</b>
                   <ArrowUpRight size={16} />
@@ -203,7 +271,7 @@ export function SiteHeader() {
 
             <div className="aa-mobile-menu-actions">
               <a href="tel:+919349002038"><Phone size={15} /> Call workshop</a>
-              <Link href="/book-service/" prefetch={false} onPointerEnter={() => warm("/book-service/")} onFocus={() => warm("/book-service/")}><CalendarDays size={15} /> Book a service</Link>
+              <Link href="/book-service/" prefetch={false}><CalendarDays size={15} /> Book a service</Link>
             </div>
           </div>
         </div>
@@ -211,7 +279,7 @@ export function SiteHeader() {
 
       <nav className="aa-mobile-actions" aria-label="Quick actions">
         <a href="tel:+919349002038"><Phone size={15} /><span>Call</span></a>
-        <Link href="/book-service/"><CalendarDays size={15} /><span>Book</span></Link>
+        <Link href="/book-service/" prefetch={false}><CalendarDays size={15} /><span>Book</span></Link>
         <a href={directionsHref} target="_blank" rel="noreferrer">
           <MapPin size={15} /><span>Directions</span>
         </a>
