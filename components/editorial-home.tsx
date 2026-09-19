@@ -83,6 +83,21 @@ export function EditorialHome() {
     <main className="aa-home aa-home-v3">
       <ImmersiveHero />
 
+      <section className="aa-velocity" aria-label="Core automotive services">
+        <div className="aa-velocity-track">
+          {[0, 1].map((copy) => (
+            <div className="aa-velocity-set" key={copy} aria-hidden={copy === 1}>
+              <span>GENERAL SERVICE</span><i />
+              <span>AC REPAIR</span><i />
+              <span>ACCIDENT RESTORATION</span><i />
+              <span>WHEEL ALIGNMENT</span><i />
+              <span>TYRE REPAIR</span><i />
+              <span>SPARE PARTS</span><i />
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="aa-trust-rail" aria-label="Asian Automobiles capabilities">
         <div className="aa-shell aa-trust-rail-grid">
           {trust.map(([title, text], index) => (
@@ -114,7 +129,7 @@ export function EditorialHome() {
                 Asian Automobiles combines an independent multi-brand service workshop with an automobile parts business.
                 The experience is built around that simple advantage: find the need, understand the route and contact the workshop fast.
               </p>
-              <Link data-magnetic href="/about/" className="aa-text-link">
+              <Link data-magnetic prefetch={false} href="/about/" className="aa-text-link">
                 Know Asian Automobiles <ArrowUpRight size={15} />
               </Link>
             </div>
@@ -167,7 +182,7 @@ export function EditorialHome() {
               <Gauge size={22} />
               <span>PRECISION / WITHOUT THE NOISE</span>
               <h3>Useful information should feel as considered as the work itself.</h3>
-              <Link data-magnetic href="/facilities/">Explore facilities <ArrowUpRight size={14} /></Link>
+              <Link data-magnetic prefetch={false} href="/facilities/">Explore facilities <ArrowUpRight size={14} /></Link>
             </aside>
           </div>
         </div>
@@ -229,7 +244,7 @@ export function EditorialHome() {
               <span><Sparkles size={17} /> Denting & painting</span>
               <span><Wrench size={17} /> Accident restoration enquiries</span>
             </div>
-            <Link data-magnetic href="/insurance/" className="aa-light-button">
+            <Link data-magnetic prefetch={false} href="/insurance/" className="aa-light-button">
               Explore insurance assistance <ArrowUpRight size={15} />
             </Link>
           </div>
@@ -257,7 +272,7 @@ export function EditorialHome() {
               <a data-magnetic href="tel:+919349002038" className="aa-primary-button">
                 <Phone size={15} /> Call +91 93490 02038
               </a>
-              <Link data-magnetic href="/book-service/" className="aa-outline-button aa-outline-button-dark">
+              <Link data-magnetic prefetch={false} href="/book-service/" className="aa-outline-button aa-outline-button-dark">
                 Book a service <ArrowUpRight size={15} />
               </Link>
             </div>
@@ -275,7 +290,7 @@ export function EditorialHome() {
           </h2>
           <div>
             <p>Service, repair or parts — start with the route that fits the need.</p>
-            <Link data-magnetic href="/book-service/" className="aa-light-button">
+            <Link data-magnetic prefetch={false} href="/book-service/" className="aa-light-button">
               Start a service enquiry <ArrowUpRight size={15} />
             </Link>
           </div>
