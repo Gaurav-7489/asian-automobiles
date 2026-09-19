@@ -835,3 +835,34 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   .aa-cursor-v4,.aa-hero2-orb{display:none!important}
   .aa-velocity-track{animation:none!important}
 }
+
+
+/* final production compositor cleanup */
+.aa-hero2-orb{mix-blend-mode:normal;opacity:.9}
+.creative-page .split-photo img,
+.creative-page .photo-statement img,
+.creative-page .ba-image img,
+.creative-page .gallery-tile img,
+.inner-hero-image img{
+  filter:none!important;
+}
+.creative-page .gallery-tile img{
+  transition:transform .55s cubic-bezier(.2,.75,.2,1)!important;
+}
+.creative-page .gallery-tile:hover img{transform:scale(1.018)!important}
+.creative-page .split-photo,
+.creative-page .photo-statement,
+.creative-page .gallery-tile,
+.creative-page .before-after,
+.inner-hero-image{
+  contain:paint;
+}
+html.aa-native-motion .aa-hero2-orb,
+html.aa-native-motion .aa-cursor-v4{display:none!important}
+html.aa-native-motion .aa-view-reveal,
+html.aa-native-motion .aa-type-perspective,
+html.aa-native-motion .aa-parallax-media img{
+  animation:none!important;
+  transform:none!important;
+}
+html.aa-native-motion .aa-velocity-track{animation-duration:42s}
