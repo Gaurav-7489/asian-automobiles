@@ -1538,3 +1538,120 @@ html.aa-native-motion .aa-velocity-track{animation-duration:42s}
     transform:none!important;
   }
 }
+
+
+/* =========================================================
+   V6 — unified buttery motion pipeline
+   Keep every interaction; remove timing conflicts.
+   ========================================================= */
+:root{
+  --aa-motion-fast:180ms;
+  --aa-motion-ui:280ms;
+  --aa-motion-premium:420ms;
+  --aa-motion-ease:cubic-bezier(.16,1,.3,1);
+}
+
+/* Magnetic transforms are driven frame-by-frame in JS.
+   Never ask CSS transitions to interpolate the same transform. */
+[data-magnetic]{
+  transition-property:background-color,color,border-color,box-shadow,opacity!important;
+  transition-timing-function:var(--aa-motion-ease)!important;
+  backface-visibility:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+[data-magnetic]:hover{
+  will-change:transform;
+}
+
+/* Keep active compositor layers isolated and cheap. */
+.aa-hero2-media,
+.aa-hero2-orb,
+.aa-process-preview,
+.aa-skip-card,
+.aa-skip-card-media,
+.aa-parallax-media,
+.aa-type-perspective{
+  backface-visibility:hidden;
+  transform-style:preserve-3d;
+}
+.aa-hero2-media,
+.aa-skip-card-media,
+.aa-process-preview-media{
+  contain:paint;
+}
+
+/* Remove tiny competing transition delays that read as jitter. */
+.aa-header-v5 .aa-nav-main{
+  transition:
+    height var(--aa-motion-premium) var(--aa-motion-ease),
+    background-color var(--aa-motion-premium) var(--aa-motion-ease),
+    border-color var(--aa-motion-ui) ease,
+    box-shadow var(--aa-motion-ui) ease!important;
+}
+.aa-header-v5 .aa-mega{
+  transition:
+    opacity var(--aa-motion-ui) ease,
+    transform var(--aa-motion-premium) var(--aa-motion-ease),
+    visibility var(--aa-motion-ui)!important;
+}
+.aa-header-v5 .aa-mega-link{
+  transition:
+    background-color var(--aa-motion-ui) var(--aa-motion-ease),
+    color var(--aa-motion-ui) var(--aa-motion-ease)!important;
+}
+.aa-process-hover .aa-process-row{
+  transition:
+    color var(--aa-motion-ui) ease,
+    border-color var(--aa-motion-ui) ease!important;
+}
+.aa-process-row-action{
+  transition:
+    opacity var(--aa-motion-ui) ease,
+    transform var(--aa-motion-ui) var(--aa-motion-ease)!important;
+}
+
+/* Scroll-linked layers stay on the compositor. */
+@supports(animation-timeline:view()){
+  .aa-view-reveal,
+  .immersive-page .creative-body>section>.wrap,
+  .aa-skip-card,
+  .aa-type-perspective,
+  .aa-parallax-media img{
+    animation-timing-function:linear!important;
+  }
+}
+
+/* Avoid painting offscreen content until it approaches the viewport. */
+.immersive-page .creative-body>section,
+.aa-intro,
+.aa-services-v3,
+.aa-proof-v3,
+.aa-type-stage,
+.aa-process,
+.aa-split-media,
+.aa-contact,
+.aa-final{
+  content-visibility:auto;
+  contain-intrinsic-size:auto 760px;
+}
+
+/* Heavy image surfaces should only scale; no filter/blur work. */
+.aa-hero2 img,
+.aa-skip-card-media img,
+.aa-reveal-shot img,
+.immersive-page img{
+  filter:none!important;
+}
+
+/* 120/144 Hz capable browsers get smaller transform distances,
+   which reduces perceived stepping without removing the effect. */
+@media(min-resolution:120dpi) and (pointer:fine){
+  .aa-view-reveal{
+    --aa-reveal-distance:22px;
+  }
+}
+@media(pointer:coarse){
+  .aa-velocity-track{
+    will-change:auto!important;
+  }
+}
