@@ -82,7 +82,7 @@ export function SiteHeader() {
       >
         <div className="aa-nav-main">
           <div className="aa-shell aa-header-inner">
-            <Link href="/" className="aa-brand" aria-label="Asian Automobiles home">
+            <Link href="/" prefetch={false} className="aa-brand" aria-label="Asian Automobiles home">
               <span className="aa-brand-mark">AA</span>
               <span className="aa-brand-name">
                 <b>ASIAN AUTOMOBILES</b>
@@ -134,7 +134,7 @@ export function SiteHeader() {
                         <ArrowUpRight size={15} />
                       </Link>
                     ))}
-                    <Link href="/book-service/" className="aa-mega-book">
+                    <Link href="/book-service/" prefetch={false} className="aa-mega-book">
                       <CalendarDays size={18} />
                       <div>
                         <span>READY TO START?</span>
@@ -149,7 +149,7 @@ export function SiteHeader() {
               {navLinks.map(([label, href]) => {
                 const active = pathname === href || pathname.startsWith(href);
                 return (
-                  <Link key={href} href={href} className={active ? "is-active" : ""}>
+                  <Link key={href} href={href} prefetch={false} className={active ? "is-active" : ""}>
                     {label}
                   </Link>
                 );
@@ -161,7 +161,7 @@ export function SiteHeader() {
                 <Phone size={13} />
                 <span>Call workshop</span>
               </a>
-              <Link data-magnetic href="/book-service/" className="aa-header-cta">
+              <Link data-magnetic href="/book-service/" prefetch={false} className="aa-header-cta">
                 Book service <ArrowUpRight size={14} />
               </Link>
               <button
@@ -191,7 +191,7 @@ export function SiteHeader() {
 
             <div className="aa-mobile-primary-links">
               {navLinks.map(([label, href], index) => (
-                <Link href={href} key={href}>
+                <Link href={href} key={href} prefetch={false}>
                   <span>0{index + 8}</span>
                   <b>{label}</b>
                   <ArrowUpRight size={16} />
@@ -201,7 +201,7 @@ export function SiteHeader() {
 
             <div className="aa-mobile-menu-actions">
               <a href="tel:+919349002038"><Phone size={15} /> Call workshop</a>
-              <Link href="/book-service/"><CalendarDays size={15} /> Book a service</Link>
+              <Link href="/book-service/" prefetch={false}><CalendarDays size={15} /> Book a service</Link>
             </div>
           </div>
         </div>
