@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import "./pro-upgrade.css";
@@ -8,6 +8,13 @@ import { InteractiveLayer } from "@/components/interactive";
 import { SmoothScroll } from "@/components/immersive/smooth-scroll";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://asian-automobiles.vercel.app";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#070707",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
