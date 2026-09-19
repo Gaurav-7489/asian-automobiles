@@ -25,7 +25,7 @@ const services: StackService[] = [
     no: "01",
     meta: "MAINTENANCE / REPAIR",
     title: "General service & mechanical repair",
-    text: "Routine maintenance and mechanical repair enquiries, with a clear path from the problem to the right service page.",
+    text: "Routine maintenance or mechanical trouble — start with what you notice and move straight to the right service.",
     href: "/services/car-service/",
     image: images.service,
   },
@@ -33,7 +33,7 @@ const services: StackService[] = [
     no: "02",
     meta: "COOLING / AIRFLOW",
     title: "Car AC service & repair",
-    text: "A focused route for AC service and repair when the cabin is not cooling or airflow needs attention.",
+    text: "When cooling or airflow stops feeling right, start with a focused AC service and repair enquiry.",
     href: "/services/car-ac-repair/",
     image: images.blackCar,
   },
@@ -41,7 +41,7 @@ const services: StackService[] = [
     no: "03",
     meta: "BODY / RESTORATION",
     title: "Accident repair, denting & painting",
-    text: "Accident restoration, denting and painting in one direct pathway, with insurance assistance close at hand.",
+    text: "Accident restoration, denting and painting with a clearer next step and insurance assistance close at hand.",
     href: "/services/accident-repair/",
     image: images.detail,
   },
@@ -65,7 +65,7 @@ const services: StackService[] = [
 
 const process = [
   ["01", "Choose the need", "Service, AC, accident repair, wheels and tyres, or parts."],
-  ["02", "Share the vehicle", "Give the useful details from the page built for that need."],
+  ["02", "Share the vehicle", "Give the useful details: vehicle, concern and anything you have noticed."],
   ["03", "Connect directly", "Book online or call the workshop without hunting for contact details."],
   ["04", "Plan the visit", "Use the verified address and directions when you are ready to come in."],
 ];
@@ -127,7 +127,7 @@ export function EditorialHome() {
             <div className="aa-intro-foot">
               <p>
                 Asian Automobiles combines an independent multi-brand service workshop with an automobile parts business.
-                The experience is built around that simple advantage: find the need, understand the route and contact the workshop fast.
+                The advantage is simple: find what the car needs, understand the next step and contact the workshop fast.
               </p>
               <Link data-magnetic prefetch={false} href="/about/" className="aa-text-link">
                 Know Asian Automobiles <ArrowUpRight size={15} />
@@ -148,7 +148,7 @@ export function EditorialHome() {
                 <em>Start in the right place.</em>
               </h2>
             </div>
-            <span className="aa-count">5 CORE SERVICE ROUTES</span>
+            <span className="aa-count">5 WAYS WE CAN HELP</span>
           </div>
 
           <SkiperServiceStack services={services} />
@@ -207,7 +207,7 @@ export function EditorialHome() {
               <em>to the right conversation.</em>
             </h2>
             <p>
-              Every major need has its own route, so you can move from a symptom or requirement to the workshop without digging through a generic service list.
+              Every major need gets its own clear path, so a symptom or requirement can turn into the right workshop conversation without the usual guesswork.
             </p>
           </div>
 
@@ -289,7 +289,7 @@ export function EditorialHome() {
             <em>Make the first step easy.</em>
           </h2>
           <div>
-            <p>Service, repair or parts — start with the route that fits the need.</p>
+            <p>Service, repair or parts — start with what the car needs.</p>
             <Link data-magnetic prefetch={false} href="/book-service/" className="aa-light-button">
               Start a service enquiry <ArrowUpRight size={15} />
             </Link>
