@@ -22,13 +22,17 @@ export function SmoothScroll() {
 
     const lenis = new Lenis({
       autoRaf: true,
-      lerp: 0.125,
+      lerp: 0.095,
       smoothWheel: true,
-      wheelMultiplier: 0.98,
+      wheelMultiplier: 0.92,
       touchMultiplier: 1,
       syncTouch: false,
+      gestureOrientation: "vertical",
+      orientation: "vertical",
       anchors: true,
       stopInertiaOnNavigate: true,
+      overscroll: false,
+      autoResize: true,
     });
 
     const onVisibility = () => {
