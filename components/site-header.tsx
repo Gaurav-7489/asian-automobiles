@@ -20,10 +20,10 @@ export function SiteHeader(){
    <div className="aa-header-actions"><Link href="tel:+919349002038">CALL</Link><Link href="/book-service" className="aa-book">BOOK <ArrowUpRight size={14}/></Link></div>
    <button className="aa-menu-button" aria-label="Open menu" onClick={()=>setOpen(v=>!v)}>{open?<X size={20}/>:<Menu size={20}/>}</button>
   </div>
-  {open&&<motionMenu/>}
+  {open&&<MotionMenu/>}
  </header>;
 }
 
-function motionMenu(){
+function MotionMenu(){
  return <div className="aa-mobile-menu"><div className="aa-mobile-links">{links.map(([n,h])=><Link key={h} href={h}>{n}<ArrowUpRight size={16}/></Link>)}</div><div className="aa-mobile-foot"><span>IRINJALAKUDA / KERALA</span><Link href="/book-service">BOOK A SERVICE</Link></div></div>;
 }
