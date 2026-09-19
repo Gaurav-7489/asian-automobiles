@@ -561,3 +561,10 @@ html.aa-lenis{scroll-behavior:auto}
   .aa-view-reveal,.aa-skip-card,.aa-type-perspective,.aa-parallax-media img{animation:none!important;transform:none!important;filter:none!important}
   [data-magnetic]{transform:none!important}
 }
+
+/* spring physics variables are driven by one shared rAF loop */
+[data-magnetic]{
+  --mag-scale:1;
+  transform:translate3d(var(--mag-x,0),var(--mag-y,0),0) scale(var(--mag-scale,1));
+  transform-origin:center;
+}
