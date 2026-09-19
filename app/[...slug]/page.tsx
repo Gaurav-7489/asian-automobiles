@@ -5,15 +5,17 @@ import {
   Route, Camera, FileCheck2, MessageCircle, ChevronRight
 } from "lucide-react";
 import type { ReactNode } from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 
 const img = {
-  workshop:"https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1900&q=82",
-  repair:"https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1800&q=82",
-  car:"https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1800&q=82",
-  road:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1900&q=82",
-  detail:"https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1600&q=82",
-  interior:"https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1600&q=82"
+  workshop:"https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1600&q=74",
+  repair:"https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1600&q=74",
+  car:"https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=74",
+  road:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=74",
+  detail:"https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1440&q=74",
+  interior:"https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1440&q=74"
 };
 
 const phone="+919349002038";
@@ -32,9 +34,9 @@ function Frame({eyebrow,title,intro,children,theme="paper"}:{eyebrow:string;titl
 }
 
 function About(){
-  return <Frame eyebrow="About / the story" title="A local workshop should feel human online." intro="The site is designed around the practical reality of choosing a workshop: understand the work, know what to expect, then speak to someone.">
-    <section className="about-opening"><div className="wrap about-grid"><div className="year-mark"><span>LOCAL</span><strong>AA</strong><small>IRINJALAKUDA · KERALA</small></div><div><span className="eyebrow">WHY THIS SITE EXISTS</span><h2>Less brochure.<br/><em>More useful.</em></h2><p>Asian Automobiles now has a clearer digital front door: understand the service, know what information helps, and reach the workshop without working through generic marketing copy.</p><div className="about-proof"><span><Check/>Verified before publish</span><span><Camera/>Real workshop photography</span><span><Phone/>Direct contact paths</span></div></div></div></section>
-    <section className="timeline-section"><div className="wrap"><div className="timeline-intro"><span className="eyebrow">A / the principle</span><p>The experience is built around straightforward choices, useful context and direct routes into the workshop.</p></div><div className="timeline"><div><b>01</b><h3>Know the problem</h3><p>Start with the vehicle symptom, service need or accident situation.</p></div><div><b>02</b><h3>Make the next step obvious</h3><p>Call, book, request a quote or ask about parts without hunting through the site.</p></div><div><b>03</b><h3>Keep the proof real</h3><p>Reviews, workshop imagery, insurer relationships and service claims stay attributable and verified.</p></div></div></div></section>
+  return <Frame eyebrow="About / the story" title="Trust starts before you hand over the keys." intro="Understand the work, know what matters, then speak directly to the workshop.">
+    <section className="about-opening"><div className="wrap about-grid"><div className="year-mark"><span>LOCAL</span><strong>AA</strong><small>IRINJALAKUDA · KERALA</small></div><div><span className="eyebrow">WHY THIS SITE EXISTS</span><h2>Less sales pitch.<br/><em>More useful.</em></h2><p>Understand the service, know what information helps, and reach the workshop without wading through unnecessary noise.</p><div className="about-proof"><span><Check/>Verified before publish</span><span><Camera/>Real workshop photography</span><span><Phone/>Direct contact paths</span></div></div></div></section>
+    <section className="timeline-section"><div className="wrap"><div className="timeline-intro"><span className="eyebrow">A / the principle</span><p>The experience is built around straightforward choices, useful context and direct access to the workshop.</p></div><div className="timeline"><div><b>01</b><h3>Know the problem</h3><p>Start with the vehicle symptom, service need or accident situation.</p></div><div><b>02</b><h3>Make the next step obvious</h3><p>Call, book, request a quote or ask about parts without hunting for the right contact.</p></div><div><b>03</b><h3>Keep the proof real</h3><p>Reviews, workshop imagery, insurer relationships and service claims stay attributable and verified.</p></div></div></div></section>
   </Frame>
 }
 
@@ -46,36 +48,36 @@ function Services(){
     ["04","The car isn't tracking right","Wheel alignment & balancing","/services/wheel-alignment/",Disc3],
     ["05","I need the right part","Automobile spare parts","/spare-parts/",PackageSearch]
   ];
-  return <Frame eyebrow="Services / find your route" title="Start with what the car is doing." intro="No need to know the workshop vocabulary first. Pick the situation that sounds like yours.">
+  return <Frame eyebrow="Services / start with the symptom" title="Start with what the car is doing." intro="No need to know the workshop vocabulary first. Pick the situation that sounds like yours.">
     <section className="service-command"><div className="wrap"><div className="command-bar"><span><Sparkles size={15}/>WHAT BROUGHT YOU HERE?</span><small>CHOOSE A STARTING POINT</small></div><div className="command-grid">{cards.map(([n,k,t,href,Icon])=><Link href={href as string} className="command-card" key={n as string}><span className="command-number">{n}</span><Icon size={22}/><small>{k}</small><h2>{t}</h2><span className="command-go"><ArrowRight size={16}/></span></Link>)}</div></div></section>
-    <section className="service-closer"><div className="wrap service-closer-grid"><div><span className="eyebrow">Still not sure?</span><h2>Tell us what<br/>the car is doing.</h2></div><div><p>You don't have to diagnose it yourself. Use the enquiry route and describe the symptom in your own words.</p><CTA label="Describe the problem" href="/request-quote/"/></div></div></section>
+    <section className="service-closer"><div className="wrap service-closer-grid"><div><span className="eyebrow">Still not sure?</span><h2>Tell us what<br/>the car is doing.</h2></div><div><p>You don't have to diagnose it yourself. Describe the symptom in your own words and start from there.</p><CTA label="Describe the problem" href="/request-quote/"/></div></div></section>
   </Frame>
 }
 
 function CarService(){
-  return <Frame eyebrow="01 / General service & repairs" title="Tell us the symptom. We'll start from there." intro="A diagnosis-led route for routine service and mechanical repair enquiries.">
+  return <Frame eyebrow="01 / General service & repairs" title="Tell us the symptom. We'll start from there." intro="Routine service and mechanical repair enquiries, starting with what you have noticed.">
     <section className="diagnostic"><div className="wrap"><div className="diagnostic-top"><div><span className="eyebrow">SERVICE DESK / 01</span><h2>What changed?</h2></div><span className="status-pill"><span/>ENQUIRY READY</span></div><div className="symptom-grid">{["Strange sound","Warning light","Poor pickup","Brake concern","Routine service","Something feels off"].map((x,i)=><div className="symptom" key={x}><span>0{i+1}</span><b>{x}</b><ChevronRight size={16}/></div>)}</div><div className="diagnostic-flow"><div><ClipboardCheck size={20}/><small>STEP 01</small><h3>Describe</h3><p>Use normal language. Noise, vibration, light, smell, mileage — all useful.</p></div><div><Gauge size={20}/><small>STEP 02</small><h3>Inspect</h3><p>The actual inspection and diagnosis are determined at the workshop.</p></div><div><Wrench size={20}/><small>STEP 03</small><h3>Service</h3><p>Proceed with the agreed scope, then hand the vehicle back clearly.</p></div></div></div></section>
-    <section className="split-photo"><div className="wrap"><img src={img.detail} alt="Vehicle service detail" loading="lazy"/><div><span className="eyebrow">GOOD TO KNOW</span><h2>You don't need the technical words.</h2><p>“It makes a clicking noise when I turn left” is already useful information. Start there.</p><CTA label="Book this route"/></div></div></section>
+    <section className="split-photo"><div className="wrap"><Image src={img.detail} alt="Vehicle service detail" width={1600} height={1000} sizes="(max-width: 900px) 100vw, 55vw"/><div><span className="eyebrow">GOOD TO KNOW</span><h2>You don't need the technical words.</h2><p>“It makes a clicking noise when I turn left” is already useful information. Start there.</p><CTA label="Book a service"/></div></div></section>
   </Frame>
 }
 
 function AC(){
-  return <Frame eyebrow="02 / Car AC service & repair" title="Hot cabin? Let's get specific." intro="A dedicated AC route instead of making a customer dig through a generic service list.">
+  return <Frame eyebrow="02 / Car AC service & repair" title="Hot cabin? Let's get specific." intro="A dedicated place to start when cooling or airflow needs attention.">
     <section className="thermal"><div className="wrap thermal-grid"><div className="thermal-visual"><div className="thermal-ring"><Wind size={34}/><strong>AC</strong><span>COOLING<br/>CHECK</span></div><div className="thermal-readings"><span>FLOW <b>01</b></span><span>COMFORT <b>02</b></span><span>SYSTEM <b>03</b></span></div></div><div className="thermal-copy"><span className="eyebrow">AC / THE SHORT VERSION</span><h2>When “it's not cold” isn't enough.</h2><p>Tell us what you notice: weak airflow, warm air, unusual smell, noise, intermittent cooling or another symptom.</p><div className="ac-tags">{["Weak airflow","Warm air","Bad smell","Noise","Stops cooling"].map(x=><span key={x}>{x}</span>)}</div><CTA label="Book AC service"/></div></div></section>
     <section className="dark-callout"><div className="wrap"><span className="eyebrow light">NO GUESSWORK</span><h2>Describe the cabin.<br/><i>We'll handle the vocabulary.</i></h2><Call/></div></section>
   </Frame>
 }
 
 function Accident(){
-  return <Frame eyebrow="03 / Accident repair" title="You've already had the bad moment. The website shouldn't add another." intro="A calmer path from damage photos to repair enquiry and insurance assistance.">
+  return <Frame eyebrow="03 / Accident repair" title="You've already had the bad moment. The next step should feel simpler." intro="A calmer path from damage photos to repair enquiry and insurance assistance.">
     <section className="incident"><div className="wrap"><div className="incident-board"><div className="incident-label"><span>INCIDENT DESK</span><b>CASE / NEW</b></div><div className="incident-main"><div className="incident-icon"><CarFront size={34}/></div><div><small>FIRST THING</small><h2>Show us what happened.</h2><p>Photos, a short description and your contact details are enough to start the conversation.</p></div></div><div className="dropzone"><Upload size={21}/><b>Drop damage photos here</b><span>or continue with a description</span></div></div><div className="incident-steps">{[["01","Damage","Photos + description"],["02","Assessment","Repair scope"],["03","Insurance","Coordination if applicable"],["04","Repair","Agreed work + handover"]].map(([n,t,d])=><div key={n}><b>{n}</b><h3>{t}</h3><p>{d}</p></div>)}</div></div></section>
-    <section className="photo-statement"><div className="wrap"><img src={img.repair} alt="Automotive accident repair" loading="lazy"/><div><span className="eyebrow">KEEP IT SIMPLE</span><h2>No insurance jargon required.</h2><p>If you need cashless repair assistance, use the insurance route. For insurer-specific eligibility or cashless-repair questions, contact the workshop before repair work begins.</p><Link className="dark-link" href="/insurance/">See insurance assistance <ArrowUpRight size={16}/></Link></div></div></section>
+    <section className="photo-statement"><div className="wrap"><Image src={img.repair} alt="Automotive accident repair" width={1600} height={1000} sizes="(max-width: 900px) 100vw, 55vw"/><div><span className="eyebrow">KEEP IT SIMPLE</span><h2>No insurance jargon required.</h2><p>If you need cashless repair assistance, use the insurance route. For insurer-specific eligibility or cashless-repair questions, contact the workshop before repair work begins.</p><Link className="dark-link" href="/insurance/">See insurance assistance <ArrowUpRight size={16}/></Link></div></div></section>
   </Frame>
 }
 
 function Denting(){
   return <Frame eyebrow="04 / Denting & painting" title="Bodywork is detail work." intro="A visual route for dents, scratches, panels and paint-related enquiries.">
-    <section className="paint-studio"><div className="wrap"><div className="studio-header"><span className="eyebrow">BODY SHOP / VISUAL CHECK</span><h2>Show the mark.<br/><em>We'll start there.</em></h2></div><div className="before-after"><div className="ba-image first"><img src={img.car} alt="Vehicle exterior" loading="lazy"/><span>BEFORE / DAMAGE</span></div><div className="ba-image second"><img src={img.detail} alt="Vehicle detail" loading="lazy"/><span>REFERENCE / FINISH</span></div><div className="ba-divider"/></div><div className="paint-notes"><span><Palette/>Colour / finish</span><span><CarFront/>Panel / body</span><span><Camera/>Damage photos</span><CTA label="Send damage details" href="/request-quote/"/></div></div></section>
+    <section className="paint-studio"><div className="wrap"><div className="studio-header"><span className="eyebrow">BODY SHOP / VISUAL CHECK</span><h2>Show the mark.<br/><em>We'll start there.</em></h2></div><div className="before-after"><div className="ba-image first"><Image src={img.car} alt="Vehicle exterior" width={1600} height={1000} sizes="(max-width: 900px) 100vw, 55vw"/><span>BEFORE / DAMAGE</span></div><div className="ba-image second"><Image src={img.detail} alt="Vehicle detail" width={1440} height={1000} sizes="(max-width: 900px) 100vw, 50vw"/><span>REFERENCE / FINISH</span></div><div className="ba-divider"/></div><div className="paint-notes"><span><Palette/>Colour / finish</span><span><CarFront/>Panel / body</span><span><Camera/>Damage photos</span><CTA label="Send damage details" href="/request-quote/"/></div></div></section>
   </Frame>
 }
 
@@ -99,7 +101,7 @@ function Parts(){
 }
 
 function Insurance(){
-  return <Frame eyebrow="08 / Insurance assistance" title="Accident happened. Here's the calmer route." intro="The website can explain the journey without pretending to know insurer relationships that have not been confirmed.">
+  return <Frame eyebrow="08 / Insurance assistance" title="Accident happened. Here's the calmer route." intro="Start with the damage, vehicle and insurer details. The workshop can confirm current eligibility and explain the next step for your case.">
     <section className="claims"><div className="wrap"><div className="claims-track"><div className="claims-line"/>{[["01","DAMAGE","Share photos + details"],["02","SURVEY","Assessment / approval"],["03","REPAIR","Agreed repair scope"],["04","HANDOVER","Vehicle ready"]].map(([n,t,d])=><div className="claim-step" key={n}><span>{n}</span><div><small>{t}</small><h2>{d}</h2></div></div>)}</div><div className="claims-note"><ShieldCheck size={24}/><div><b>Verification gate</b><p>Insurer eligibility and cashless-repair availability can vary. Contact the workshop with your insurer and vehicle details before repair work begins.</p></div></div></div></section>
     <section className="insurance-actions"><div className="wrap"><span className="eyebrow">YOUR NEXT MOVE</span><h2>Have the photos?<br/><em>Start the enquiry.</em></h2><div><CTA label="Request repair assistance" href="/request-quote/"/><Call/></div></div></section>
   </Frame>
@@ -115,14 +117,14 @@ function Facilities(){
     ["Customer area",img.car,"CUSTOMER AREA"]
   ];
   return <Frame eyebrow="09 / Facilities" title="See the place behind the promise." intro="A visual tour built around the workshop itself — the bays, tools, diagnostics and people that make the service real.">
-    <section className="facility-map"><div className="wrap"><div className="facility-grid">{zones.map(([x,src,label],i)=><div className={"facility-zone z"+i} key={x} style={{backgroundImage:`linear-gradient(180deg,#0002,#0009),url(${src})`,backgroundSize:"cover",backgroundPosition:"center",color:"#fff"}}><span style={{color:"#ffffffaa"}}>0{i+1}</span><b>{x}</b><small style={{color:"#ffffffaa"}}>{label}</small></div>)}</div><div className="facility-caption"><div><span className="eyebrow">THE WORKSHOP / IN FRAME</span><h2>Tools. Bays. People.<br/><em>The real place.</em></h2></div><p>The page is structured around the spaces customers care about most: arrival, service bays, diagnostics, wheel work, parts and the customer area.</p></div></div></section>
+    <section className="facility-map"><div className="wrap"><div className="facility-grid">{zones.map(([x,src,label],i)=><div className={"facility-zone z"+i} key={x} style={{backgroundImage:`linear-gradient(180deg,#0002,#0009),url(${src})`,backgroundSize:"cover",backgroundPosition:"center",color:"#fff"}}><span style={{color:"#ffffffaa"}}>0{i+1}</span><b>{x}</b><small style={{color:"#ffffffaa"}}>{label}</small></div>)}</div><div className="facility-caption"><div><span className="eyebrow">THE WORKSHOP / IN FRAME</span><h2>Tools. Bays. People.<br/><em>The real place.</em></h2></div><p>See the spaces customers care about most: arrival, service bays, diagnostics, wheel work, parts and the customer area.</p></div></div></section>
   </Frame>
 }
 
 function Gallery(){
   const items=[[img.workshop,"WORKSHOP / 01"],[img.repair,"CRAFT / 02"],[img.car,"VEHICLE / 03"],[img.detail,"DETAIL / 04"],[img.interior,"INTERIOR / 05"],[img.road,"ROAD / 06"]];
   return <Frame eyebrow="10 / Gallery" title="The workshop, without the stock-photo filter." intro="A visual library built for real images: workshop, repairs, parts, people, exterior and completed work.">
-    <section className="gallery-wall"><div className="wrap gallery-masonry">{items.map(([src,label],i)=><figure className={"gallery-tile g"+i} key={label}><img src={src} alt={label} loading="lazy"/><figcaption><span>{label}</span><ArrowUpRight size={16}/></figcaption></figure>)}</div></section>
+    <section className="gallery-wall"><div className="wrap gallery-masonry">{items.map(([src,label],i)=><figure className={"gallery-tile g"+i} key={label}><Image src={src} alt={label} width={1400} height={900} sizes="(max-width: 900px) 100vw, 50vw"/><figcaption><span>{label}</span><ArrowUpRight size={16}/></figcaption></figure>)}</div></section>
   </Frame>
 }
 
@@ -140,20 +142,20 @@ function Contact(){
 
 function FAQ(){
   const qs=[
-    ["What services are offered?","The site covers general car service and repairs, AC, accident repair, denting and painting, wheel alignment and balancing, tyre services and automobile spare-parts enquiries."],
+    ["What services are offered?","Asian Automobiles handles general car service and repairs, AC, accident repair, denting and painting, wheel alignment and balancing, tyre services and automobile spare-parts enquiries."],
     ["Which vehicle brands do you service?","For vehicle-specific service availability, call the workshop with your make, model and year."],
     ["Do you provide cashless insurance repair?","Insurance assistance is available as an enquiry route. Call the workshop to confirm insurer-specific eligibility and the process for your case."],
     ["What are the opening hours?","Please call the workshop to confirm today's opening hours before travelling."],
-    ["Can I book a service online?","Yes, the site provides a booking enquiry route. The final submission and notification workflow should be connected during technical setup."],
-    ["Can I send photos of damage or a part?","Yes. The quote route is designed for damage/reference photos once upload storage and notification handling are connected."]
+    ["How do I start a service booking?","Use the service enquiry page to prepare the vehicle and service details, or call the workshop directly to arrange the next step."],
+    ["Can I prepare damage or part photos?","Yes. Photos can help explain visible damage or identify a part requirement before the repair conversation."]
   ];
-  return <Frame eyebrow="13 / FAQ" title="The questions people actually ask before they drive over." intro="Short answers, with confirmation gates where the source material does not support a firm claim.">
+  return <Frame eyebrow="13 / FAQ" title="The questions people actually ask before they drive over." intro="Straight answers to the questions that matter before you call, book or drive over.">
     <section className="faq-stage"><div className="wrap faq-layout"><div className="faq-aside"><CircleHelp size={32}/><span>NO GUESSWORK</span><p>If a detail isn't verified, the answer says so.</p></div><div className="faq-list">{qs.map(([q,a],i)=><details key={q}><summary><span>0{i+1}</span><b>{q}</b><ChevronRight/></summary><p>{a}</p></details>)}</div></div></section>
   </Frame>
 }
 
 function Form({quote=false}:{quote?:boolean}){
-  return <section className={"form-stage "+(quote?"quote-stage":"booking-stage")}><div className="wrap form-layout"><div className="form-intro">{quote?<><span className="eyebrow">DAMAGE / PARTS DESK</span><h2>Show us what needs attention.</h2><p>Write it like you would tell a mechanic. Add photos when the final upload connection is enabled.</p><div className="form-side-note"><Camera size={18}/><span>Photos help explain dents, warning lights, parts and visible damage.</span></div></>:<><span className="eyebrow">SERVICE DESK</span><h2>Let's find a sensible time to talk.</h2><p>Give us the basics. The final booking workflow can route this to CRM, email or another approved channel.</p><div className="booking-steps"><span>01 / YOU</span><span>02 / VEHICLE</span><span>03 / SERVICE</span><span>04 / TIME</span></div></>}</div><div className="real-form"><label>Name<input placeholder="What should we call you?"/></label><label>Phone<input placeholder="A number we can reach"/></label><label>Vehicle make / model<input placeholder="e.g. Hyundai i20"/></label><label>{quote?"What needs attention?":"Service needed"}<input placeholder={quote?"Tell it in your own words":"Choose or describe the service"}/></label><label>Preferred date / time<input placeholder="Your preferred slot"/></label><label className="wide">More detail<textarea placeholder={quote?"Noise, damage, part number, warning light — anything useful.":"Anything we should know before the appointment?"}/></label>{quote&&<label className="upload wide"><Upload size={17}/><span>Attach damage / reference photos</span></label>}<button>Send enquiry <ArrowUpRight size={16}/></button><small>Prefer to speak to someone? Call +91 93490 02038 and the workshop can take the details directly.</small></div></div></section>
+  return <section className={"form-stage "+(quote?"quote-stage":"booking-stage")}><div className="wrap form-layout"><div className="form-intro">{quote?<><span className="eyebrow">DAMAGE / PARTS DESK</span><h2>Show us what needs attention.</h2><p>Write it like you would tell a mechanic. Clear details make the repair conversation easier.</p><div className="form-side-note"><Camera size={18}/><span>Photos help explain dents, warning lights, parts and visible damage.</span></div></>:<><span className="eyebrow">SERVICE DESK</span><h2>Let's find a sensible time to talk.</h2><p>Keep the useful details together: who you are, which vehicle, what it needs and when you would prefer to visit.</p><div className="booking-steps"><span>01 / YOU</span><span>02 / VEHICLE</span><span>03 / SERVICE</span><span>04 / TIME</span></div></>}</div><div className="real-form"><label>Name<input placeholder="What should we call you?"/></label><label>Phone<input placeholder="A number we can reach"/></label><label>Vehicle make / model<input placeholder="e.g. Hyundai i20"/></label><label>{quote?"What needs attention?":"Service needed"}<input placeholder={quote?"Tell it in your own words":"Choose or describe the service"}/></label><label>Preferred date / time<input placeholder="Your preferred slot"/></label><label className="wide">More detail<textarea placeholder={quote?"Noise, damage, part number, warning light — anything useful.":"Anything we should know before the appointment?"}/></label>{quote&&<label className="upload wide"><Upload size={17}/><span>Attach damage / reference photos</span></label>}<button>Send enquiry <ArrowUpRight size={16}/></button><small>Prefer to speak to someone? Call +91 93490 02038 and the workshop can take the details directly.</small></div></div></section>
 }
 
 function Booking({quote=false}){ 
@@ -161,7 +163,7 @@ function Booking({quote=false}){
   const title = quote ? "A photo can say more than a paragraph." : "Let's get the basics on the table.";
   const intro = quote
     ? "Send the problem in your own words and prepare the right details for a repair conversation."
-    : "A focused enquiry form instead of a long generic contact page.";
+    : "Keep the useful vehicle and service details together before you contact the workshop.";
 
   return (
     <Frame eyebrow={eyebrow} title={title} intro={intro}>
@@ -171,6 +173,103 @@ function Booking({quote=false}){
 }
 
 function SpareRedirect(){return <Parts/>}
+
+const routeMeta: Record<string, { title: string; description: string }> = {
+  about: {
+    title: "About Asian Automobiles | Irinjalakuda",
+    description: "Learn about Asian Automobiles, its multi-brand automobile service and parts business in Irinjalakuda, Kerala.",
+  },
+  services: {
+    title: "Car Service & Repair in Irinjalakuda | Asian Automobiles",
+    description: "Explore general car service, AC repair, accident restoration, denting and painting, wheel services, tyre repair and spare-parts enquiries.",
+  },
+  "services/car-service": {
+    title: "General Car Service & Repair | Asian Automobiles",
+    description: "General car service and mechanical repair enquiries in Irinjalakuda, Kerala.",
+  },
+  "services/car-ac-repair": {
+    title: "Car AC Service & Repair | Asian Automobiles",
+    description: "Car AC service and repair enquiries in Irinjalakuda, Kerala.",
+  },
+  "services/accident-repair": {
+    title: "Accident Repair & Restoration | Asian Automobiles",
+    description: "Accident restoration, denting and painting enquiries with a direct path to insurance assistance.",
+  },
+  "services/denting-painting": {
+    title: "Car Denting & Painting | Asian Automobiles",
+    description: "Denting, painting and body-repair enquiries from Asian Automobiles in Irinjalakuda.",
+  },
+  "services/wheel-alignment": {
+    title: "Wheel Alignment & Balancing | Asian Automobiles",
+    description: "Computerized wheel alignment, wheel balancing, tyre repair and rim-repair enquiries in Irinjalakuda.",
+  },
+  "services/tyre-services": {
+    title: "Tyre Services | Asian Automobiles",
+    description: "Tyre repair, balancing and related wheel-service enquiries in Irinjalakuda, Kerala.",
+  },
+  "spare-parts": {
+    title: "Automobile Spare Parts | Asian Automobiles",
+    description: "Automobile spare-parts enquiries from Asian Automobiles in Irinjalakuda.",
+  },
+  insurance: {
+    title: "Cashless Insurance Repair Assistance | Asian Automobiles",
+    description: "Start an accident-repair and insurance-assistance enquiry with Asian Automobiles.",
+  },
+  facilities: {
+    title: "Workshop Facilities | Asian Automobiles",
+    description: "Explore the workshop environment and service facilities at Asian Automobiles in Irinjalakuda.",
+  },
+  gallery: {
+    title: "Gallery | Asian Automobiles",
+    description: "Automotive service, repair, parts and workshop imagery from Asian Automobiles.",
+  },
+  reviews: {
+    title: "Customer Stories | Asian Automobiles",
+    description: "Customer feedback and service stories presented with source and context.",
+  },
+  contact: {
+    title: "Contact Asian Automobiles | Irinjalakuda",
+    description: "Call Asian Automobiles or find the workshop on Kattoor Road, Irinjalakuda, Thrissur, Kerala.",
+  },
+  faq: {
+    title: "FAQ | Asian Automobiles",
+    description: "Answers about services, insurance assistance, vehicle enquiries, booking and workshop contact.",
+  },
+  "book-service": {
+    title: "Book a Service | Asian Automobiles",
+    description: "Prepare your vehicle and service details before contacting Asian Automobiles in Irinjalakuda.",
+  },
+  "request-quote": {
+    title: "Request a Repair or Parts Quote | Asian Automobiles",
+    description: "Prepare the useful vehicle, damage or parts details for a quote conversation with Asian Automobiles.",
+  },
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug?: string[] }>;
+}): Promise<Metadata> {
+  const { slug = [] } = await params;
+  const rawKey = slug.join("/");
+  const key = rawKey.startsWith("services/") || rawKey === "services"
+    ? rawKey
+    : rawKey === "car-service" || rawKey === "car-ac-repair" || rawKey === "accident-repair" || rawKey === "denting-painting" || rawKey === "wheel-alignment" || rawKey === "tyre-services"
+      ? `services/${rawKey}`
+      : rawKey;
+  const meta = routeMeta[key];
+  if (!meta) return {};
+  return {
+    title: meta.title,
+    description: meta.description,
+    alternates: { canonical: `/${key}/` },
+    openGraph: {
+      title: meta.title,
+      description: meta.description,
+      type: "website",
+    },
+  };
+}
 
 export default async function Page({params}:{params:Promise<{slug?:string[]}>}){
   const {slug=[]}=await params;

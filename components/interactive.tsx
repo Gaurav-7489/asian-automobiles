@@ -3,215 +3,183 @@
 import { useEffect, useRef } from "react";
 
 export function InteractiveLayer() {
-  const ringRef = useRef<HTMLDivElement>(null);
-  const dotRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const root = document.documentElement;
-    const ring = ringRef.current;
-    const dot = dotRef.current;
-    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    const cursor = cursorRef.current;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    let scrollRaf = 0;
-    let physicsRaf = 0;
-
-    let targetX = window.innerWidth / 2;
-    let targetY = window.innerHeight / 2;
-    let ringX = targetX;
-    let ringY = targetY;
-    let ringVX = 0;
-    let ringVY = 0;
-
-    let magnetic: HTMLElement | null = null;
-    let magX = 0;
-    let magY = 0;
-    let magVX = 0;
-    let magVY = 0;
-    let magTargetX = 0;
-    let magTargetY = 0;
-    let magScale = 1;
-    let magScaleTarget = 1;
-    let magScaleV = 0;
-
-    const updateScroll = () => {
-      const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-      root.style.setProperty("--aa-progress", `${Math.min(1, window.scrollY / max) * 100}%`);
-      scrollRaf = 0;
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    const nav = navigator as Navigator & {
+      connection?: { saveData?: boolean };
+      deviceMemory?: number;
     };
+    const lowPower =
+      (typeof nav.deviceMemory === "number" && nav.deviceMemory <= 4) ||
+      (typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 4);
 
-    const applyMagnetic = () => {
-      if (!magnetic) return;
-      magnetic.style.setProperty("--mag-x", `${magX.toFixed(2)}px`);
-      magnetic.style.setProperty("--mag-y", `${magY.toFixed(2)}px`);
-      magnetic.style.setProperty("--mag-scale", magScale.toFixed(4));
-    };
+    if (reduced || coarse || nav.connection?.saveData || lowPower) return;
 
-    const resetMagneticElement = (element: HTMLElement | null) => {
+    let active: HTMLElement | null = null;
+    let rect: DOMRect | null = null;
+    let raf = 0;
+
+    let pointerX = window.innerWidth / 2;
+    let pointerY = window.innerHeight / 2;
+    let cursorX = pointerX;
+    let cursorY = pointerY;
+    let cursorVX = 0;
+    let cursorVY = 0;
+    let cursorScale = 1;
+    let cursorScaleTarget = 1;
+
+    let x = 0;
+    let y = 0;
+    let vx = 0;
+    let vy = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let scale = 1;
+    let scaleV = 0;
+    let targetScale = 1;
+
+    const reset = (element: HTMLElement | null) => {
       if (!element) return;
       element.style.setProperty("--mag-x", "0px");
       element.style.setProperty("--mag-y", "0px");
       element.style.setProperty("--mag-scale", "1");
     };
 
-    const animatePhysics = () => {
-      // Cursor spring: soft mass + velocity + damping, instead of linear easing.
-      const cursorStiffness = 0.13;
-      const cursorDamping = 0.72;
-      ringVX = (ringVX + (targetX - ringX) * cursorStiffness) * cursorDamping;
-      ringVY = (ringVY + (targetY - ringY) * cursorStiffness) * cursorDamping;
-      ringX += ringVX;
-      ringY += ringVY;
+    const frame = () => {
+      cursorVX = (cursorVX + (pointerX - cursorX) * 0.14) * 0.7;
+      cursorVY = (cursorVY + (pointerY - cursorY) * 0.14) * 0.7;
+      cursorX += cursorVX;
+      cursorY += cursorVY;
+      cursorScale += (cursorScaleTarget - cursorScale) * 0.18;
 
-      if (ring) ring.style.transform = `translate3d(${ringX}px,${ringY}px,0)`;
-      if (dot) dot.style.transform = `translate3d(${targetX}px,${targetY}px,0)`;
+      if (cursor) {
+        cursor.style.transform =
+          `translate3d(${cursorX}px,${cursorY}px,0) scale(${cursorScale})`;
+      }
 
-      // Magnetic element spring: gives CTA/button movement actual inertia.
-      if (magnetic) {
-        const stiffness = 0.17;
-        const damping = 0.69;
-        magVX = (magVX + (magTargetX - magX) * stiffness) * damping;
-        magVY = (magVY + (magTargetY - magY) * stiffness) * damping;
-        magX += magVX;
-        magY += magVY;
+      if (active) {
+        vx = (vx + (targetX - x) * 0.16) * 0.68;
+        vy = (vy + (targetY - y) * 0.16) * 0.68;
+        x += vx;
+        y += vy;
 
-        const scaleStiffness = 0.2;
-        const scaleDamping = 0.68;
-        magScaleV = (magScaleV + (magScaleTarget - magScale) * scaleStiffness) * scaleDamping;
-        magScale += magScaleV;
-        applyMagnetic();
+        scaleV = (scaleV + (targetScale - scale) * 0.2) * 0.66;
+        scale += scaleV;
+
+        active.style.setProperty("--mag-x", `${x.toFixed(2)}px`);
+        active.style.setProperty("--mag-y", `${y.toFixed(2)}px`);
+        active.style.setProperty("--mag-scale", scale.toFixed(4));
       }
 
       const cursorMoving =
-        Math.abs(targetX - ringX) > 0.08 ||
-        Math.abs(targetY - ringY) > 0.08 ||
-        Math.abs(ringVX) > 0.03 ||
-        Math.abs(ringVY) > 0.03;
+        Math.abs(pointerX - cursorX) > 0.08 ||
+        Math.abs(pointerY - cursorY) > 0.08 ||
+        Math.abs(cursorVX) > 0.02 ||
+        Math.abs(cursorVY) > 0.02 ||
+        Math.abs(cursorScaleTarget - cursorScale) > 0.002;
 
-      const magnetMoving =
-        magnetic &&
-        (Math.abs(magTargetX - magX) > 0.05 ||
-          Math.abs(magTargetY - magY) > 0.05 ||
-          Math.abs(magVX) > 0.02 ||
-          Math.abs(magVY) > 0.02 ||
-          Math.abs(magScaleTarget - magScale) > 0.002 ||
-          Math.abs(magScaleV) > 0.001);
+      const magneticMoving =
+        active &&
+        (Math.abs(targetX - x) > 0.05 ||
+          Math.abs(targetY - y) > 0.05 ||
+          Math.abs(vx) > 0.02 ||
+          Math.abs(vy) > 0.02 ||
+          Math.abs(targetScale - scale) > 0.002 ||
+          Math.abs(scaleV) > 0.001);
 
-      if (cursorMoving || magnetMoving) {
-        physicsRaf = requestAnimationFrame(animatePhysics);
+      if (cursorMoving || magneticMoving) {
+        raf = requestAnimationFrame(frame);
       } else {
-        physicsRaf = 0;
-        if (magnetic && magTargetX === 0 && magTargetY === 0 && magScaleTarget === 1) {
-          resetMagneticElement(magnetic);
-          magnetic = null;
-          magX = magY = magVX = magVY = 0;
-          magScale = 1;
-          magScaleV = 0;
+        raf = 0;
+        if (active && targetX === 0 && targetY === 0 && targetScale === 1) {
+          reset(active);
+          active = null;
+          rect = null;
+          x = y = vx = vy = 0;
+          scale = 1;
+          scaleV = 0;
         }
       }
     };
 
-    const ensurePhysics = () => {
-      if (!physicsRaf) physicsRaf = requestAnimationFrame(animatePhysics);
-    };
-
-    const setMagneticTarget = (element: HTMLElement | null, event?: PointerEvent) => {
-      if (element !== magnetic) {
-        resetMagneticElement(magnetic);
-        magnetic = element;
-        magX = magY = magVX = magVY = 0;
-        magScale = 1;
-        magScaleV = 0;
-      }
-
-      if (!element || !event) {
-        magTargetX = 0;
-        magTargetY = 0;
-        magScaleTarget = 1;
-        ensurePhysics();
-        return;
-      }
-
-      const rect = element.getBoundingClientRect();
-      magTargetX = (event.clientX - (rect.left + rect.width / 2)) * 0.16;
-      magTargetY = (event.clientY - (rect.top + rect.height / 2)) * 0.16;
-      ensurePhysics();
-    };
-
-    const onScroll = () => {
-      if (!scrollRaf) scrollRaf = requestAnimationFrame(updateScroll);
+    const start = () => {
+      if (!raf) raf = requestAnimationFrame(frame);
     };
 
     const onPointerMove = (event: PointerEvent) => {
-      root.style.setProperty("--aa-mx", `${event.clientX}px`);
-      root.style.setProperty("--aa-my", `${event.clientY}px`);
+      pointerX = event.clientX;
+      pointerY = event.clientY;
 
-      if (coarse || reduced) return;
+      const next = (event.target as HTMLElement | null)?.closest?.("[data-magnetic]") as HTMLElement | null;
+      if (next && next !== active) {
+        reset(active);
+        active = next;
+        rect = next.getBoundingClientRect();
+        x = y = vx = vy = 0;
+        targetX = targetY = 0;
+        scale = 1;
+        scaleV = 0;
+        targetScale = 1;
+      }
 
-      targetX = event.clientX;
-      targetY = event.clientY;
-      ensurePhysics();
+      cursorScaleTarget = next ? 1.65 : 1;
 
-      const target = (event.target as HTMLElement | null)?.closest?.("[data-magnetic]") as HTMLElement | null;
-      if (target) setMagneticTarget(target, event);
-    };
+      if (active && rect) {
+        targetX = Math.max(-18, Math.min(18, (event.clientX - (rect.left + rect.width / 2)) * 0.11));
+        targetY = Math.max(-18, Math.min(18, (event.clientY - (rect.top + rect.height / 2)) * 0.11));
+      }
 
-    const onPointerOver = (event: PointerEvent) => {
-      if (coarse) return;
-      const target = event.target as HTMLElement | null;
-      const interactive = target?.closest?.("a,button,[data-magnetic]");
-      root.classList.toggle("aa-cursor-active", Boolean(interactive));
+      start();
     };
 
     const onPointerOut = (event: PointerEvent) => {
-      if (coarse) return;
-      const leaving = (event.target as HTMLElement | null)?.closest?.("[data-magnetic]") as HTMLElement | null;
-      if (leaving && leaving === magnetic) setMagneticTarget(leaving);
-
-      const next = event.relatedTarget as HTMLElement | null;
-      if (!next?.closest?.("a,button,[data-magnetic]")) root.classList.remove("aa-cursor-active");
+      if (!active) return;
+      const related = event.relatedTarget as Node | null;
+      if (related && active.contains(related)) return;
+      const leaving = (event.target as HTMLElement | null)?.closest?.("[data-magnetic]");
+      if (leaving !== active) return;
+      targetX = 0;
+      targetY = 0;
+      targetScale = 1;
+      cursorScaleTarget = 1;
+      start();
     };
 
-    const onPointerDown = (event: PointerEvent) => {
-      if (coarse || reduced) return;
-      const target = (event.target as HTMLElement | null)?.closest?.("[data-magnetic]") as HTMLElement | null;
-      if (!target) return;
-      if (target !== magnetic) setMagneticTarget(target, event);
-      magScaleTarget = 0.955;
-      ensurePhysics();
+    const onPointerDown = () => {
+      if (!active) return;
+      targetScale = 0.97;
+      start();
     };
 
     const onPointerUp = () => {
-      magScaleTarget = 1;
-      ensurePhysics();
+      if (!active) return;
+      targetScale = 1;
+      start();
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("pointermove", onPointerMove, { passive: true });
-    document.addEventListener("pointerover", onPointerOver, { passive: true });
     document.addEventListener("pointerout", onPointerOut, { passive: true });
     document.addEventListener("pointerdown", onPointerDown, { passive: true });
     document.addEventListener("pointerup", onPointerUp, { passive: true });
-    updateScroll();
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
       window.removeEventListener("pointermove", onPointerMove);
-      document.removeEventListener("pointerover", onPointerOver);
       document.removeEventListener("pointerout", onPointerOut);
       document.removeEventListener("pointerdown", onPointerDown);
       document.removeEventListener("pointerup", onPointerUp);
-      cancelAnimationFrame(scrollRaf);
-      cancelAnimationFrame(physicsRaf);
-      resetMagneticElement(magnetic);
+      cancelAnimationFrame(raf);
+      reset(active);
     };
   }, []);
 
   return (
     <>
       <div className="aa-progress" aria-hidden="true" />
-      <div ref={ringRef} className="aa-cursor-ring" aria-hidden="true" />
-      <div ref={dotRef} className="aa-cursor-dot" aria-hidden="true" />
+      <div ref={cursorRef} className="aa-cursor-v4" aria-hidden="true" />
     </>
   );
 }

@@ -7,17 +7,47 @@ import { SiteFooter } from "@/components/site-footer";
 import { InteractiveLayer } from "@/components/interactive";
 import { SmoothScroll } from "@/components/immersive/smooth-scroll";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://asian-automobiles.vercel.app";
+
 export const metadata: Metadata = {
-  title: "Asian Automobiles | Automotive Service in Irinjalakuda",
+  metadataBase: new URL(siteUrl),
+  title: "Asian Automobiles | Car Service, Repair & Parts in Irinjalakuda",
   description:
-    "Asian Automobiles — automotive service, repairs, accident restoration, wheel services, insurance assistance and automobile parts in Irinjalakuda, Kerala.",
+    "Independent multi-brand automobile service, repair, accident restoration, wheel services and spare-parts enquiries in Irinjalakuda, Kerala.",
   icons: { icon: "/favicon.ico" },
+  openGraph: {
+    type: "website",
+    title: "Asian Automobiles | Irinjalakuda",
+    description:
+      "Car service, repair, accident restoration, wheel services and automobile parts support in Irinjalakuda, Kerala.",
+    url: "/",
+  },
+};
+
+const businessSchema = {
+  "@context": "https://schema.org",
+  "@type": "AutomotiveBusiness",
+  name: "Asian Automobiles",
+  url: siteUrl,
+  telephone: "+91 9349002038",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "283 / V-526, Govt Rest House, Kattoor Road",
+    addressLocality: "Irinjalakuda",
+    addressRegion: "Kerala",
+    postalCode: "680121",
+    addressCountry: "IN",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema) }}
+        />
         <SmoothScroll />
         <InteractiveLayer />
         <SiteHeader />
