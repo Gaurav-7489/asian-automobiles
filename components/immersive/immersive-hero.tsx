@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDownRight, ArrowUpRight, Gauge, Wrench } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import {
   motion,
   useReducedMotion,
@@ -28,7 +28,7 @@ export function ImmersiveHero() {
     cancelAnimationFrame(orbRaf.current);
     orbRaf.current = requestAnimationFrame(() => {
       if (!orbRef.current) return;
-      orbRef.current.style.transform = `translate3d(${x - 210}px,${y - 210}px,0)`;
+      orbRef.current.style.transform = `translate3d(${x - 180}px,${y - 180}px,0)`;
     });
   }
 
@@ -38,19 +38,19 @@ export function ImmersiveHero() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 115,
-    damping: 32,
-    mass: 0.28,
+    stiffness: 120,
+    damping: 34,
+    mass: 0.26,
   });
 
-  const mediaScale = useTransform(smoothProgress, [0, 0.9], [1.025, 0.92]);
-  const mediaY = useTransform(smoothProgress, [0, 1], ["0%", "6%"]);
-  const copyY = useTransform(smoothProgress, [0, 0.74], ["0%", "-13%"]);
-  const copyOpacity = useTransform(smoothProgress, [0, 0.78], [1, 0.22]);
-  const indexScale = useTransform(smoothProgress, [0, 0.82], [0.07, 1]);
+  const mediaScale = useTransform(smoothProgress, [0, 0.9], [1.018, 0.94]);
+  const mediaY = useTransform(smoothProgress, [0, 1], ["0%", "4.5%"]);
+  const copyY = useTransform(smoothProgress, [0, 0.78], ["0%", "-10%"]);
+  const copyOpacity = useTransform(smoothProgress, [0, 0.82], [1, 0.18]);
+  const progressScale = useTransform(smoothProgress, [0, 0.86], [0.06, 1]);
 
   return (
-    <section ref={sectionRef} className="aa-hero2" onPointerMove={handlePointerMove}>
+    <section ref={sectionRef} className="aa-hero2 aa-hero2-minimal" onPointerMove={handlePointerMove}>
       <div className="aa-hero2-sticky">
         <motion.div
           className="aa-hero2-media"
@@ -67,16 +67,12 @@ export function ImmersiveHero() {
           />
           <div ref={orbRef} className="aa-hero2-orb" aria-hidden="true" />
           <div className="aa-hero2-shade" />
-          <div className="aa-hero2-scan" />
         </motion.div>
 
-        <div className="aa-hero2-grid" aria-hidden="true" />
-
         <div className="aa-shell aa-hero2-shell">
-          <div className="aa-hero2-top">
-            <span>ASIAN AUTOMOBILES / IRINJALAKUDA</span>
+          <div className="aa-hero2-top aa-hero2-top-minimal">
+            <span>CAR CARE / IRINJALAKUDA</span>
             <span className="aa-hero2-status"><i /> MULTI-BRAND SERVICE</span>
-            <span>SERVICE · REPAIR · PARTS</span>
           </div>
 
           <motion.div
@@ -85,17 +81,17 @@ export function ImmersiveHero() {
           >
             <div className="aa-hero2-eyebrow">
               <span>01</span>
-              <span>CAR CARE / IRINJALAKUDA</span>
+              <span>SERVICE · REPAIR · PARTS</span>
             </div>
 
             <h1>
               <span className="aa-hero2-line">
-                <motion.i initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 0.78, ease }}>
+                <motion.i initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 0.74, ease }}>
                   Keep the drive
                 </motion.i>
               </span>
               <span className="aa-hero2-line aa-hero2-line-outline">
-                <motion.i initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 0.78, delay: 0.07, ease }}>
+                <motion.i initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 0.74, delay: 0.06, ease }}>
                   feeling right.
                 </motion.i>
               </span>
@@ -118,21 +114,9 @@ export function ImmersiveHero() {
             </div>
           </motion.div>
 
-          <div className="aa-hero2-console">
-            <div>
-              <Gauge size={15} />
-              <span>MULTI-BRAND</span>
-              <b>01</b>
-            </div>
-            <div>
-              <Wrench size={15} />
-              <span>SERVICE + PARTS</span>
-              <b>02</b>
-            </div>
-            <div className="aa-hero2-scroll">
-              <span>SCROLL / EXPLORE SERVICES</span>
-              <i><motion.b style={reduceMotion ? { scaleX: 0.38 } : { scaleX: indexScale }} /></i>
-            </div>
+          <div className="aa-hero2-scroll aa-hero2-scroll-minimal">
+            <span>SCROLL / ENTER THE WORKSHOP</span>
+            <i><motion.b style={reduceMotion ? { scaleX: 0.35 } : { scaleX: progressScale }} /></i>
           </div>
         </div>
       </div>
