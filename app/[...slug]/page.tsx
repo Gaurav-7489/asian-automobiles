@@ -149,7 +149,19 @@ function Form({quote=false}:{quote?:boolean}){
   return <section className={"form-stage "+(quote?"quote-stage":"booking-stage")}><div className="wrap form-layout"><div className="form-intro">{quote?<><span className="eyebrow">DAMAGE / PARTS DESK</span><h2>Show us what needs attention.</h2><p>Write it like you would tell a mechanic. Add photos when the final upload connection is enabled.</p><div className="form-side-note"><Camera size={18}/><span>Photos help explain dents, warning lights, parts and visible damage.</span></div></>:<><span className="eyebrow">SERVICE DESK</span><h2>Let's find a sensible time to talk.</h2><p>Give us the basics. The final booking workflow can route this to CRM, email or another approved channel.</p><div className="booking-steps"><span>01 / YOU</span><span>02 / VEHICLE</span><span>03 / SERVICE</span><span>04 / TIME</span></div></>}</div><div className="real-form"><label>Name<input placeholder="What should we call you?"/></label><label>Phone<input placeholder="A number we can reach"/></label><label>Vehicle make / model<input placeholder="e.g. Hyundai i20"/></label><label>{quote?"What needs attention?":"Service needed"}<input placeholder={quote?"Tell it in your own words":"Choose or describe the service"}/></label><label>Preferred date / time<input placeholder="Your preferred slot"/></label><label className="wide">More detail<textarea placeholder={quote?"Noise, damage, part number, warning light — anything useful.":"Anything we should know before the appointment?"}/></label>{quote&&<label className="upload wide"><Upload size={17}/><span>Attach damage / reference photos</span></label>}<button>Send enquiry <ArrowUpRight size={16}/></button><small>Demo frontend. Connect validation, storage, notifications, spam protection and privacy consent before production.</small></div></div></section>
 }
 
-function Booking({quote=false}){ return <Frame eyebrow={quote?"Request a quote / damage desk":"Book a service / service desk"} title={quote?"A photo can say more than a paragraph.":"Let's get the basics on the table."} intro={quote?"Send the problem in your own words and prepare the right details for a repair conversation.":"A focused enquiry form instead of a long generic contact page."><Form quote={quote}/></Frame> }
+function Booking({quote=false}){ 
+  const eyebrow = quote ? "Request a quote / damage desk" : "Book a service / service desk";
+  const title = quote ? "A photo can say more than a paragraph." : "Let's get the basics on the table.";
+  const intro = quote
+    ? "Send the problem in your own words and prepare the right details for a repair conversation."
+    : "A focused enquiry form instead of a long generic contact page.";
+
+  return (
+    <Frame eyebrow={eyebrow} title={title} intro={intro}>
+      <Form quote={quote}/>
+    </Frame>
+  );
+}
 
 function SpareRedirect(){return <Parts/>}
 
