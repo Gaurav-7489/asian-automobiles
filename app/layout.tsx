@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 import "./pro-upgrade.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { InteractiveLayer } from "@/components/interactive";
+import { SmoothScroll } from "@/components/immersive/smooth-scroll";
 
 export const metadata: Metadata = {
   title: "Asian Automobiles | Automotive Service in Irinjalakuda",
@@ -16,6 +18,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body>
+        <SmoothScroll />
         <InteractiveLayer />
         <SiteHeader />
         {children}
