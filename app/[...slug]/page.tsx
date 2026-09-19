@@ -106,9 +106,16 @@ function Insurance(){
 }
 
 function Facilities(){
-  const zones=["Reception","Service bays","Diagnostics","Alignment","Parts","Customer area"];
-  return <Frame eyebrow="09 / Facilities" title="See the place behind the promise." intro="The facilities page is intentionally structured to become a visual tour once original workshop photography is supplied.">
-    <section className="facility-map"><div className="wrap"><div className="facility-grid">{zones.map((x,i)=><div className={"facility-zone z"+i} key={x}><span>0{i+1}</span><b>{x}</b><small>PHOTO SLOT</small></div>)}</div><div className="facility-caption"><div><span className="eyebrow">PHOTOGRAPHY PLAN</span><h2>Tools. Bays. People.<br/><em>The real place.</em></h2></div><p>Detail shots of tools, diagnostics, parts and craft are specifically called for in the blueprint. Replace temporary imagery with approved workshop photography before launch.</p></div></div></section>
+  const zones=[
+    ["Reception",img.interior,"ARRIVAL"],
+    ["Service bays",img.workshop,"WORKSHOP"],
+    ["Diagnostics",img.detail,"DIAGNOSTICS"],
+    ["Alignment",img.road,"WHEEL DESK"],
+    ["Parts",img.repair,"PARTS"],
+    ["Customer area",img.car,"CUSTOMER AREA"]
+  ];
+  return <Frame eyebrow="09 / Facilities" title="See the place behind the promise." intro="A visual tour built around the workshop itself — the bays, tools, diagnostics and people that make the service real.">
+    <section className="facility-map"><div className="wrap"><div className="facility-grid">{zones.map(([x,src,label],i)=><div className={"facility-zone z"+i} key={x} style={{backgroundImage:`linear-gradient(180deg,#0002,#0009),url(${src})`,backgroundSize:"cover",backgroundPosition:"center",color:"#fff"}}><span style={{color:"#ffffffaa"}}>0{i+1}</span><b>{x}</b><small style={{color:"#ffffffaa"}}>{label}</small></div>)}</div><div className="facility-caption"><div><span className="eyebrow">THE WORKSHOP / IN FRAME</span><h2>Tools. Bays. People.<br/><em>The real place.</em></h2></div><p>These are visual placeholders using the site's existing automotive photography until approved Asian Automobiles workshop photographs are supplied. Replace them with real images before launch so the page becomes a genuine visual tour.</p></div></div></section>
   </Frame>
 }
 
