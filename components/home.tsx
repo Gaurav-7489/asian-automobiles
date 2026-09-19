@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import {CarScene} from "@/components/car-scene";
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import {
