@@ -79,7 +79,7 @@ export function Home(){
    <div className="absolute bottom-6 right-6 hidden items-center gap-3 text-[9px] font-bold uppercase tracking-[.25em] text-white/30 md:flex"><span>Scroll to enter</span><ArrowDownRight size={14}/></div>
   </section>
 
-  <Marquee/>
+  <div className="relative bg-[#050b13] py-8"><div className="container-xl relative h-[360px] md:h-[500px]"><CarScene/><div className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2"><div className="font-mono text-[10px] tracking-[.3em] text-white/30">INTERACTIVE VEHICLE / 001</div><div className="mt-3 text-3xl font-black tracking-[-.06em] text-white/80 md:text-5xl">ROTATE<br/>THE MACHINE.</div></div></div></div><Marquee/>
 
   <section className="relative bg-[#f2f4f6] py-24 md:py-36">
    <div className="absolute inset-0 cyber-grid-light opacity-40"/>
