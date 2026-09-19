@@ -126,7 +126,9 @@ export function Home(){
    <div className="aa-container">
     <div className="flex items-end justify-between"><div><p className="aa-kicker text-white/45">07 — TRUST</p><h2 className="aa-section-title aa-light mt-4">WHAT PEOPLE<br/><span>SAY.</span></h2></div><div className="hidden text-xs text-white/35 md:block">01 / 03</div></div>
     <div className="aa-testimonial-track">
-     {[["“Clear communication and the car was ready when promised.”","Customer / Irinjalakuda"],["“The accident repair process was much easier than expected.”","Customer / Thrissur"],["“Professional service without the usual workshop confusion.”","Customer / Kerala"]].map(([q,n],i)=><Reveal key={i} className="aa-testimonial"><div className="flex gap-1 text-[#c8ff3d]">{[1,2,3,4,5].map(x=><Star key={x} size={13} fill="currentColor"/></div><p>{q}</p><span>{n}</span></Reveal>)}
+     <Reveal className="aa-testimonial"><div className="flex gap-1 text-[#c8ff3d]">{[1,2,3,4,5].map(x=><Star key={x} size={13} fill="currentColor"/>)}</div><p>“Clear communication and the car was ready when promised.”</p><span>Customer / Irinjalakuda</span></Reveal>
+     <Reveal className="aa-testimonial" delay={.08}><div className="flex gap-1 text-[#c8ff3d]">{[1,2,3,4,5].map(x=><Star key={x} size={13} fill="currentColor"/>)}</div><p>“The accident repair process was much easier than expected.”</p><span>Customer / Thrissur</span></Reveal>
+     <Reveal className="aa-testimonial" delay={.16}><div className="flex gap-1 text-[#c8ff3d]">{[1,2,3,4,5].map(x=><Star key={x} size={13} fill="currentColor"/>)}</div><p>“Professional service without the usual workshop confusion.”</p><span>Customer / Kerala</span></Reveal>
     </div>
    </div>
   </section>
