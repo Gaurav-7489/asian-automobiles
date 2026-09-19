@@ -866,3 +866,675 @@ html.aa-native-motion .aa-parallax-media img{
   transform:none!important;
 }
 html.aa-native-motion .aa-velocity-track{animation-duration:42s}
+
+
+/* =========================================================
+   V5 — Skiper immersive polish / breathable production UI
+   ========================================================= */
+:root{
+  --aa-ease-premium:cubic-bezier(.16,1,.3,1);
+  --aa-ease-soft:cubic-bezier(.2,.75,.2,1);
+}
+
+/* Cursor should feel precise, not like a loading indicator */
+.aa-cursor-v4{
+  width:8px!important;
+  height:8px!important;
+  margin:-4px!important;
+  border:0!important;
+  background:var(--aa-accent)!important;
+  box-shadow:0 0 0 1px rgba(0,0,0,.18),0 0 18px rgba(216,255,62,.18)!important;
+  transition:opacity .18s ease!important;
+}
+
+/* More breathing room without stretching the page to death */
+.aa-section{
+  padding-block:clamp(96px,9vw,154px)!important;
+}
+.aa-shell{
+  width:min(1380px,calc(100% - clamp(32px,5vw,76px)))!important;
+}
+.aa-section-head{
+  gap:clamp(28px,6vw,90px)!important;
+  margin-bottom:clamp(54px,7vw,96px)!important;
+}
+.aa-intro-grid,
+.aa-process-grid,
+.aa-split-media-grid{
+  column-gap:clamp(52px,8vw,136px)!important;
+}
+
+/* Minimal hero: fewer UI layers, stronger composition */
+.aa-hero2-minimal{
+  height:124svh!important;
+}
+.aa-hero2-minimal .aa-hero2-grid,
+.aa-hero2-minimal .aa-hero2-scan,
+.aa-hero2-minimal .aa-hero2-console{
+  display:none!important;
+}
+.aa-hero2-minimal .aa-hero2-orb{
+  width:360px!important;
+  height:360px!important;
+  opacity:.58!important;
+  background:radial-gradient(circle,rgba(216,255,62,.12) 0%,rgba(216,255,62,.045) 36%,transparent 72%)!important;
+}
+.aa-hero2-minimal .aa-hero2-top-minimal{
+  grid-template-columns:1fr auto!important;
+  padding-bottom:18px!important;
+}
+.aa-hero2-minimal .aa-hero2-top-minimal>span:last-child{
+  text-align:right;
+}
+.aa-hero2-minimal .aa-hero2-copy h1{
+  max-width:1180px;
+  font-size:clamp(5.2rem,11.3vw,12rem)!important;
+  line-height:.78!important;
+}
+.aa-hero2-minimal .aa-hero2-bottom{
+  margin-top:34px!important;
+}
+.aa-hero2-scroll-minimal{
+  margin-top:0;
+  min-height:52px;
+  display:grid!important;
+  grid-template-columns:auto minmax(120px,1fr)!important;
+  align-items:center;
+  gap:20px;
+  border-top:1px solid rgba(255,255,255,.18);
+  color:rgba(255,255,255,.52);
+}
+.aa-hero2-scroll-minimal span{
+  font-size:8px;
+  font-weight:700;
+  letter-spacing:.16em;
+}
+.aa-hero2-scroll-minimal i{
+  position:relative;
+  display:block;
+  height:1px;
+  background:rgba(255,255,255,.16);
+  overflow:hidden;
+}
+.aa-hero2-scroll-minimal i b{
+  position:absolute;
+  inset:0;
+  background:var(--aa-accent);
+  transform-origin:left center;
+}
+
+/* Navigation — legible, premium, slow and stable */
+.aa-header-v5 .aa-nav-main{
+  height:84px!important;
+  transition:
+    height .46s var(--aa-ease-premium),
+    background .46s var(--aa-ease-premium),
+    border-color .46s var(--aa-ease-premium),
+    box-shadow .46s var(--aa-ease-premium)!important;
+}
+.aa-header-v5.is-scrolled .aa-nav-main{
+  height:70px!important;
+  background:rgba(6,6,6,.975)!important;
+}
+.aa-header-v5 .aa-header-inner{
+  gap:clamp(22px,2.5vw,44px)!important;
+}
+.aa-header-v5 .aa-brand-mark{
+  width:42px!important;
+  height:42px!important;
+  font-size:11px!important;
+  border-radius:7px!important;
+}
+.aa-header-v5 .aa-brand-name b{
+  font-size:10px!important;
+  letter-spacing:.13em!important;
+}
+.aa-header-v5 .aa-brand-name small{
+  font-size:7px!important;
+}
+.aa-header-v5 .aa-desktop-nav-v4{
+  gap:6px!important;
+}
+.aa-header-v5 .aa-desktop-nav-v4>a,
+.aa-header-v5 .aa-nav-services>button{
+  min-height:42px!important;
+  padding:0 11px!important;
+  font-size:9.5px!important;
+  letter-spacing:.115em!important;
+  color:rgba(255,255,255,.72)!important;
+  transition:
+    color .32s var(--aa-ease-premium),
+    background .32s var(--aa-ease-premium),
+    transform .32s var(--aa-ease-premium)!important;
+}
+.aa-header-v5 .aa-desktop-nav-v4>a:hover,
+.aa-header-v5 .aa-nav-services>button:hover{
+  color:#fff!important;
+  background:rgba(255,255,255,.055)!important;
+}
+.aa-header-v5 .aa-header-phone{
+  min-height:42px!important;
+  padding-inline:10px!important;
+  font-size:9px!important;
+}
+.aa-header-v5 .aa-header-cta{
+  height:44px!important;
+  padding-inline:17px!important;
+  border-radius:7px!important;
+  font-size:9px!important;
+  transition:
+    box-shadow .34s var(--aa-ease-premium),
+    background .34s var(--aa-ease-premium),
+    transform .34s var(--aa-ease-premium)!important;
+}
+.aa-header-v5 .aa-header-cta:hover{
+  box-shadow:0 14px 42px rgba(216,255,62,.18);
+}
+.aa-header-v5 .aa-nav-services{
+  isolation:isolate;
+}
+.aa-mega-bridge{
+  position:absolute;
+  z-index:4;
+  left:-54px;
+  right:-54px;
+  top:calc(100% - 7px);
+  height:30px;
+  pointer-events:none;
+}
+.aa-header-v5.is-services-open .aa-mega-bridge{
+  pointer-events:auto;
+}
+.aa-header-v5 .aa-mega{
+  top:calc(100% + 9px)!important;
+  width:min(1240px,calc(100vw - 56px))!important;
+  border-radius:12px!important;
+  overflow:hidden;
+  transform:translate(-50%,18px) scale(.985)!important;
+  transform-origin:50% 0%;
+  transition:
+    opacity .28s ease,
+    transform .46s var(--aa-ease-premium),
+    visibility .28s!important;
+}
+.aa-header-v5.is-services-open .aa-mega{
+  transform:translate(-50%,0) scale(1)!important;
+}
+.aa-header-v5 .aa-mega-top{
+  padding:34px 34px 30px!important;
+}
+.aa-header-v5 .aa-mega-top strong{
+  margin-top:1px;
+  font-size:31px!important;
+  letter-spacing:-.05em!important;
+}
+.aa-header-v5 .aa-mega-top small{
+  display:block;
+  margin-top:9px;
+  font-size:10px;
+  color:rgba(255,255,255,.46);
+}
+.aa-header-v5 .aa-mega-top>a{
+  min-height:40px;
+  font-size:9px!important;
+}
+.aa-header-v5 .aa-mega-link{
+  min-height:132px!important;
+  padding:22px!important;
+  transition:
+    background .34s var(--aa-ease-premium),
+    transform .34s var(--aa-ease-premium)!important;
+}
+.aa-header-v5 .aa-mega-link:hover{
+  background:#171717!important;
+}
+.aa-header-v5 .aa-mega-link b{
+  font-size:16px!important;
+  line-height:1.08;
+}
+.aa-header-v5 .aa-mega-link small{
+  margin-top:7px!important;
+  font-size:9px!important;
+}
+.aa-header-v5 .aa-mega-book{
+  min-height:132px!important;
+  padding:22px!important;
+}
+.aa-header-v5 .aa-mega-book b{
+  font-size:21px!important;
+}
+
+/* Home process: Skiper-style cursor-follow preview */
+.aa-process-hover{
+  position:relative;
+  min-width:0;
+}
+.aa-process-hover .aa-process-list{
+  position:relative;
+  z-index:2;
+}
+.aa-process-hover .aa-process-row{
+  position:relative;
+  display:grid!important;
+  grid-template-columns:46px minmax(170px,.72fr) minmax(250px,1fr) auto!important;
+  align-items:center!important;
+  gap:clamp(20px,3vw,48px)!important;
+  min-height:124px!important;
+  padding:24px 0!important;
+  color:inherit;
+  border-top:1px solid rgba(0,0,0,.15)!important;
+  overflow:visible!important;
+  transition:
+    padding .34s var(--aa-ease-premium),
+    color .28s ease,
+    border-color .28s ease!important;
+}
+.aa-process-hover .aa-process-row:last-child{
+  border-bottom:1px solid rgba(0,0,0,.15);
+}
+.aa-process-hover .aa-process-row:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:-1px;
+  width:0;
+  height:2px;
+  background:var(--aa-accent);
+  transition:width .52s var(--aa-ease-premium);
+}
+.aa-process-hover .aa-process-row:hover:before,
+.aa-process-hover .aa-process-row:focus-visible:before{
+  width:100%;
+}
+.aa-process-hover .aa-process-row>span:first-child{
+  font-size:8px;
+  letter-spacing:.15em;
+  opacity:.45;
+}
+.aa-process-hover .aa-process-row h3{
+  margin:0!important;
+  font-size:clamp(1.65rem,2.2vw,2.5rem)!important;
+  line-height:.98!important;
+  letter-spacing:-.045em!important;
+}
+.aa-process-hover .aa-process-row p{
+  margin:0!important;
+  max-width:430px;
+  color:rgba(0,0,0,.56)!important;
+  font-size:12px!important;
+  line-height:1.65!important;
+}
+.aa-process-row-action{
+  display:flex!important;
+  align-items:center;
+  gap:8px;
+  font-size:8px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  opacity:.48;
+  white-space:nowrap;
+  transition:opacity .28s,transform .32s var(--aa-ease-premium);
+}
+.aa-process-row-action b{font-weight:800}
+.aa-process-row:hover .aa-process-row-action{
+  opacity:1;
+  transform:translateX(4px);
+}
+.aa-process-preview{
+  position:absolute;
+  z-index:7;
+  top:0;
+  left:0;
+  width:258px;
+  height:174px;
+  pointer-events:none;
+  will-change:transform;
+}
+.aa-process-preview-media{
+  position:relative;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  border-radius:8px;
+  background:#0b0b0b;
+  box-shadow:0 24px 70px rgba(0,0,0,.2);
+}
+.aa-process-preview-media img{
+  object-fit:cover;
+}
+.aa-process-preview-media:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.65),transparent 46%);
+}
+.aa-process-preview-media>span{
+  position:absolute;
+  z-index:2;
+  left:12px;
+  bottom:10px;
+  font-size:7px;
+  font-weight:800;
+  letter-spacing:.15em;
+  color:#fff;
+}
+
+/* Secondary page system — calmer heads, richer bodies */
+.immersive-page{
+  --page-rule:rgba(0,0,0,.14);
+}
+.immersive-page .creative-head{
+  position:relative;
+  min-height:76svh!important;
+  overflow:hidden;
+}
+.immersive-page .creative-head-grid{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.18;
+  background-image:
+    linear-gradient(rgba(0,0,0,.1) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,0,0,.1) 1px,transparent 1px);
+  background-size:9vw 9vw;
+  mask-image:linear-gradient(to bottom,transparent 8%,#000 48%,transparent 96%);
+}
+.immersive-page .creative-wrap{
+  position:relative;
+  min-height:76svh!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:space-between!important;
+  padding-top:clamp(108px,11vw,150px)!important;
+  padding-bottom:34px!important;
+}
+.immersive-page .creative-heading{
+  max-width:min(1050px,83vw)!important;
+  margin-block:auto!important;
+  padding-block:40px!important;
+}
+.immersive-page .creative-heading .eyebrow{
+  display:block;
+  margin-bottom:18px;
+}
+.immersive-page .creative-heading h1{
+  max-width:1000px;
+  margin:0!important;
+  font-size:clamp(4.5rem,8.4vw,9.2rem)!important;
+  line-height:.86!important;
+  letter-spacing:-.072em!important;
+}
+.immersive-page .creative-heading p{
+  max-width:650px!important;
+  margin-top:28px!important;
+  font-size:14px!important;
+  line-height:1.7!important;
+}
+.immersive-page .creative-compass{
+  align-self:flex-end;
+  display:inline-flex;
+  align-items:center;
+  gap:11px;
+  min-height:42px;
+  color:inherit;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+.immersive-page .creative-compass svg{
+  transform:rotate(90deg);
+  transition:transform .38s var(--aa-ease-premium);
+}
+.immersive-page .creative-compass:hover svg{
+  transform:rotate(90deg) translateX(5px);
+}
+.immersive-page .creative-body>section{
+  position:relative;
+  padding-block:clamp(90px,8vw,138px)!important;
+}
+.immersive-page .creative-body>section>.wrap{
+  width:min(1280px,calc(100% - clamp(32px,5vw,76px)))!important;
+}
+
+/* Scroll reveals across all secondary pages, CSS-only where supported */
+@supports(animation-timeline:view()){
+  .immersive-page .creative-body>section>.wrap{
+    animation:aa-page-section-reveal both var(--aa-ease-premium);
+    animation-timeline:view();
+    animation-range:entry 5% cover 24%;
+  }
+  @keyframes aa-page-section-reveal{
+    from{opacity:.2;transform:translate3d(0,30px,0)}
+    to{opacity:1;transform:none}
+  }
+}
+
+/* Shared Skiper-style interactive surfaces */
+.immersive-page :is(
+  .command-card,
+  .symptom,
+  .diagnostic-flow>div,
+  .claim-step,
+  .wheel-signals>div,
+  .tyre-grid>div,
+  .parts-list>div,
+  .facility-zone,
+  .review-notes>div,
+  .faq-list details,
+  .console-row,
+  .timeline>div
+){
+  position:relative;
+  transition:
+    transform .4s var(--aa-ease-premium),
+    background .32s ease,
+    border-color .32s ease,
+    box-shadow .4s var(--aa-ease-premium)!important;
+}
+.immersive-page :is(
+  .command-card,
+  .symptom,
+  .diagnostic-flow>div,
+  .claim-step,
+  .wheel-signals>div,
+  .tyre-grid>div,
+  .parts-list>div,
+  .facility-zone,
+  .review-notes>div,
+  .faq-list details,
+  .console-row,
+  .timeline>div
+):hover{
+  transform:translate3d(0,-4px,0);
+}
+.immersive-page .command-grid{
+  gap:14px!important;
+}
+.immersive-page .command-card{
+  min-height:320px!important;
+  padding:28px!important;
+}
+.immersive-page .command-card:after{
+  content:"";
+  position:absolute;
+  inset:auto 28px 20px;
+  height:1px;
+  background:currentColor;
+  opacity:.12;
+  transform:scaleX(.18);
+  transform-origin:left;
+  transition:transform .54s var(--aa-ease-premium),opacity .3s;
+}
+.immersive-page .command-card:hover:after{
+  opacity:.35;
+  transform:scaleX(1);
+}
+.immersive-page .command-card .command-go{
+  transition:transform .4s var(--aa-ease-premium),background .3s,color .3s;
+}
+.immersive-page .command-card:hover .command-go{
+  transform:translate3d(5px,-5px,0) rotate(4deg);
+}
+.immersive-page :is(.primary-link,.outline-link,.dark-link){
+  min-height:50px!important;
+  padding-inline:18px!important;
+  gap:9px!important;
+  border-radius:999px!important;
+  transition:
+    transform .36s var(--aa-ease-premium),
+    box-shadow .36s var(--aa-ease-premium),
+    background .3s ease,
+    color .3s ease!important;
+}
+.immersive-page :is(.primary-link,.outline-link,.dark-link) svg{
+  transition:transform .36s var(--aa-ease-premium);
+}
+.immersive-page :is(.primary-link,.outline-link,.dark-link):hover svg{
+  transform:translate3d(3px,-3px,0);
+}
+.immersive-page .primary-link:hover{
+  box-shadow:0 16px 44px rgba(216,255,62,.16);
+}
+
+/* Give real images a subtle physical response */
+.immersive-page :is(
+  .split-photo,
+  .photo-statement,
+  .before-after,
+  .gallery-tile,
+  .facility-zone
+){
+  overflow:hidden;
+}
+.immersive-page :is(
+  .split-photo img,
+  .photo-statement img,
+  .before-after img,
+  .gallery-tile img
+){
+  transition:transform .75s var(--aa-ease-premium)!important;
+}
+.immersive-page :is(
+  .split-photo:hover img,
+  .photo-statement:hover img,
+  .before-after:hover img,
+  .gallery-tile:hover img
+){
+  transform:scale(1.025)!important;
+}
+
+/* Keep typography and controls readable at laptop widths */
+@media(max-width:1280px){
+  .aa-header-v5 .aa-desktop-nav-v4>a,
+  .aa-header-v5 .aa-nav-services>button{
+    font-size:8.6px!important;
+    padding-inline:8px!important;
+  }
+  .aa-header-v5 .aa-header-phone span{
+    display:none;
+  }
+  .aa-header-v5 .aa-mega{
+    width:calc(100vw - 36px)!important;
+  }
+}
+@media(max-width:980px){
+  .aa-header-v5 .aa-nav-main,
+  .aa-header-v5.is-scrolled .aa-nav-main{
+    height:66px!important;
+  }
+  .immersive-page .creative-wrap{
+    min-height:68svh!important;
+    padding-top:92px!important;
+  }
+  .immersive-page .creative-head{
+    min-height:68svh!important;
+  }
+  .immersive-page .creative-heading{
+    max-width:100%!important;
+  }
+  .immersive-page .creative-heading h1{
+    font-size:clamp(3.8rem,12vw,7rem)!important;
+  }
+}
+@media(max-width:820px){
+  .aa-hero2-minimal{
+    height:100svh!important;
+  }
+  .aa-hero2-minimal .aa-hero2-top-minimal{
+    grid-template-columns:1fr!important;
+  }
+  .aa-hero2-minimal .aa-hero2-status{
+    display:none!important;
+  }
+  .aa-process-preview{
+    display:none!important;
+  }
+  .aa-process-hover .aa-process-row{
+    grid-template-columns:34px 1fr auto!important;
+    min-height:0!important;
+    padding:24px 0!important;
+    gap:14px!important;
+  }
+  .aa-process-hover .aa-process-row p{
+    grid-column:2/-1;
+    max-width:100%;
+  }
+  .aa-process-row-action b{
+    display:none;
+  }
+  .immersive-page .creative-body>section{
+    padding-block:72px!important;
+  }
+  .immersive-page .creative-compass{
+    align-self:flex-start;
+  }
+}
+@media(max-width:560px){
+  .aa-section{
+    padding-block:78px!important;
+  }
+  .aa-shell{
+    width:calc(100% - 24px)!important;
+  }
+  .aa-hero2-minimal .aa-hero2-copy h1{
+    font-size:clamp(4.1rem,19vw,6.6rem)!important;
+  }
+  .immersive-page .creative-wrap,
+  .immersive-page .creative-body>section>.wrap{
+    width:calc(100% - 24px)!important;
+  }
+  .immersive-page .creative-heading h1{
+    font-size:clamp(3.45rem,17vw,5.7rem)!important;
+  }
+  .immersive-page .creative-heading p{
+    font-size:13px!important;
+  }
+  .immersive-page .command-card{
+    min-height:260px!important;
+    padding:22px!important;
+  }
+}
+@media(pointer:coarse),(prefers-reduced-motion:reduce),(update:slow){
+  .aa-process-preview,
+  .aa-cursor-v4,
+  .aa-hero2-orb{
+    display:none!important;
+  }
+  .immersive-page :is(
+    .command-card,
+    .symptom,
+    .diagnostic-flow>div,
+    .claim-step,
+    .wheel-signals>div,
+    .tyre-grid>div,
+    .parts-list>div,
+    .facility-zone,
+    .review-notes>div,
+    .faq-list details,
+    .console-row,
+    .timeline>div
+  ):hover{
+    transform:none!important;
+  }
+}
