@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { InteractiveLayer } from "@/components/interactive";
 import { SmoothScroll } from "@/components/immersive/smooth-scroll";
 
+// Production deployment trigger — responsive baseline.
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://asian-automobiles.vercel.app";
 
 export const viewport: Viewport = {
