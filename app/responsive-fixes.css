@@ -216,3 +216,205 @@ body {
   min-width: 0;
   overflow-wrap: anywhere;
 }
+
+
+/* =========================================================
+   RESPONSIVE HARDENING — 2026-09
+   Fixes for very wide desktops, laptop widths, tablets and phones.
+   ========================================================= */
+
+html, body {
+  width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+*, *::before, *::after { min-width: 0; }
+
+.aa-shell,
+.aa-header-v5 .aa-header-inner {
+  width: min(100% - 56px, 1380px);
+}
+
+.aa-header-v5 .aa-header-inner { max-width: 1380px; }
+
+.aa-hero-v8,
+.aa-hero-v8 .aa-hero2-sticky {
+  width: 100%;
+  max-width: 100%;
+}
+
+.aa-hero-v8 .aa-hero2-shell {
+  width: min(100% - 56px, 1380px);
+  margin-inline: auto;
+}
+
+/* Prevent the desktop mega menu from being wider than the viewport. */
+@media (min-width: 1321px) {
+  .aa-header-v5 .aa-mega {
+    width: min(1040px, calc(100vw - 40px)) !important;
+    max-width: calc(100vw - 40px) !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+  }
+}
+
+/* Medium desktop: stop nav/header from crushing the brand and menu. */
+@media (min-width: 1101px) and (max-width: 1399px) {
+  .aa-header-v5 .aa-header-inner {
+    width: calc(100% - 40px) !important;
+    gap: 14px !important;
+  }
+
+  .aa-header-v5 .aa-desktop-nav-v4 { gap: 14px !important; }
+  .aa-header-v5 .aa-desktop-nav-v4 a,
+  .aa-header-v5 .aa-desktop-nav-v4 button,
+  .aa-header-v5 .aa-header-phone {
+    font-size: 8px !important;
+    letter-spacing: .11em !important;
+  }
+
+  .aa-header-v5 .aa-brand-name b { font-size: 8px !important; }
+}
+
+/* Tablet / small laptop: always use the compact header. */
+@media (max-width: 1100px) {
+  .aa-shell,
+  .aa-hero-v8 .aa-hero2-shell {
+    width: min(100% - 36px, 1380px) !important;
+  }
+
+  .aa-header-v5 .aa-header-inner {
+    width: calc(100% - 32px) !important;
+    margin-inline: auto !important;
+  }
+}
+
+/* Tablets: keep hero typography inside the viewport and stop giant line offsets. */
+@media (min-width: 561px) and (max-width: 1100px) {
+  .aa-hero-v8 .aa-hero2-copy h1 {
+    font-size: clamp(4.3rem, 11.5vw, 8rem) !important;
+  }
+
+  .aa-hero-v8 .aa-hero2-line:nth-child(2) { padding-left: 0 !important; }
+  .aa-hero-v8 .aa-hero2-bottom {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    max-width: 760px !important;
+  }
+
+  .aa-home-v8 .aa-process-row,
+  .aa-home-v8 .aa-service-row,
+  .aa-home-v8 .aa-facility-menu button {
+    min-width: 0;
+  }
+}
+
+/* Phone composition: no negative/overflowing desktop geometry. */
+@media (max-width: 560px) {
+  .aa-shell,
+  .aa-hero-v8 .aa-hero2-shell {
+    width: calc(100% - 28px) !important;
+  }
+
+  .aa-hero-v8 {
+    min-height: 100svh !important;
+    height: 112svh !important;
+  }
+
+  .aa-hero-v8 .aa-hero2-sticky { min-height: 100svh !important; }
+  .aa-hero-v8 .aa-hero2-shell { padding-top: 92px !important; }
+  .aa-hero-v8 .aa-hero2-copy { padding-bottom: 8px !important; }
+
+  .aa-hero-v8 .aa-hero2-copy h1 {
+    max-width: 100% !important;
+    font-size: clamp(3.4rem, 16vw, 5.8rem) !important;
+    line-height: .82 !important;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .aa-hero-v8 .aa-hero2-line,
+  .aa-hero-v8 .aa-hero2-line:nth-child(2) {
+    padding-left: 0 !important;
+  }
+
+  .aa-hero-v8 .aa-hero2-bottom {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+    max-width: 100% !important;
+    margin-top: 22px !important;
+  }
+
+  .aa-hero-v8 .aa-hero2-bottom p {
+    max-width: 100% !important;
+    font-size: 12px !important;
+    line-height: 1.55 !important;
+  }
+
+  .aa-hero-v8 .aa-hero2-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 52px;
+    gap: 8px;
+  }
+
+  .aa-hero-v8 .aa-hero2-primary {
+    min-width: 0 !important;
+    width: 100%;
+  }
+
+  .aa-hero-v8 .aa-hero-v8-grid { background-size: 26vw 26vw; }
+  .aa-hero-v8 .aa-hero2-orb { width: 220px !important; height: 220px !important; }
+  .aa-hero-v8 .aa-hero2-media img { object-position: 64% center !important; }
+
+  .aa-hero-v8-meta {
+    grid-template-columns: 1fr !important;
+    gap: 5px !important;
+  }
+
+  .aa-hero-v8-meta span:not(:first-child) { display: none; }
+}
+
+/* Ultra-small phones / narrow embeds. */
+@media (max-width: 360px) {
+  .aa-shell,
+  .aa-hero-v8 .aa-hero2-shell {
+    width: calc(100% - 20px) !important;
+  }
+
+  .aa-header-v5 .aa-brand-name b {
+    max-width: 44vw !important;
+    font-size: 7px !important;
+  }
+
+  .aa-hero-v8 .aa-hero2-copy h1 {
+    font-size: clamp(3rem, 15.5vw, 4.6rem) !important;
+  }
+}
+
+/* Landscape phones: give the hero enough breathing room without overflow. */
+@media (max-height: 560px) and (orientation: landscape) {
+  .aa-hero-v8 { height: 135svh !important; }
+  .aa-hero-v8 .aa-hero2-shell { padding-top: 78px !important; }
+  .aa-hero-v8 .aa-hero2-copy h1 { font-size: clamp(3.4rem, 9.4vw, 6.5rem) !important; }
+  .aa-hero-v8 .aa-hero2-bottom { margin-top: 16px !important; }
+}
+
+/* Safe-area support for iPhones with notches/home indicators. */
+@supports (padding: max(0px)) {
+  .aa-header-v5 .aa-header-inner {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+}
+
+/* Remove desktop hover transforms that cause clipped previews on touch layouts. */
+@media (pointer: coarse) {
+  .aa-service-image,
+  .aa-need-preview { display: none !important; }
+  .aa-service-row:hover,
+  .aa-need-row:hover,
+  .aa-facility-menu button:hover { padding-left: 0 !important; padding-right: 0 !important; }
+}
