@@ -19,6 +19,7 @@ import {
   type FacilityItem,
   type NeedItem,
 } from "@/components/immersive/workshop-experiences";
+import { businessFacts, directionsHref } from "@/lib/business-facts";
 
 const images = {
   service: "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1800&q=78",
@@ -28,39 +29,38 @@ const images = {
   mechanic: "https://images.unsplash.com/photo-1632823469850-1b7b1e8b7e3d?auto=format&fit=crop&w=1800&q=76",
   wheel: "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1800&q=76",
   paint: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1800&q=76",
-  road: "https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1800&q=76",
 };
 
 const services: StackService[] = [
   {
     no: "01",
-    meta: "MAINTENANCE / REPAIR",
-    title: "General service & mechanical repair",
-    text: "Routine maintenance or mechanical trouble — start with what you notice and move straight to the right service.",
+    meta: "ROUTINE / MECHANICAL",
+    title: "General car service & repairs",
+    text: "Routine maintenance and general mechanical repair enquiries for private cars.",
     href: "/services/car-service/",
     image: images.service,
   },
   {
     no: "02",
-    meta: "COOLING / AIRFLOW",
+    meta: "AC / SERVICE",
     title: "Car AC service & repair",
-    text: "When cooling or airflow stops feeling right, start with a focused AC service and repair enquiry.",
+    text: "A dedicated route for verified car AC service and repair enquiries.",
     href: "/services/car-ac-repair/",
     image: images.blackCar,
   },
   {
     no: "03",
-    meta: "BODY / RESTORATION",
-    title: "Accident repair, denting & painting",
-    text: "Accident restoration, denting and painting with a clearer next step and insurance assistance close at hand.",
+    meta: "ACCIDENT / BODYWORK",
+    title: "Denting, painting & accident repair",
+    text: "Accident restoration, denting and painting, with a direct bridge to insurance assistance.",
     href: "/services/accident-repair/",
     image: images.detail,
   },
   {
     no: "04",
     meta: "WHEELS / TYRES",
-    title: "Alignment, balancing & tyre services",
-    text: "Computerized wheel alignment, balancing, tyre repair and rim-repair enquiries without the guesswork.",
+    title: "Wheel alignment, balancing & tyre services",
+    text: "Computerized wheel alignment, wheel balancing, tyre repair and rim-repair enquiries.",
     href: "/services/wheel-alignment/",
     image: images.wheel,
   },
@@ -68,55 +68,54 @@ const services: StackService[] = [
     no: "05",
     meta: "PARTS / ENQUIRY",
     title: "Automobile spare parts",
-    text: "Service and parts sit under the same business — start with the vehicle and the part requirement.",
+    text: "An enquiry-first route for the automobile-parts side of the business.",
     href: "/spare-parts/",
     image: images.blackCar,
   },
 ];
 
 const needs: NeedItem[] = [
-  { no: "01", title: "Something sounds or feels wrong", meta: "DIAGNOSIS / SERVICE", href: "/services/car-service/", image: images.mechanic },
-  { no: "02", title: "The AC is not cooling properly", meta: "AC / AIRFLOW", href: "/services/car-ac-repair/", image: images.service },
-  { no: "03", title: "Steering or tyres feel off", meta: "WHEELS / TYRES", href: "/services/wheel-alignment/", image: images.wheel },
-  { no: "04", title: "The car has accident damage", meta: "BODY / RESTORATION", href: "/services/accident-repair/", image: images.detail },
-  { no: "05", title: "I need denting or paint work", meta: "BODY / PAINT", href: "/services/denting-painting/", image: images.paint },
-  { no: "06", title: "I need a spare part", meta: "PARTS / ENQUIRY", href: "/spare-parts/", image: images.blackCar },
+  { no: "01", title: "Routine service or mechanical repair", meta: "SERVICE / REPAIR", href: "/services/car-service/", image: images.mechanic },
+  { no: "02", title: "Car AC service or repair", meta: "AC / SERVICE", href: "/services/car-ac-repair/", image: images.service },
+  { no: "03", title: "Accident damage, denting or painting", meta: "ACCIDENT / BODYWORK", href: "/services/accident-repair/", image: images.detail },
+  { no: "04", title: "Wheel, balancing, tyre or rim work", meta: "WHEELS / TYRES", href: "/services/wheel-alignment/", image: images.wheel },
+  { no: "05", title: "Automobile spare-parts enquiry", meta: "PARTS / ENQUIRY", href: "/spare-parts/", image: images.blackCar },
 ];
 
 const facilities: FacilityItem[] = [
   {
     no: "01",
-    title: "Mechanical service",
-    meta: "ROUTINE / REPAIR",
-    description: "Multi-brand maintenance and mechanical repair with a direct path from symptom to workshop conversation.",
-    image: images.mechanic,
+    title: "Workshop floor",
+    meta: "REAL PHOTOGRAPHY",
+    description: "The final facility story should be shown with client-approved workshop photography rather than generic automotive imagery.",
+    image: images.workshop,
   },
   {
     no: "02",
-    title: "Wheel care",
-    meta: "ALIGNMENT / BALANCING",
-    description: "Alignment, balancing, tyre and rim-care enquiries presented as one focused wheel-care pathway.",
-    image: images.wheel,
+    title: "Service bays",
+    meta: "WORKSHOP PROOF",
+    description: "Service-bay photography can show the working environment without publishing unconfirmed bay, lift or equipment counts.",
+    image: images.service,
   },
   {
     no: "03",
-    title: "Body repair",
-    meta: "ACCIDENT / RESTORATION",
-    description: "Accident repair and restoration support with a dedicated insurance assistance route when relevant.",
-    image: images.detail,
+    title: "Alignment equipment",
+    meta: "WHEEL SERVICE",
+    description: "The blueprint specifically calls for real alignment-equipment photography; equipment brands remain confirmation-gated.",
+    image: images.wheel,
   },
   {
     no: "04",
-    title: "Denting & paint",
-    meta: "BODYWORK / FINISH",
-    description: "Body correction and paintwork for damage, dents and finish restoration.",
+    title: "Repair activity",
+    meta: "SERVICE / BODYWORK",
+    description: "Real repair activity should be the primary visual proof for service, accident repair, denting and painting.",
     image: images.paint,
   },
   {
     no: "05",
-    title: "Parts support",
-    meta: "SERVICE / SPARES",
-    description: "Automobile parts support connected directly to the workshop rather than isolated from the service experience.",
+    title: "Parts inventory",
+    meta: "PARTS BUSINESS",
+    description: "The automobile-parts business should receive equal visibility, supported by approved inventory and product photography.",
     image: images.blackCar,
   },
 ];
@@ -125,7 +124,7 @@ const process: ProcessHoverItem[] = [
   {
     no: "01",
     title: "Choose the need",
-    text: "Service, AC, accident repair, wheels and tyres, or parts.",
+    text: "General service, AC, accident/bodywork, wheels and tyres, or spare parts.",
     href: "/services/",
     image: images.service,
     label: "Explore services",
@@ -133,16 +132,16 @@ const process: ProcessHoverItem[] = [
   {
     no: "02",
     title: "Share the vehicle",
-    text: "Give the useful details: vehicle, concern and anything you have noticed.",
+    text: "Provide the vehicle, service or parts requirement, and any useful notes.",
     href: "/request-quote/",
     image: images.detail,
     label: "Share details",
   },
   {
     no: "03",
-    title: "Connect directly",
-    text: "Prefer a conversation? Call the workshop and start with what you are noticing.",
-    href: "tel:+919349002038",
+    title: "Call the workshop",
+    text: "Use the verified primary number to speak directly with Asian Automobiles.",
+    href: "tel:" + businessFacts.phones.primaryHref,
     image: images.blackCar,
     label: "Call workshop",
     external: true,
@@ -150,7 +149,7 @@ const process: ProcessHoverItem[] = [
   {
     no: "04",
     title: "Plan the visit",
-    text: "Use the verified address and directions when you are ready to come in.",
+    text: "Use the verified Kattoor Road address and directions before travelling.",
     href: "/contact/",
     image: images.workshop,
     label: "Get directions",
@@ -158,17 +157,17 @@ const process: ProcessHoverItem[] = [
 ];
 
 const trust = [
-  ["MULTI-BRAND", "Independent car service"],
+  ["MULTI-BRAND", "Independent private-car service"],
   ["SERVICE + PARTS", "Two connected business pillars"],
   ["ACCIDENT REPAIR", "Restoration, denting & painting"],
-  ["WHEEL CARE", "Alignment, balancing & tyre repair"],
+  ["WHEEL SERVICES", "Alignment, balancing, tyre & rim repair"],
   ["IRINJALAKUDA", "Kattoor Road · Thrissur"],
 ];
 
-const principles = [
-  ["01", "Clear communication matters as much as the repair itself.", "SERVICE EXPERIENCE"],
-  ["02", "The website should make it obvious where to start, even when the problem is not obvious.", "WORKSHOP JOURNEY"],
-  ["03", "Service, repair and parts should feel like one connected experience.", "ASIAN AUTOMOBILES"],
+const verifiedFoundation = [
+  ["01", "Independent multi-brand service center for private cars.", "VEHICLE POSITIONING"],
+  ["02", "Car repair and services plus automobile spare parts under one business.", "BUSINESS MODEL"],
+  ["03", businessFacts.address.full + ".", "VERIFIED LOCATION"],
 ];
 
 export function EditorialHome() {
@@ -191,7 +190,7 @@ export function EditorialHome() {
         </div>
       </section>
 
-      <section className="aa-trust-rail" aria-label="Asian Automobiles capabilities">
+      <section className="aa-trust-rail" aria-label="Asian Automobiles verified capabilities">
         <div className="aa-shell aa-trust-rail-grid">
           {trust.map(([title, text], index) => (
             <div key={title}>
@@ -207,24 +206,25 @@ export function EditorialHome() {
         <div className="aa-shell aa-intro-grid">
           <div className="aa-section-rail">
             <span>01 / ASIAN AUTOMOBILES</span>
-            <p>One place for service, repair and automobile parts — with a clearer way to find what the car needs.</p>
+            <p>Independent multi-brand car service and automobile spare parts in Irinjalakuda.</p>
           </div>
 
           <div className="aa-intro-main aa-view-reveal">
             <p className="aa-kicker">SERVICE + REPAIR + PARTS / IRINJALAKUDA</p>
             <h2>
-              Not just a workshop.
+              Service & repair.
               <br />
-              <em>A complete automotive partner.</em>
+              <em>Automobile spare parts.</em>
             </h2>
             <div className="aa-intro-foot">
               <p>
-                Asian Automobiles brings multi-brand service, mechanical repair, accident restoration,
-                wheel care and automobile parts into one connected experience. The website now behaves
-                the same way: find the need, see the right path and act without friction.
+                Asian Automobiles combines two verified business pillars: car repair and services,
+                and automobile spare parts. The service structure is built around the verified
+                categories in the client blueprint, with direct routes for booking, quotes,
+                insurance assistance and workshop contact.
               </p>
               <Link data-magnetic prefetch={false} href="/about/" className="aa-text-link">
-                Know Asian Automobiles <ArrowUpRight size={15} />
+                About Asian Automobiles <ArrowUpRight size={15} />
               </Link>
             </div>
           </div>
@@ -235,14 +235,14 @@ export function EditorialHome() {
         <div className="aa-shell">
           <div className="aa-section-head">
             <div>
-              <span className="aa-kicker">02 / SERVICES</span>
+              <span className="aa-kicker">02 / VERIFIED SERVICE PILLARS</span>
               <h2 className="aa-view-reveal">
-                Hear it. Feel it. See it.
+                Start with the need.
                 <br />
-                <em>Start in the right place.</em>
+                <em>Go to the right service.</em>
               </h2>
             </div>
-            <span className="aa-count">5 WAYS WE CAN HELP</span>
+            <span className="aa-count">5 CORE PATHS</span>
           </div>
 
           <SkiperServiceStack services={services} />
@@ -253,10 +253,10 @@ export function EditorialHome() {
         <div className="aa-shell">
           <div className="aa-needs-head">
             <div>
-              <span className="aa-kicker aa-kicker-light">03 / START WITH THE SYMPTOM</span>
+              <span className="aa-kicker aa-kicker-light">03 / PROBLEM-LED NAVIGATION</span>
               <h2 className="aa-view-reveal">What does<br /><em>the car need?</em></h2>
             </div>
-            <p>You do not need to know the technical answer first. Start with what you notice and move to the closest service path.</p>
+            <p>Choose the closest verified service category. Vehicle-brand coverage and exact makes/models are kept off the site until the client confirms them.</p>
           </div>
           <NeedExplorer items={needs} />
         </div>
@@ -265,30 +265,31 @@ export function EditorialHome() {
       <section className="aa-proof-v3 aa-section-dark aa-workshop-story">
         <div className="aa-shell">
           <div className="aa-proof-v3-head">
-            <span className="aa-kicker aa-kicker-light">04 / WORKSHOP DETAIL</span>
+            <span className="aa-kicker aa-kicker-light">04 / WORKSHOP PROOF</span>
             <h2 className="aa-view-reveal">
-              Built for the work.
+              Real work needs
               <br />
-              <em>Designed around clarity.</em>
+              <em>real visual proof.</em>
             </h2>
             <p>
-              Large workshop imagery, close details and technical context create an editorial rhythm without hiding the actual service information.
+              The blueprint calls for actual workshop photography — exterior, service bays, alignment equipment,
+              repair activity, parts inventory and customer-facing areas — as the primary visual proof.
             </p>
           </div>
 
           <div className="aa-reveal-wall">
             <figure className="aa-reveal-shot aa-shot-a">
-              <Image src={images.service} alt="Automotive service environment" fill quality={72} sizes="(max-width: 900px) 94vw, 62vw" />
-              <figcaption><span>SERVICE / 01</span><b>Maintenance and mechanical repair.</b></figcaption>
+              <Image src={images.service} alt="Temporary automotive service visual pending client workshop photography" fill quality={72} sizes="(max-width: 900px) 94vw, 62vw" />
+              <figcaption><span>PHOTO BRIEF / 01</span><b>Workshop and service activity.</b></figcaption>
             </figure>
             <figure className="aa-reveal-shot aa-shot-b">
-              <Image src={images.detail} alt="Automotive repair detail" fill quality={70} sizes="(max-width: 900px) 88vw, 42vw" />
-              <figcaption><span>REPAIR / 02</span><b>Accident restoration, denting and painting.</b></figcaption>
+              <Image src={images.detail} alt="Temporary automotive repair visual pending client workshop photography" fill quality={70} sizes="(max-width: 900px) 88vw, 42vw" />
+              <figcaption><span>PHOTO BRIEF / 02</span><b>Repair and technical detail.</b></figcaption>
             </figure>
             <aside className="aa-reveal-note">
               <Gauge size={22} />
-              <span>PRECISION / WITHOUT THE NOISE</span>
-              <h3>Useful information should feel as considered as the work itself.</h3>
+              <span>PHOTOGRAPHY / CLIENT APPROVAL</span>
+              <h3>Final production imagery should be real, high-resolution and attributable to the workshop.</h3>
               <Link data-magnetic prefetch={false} href="/facilities/">Explore facilities <ArrowUpRight size={14} /></Link>
             </aside>
           </div>
@@ -300,7 +301,7 @@ export function EditorialHome() {
           <span>SERVICE.</span>
           <strong>REPAIR.</strong>
           <span>PARTS.</span>
-          <strong>PRECISION.</strong>
+          <strong>IRINJALAKUDA.</strong>
         </div>
       </section>
 
@@ -309,9 +310,9 @@ export function EditorialHome() {
           <div className="aa-restoration-head">
             <div>
               <span className="aa-kicker">05 / ACCIDENT RESTORATION</span>
-              <h2 className="aa-view-reveal">See the difference.<br /><em>Control the comparison.</em></h2>
+              <h2 className="aa-view-reveal">Denting. Painting.<br /><em>Accident restoration.</em></h2>
             </div>
-            <p>Drag the divider to compare the visual story. On touch devices the same interaction remains direct and native.</p>
+            <p>The blueprint supports these services. Final before/after case studies should use consented customer photography and must not imply a result from unrelated stock imagery.</p>
           </div>
           <BeforeAfterSlider before={images.detail} after={images.blackCar} />
         </div>
@@ -320,13 +321,13 @@ export function EditorialHome() {
       <section className="aa-facilities aa-section-dark">
         <div className="aa-shell">
           <div className="aa-facilities-head">
-            <span className="aa-kicker aa-kicker-light">06 / THE WORKSHOP</span>
-            <h2 className="aa-view-reveal">Different needs.<br /><em>One connected workshop.</em></h2>
+            <span className="aa-kicker aa-kicker-light">06 / FACILITIES</span>
+            <h2 className="aa-view-reveal">Show the workshop.<br /><em>Keep the details verified.</em></h2>
           </div>
           <FacilityExplorer items={facilities} />
           <div className="aa-facilities-link">
             <Link data-magnetic href="/facilities/" prefetch={false} className="aa-light-button">
-              Explore all facilities <ArrowUpRight size={15} />
+              Explore facilities <ArrowUpRight size={15} />
             </Link>
           </div>
         </div>
@@ -335,14 +336,16 @@ export function EditorialHome() {
       <section className="aa-process aa-section">
         <div className="aa-shell aa-process-grid">
           <div className="aa-process-copy">
-            <span className="aa-kicker">07 / A CLEARER START</span>
+            <span className="aa-kicker">07 / CONVERSION PATH</span>
             <h2 className="aa-view-reveal">
-              From “something feels off”
+              Service, quote,
               <br />
-              <em>to the right conversation.</em>
+              <em>call or directions.</em>
             </h2>
             <p>
-              Every major need gets its own clear path, so a symptom or requirement can turn into the right workshop conversation without the usual guesswork.
+              The blueprint prioritizes direct high-intent actions: Book a Service, Call, Get Directions,
+              Request a Quote and Insurance Assistance. WhatsApp remains off the live interface until the
+              official business number is confirmed.
             </p>
           </div>
 
@@ -353,23 +356,25 @@ export function EditorialHome() {
       <section className="aa-split-media aa-section-dark aa-insurance-stage">
         <div className="aa-shell aa-split-media-grid">
           <div className="aa-split-image aa-parallax-media">
-            <Image src={images.blackCar} alt="Car body detail" fill quality={72} sizes="(max-width: 900px) 100vw, 55vw" />
-            <div className="aa-image-index">08 / ACCIDENT + INSURANCE</div>
+            <Image src={images.blackCar} alt="Temporary accident-repair visual pending approved workshop photography" fill quality={72} sizes="(max-width: 900px) 100vw, 55vw" />
+            <div className="aa-image-index">08 / CASHLESS INSURANCE REPAIRS</div>
           </div>
           <div className="aa-split-copy">
-            <span className="aa-kicker aa-kicker-light">08 / ACCIDENT + INSURANCE</span>
+            <span className="aa-kicker aa-kicker-light">08 / INSURANCE ASSISTANCE</span>
             <h2 className="aa-view-reveal">
-              Damage is stressful enough.
+              Accident repair
               <br />
-              <em>The next step should not be.</em>
+              <em>with a dedicated insurance path.</em>
             </h2>
             <p>
-              Start an accident-repair enquiry, share the useful vehicle and damage details, and use the dedicated insurance pathway for current eligibility questions.
+              The supplied research references cashless-network relationships with New India Assurance
+              and United India Insurance. Current insurer participation and case eligibility should be
+              confirmed with the workshop before repair work begins.
             </p>
             <div className="aa-split-points">
-              <span><ShieldCheck size={17} /> Insurance repair assistance</span>
+              <span><ShieldCheck size={17} /> Cashless repair references in supplied research</span>
               <span><Sparkles size={17} /> Denting & painting</span>
-              <span><Wrench size={17} /> Accident restoration enquiries</span>
+              <span><Wrench size={17} /> Accident restoration</span>
             </div>
             <Link data-magnetic prefetch={false} href="/insurance/" className="aa-light-button">
               Explore insurance assistance <ArrowUpRight size={15} />
@@ -381,11 +386,11 @@ export function EditorialHome() {
       <section className="aa-reviews aa-section">
         <div className="aa-shell">
           <div className="aa-reviews-head">
-            <span className="aa-kicker">09 / EXPERIENCE PRINCIPLES</span>
-            <h2 className="aa-view-reveal">Small details.<br /><em>One premium rhythm.</em></h2>
+            <span className="aa-kicker">09 / VERIFIED FOUNDATION</span>
+            <h2 className="aa-view-reveal">Only publish<br /><em>what is supported.</em></h2>
           </div>
           <div className="aa-review-rail">
-            {principles.map(([no, statement, meta]) => (
+            {verifiedFoundation.map(([no, statement, meta]) => (
               <article className="aa-review-card" key={no}>
                 <span>{no}</span>
                 <blockquote>{statement}</blockquote>
@@ -400,19 +405,21 @@ export function EditorialHome() {
       <section className="aa-location aa-section-dark">
         <div className="aa-shell aa-location-grid">
           <div className="aa-location-copy">
-            <span className="aa-kicker aa-kicker-light">10 / VISIT THE WORKSHOP</span>
-            <h2 className="aa-view-reveal">Irinjalakuda.<br /><em>Kattoor Road.</em></h2>
-            <p>283 / V-526, Govt Rest House, Kattoor Road, Irinjalakuda, Thrissur - 680121, Kerala.</p>
+            <span className="aa-kicker aa-kicker-light">10 / CONTACT & DIRECTIONS</span>
+            <h2 className="aa-view-reveal">{businessFacts.address.locality}.<br /><em>Kattoor Road.</em></h2>
+            <p>{businessFacts.address.full}.</p>
             <div className="aa-location-actions">
-              <a data-magnetic href="https://www.google.com/maps/search/?api=1&query=283%20V-526%20Govt%20Rest%20House%20Kattoor%20Road%20Irinjalakuda%20Thrissur%20680121%20Kerala" target="_blank" rel="noreferrer" className="aa-light-button">
+              <a data-magnetic href={directionsHref} target="_blank" rel="noreferrer" className="aa-light-button">
                 Get directions <ArrowUpRight size={15} />
               </a>
-              <a data-magnetic href="tel:+919349002038" className="aa-location-phone"><Phone size={15} /> +91 93490 02038</a>
+              <a data-magnetic href={"tel:" + businessFacts.phones.primaryHref} className="aa-location-phone">
+                <Phone size={15} /> {businessFacts.phones.primaryDisplay}
+              </a>
             </div>
           </div>
           <figure className="aa-location-media">
-            <Image src={images.workshop} alt="Automotive workshop" fill quality={72} sizes="(max-width: 900px) 100vw, 55vw" />
-            <figcaption><MapPin size={15} /> IRINJALAKUDA / THRISSUR / KERALA</figcaption>
+            <Image src={images.workshop} alt="Temporary workshop visual pending approved Asian Automobiles photography" fill quality={72} sizes="(max-width: 900px) 100vw, 55vw" />
+            <figcaption><MapPin size={15} /> {businessFacts.address.locality.toUpperCase()} / {businessFacts.address.district.toUpperCase()} / {businessFacts.address.region.toUpperCase()}</figcaption>
           </figure>
         </div>
       </section>
@@ -421,12 +428,12 @@ export function EditorialHome() {
         <div className="aa-shell aa-final-grid">
           <span className="aa-kicker aa-kicker-light">ASIAN AUTOMOBILES / IRINJALAKUDA</span>
           <h2 className="aa-view-reveal">
-            Your car needs attention?
+            Need service, repair
             <br />
-            <em>We are ready.</em>
+            <em>or a parts enquiry?</em>
           </h2>
           <div>
-            <p>Service, repair or parts — start with what the car needs.</p>
+            <p>Start with the verified service path or call the workshop directly.</p>
             <Link data-magnetic prefetch={false} href="/book-service/" className="aa-light-button">
               Book a service <ArrowUpRight size={15} />
             </Link>
