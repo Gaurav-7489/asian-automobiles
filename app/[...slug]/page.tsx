@@ -104,14 +104,14 @@ function Wheel(){
 }
 
 function Tyres(){
-  return <Frame eyebrow="06 / Tyre services" title="Your tyres are where the road starts." intro="A quick, practical route for tyre, puncture, balancing and related enquiries.">
-    <section className="tyre-wall"><div className="wrap"><div className="tyre-hero-card"><div className="tread"><span/><span/><span/><span/><span/></div><div><span className="eyebrow light">TYRE DESK / READY</span><h2>What's happening<br/>at the contact patch?</h2><p>Tell us what you see or feel. A photo is useful too.</p><CTA label="Start a tyre enquiry" href="/request-quote/"/></div></div><div className="tyre-grid">{["Puncture / repair","Balancing","Tyre enquiry","Rim concern"].map((x,i)=><div key={x}><small>0{i+1}</small><h3>{x}</h3><ArrowUpRight size={17}/></div>)}</div></div></section>
+  return <Frame eyebrow="06 / Tyre services" title="Tyre repair, balancing and rim-repair enquiries." intro="A dedicated route for the verified wheel and tyre service scope.">
+    <section className="tyre-wall"><div className="wrap"><div className="tyre-hero-card"><div className="tread"><span/><span/><span/><span/><span/></div><div><span className="eyebrow light">VERIFIED SERVICE SCOPE</span><h2>Tyre repair.<br/>Wheel balancing.</h2><p>Rim repair and tyre-service enquiries are also included in the verified service list.</p><CTA label="Start a tyre enquiry" href="/request-quote/"/></div></div><div className="tyre-grid">{["Tyre repair / puncture","Wheel balancing","Rim repair","Tyre enquiry"].map((x,i)=><div key={x}><small>0{i+1}</small><h3>{x}</h3><ArrowUpRight size={17}/></div>)}</div></div></section>
   </Frame>
 }
 
 function Parts(){
-  return <Frame eyebrow="07 / Automobile spare parts" title="Don't know the part number? That's okay." intro="Start with the vehicle and the thing you need. We can turn the conversation into the right parts enquiry.">
-    <section className="parts-desk"><div className="wrap parts-grid"><div className="parts-list">{["Vehicle make / model","Year / variant","Part you need","Quantity","Photo or reference number"].map((x,i)=><div key={x}><b>0{i+1}</b><span>{x}</span><ArrowRight size={15}/></div>)}</div><div className="parts-receipt"><PackageSearch size={30}/><span>PARTS REQUEST</span><h2>Tell us what<br/>you're looking for.</h2><p>Live inventory and ecommerce are not assumed here. This is an enquiry-first route until stock data is connected.</p><Link data-magnetic className="primary-link" href="/request-quote/">Make a parts enquiry <ArrowUpRight size={15}/></Link></div></div></section>
+  return <Frame eyebrow="07 / Automobile spare parts" title="Automobile spare parts, enquiry first." intro="The blueprint gives the parts business equal visibility to service and repair, without assuming a live inventory or ecommerce system.">
+    <section className="parts-desk"><div className="wrap parts-grid"><div className="parts-list">{["Name / phone","Vehicle or part requirement","Quantity","Notes"].map((x,i)=><div key={x}><b>0{i+1}</b><span>{x}</span><ArrowRight size={15}/></div>)}</div><div className="parts-receipt"><PackageSearch size={30}/><span>PARTS INQUIRY</span><h2>Tell us what<br/>you need.</h2><p>Product availability, warranty wording and OEM authorization are not assumed. Exact terms should be confirmed with the workshop.</p><Link data-magnetic className="primary-link" href="/request-quote/">Make a parts enquiry <ArrowUpRight size={15}/></Link></div></div></section>
   </Frame>
 }
 
@@ -150,8 +150,8 @@ function Reviews(){
 }
 
 function Contact(){
-  return <Frame eyebrow="12 / Contact & directions" title="Come by. Call first. Either way, make the next move easy." intro="283 / V-526, Govt Rest House, Kattoor Road, Irinjalakuda, Thrissur — 680121, Kerala.">
-    <section className="contact-map"><div className="wrap contact-map-grid"><div className="map-art"><div className="map-road r1"/><div className="map-road r2"/><div className="map-road r3"/><div className="map-pin"><MapPin size={24}/><span>ASIAN<br/>AUTOMOBILES</span></div><span className="map-label l1">KATTOOR ROAD</span><span className="map-label l2">IRINJALAKUDA</span></div><div className="contact-console"><div><span className="eyebrow">CONTACT CONSOLE</span><h2>Talk to the workshop.</h2></div><a href={"tel:"+phone} data-magnetic className="console-row"><Phone/><span><small>PHONE</small><b>+91 93490 02038</b></span><ArrowUpRight/></a><div data-magnetic className="console-row"><Phone/><span><small>LANDLINE</small><b>0480 2828167</b></span></div><div className="console-row muted"><Clock3/><span><small>OPENING HOURS</small><b>Call to confirm today</b></span></div><div className="console-row muted"><MessageCircle/><span><small>ENQUIRIES</small><b>Phone support available</b></span></div></div></div></section>
+  return <Frame eyebrow="12 / Contact & directions" title="Contact Asian Automobiles in Irinjalakuda." intro={businessFacts.address.full + "."}>
+    <section className="contact-map"><div className="wrap contact-map-grid"><div className="map-art"><div className="map-road r1"/><div className="map-road r2"/><div className="map-road r3"/><div className="map-pin"><MapPin size={24}/><span>ASIAN<br/>AUTOMOBILES</span></div><span className="map-label l1">KATTOOR ROAD</span><span className="map-label l2">{businessFacts.address.locality.toUpperCase()}</span></div><div className="contact-console"><div><span className="eyebrow">VERIFIED CONTACT</span><h2>Talk to the workshop.</h2></div><a href={"tel:"+businessFacts.phones.primaryHref} data-magnetic className="console-row"><Phone/><span><small>PRIMARY PHONE</small><b>{businessFacts.phones.primaryDisplay}</b></span><ArrowUpRight/></a><a href={"tel:"+businessFacts.phones.landlineHref} data-magnetic className="console-row"><Phone/><span><small>LANDLINE</small><b>{businessFacts.phones.landlineDisplay}</b></span><ArrowUpRight/></a><div className="console-row muted"><Clock3/><span><small>OPENING HOURS</small><b>Call to confirm before travelling</b></span></div><a href={directionsHref} target="_blank" rel="noreferrer" data-magnetic className="console-row"><MapPin/><span><small>DIRECTIONS</small><b>Kattoor Road, Irinjalakuda</b></span><ArrowUpRight/></a></div></div></section>
   </Frame>
 }
 
@@ -162,7 +162,7 @@ function FAQ(){
     ["Do you provide cashless insurance repair?","Insurance assistance is available as an enquiry route. Call the workshop to confirm insurer-specific eligibility and the process for your case."],
     ["What are the opening hours?","Please call the workshop to confirm today's opening hours before travelling."],
     ["How do I start a service booking?","Use the service enquiry page to prepare the vehicle and service details, or call the workshop directly to arrange the next step."],
-    ["Can I prepare damage or part photos?","Yes. Photos can help explain visible damage or identify a part requirement before the repair conversation."]
+    ["Can I upload damage photos?","The Request a Quote flow is designed to accept photos where applicable, especially for accident and body-repair enquiries."]
   ];
   return <Frame eyebrow="13 / FAQ" title="The questions people actually ask before they drive over." intro="Straight answers to the questions that matter before you call, book or drive over.">
     <section className="faq-stage"><div className="wrap faq-layout"><div className="faq-aside"><CircleHelp size={32}/><span>NO GUESSWORK</span><p>If a detail isn't verified, the answer says so.</p></div><div className="faq-list">{qs.map(([q,a],i)=><details key={q}><summary><span>0{i+1}</span><b>{q}</b><ChevronRight/></summary><p>{a}</p></details>)}</div></div></section>
@@ -170,7 +170,7 @@ function FAQ(){
 }
 
 function Form({quote=false}:{quote?:boolean}){
-  return <section className={"form-stage "+(quote?"quote-stage":"booking-stage")}><div className="wrap form-layout"><div className="form-intro">{quote?<><span className="eyebrow">DAMAGE / PARTS DESK</span><h2>Show us what needs attention.</h2><p>Write it like you would tell a mechanic. Clear details make the repair conversation easier.</p><div className="form-side-note"><Camera size={18}/><span>Photos help explain dents, warning lights, parts and visible damage.</span></div></>:<><span className="eyebrow">SERVICE DESK</span><h2>Let's find a sensible time to talk.</h2><p>Keep the useful details together: who you are, which vehicle, what it needs and when you would prefer to visit.</p><div className="booking-steps"><span>01 / YOU</span><span>02 / VEHICLE</span><span>03 / SERVICE</span><span>04 / TIME</span></div></>}</div><div className="real-form"><label>Name<input placeholder="What should we call you?"/></label><label>Phone<input placeholder="A number we can reach"/></label><label>Vehicle make / model<input placeholder="e.g. Hyundai i20"/></label><label>{quote?"What needs attention?":"Service needed"}<input placeholder={quote?"Tell it in your own words":"Choose or describe the service"}/></label><label>Preferred date / time<input placeholder="Your preferred slot"/></label><label className="wide">More detail<textarea placeholder={quote?"Noise, damage, part number, warning light — anything useful.":"Anything we should know before the appointment?"}/></label>{quote&&<label className="upload wide"><Upload size={17}/><span>Attach damage / reference photos</span></label>}<button>Send enquiry <ArrowUpRight size={16}/></button><small>Prefer to speak to someone? Call +91 93490 02038 and the workshop can take the details directly.</small></div></div></section>
+  return <section className={"form-stage "+(quote?"quote-stage":"booking-stage")}><div className="wrap form-layout"><div className="form-intro">{quote?<><span className="eyebrow">DAMAGE / PARTS DESK</span><h2>Show us what needs attention.</h2><p>Write it like you would tell a mechanic. Clear details make the repair conversation easier.</p><div className="form-side-note"><Camera size={18}/><span>Photo upload is especially useful for accident and body-repair enquiries.</span></div></>:<><span className="eyebrow">SERVICE DESK</span><h2>Let's find a sensible time to talk.</h2><p>Keep the useful details together: who you are, which vehicle, what it needs and when you would prefer to visit.</p><div className="booking-steps"><span>01 / YOU</span><span>02 / VEHICLE</span><span>03 / SERVICE</span><span>04 / TIME</span></div></>}</div><div className="real-form"><label>Name<input placeholder="What should we call you?"/></label><label>Phone<input placeholder="A number we can reach"/></label><label>Vehicle make / model<input placeholder="e.g. Hyundai i20"/></label><label>{quote?"What needs attention?":"Service needed"}<input placeholder={quote?"Tell it in your own words":"Choose or describe the service"}/></label>{!quote&&<label>Preferred date / time<input placeholder="Your preferred slot"/></label>}<label className="wide">More detail<textarea placeholder={quote?"Service, parts or damage details.":"Anything we should know before the appointment?"}/></label>{quote&&<label className="upload wide"><Upload size={17}/><span>Attach damage / reference photos</span></label>}<button>Send enquiry <ArrowUpRight size={16}/></button><small>Prefer to speak to someone? Call {businessFacts.phones.primaryDisplay}. The official WhatsApp number and form-routing endpoints remain confirmation-gated.</small></div></div></section>
 }
 
 function Booking({quote=false}){ 
@@ -232,11 +232,11 @@ const routeMeta: Record<string, { title: string; description: string }> = {
   },
   facilities: {
     title: "Workshop Facilities | Asian Automobiles",
-    description: "Explore the workshop environment and service facilities at Asian Automobiles in Irinjalakuda.",
+    description: "Facilities page for approved Asian Automobiles workshop photography and verified facility information.",
   },
   gallery: {
     title: "Gallery | Asian Automobiles",
-    description: "Automotive service, repair, parts and workshop imagery from Asian Automobiles.",
+    description: "Gallery for approved Asian Automobiles workshop, repair, parts, team, exterior and completed-work photography.",
   },
   reviews: {
     title: "Customer Stories | Asian Automobiles",
