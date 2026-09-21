@@ -1873,3 +1873,37 @@
     transform:none!important;
   }
 }
+
+
+/* Inner-page-only desktop WhatsApp action. The homepage remains visually unchanged. */
+.aa-v10-whatsapp-float{
+  position:fixed;
+  z-index:1180;
+  right:18px;
+  bottom:22px;
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:0 14px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:999px;
+  background:#0b0d10;
+  color:#fff;
+  box-shadow:0 18px 50px rgba(0,0,0,.22);
+  font-size:8px;
+  font-weight:850;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  transition:transform .3s var(--v10-ease),background .25s ease,color .25s ease;
+}
+
+.aa-v10-whatsapp-float:hover{
+  transform:translateY(-3px);
+  background:var(--v10-accent);
+  color:#080a0d;
+}
+
+@media(max-width:820px){
+  .aa-v10-whatsapp-float{display:none}
+}
