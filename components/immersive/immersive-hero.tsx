@@ -12,6 +12,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { useRef } from "react";
+import { businessFacts } from "@/lib/business-facts";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
@@ -92,8 +93,8 @@ export function ImmersiveHero() {
 
         <div className="aa-shell aa-hero2-shell">
           <div className="aa-hero2-top aa-hero2-top-minimal">
-            <span>ASIAN AUTOMOBILES / IRINJALAKUDA</span>
-            <span className="aa-hero2-status"><i /> MULTI-BRAND AUTOMOTIVE CARE</span>
+            <span>{businessFacts.name.toUpperCase()} / {businessFacts.address.locality.toUpperCase()}</span>
+            <span className="aa-hero2-status"><i /> INDEPENDENT MULTI-BRAND SERVICE</span>
           </div>
 
           <motion.div
@@ -125,15 +126,15 @@ export function ImmersiveHero() {
 
             <div className="aa-hero2-bottom">
               <p>
-                Multi-brand service, mechanical repair, accident restoration,
-                wheel care and automobile parts support in Irinjalakuda.
+                Independent multi-brand car service, accident restoration, wheel and tyre
+                services, and automobile spare-parts enquiries in {businessFacts.address.locality}.
               </p>
 
               <div className="aa-hero2-actions">
                 <Link data-magnetic href="/book-service/" prefetch={false} className="aa-hero2-primary">
                   Book service <ArrowUpRight size={15} />
                 </Link>
-                <a data-magnetic href="tel:+919349002038" className="aa-hero2-circle" aria-label="Call Asian Automobiles">
+                <a data-magnetic href={"tel:" + businessFacts.phones.primaryHref} className="aa-hero2-circle" aria-label="Call Asian Automobiles">
                   <ArrowDownRight size={19} />
                 </a>
               </div>
@@ -141,9 +142,9 @@ export function ImmersiveHero() {
           </motion.div>
 
           <div className="aa-hero-v8-meta" aria-hidden="true">
-            <span>IRINJALAKUDA / THRISSUR</span>
+            <span>{businessFacts.address.locality.toUpperCase()} / {businessFacts.address.district.toUpperCase()}</span>
             <span>WORKSHOP / KATTOOR ROAD</span>
-            <span>KERALA / INDIA</span>
+            <span>{businessFacts.address.region.toUpperCase()} / INDIA</span>
           </div>
 
           <div className="aa-hero2-scroll aa-hero2-scroll-minimal">
