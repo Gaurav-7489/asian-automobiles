@@ -165,7 +165,7 @@ const trust = [
   ["IRINJALAKUDA", "Kattoor Road · Thrissur"],
 ];
 
-const reviews = [
+const principles = [
   ["01", "Clear communication matters as much as the repair itself.", "SERVICE EXPERIENCE"],
   ["02", "The website should make it obvious where to start, even when the problem is not obvious.", "WORKSHOP JOURNEY"],
   ["03", "Service, repair and parts should feel like one connected experience.", "ASIAN AUTOMOBILES"],
@@ -381,14 +381,14 @@ export function EditorialHome() {
       <section className="aa-reviews aa-section">
         <div className="aa-shell">
           <div className="aa-reviews-head">
-            <span className="aa-kicker">09 / THE EXPERIENCE</span>
+            <span className="aa-kicker">09 / EXPERIENCE PRINCIPLES</span>
             <h2 className="aa-view-reveal">Small details.<br /><em>One premium rhythm.</em></h2>
           </div>
           <div className="aa-review-rail">
-            {reviews.map(([no, quote, meta]) => (
+            {principles.map(([no, statement, meta]) => (
               <article className="aa-review-card" key={no}>
                 <span>{no}</span>
-                <blockquote>“{quote}”</blockquote>
+                <blockquote>{statement}</blockquote>
                 <small>{meta}</small>
                 <ArrowUpRight size={19} />
               </article>
