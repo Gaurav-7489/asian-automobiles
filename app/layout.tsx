@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { InteractiveLayer } from "@/components/interactive";
 import { SmoothScroll } from "@/components/immersive/smooth-scroll";
+import { businessFacts } from "@/lib/business-facts";
 
 // Production deployment trigger — responsive baseline.
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://asian-automobiles.vercel.app";
@@ -39,13 +40,13 @@ const businessSchema = {
   "@type": "AutomotiveBusiness",
   name: "Asian Automobiles",
   url: siteUrl,
-  telephone: "+91 9349002038",
+  telephone: businessFacts.phones.primaryDisplay,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "283 / V-526, Govt Rest House, Kattoor Road",
-    addressLocality: "Irinjalakuda",
-    addressRegion: "Kerala",
-    postalCode: "680121",
+    streetAddress: businessFacts.address.street,
+    addressLocality: businessFacts.address.locality,
+    addressRegion: businessFacts.address.region,
+    postalCode: businessFacts.address.postalCode,
     addressCountry: "IN",
   },
 };
