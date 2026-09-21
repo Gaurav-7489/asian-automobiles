@@ -5,6 +5,7 @@ import "./pro-upgrade.css";
 import "./design-v8.css";
 import "./inner-pages-v9.css";
 import "./responsive-fixes.css";
+import "./inner-pages-v10.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { InteractiveLayer } from "@/components/interactive";
