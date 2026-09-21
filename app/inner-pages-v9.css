@@ -1036,3 +1036,279 @@
     transition:none;
   }
 }
+
+
+/* =========================================================
+   V9 CONTRAST HARDENING — inner pages only
+   Keeps the homepage untouched while resolving legacy color
+   collisions from globals/pro styles on light and dark surfaces.
+   ========================================================= */
+
+.immersive-page-v9{
+  --v9-text:#10110f;
+  --v9-text-muted:#4d4d47;
+  --v9-text-subtle:#62615b;
+  --v9-dark-text:#f8f8f3;
+  --v9-dark-muted:rgba(255,255,255,.76);
+  color:var(--v9-text);
+  background:var(--v9-paper);
+}
+
+.immersive-page-v9 .creative-body{
+  color:var(--v9-text);
+  background:var(--v9-paper);
+}
+
+/* Explicit foregrounds for every light inner-page surface. */
+.immersive-page-v9 :is(
+  .about-opening,
+  .service-command,
+  .diagnostic,
+  .thermal,
+  .incident,
+  .paint-studio,
+  .alignment,
+  .parts-desk,
+  .insurance-actions,
+  .facility-map,
+  .gallery-wall-v9,
+  .review-wall,
+  .contact-map,
+  .faq-stage,
+  .form-stage,
+  .split-photo,
+  .photo-statement
+){
+  color:var(--v9-text);
+}
+
+/* Explicit foregrounds for intentionally dark sections. */
+.immersive-page-v9 :is(
+  .timeline-section-v9,
+  .service-closer,
+  .dark-callout,
+  .micro-strip,
+  .tyre-wall,
+  .claims
+){
+  color:var(--v9-dark-text);
+}
+
+.immersive-page-v9 .creative-heading>p{
+  color:rgba(255,255,255,.72);
+}
+
+.immersive-page-v9 .back{
+  color:rgba(255,255,255,.68);
+}
+
+/* About / light editorial copy. */
+.immersive-page-v9 .about-grid p,
+.immersive-page-v9 .facility-caption p,
+.immersive-page-v9 .form-intro>p,
+.immersive-page-v9 .faq-aside p,
+.immersive-page-v9 .parts-receipt p,
+.immersive-page-v9 .thermal-copy p,
+.immersive-page-v9 .split-photo p,
+.immersive-page-v9 .photo-statement p{
+  color:var(--v9-text-muted);
+}
+
+.immersive-page-v9 .year-mark small,
+.immersive-page-v9 .command-card small,
+.immersive-page-v9 .command-number,
+.immersive-page-v9 .wheel-signals b,
+.immersive-page-v9 .map-label,
+.immersive-page-v9 .console-row small,
+.immersive-page-v9 .real-form small{
+  color:var(--v9-text-subtle);
+}
+
+/* General service: globals.css also uses .diagnostic-top for a dark
+   homepage diagnostic component. Reassert the light inner-page theme. */
+.immersive-page-v9 .diagnostic-top{
+  color:var(--v9-text);
+}
+
+.immersive-page-v9 .diagnostic-top :is(.eyebrow,h2,.status-pill){
+  color:var(--v9-text);
+}
+
+.immersive-page-v9 .diagnostic-flow small{
+  color:var(--v9-text-subtle);
+}
+
+.immersive-page-v9 .diagnostic-flow p{
+  color:var(--v9-text-muted);
+}
+
+.immersive-page-v9 .diagnostic-flow>div:hover{
+  color:var(--v9-dark-text);
+}
+
+.immersive-page-v9 .diagnostic-flow>div:hover small{
+  color:rgba(255,255,255,.7);
+}
+
+.immersive-page-v9 .diagnostic-flow>div:hover p{
+  color:rgba(255,255,255,.78);
+}
+
+/* Service hub: retain readable metadata both before and during hover. */
+.immersive-page-v9 .command-card{
+  color:var(--v9-text);
+}
+
+.immersive-page-v9 .command-card:hover{
+  color:var(--v9-dark-text);
+}
+
+.immersive-page-v9 .command-card:hover :is(small,.command-number){
+  color:rgba(255,255,255,.74);
+}
+
+/* Accident page: BlueprintTimeline was designed for a dark rail, but this
+   instance sits inside a light section. Give the complete component its
+   intended dark canvas so the white navigation labels remain visible. */
+.immersive-page-v9 .incident .aa-blueprint-timeline{
+  background:#090909;
+  color:var(--v9-dark-text);
+  border-color:var(--v9-line-light);
+}
+
+.immersive-page-v9 .incident .aa-blueprint-timeline-nav{
+  background:#090909;
+  border-color:var(--v9-line-light);
+}
+
+.immersive-page-v9 .aa-blueprint-timeline-stage{
+  color:var(--v9-dark-text);
+}
+
+.immersive-page-v9 .aa-blueprint-timeline-nav button>span,
+.immersive-page-v9 .aa-blueprint-timeline-nav button small{
+  opacity:.7;
+}
+
+.immersive-page-v9 .aa-blueprint-timeline-stage p{
+  color:rgba(255,255,255,.74);
+}
+
+/* Dark section supporting copy. */
+.immersive-page-v9 .service-closer p,
+.immersive-page-v9 .tyre-hero-card p{
+  color:var(--v9-dark-muted);
+}
+
+/* Insurance: the note is a light card nested in a dark claims section. */
+.immersive-page-v9 .claims-note{
+  color:var(--v9-text);
+  background:#f4f5f2;
+}
+
+.immersive-page-v9 .claims-note p{
+  color:var(--v9-text-muted);
+}
+
+/* Reviews were changed from dark to paper in V9; these descendants still
+   carried the old white-on-dark rules from globals.css. */
+.immersive-page-v9 .review-wall{
+  color:var(--v9-text);
+}
+
+.immersive-page-v9 .review-statement p{
+  color:var(--v9-text-muted);
+}
+
+.immersive-page-v9 .review-statement em{
+  color:#53524d;
+}
+
+.immersive-page-v9 .review-notes{
+  border-color:var(--v9-line);
+}
+
+.immersive-page-v9 .review-notes>div{
+  color:var(--v9-text);
+  border-color:var(--v9-line);
+}
+
+.immersive-page-v9 .review-notes :is(span,small){
+  color:var(--v9-text-subtle);
+}
+
+.immersive-page-v9 .review-notes>div:hover{
+  color:var(--v9-dark-text);
+}
+
+.immersive-page-v9 .review-notes>div:hover :is(span,small){
+  color:rgba(255,255,255,.72);
+}
+
+/* Contact / forms: raise low-opacity utility text and placeholders. */
+.immersive-page-v9 .console-row.muted{
+  opacity:.74;
+}
+
+.immersive-page-v9 .contact-console{
+  color:var(--v9-text);
+}
+
+.immersive-page-v9 .real-form{
+  color:var(--v9-text);
+}
+
+.immersive-page-v9 .real-form label{
+  color:#3f3f3a;
+}
+
+.immersive-page-v9 .real-form :is(input,textarea){
+  color:var(--v9-text);
+  caret-color:var(--v9-text);
+}
+
+.immersive-page-v9 .real-form :is(input,textarea)::placeholder{
+  color:#6a6963;
+  opacity:1;
+}
+
+/* Interactive utility copy should stay readable without looking heavy. */
+.immersive-page-v9 .aa-motion-faq article>button>span{
+  opacity:.62;
+}
+
+.immersive-page-v9 .aa-motion-faq-answer p{
+  color:var(--v9-text-muted);
+}
+
+.immersive-page-v9 .aa-hover-stat-rail span{
+  opacity:.62;
+}
+
+.immersive-page-v9 .aa-hover-stat-rail p{
+  opacity:.74;
+}
+
+.immersive-page-v9 .aa-hover-stat-rail>div:hover :is(span,p){
+  color:rgba(255,255,255,.76);
+  opacity:1;
+}
+
+.immersive-page-v9 .aa-expand-gallery-copy>span,
+.immersive-page-v9 .aa-expand-gallery-copy small{
+  opacity:.76;
+}
+
+@media (prefers-contrast:more){
+  .immersive-page-v9{
+    --v9-text:#000;
+    --v9-text-muted:#34342f;
+    --v9-text-subtle:#45443f;
+    --v9-dark-text:#fff;
+    --v9-dark-muted:rgba(255,255,255,.88);
+  }
+
+  .immersive-page-v9 :is(.review-notes,.console-row,.aa-motion-faq article,.aa-hover-stat-rail>div){
+    border-color:rgba(0,0,0,.28);
+  }
+}
