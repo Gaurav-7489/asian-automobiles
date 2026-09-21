@@ -15,10 +15,12 @@ export function SiteFooter() {
           </div>
 
           <div className="aa-footer-nav">
-            <span>NAVIGATION</span>
+            <span>EXPLORE</span>
             <Link href="/services/">Services <ArrowUpRight size={13} /></Link>
-            <Link href="/about/">About <ArrowUpRight size={13} /></Link>
+            <Link href="/insurance/">Insurance <ArrowUpRight size={13} /></Link>
             <Link href="/facilities/">Facilities <ArrowUpRight size={13} /></Link>
+            <Link href="/gallery/">Gallery <ArrowUpRight size={13} /></Link>
+            <Link href="/about/">About <ArrowUpRight size={13} /></Link>
             <Link href="/contact/">Contact <ArrowUpRight size={13} /></Link>
           </div>
 
@@ -26,6 +28,7 @@ export function SiteFooter() {
             <span>WORKSHOP</span>
             <a href="tel:+919349002038"><Phone size={14} /> +91 93490 02038</a>
             <p><MapPin size={14} /> Kattoor Road, Irinjalakuda, Thrissur</p>
+            <Link href="/book-service/">Book a service <ArrowUpRight size={13} /></Link>
           </div>
         </div>
 
