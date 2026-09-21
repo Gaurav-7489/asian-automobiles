@@ -1724,8 +1724,35 @@ svg{
   overflow-wrap:break-word;
 }
 
-/* One tablet breakpoint. This overrides the old 980/1100 crossover. */
-@media(max-width:1120px){
+
+/* Compact desktop navigation before the mobile/tablet collapse. */
+@media(min-width:1241px) and (max-width:1360px){
+  .aa-header-v5 .aa-header-inner{
+    gap:clamp(12px,1.3vw,18px)!important;
+  }
+  .aa-header-v5 .aa-brand-name small{
+    display:none!important;
+  }
+  .aa-header-v5 .aa-desktop-nav-v4{
+    gap:2px!important;
+  }
+  .aa-header-v5 .aa-desktop-nav-v4>a,
+  .aa-header-v5 .aa-nav-services>button{
+    padding-inline:6px!important;
+    font-size:8.2px!important;
+    letter-spacing:.095em!important;
+  }
+  .aa-header-v5 .aa-header-actions{
+    flex-shrink:0;
+  }
+  .aa-header-v5 .aa-header-cta{
+    padding-inline:13px!important;
+  }
+}
+
+/* Adaptive navigation breakpoint: collapse before desktop items can clip on
+   compact laptops, browser zoom, and split-screen widths. */
+@media(max-width:1240px){
   .aa-header-v5 .aa-desktop-nav-v4,
   .aa-header-v5 .aa-header-phone,
   .aa-header-v5 .aa-header-cta{
@@ -1738,6 +1765,8 @@ svg{
   }
   .aa-header-v5 .aa-nav-main,
   .aa-header-v5.is-scrolled .aa-nav-main{
+    position:relative;
+    z-index:2;
     height:68px!important;
     background:#070707!important;
   }
@@ -1755,16 +1784,19 @@ svg{
   .aa-header-v5 .aa-mobile-panel{
     display:block!important;
     position:fixed!important;
-    z-index:-1;
+    z-index:1;
     inset:68px 0 0!important;
     width:100%!important;
     max-width:100%!important;
+    height:calc(100dvh - 68px)!important;
+    max-height:none!important;
     background:#070707;
     color:#fff;
     opacity:0;
     visibility:hidden;
     transform:translate3d(0,-10px,0);
-    overflow:auto;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
     overscroll-behavior:contain;
     pointer-events:none;
     transition:
