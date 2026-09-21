@@ -8,6 +8,7 @@ import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { businessFacts, directionsHref } from "@/lib/business-facts";
 
 const img = {
   workshop:"https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1600&q=74",
@@ -18,7 +19,7 @@ const img = {
   interior:"https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1440&q=74"
 };
 
-const phone="+919349002038";
+const phone=businessFacts.phones.primaryHref;
 
 function CTA({label="Book a Service",href="/book-service/"}:{label?:string;href?:string}){
   return <Link data-magnetic prefetch={false} className="primary-link" href={href}>{label}<ArrowUpRight size={15}/></Link>;
@@ -49,8 +50,8 @@ function Frame({eyebrow,title,intro,children,theme="paper"}:{eyebrow:string;titl
 
 function About(){
   return <Frame eyebrow="About / the story" title="Trust starts before you hand over the keys." intro="Understand the work, know what matters, then speak directly to the workshop.">
-    <section className="about-opening"><div className="wrap about-grid"><div className="year-mark"><span>LOCAL</span><strong>AA</strong><small>IRINJALAKUDA · KERALA</small></div><div><span className="eyebrow">WHY THIS SITE EXISTS</span><h2>Less sales pitch.<br/><em>More useful.</em></h2><p>Understand the service, know what information helps, and reach the workshop without wading through unnecessary noise.</p><div className="about-proof"><span><Check/>Verified before publish</span><span><Camera/>Real workshop photography</span><span><Phone/>Direct contact paths</span></div></div></div></section>
-    <section className="timeline-section"><div className="wrap"><div className="timeline-intro"><span className="eyebrow">A / the principle</span><p>The experience is built around straightforward choices, useful context and direct access to the workshop.</p></div><div className="timeline"><div><b>01</b><h3>Know the problem</h3><p>Start with the vehicle symptom, service need or accident situation.</p></div><div><b>02</b><h3>Make the next step obvious</h3><p>Call, book, request a quote or ask about parts without hunting for the right contact.</p></div><div><b>03</b><h3>Keep the proof real</h3><p>Reviews, workshop imagery, insurer relationships and service claims stay attributable and verified.</p></div></div></div></section>
+    <section className="about-opening"><div className="wrap about-grid"><div className="year-mark"><span>LOCAL</span><strong>AA</strong><small>{businessFacts.address.locality.toUpperCase()} · {businessFacts.address.region.toUpperCase()}</small></div><div><span className="eyebrow">VERIFIED BUSINESS FOUNDATION</span><h2>Service & repair.<br/><em>Automobile spare parts.</em></h2><p>Asian Automobiles is positioned in the supplied blueprint as an independent multi-brand service center for private cars, with automobile parts and car repair & services as the two connected business pillars.</p><div className="about-proof"><span><Check/>Independent multi-brand</span><span><Wrench/>Car repair & services</span><span><PackageSearch/>Automobile spare parts</span></div></div></div></section>
+    <section className="timeline-section"><div className="wrap"><div className="timeline-intro"><span className="eyebrow">A / VERIFIED POSITIONING</span><p>The blueprint prioritizes clear service discovery, direct workshop contact, real photography and only verified public claims.</p></div><div className="timeline"><div><b>01</b><h3>Private cars / multibrand</h3><p>Positioned as an independent multi-brand service center for private cars.</p></div><div><b>02</b><h3>Service + parts</h3><p>Car repair & services and automobile spare parts are the two verified business pillars.</p></div><div><b>03</b><h3>Irinjalakuda</h3><p>{businessFacts.address.full}.</p></div></div></div></section>
   </Frame>
 }
 
