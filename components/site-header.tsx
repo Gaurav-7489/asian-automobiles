@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { businessFacts, directionsHref } from "@/lib/business-facts";
 
 const serviceLinks = [
   ["General service & repair", "/services/car-service/", "Maintenance / mechanical"],
@@ -43,9 +44,6 @@ const navLinks = [
   ["Reviews", "/reviews/"],
   ["Contact", "/contact/"],
 ];
-
-const directionsHref =
-  "https://www.google.com/maps/search/?api=1&query=283%20V-526%20Govt%20Rest%20House%20Kattoor%20Road%20Irinjalakuda%20Thrissur%20680121%20Kerala";
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -115,7 +113,7 @@ export function SiteHeader() {
               <span className="aa-brand-mark">AA</span>
               <span className="aa-brand-name">
                 <b>ASIAN AUTOMOBILES</b>
-                <small>IRINJALAKUDA · KERALA</small>
+                <small>{businessFacts.address.locality.toUpperCase()} · {businessFacts.address.region.toUpperCase()}</small>
               </span>
             </Link>
 
@@ -253,7 +251,7 @@ export function SiteHeader() {
             </nav>
 
             <div className="aa-header-actions">
-              <a data-magnetic href="tel:+919349002038" className="aa-header-phone">
+              <a data-magnetic href={"tel:" + businessFacts.phones.primaryHref} className="aa-header-phone">
                 <Phone size={14} />
                 <span>Call workshop</span>
               </a>
@@ -304,7 +302,7 @@ export function SiteHeader() {
             </div>
 
             <div className="aa-mobile-menu-actions">
-              <a href="tel:+919349002038"><Phone size={15} /> Call workshop</a>
+              <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={15} /> Call workshop</a>
               <Link href="/book-service/" prefetch={false}><CalendarDays size={15} /> Book a service</Link>
             </div>
           </div>
@@ -312,7 +310,7 @@ export function SiteHeader() {
       </header>
 
       <nav className="aa-mobile-actions" aria-label="Quick actions">
-        <a href="tel:+919349002038"><Phone size={15} /><span>Call</span></a>
+        <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={15} /><span>Call</span></a>
         <Link href="/book-service/" prefetch={false}><CalendarDays size={15} /><span>Book</span></Link>
         <a href={directionsHref} target="_blank" rel="noreferrer">
           <MapPin size={15} /><span>Directions</span>
