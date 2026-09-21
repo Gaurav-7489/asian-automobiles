@@ -17,13 +17,13 @@ import { usePathname, useRouter } from "next/navigation";
 import { businessFacts, directionsHref } from "@/lib/business-facts";
 
 const serviceLinks = [
-  ["General service & repair", "/services/car-service/", "Maintenance / mechanical"],
-  ["Car AC service", "/services/car-ac-repair/", "Cooling / airflow"],
-  ["Accident repair", "/services/accident-repair/", "Restoration / body repair"],
-  ["Denting & painting", "/services/denting-painting/", "Bodywork / paint"],
-  ["Wheel alignment", "/services/wheel-alignment/", "Alignment / balancing"],
-  ["Tyre services", "/services/tyre-services/", "Tyres / rim repair"],
-  ["Spare parts", "/spare-parts/", "Parts enquiry"],
+  ["General service & repair", "/services/car-service/", "Routine / mechanical"],
+  ["Car AC service & repair", "/services/car-ac-repair/", "AC / service"],
+  ["Accident repair", "/services/accident-repair/", "Accident / restoration"],
+  ["Denting & painting", "/services/denting-painting/", "Denting / painting"],
+  ["Wheel alignment", "/services/wheel-alignment/", "Computerized / balancing"],
+  ["Tyre services", "/services/tyre-services/", "Tyre repair / rim repair"],
+  ["Automobile spare parts", "/spare-parts/", "Parts / enquiry"],
 ];
 
 const servicePreviewImages = [
@@ -309,6 +309,7 @@ export function SiteHeader() {
         </div>
       </header>
 
+      {/* WhatsApp is intentionally omitted until the official business number is client-confirmed. */}
       <nav className="aa-mobile-actions" aria-label="Quick actions">
         <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={15} /><span>Call</span></a>
         <Link href="/book-service/" prefetch={false}><CalendarDays size={15} /><span>Book</span></Link>
