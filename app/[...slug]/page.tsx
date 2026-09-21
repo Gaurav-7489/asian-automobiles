@@ -2,7 +2,6 @@ import {
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
-  Check,
   CircleHelp,
   Clock3,
   Gauge,
