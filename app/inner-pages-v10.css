@@ -1907,3 +1907,13 @@
 @media(max-width:820px){
   .aa-v10-whatsapp-float{display:none}
 }
+
+
+/* Keep gallery photography clean and bright; interaction comes from layout, not dimming. */
+.aa-inner-v10 .aa-expand-gallery-card:not(.is-active){
+  filter:none!important;
+}
+
+.aa-inner-v10 .aa-expand-gallery-shade{
+  background:linear-gradient(0deg,rgba(0,0,0,.68),transparent 56%)!important;
+}
