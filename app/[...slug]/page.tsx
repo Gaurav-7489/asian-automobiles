@@ -124,27 +124,27 @@ function Insurance(){
 
 function Facilities(){
   const zones=[
-    ["Reception",img.interior,"ARRIVAL"],
-    ["Service bays",img.workshop,"WORKSHOP"],
-    ["Diagnostics",img.detail,"DIAGNOSTICS"],
-    ["Alignment",img.road,"WHEEL DESK"],
-    ["Parts",img.repair,"PARTS"],
-    ["Customer area",img.car,"CUSTOMER AREA"]
+    ["Workshop floor",img.workshop,"PHOTO BRIEF"],
+    ["Service bays",img.workshop,"PHOTO BRIEF"],
+    ["Alignment equipment",img.road,"PHOTO BRIEF"],
+    ["Parts inventory",img.repair,"PHOTO BRIEF"],
+    ["Repair activity",img.detail,"PHOTO BRIEF"],
+    ["Customer-facing areas",img.interior,"PHOTO BRIEF"]
   ];
-  return <Frame eyebrow="09 / Facilities" title="See the place behind the promise." intro="A visual tour built around the workshop itself — the bays, tools, diagnostics and people that make the service real.">
-    <section className="facility-map"><div className="wrap"><div className="facility-grid">{zones.map(([x,src,label],i)=><div className={"facility-zone z"+i} key={x} style={{backgroundImage:`linear-gradient(180deg,#0002,#0009),url(${src})`,backgroundSize:"cover",backgroundPosition:"center",color:"#fff"}}><span style={{color:"#ffffffaa"}}>0{i+1}</span><b>{x}</b><small style={{color:"#ffffffaa"}}>{label}</small></div>)}</div><div className="facility-caption"><div><span className="eyebrow">THE WORKSHOP / IN FRAME</span><h2>Tools. Bays. People.<br/><em>The real place.</em></h2></div><p>See the spaces customers care about most: arrival, service bays, diagnostics, wheel work, parts and the customer area.</p></div></div></section>
+  return <Frame eyebrow="09 / Our facilities" title="Workshop proof should come from the real workshop." intro="The blueprint prioritizes real photography of the workshop floor, service bays, alignment equipment, parts inventory, repair activity and customer-facing areas.">
+    <section className="facility-map"><div className="wrap"><div className="facility-grid">{zones.map(([x,src,label],i)=><div className={"facility-zone z"+i} key={x} style={{backgroundImage:`linear-gradient(180deg,#0002,#0009),url(${src})`,backgroundSize:"cover",backgroundPosition:"center",color:"#fff"}}><span style={{color:"#ffffffaa"}}>0{i+1}</span><b>{x}</b><small style={{color:"#ffffffaa"}}>{label}</small></div>)}</div><div className="facility-caption"><div><span className="eyebrow">VERIFIED CONTENT RULE</span><h2>Real photography.<br/><em>No invented facility specs.</em></h2></div><p>Exact bay count, lift count, equipment brands and customer amenities stay off the public site until directly confirmed by the client.</p></div></div></section>
   </Frame>
 }
 
 function Gallery(){
-  const items=[[img.workshop,"WORKSHOP / 01"],[img.repair,"CRAFT / 02"],[img.car,"VEHICLE / 03"],[img.detail,"DETAIL / 04"],[img.interior,"INTERIOR / 05"],[img.road,"ROAD / 06"]];
-  return <Frame eyebrow="10 / Gallery" title="The workshop, without the stock-photo filter." intro="A visual library built for real images: workshop, repairs, parts, people, exterior and completed work.">
-    <section className="gallery-wall"><div className="wrap gallery-masonry">{items.map(([src,label],i)=><figure className={"gallery-tile g"+i} key={label}><Image src={src} alt={label} width={1400} height={900} sizes="(max-width: 900px) 100vw, 50vw"/><figcaption><span>{label}</span><ArrowUpRight size={16}/></figcaption></figure>)}</div></section>
+  const items=[[img.workshop,"WORKSHOP"],[img.repair,"REPAIRS"],[img.car,"PARTS"],[img.detail,"TEAM"],[img.interior,"EXTERIOR"],[img.road,"COMPLETED WORK"]];
+  return <Frame eyebrow="10 / Gallery" title="The final gallery belongs to real workshop photography." intro="The blueprint defines six gallery filters: Workshop, Repairs, Parts, Team, Exterior and Completed Work. Current generic imagery is temporary until approved Asian Automobiles photography is supplied.">
+    <section className="gallery-wall"><div className="wrap gallery-masonry">{items.map(([src,label],i)=><figure className={"gallery-tile g"+i} key={label}><Image src={src} alt={"Temporary visual placeholder for "+label.toLowerCase()} width={1400} height={900} sizes="(max-width: 900px) 100vw, 50vw"/><figcaption><span>{label} / 0{i+1}</span><ArrowUpRight size={16}/></figcaption></figure>)}</div></section>
   </Frame>
 }
 
 function Reviews(){
-  return <Frame eyebrow="11 / Reviews & customer stories" title="What people noticed matters more than a five-star badge." intro="Customer reviews and stories belong here with clear source, date and service context.">
+  return <Frame eyebrow="11 / Reviews & customer stories" title="Only attributable reviews belong here." intro="The blueprint requires public reviews to retain source, date and context, and customer stories to be consented rather than fabricated.">
     <section className="review-wall"><div className="wrap"><div className="review-statement"><span className="eyebrow">PROOF / NOT PERFORMANCE</span><h2>Real words.<br/><em>Real context.</em></h2><p>Customer stories can show what was done, when it happened and where the feedback came from.</p></div><div className="review-notes">{[["SOURCE","Google / approved source"],["DATE","Publication date"],["CONTEXT","What work was done"],["PERMISSION","Usage confirmed"]].map(([a,b],i)=><div key={a}><span>0{i+1}</span><small>{a}</small><b>{b}</b><ArrowUpRight size={15}/></div>)}</div></div></section>
   </Frame>
 }
