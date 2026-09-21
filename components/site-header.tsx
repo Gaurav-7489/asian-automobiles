@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -24,6 +25,16 @@ const serviceLinks = [
   ["Spare parts", "/spare-parts/", "Parts enquiry"],
 ];
 
+const servicePreviewImages = [
+  "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1000&q=72",
+  "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1000&q=72",
+  "https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=1000&q=72",
+  "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1000&q=72",
+  "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1000&q=72",
+  "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1000&q=72",
+  "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1000&q=72",
+];
+
 const navLinks = [
   ["Insurance", "/insurance/"],
   ["About", "/about/"],
@@ -39,6 +50,7 @@ const directionsHref =
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [servicePreview, setServicePreview] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
@@ -162,40 +174,62 @@ export function SiteHeader() {
                     </Link>
                   </div>
 
-                  <div className="aa-mega-grid">
-                    {serviceLinks.map(([label, href, meta], index) => (
+                  <div className="aa-mega-body">
+                    <div className="aa-mega-grid">
+                      {serviceLinks.map(([label, href, meta], index) => (
+                        <Link
+                          href={href}
+                          key={href}
+                          prefetch={false}
+                          onPointerEnter={() => {
+                            setServicePreview(index);
+                            warm(href);
+                          }}
+                          onFocus={() => {
+                            setServicePreview(index);
+                            warm(href);
+                          }}
+                          className="aa-mega-link"
+                        >
+                          <span>0{index + 1}</span>
+                          <div>
+                            <b>{label}</b>
+                            <small>{meta}</small>
+                          </div>
+                          <ArrowUpRight size={16} />
+                        </Link>
+                      ))}
                       <Link
                         data-magnetic
-                        href={href}
-                        key={href}
+                        href="/book-service/"
                         prefetch={false}
-                        onPointerEnter={() => warm(href)}
-                        onFocus={() => warm(href)}
-                        className="aa-mega-link"
+                        onPointerEnter={() => warm("/book-service/")}
+                        onFocus={() => warm("/book-service/")}
+                        className="aa-mega-book"
                       >
-                        <span>0{index + 1}</span>
+                        <CalendarDays size={19} />
                         <div>
-                          <b>{label}</b>
-                          <small>{meta}</small>
+                          <span>READY TO START?</span>
+                          <b>Book a service</b>
                         </div>
-                        <ArrowUpRight size={16} />
+                        <ArrowRight size={18} />
                       </Link>
-                    ))}
-                    <Link
-                      data-magnetic
-                      href="/book-service/"
-                      prefetch={false}
-                      onPointerEnter={() => warm("/book-service/")}
-                      onFocus={() => warm("/book-service/")}
-                      className="aa-mega-book"
-                    >
-                      <CalendarDays size={19} />
-                      <div>
-                        <span>READY TO START?</span>
-                        <b>Book a service</b>
-                      </div>
-                      <ArrowRight size={18} />
-                    </Link>
+                    </div>
+
+                    <figure className="aa-mega-preview" aria-hidden="true">
+                      <Image
+                        key={servicePreviewImages[servicePreview]}
+                        src={servicePreviewImages[servicePreview]}
+                        alt=""
+                        fill
+                        quality={66}
+                        sizes="340px"
+                      />
+                      <figcaption>
+                        <span>0{servicePreview + 1}</span>
+                        <b>{serviceLinks[servicePreview][0]}</b>
+                      </figcaption>
+                    </figure>
                   </div>
                 </div>
               </div>
