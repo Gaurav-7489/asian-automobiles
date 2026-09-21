@@ -9,6 +9,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { businessFacts, directionsHref } from "@/lib/business-facts";
+import {
+  BlueprintTimeline,
+  ExpandGallery,
+  HoverStatRail,
+  MotionFaq,
+  PageProgressRail,
+  ScrollRevealSection,
+} from "@/components/immersive/inner-page-experiences";
 
 const img = {
   workshop:"https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1600&q=74",
@@ -28,7 +36,7 @@ function Call(){ return <a data-magnetic className="outline-link" href={"tel:"+p
 function Back(){ return <Link data-magnetic prefetch={false} className="back" href="/"><ArrowLeft size={15}/>Asian Automobiles / Home</Link>; }
 
 function Frame({eyebrow,title,intro,children,theme="paper"}:{eyebrow:string;title:string;intro?:string;children:ReactNode;theme?:string}){
-  return <main className={"creative-page immersive-page "+theme}>
+  return <main className={"creative-page immersive-page immersive-page-v9 "+theme}><PageProgressRail/>
     <section className="creative-head">
       <div className="creative-head-grid" aria-hidden="true"/>
       <div className="wrap creative-wrap">
@@ -51,7 +59,11 @@ function Frame({eyebrow,title,intro,children,theme="paper"}:{eyebrow:string;titl
 function About(){
   return <Frame eyebrow="About / Asian Automobiles" title="Independent multi-brand service and automobile parts in Irinjalakuda." intro="Public copy is constrained to the verified business foundation in the supplied client blueprint.">
     <section className="about-opening"><div className="wrap about-grid"><div className="year-mark"><span>LOCAL</span><strong>AA</strong><small>{businessFacts.address.locality.toUpperCase()} · {businessFacts.address.region.toUpperCase()}</small></div><div><span className="eyebrow">VERIFIED BUSINESS FOUNDATION</span><h2>Service & repair.<br/><em>Automobile spare parts.</em></h2><p>Asian Automobiles is positioned in the supplied blueprint as an independent multi-brand service center for private cars, with automobile parts and car repair & services as the two connected business pillars.</p><div className="about-proof"><span><Check/>Independent multi-brand</span><span><Wrench/>Car repair & services</span><span><PackageSearch/>Automobile spare parts</span></div></div></div></section>
-    <section className="timeline-section"><div className="wrap"><div className="timeline-intro"><span className="eyebrow">A / VERIFIED POSITIONING</span><p>The blueprint prioritizes clear service discovery, direct workshop contact, real photography and only verified public claims.</p></div><div className="timeline"><div><b>01</b><h3>Private cars / multibrand</h3><p>Positioned as an independent multi-brand service center for private cars.</p></div><div><b>02</b><h3>Service + parts</h3><p>Car repair & services and automobile spare parts are the two verified business pillars.</p></div><div><b>03</b><h3>Irinjalakuda</h3><p>{businessFacts.address.full}.</p></div></div></div></section>
+    <section className="timeline-section timeline-section-v9"><div className="wrap"><div className="timeline-intro"><span className="eyebrow">A / VERIFIED POSITIONING</span><p>The blueprint prioritizes clear service discovery, direct workshop contact, real photography and only verified public claims.</p></div><BlueprintTimeline items={[
+      {no:"01",label:"POSITIONING",title:"Private cars / multibrand",text:"Asian Automobiles is positioned as an independent multi-brand service center for private cars."},
+      {no:"02",label:"BUSINESS MODEL",title:"Service + parts",text:"Car repair & services and automobile spare parts are the two verified business pillars."},
+      {no:"03",label:"LOCATION",title:"Irinjalakuda",text:businessFacts.address.full+"."}
+    ]}/></div></section>
   </Frame>
 }
 
@@ -85,7 +97,13 @@ function AC(){
 
 function Accident(){
   return <Frame eyebrow="03 / Accident repair" title="You've already had the bad moment. The next step should feel simpler." intro="A calmer path from damage photos to repair enquiry and insurance assistance.">
-    <section className="incident"><div className="wrap"><div className="incident-board"><div className="incident-label"><span>ACCIDENT REPAIR ENQUIRY</span><b>PROPOSED EXPLANATORY FLOW</b></div><div className="incident-main"><div className="incident-icon"><CarFront size={34}/></div><div><small>FIRST THING</small><h2>Show us what happened.</h2><p>Photos, a short description and your contact details are enough to start the conversation.</p></div></div><div className="dropzone"><Upload size={21}/><b>Prepare damage photos</b><span>photo upload is supported in the Request a Quote flow</span></div></div><div className="incident-steps">{[["01","Accident","Share damage details"],["02","Contact","Start the workshop enquiry"],["03","Survey / approval","Coordination where applicable"],["04","Repair","Proceed after scope is agreed"],["05","Handover","Complete the repair journey"]].map(([n,t,d])=><div key={n}><b>{n}</b><h3>{t}</h3><p>{d}</p></div>)}</div></div></section>
+    <section className="incident"><div className="wrap"><div className="incident-board"><div className="incident-label"><span>ACCIDENT REPAIR ENQUIRY</span><b>PROPOSED EXPLANATORY FLOW</b></div><div className="incident-main"><div className="incident-icon"><CarFront size={34}/></div><div><small>FIRST THING</small><h2>Show us what happened.</h2><p>Photos, a short description and your contact details are enough to start the conversation.</p></div></div><div className="dropzone"><Upload size={21}/><b>Prepare damage photos</b><span>photo upload is supported in the Request a Quote flow</span></div></div><BlueprintTimeline items={[
+      {no:"01",label:"ACCIDENT",title:"Share damage details",text:"Start with the vehicle, contact details and visible damage information."},
+      {no:"02",label:"CONTACT",title:"Start the workshop enquiry",text:"Use the accident-repair route or call the verified workshop number."},
+      {no:"03",label:"SURVEY / APPROVAL",title:"Coordination where applicable",text:"Survey and approval coordination depends on the insurer and case."},
+      {no:"04",label:"REPAIR",title:"Proceed with agreed scope",text:"Repair proceeds after the applicable scope and approvals are agreed."},
+      {no:"05",label:"HANDOVER",title:"Complete the repair journey",text:"The exact internal handover workflow remains subject to workshop confirmation."}
+    ]}/></div></section>
     <section className="photo-statement"><div className="wrap"><Image src={img.repair} alt="Automotive accident repair" width={1600} height={1000} sizes="(max-width: 900px) 100vw, 55vw"/><div><span className="eyebrow">KEEP IT SIMPLE</span><h2>No insurance jargon required.</h2><p>Cashless repair assistance has its own enquiry path. Current insurer participation and case eligibility should be confirmed with the workshop before repair work begins.</p><Link data-magnetic className="dark-link" href="/insurance/">See insurance assistance <ArrowUpRight size={16}/></Link></div></div></section>
   </Frame>
 }
@@ -111,13 +129,24 @@ function Tyres(){
 
 function Parts(){
   return <Frame eyebrow="07 / Automobile spare parts" title="Automobile spare parts, enquiry first." intro="The blueprint gives the parts business equal visibility to service and repair, without assuming a live inventory or ecommerce system.">
-    <section className="parts-desk"><div className="wrap parts-grid"><div className="parts-list">{["Name / phone","Vehicle or part requirement","Quantity","Notes"].map((x,i)=><div key={x}><b>0{i+1}</b><span>{x}</span><ArrowRight size={15}/></div>)}</div><div className="parts-receipt"><PackageSearch size={30}/><span>PARTS INQUIRY</span><h2>Tell us what<br/>you need.</h2><p>Product availability, warranty wording and OEM authorization are not assumed. Exact terms should be confirmed with the workshop.</p><Link data-magnetic className="primary-link" href="/request-quote/">Make a parts enquiry <ArrowUpRight size={15}/></Link></div></div></section>
+    <section className="parts-desk"><div className="wrap parts-grid"><HoverStatRail items={[
+      {no:"01",label:"Name / phone",text:"Contact details for the parts enquiry."},
+      {no:"02",label:"Vehicle / part",text:"Vehicle information or the part requirement."},
+      {no:"03",label:"Quantity",text:"Quantity where relevant to the request."},
+      {no:"04",label:"Notes",text:"Any additional reference information."}
+    ]}/><div className="parts-receipt"><PackageSearch size={30}/><span>PARTS INQUIRY</span><h2>Tell us what<br/>you need.</h2><p>Product availability, warranty wording and OEM authorization are not assumed. Exact terms should be confirmed with the workshop.</p><Link data-magnetic className="primary-link" href="/request-quote/">Make a parts enquiry <ArrowUpRight size={15}/></Link></div></div></section>
   </Frame>
 }
 
 function Insurance(){
   return <Frame eyebrow="08 / Cashless insurance repairs" title="Insurance repair assistance, with current eligibility confirmed case by case." intro="The supplied research references cashless-network relationships with New India Assurance and United India Insurance; current participation must still be confirmed with the workshop.">
-    <section className="claims"><div className="wrap"><div className="claims-track"><div className="claims-line"/>{[["01","ACCIDENT","Start the repair enquiry"],["02","CONTACT","Share vehicle / insurer details"],["03","SURVEY / APPROVAL","Coordination where applicable"],["04","REPAIR","Proceed with approved repair scope"],["05","HANDOVER","Complete the repair journey"]].map(([n,t,d])=><div className="claim-step" key={n}><span>{n}</span><div><small>{t}</small><h2>{d}</h2></div></div>)}</div><div className="claims-note"><ShieldCheck size={24}/><div><b>Research references / confirmation required</b><p>{businessFacts.insurance.publicNote}</p></div></div></div></section>
+    <section className="claims"><div className="wrap"><BlueprintTimeline items={[
+      {no:"01",label:"ACCIDENT",title:"Start the repair enquiry",text:"Begin with the vehicle and accident details."},
+      {no:"02",label:"CONTACT",title:"Share insurer details",text:"Provide insurer information so current eligibility can be checked."},
+      {no:"03",label:"SURVEY / APPROVAL",title:"Coordination where applicable",text:"Survey and approval steps vary by case and insurer."},
+      {no:"04",label:"REPAIR",title:"Approved repair scope",text:"Proceed after the applicable repair scope and approvals are clear."},
+      {no:"05",label:"HANDOVER",title:"Complete the repair journey",text:"Exact internal handover steps remain client-confirmation dependent."}
+    ]}/><div className="claims-note"><ShieldCheck size={24}/><div><b>Research references / confirmation required</b><p>{businessFacts.insurance.publicNote}</p></div></div></div></section>
     <section className="insurance-actions"><div className="wrap"><span className="eyebrow">YOUR NEXT MOVE</span><h2>Have the photos?<br/><em>Start the enquiry.</em></h2><div><CTA label="Request repair assistance" href="/request-quote/"/><Call/></div></div></section>
   </Frame>
 }
@@ -132,14 +161,14 @@ function Facilities(){
     ["Customer-facing areas",img.interior,"PHOTO BRIEF"]
   ];
   return <Frame eyebrow="09 / Our facilities" title="Workshop proof should come from the real workshop." intro="The blueprint prioritizes real photography of the workshop floor, service bays, alignment equipment, parts inventory, repair activity and customer-facing areas.">
-    <section className="facility-map"><div className="wrap"><div className="facility-grid">{zones.map(([x,src,label],i)=><div className={"facility-zone z"+i} key={x} style={{backgroundImage:`linear-gradient(180deg,#0002,#0009),url(${src})`,backgroundSize:"cover",backgroundPosition:"center",color:"#fff"}}><span style={{color:"#ffffffaa"}}>0{i+1}</span><b>{x}</b><small style={{color:"#ffffffaa"}}>{label}</small></div>)}</div><div className="facility-caption"><div><span className="eyebrow">VERIFIED CONTENT RULE</span><h2>Real photography.<br/><em>No invented facility specs.</em></h2></div><p>Exact bay count, lift count, equipment brands and customer amenities stay off the public site until directly confirmed by the client.</p></div></div></section>
+    <section className="facility-map"><div className="wrap"><ExpandGallery items={zones.map(([label,image,eyebrow])=>({label,eyebrow,image,alt:"Temporary visual placeholder pending approved Asian Automobiles "+label.toLowerCase()+" photography"}))}/><div className="facility-caption"><div><span className="eyebrow">VERIFIED CONTENT RULE</span><h2>Real photography.<br/><em>No invented facility specs.</em></h2></div><p>Exact bay count, lift count, equipment brands and customer amenities stay off the public site until directly confirmed by the client.</p></div></div></section>
   </Frame>
 }
 
 function Gallery(){
   const items=[[img.workshop,"WORKSHOP"],[img.repair,"REPAIRS"],[img.car,"PARTS"],[img.detail,"TEAM"],[img.interior,"EXTERIOR"],[img.road,"COMPLETED WORK"]];
   return <Frame eyebrow="10 / Gallery" title="The final gallery belongs to real workshop photography." intro="The blueprint defines six gallery filters: Workshop, Repairs, Parts, Team, Exterior and Completed Work. Current generic imagery is temporary until approved Asian Automobiles photography is supplied.">
-    <section className="gallery-wall"><div className="wrap gallery-masonry">{items.map(([src,label],i)=><figure className={"gallery-tile g"+i} key={label}><Image src={src} alt={"Temporary visual placeholder for "+label.toLowerCase()} width={1400} height={900} sizes="(max-width: 900px) 100vw, 50vw"/><figcaption><span>{label} / 0{i+1}</span><ArrowUpRight size={16}/></figcaption></figure>)}</div></section>
+    <section className="gallery-wall gallery-wall-v9"><div className="wrap"><ExpandGallery items={items.map(([image,label])=>({label,eyebrow:"GALLERY FILTER",image,alt:"Temporary visual placeholder for "+label.toLowerCase()}))}/></div></section>
   </Frame>
 }
 
@@ -165,7 +194,7 @@ function FAQ(){
     ["Can I upload damage photos?","The Request a Quote flow is designed to accept photos where applicable, especially for accident and body-repair enquiries."]
   ];
   return <Frame eyebrow="13 / FAQ" title="The questions people actually ask before they drive over." intro="Straight answers to the questions that matter before you call, book or drive over.">
-    <section className="faq-stage"><div className="wrap faq-layout"><div className="faq-aside"><CircleHelp size={32}/><span>NO GUESSWORK</span><p>If a detail isn't verified, the answer says so.</p></div><div className="faq-list">{qs.map(([q,a],i)=><details key={q}><summary><span>0{i+1}</span><b>{q}</b><ChevronRight/></summary><p>{a}</p></details>)}</div></div></section>
+    <section className="faq-stage"><div className="wrap faq-layout"><div className="faq-aside"><CircleHelp size={32}/><span>NO GUESSWORK</span><p>If a detail isn't verified, the answer says so.</p></div><MotionFaq items={qs.map(([question,answer])=>({question,answer}))}/></div></section>
   </Frame>
 }
 
