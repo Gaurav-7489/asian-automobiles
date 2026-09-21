@@ -20,9 +20,12 @@ export const businessFacts = {
     country: "India",
     full: "283 / V-526, Govt Rest House, Kattoor Road, Irinjalakuda, Thrissur - 680121, Kerala",
   },
+  establishedYear: 1996,
   phones: {
     primaryDisplay: "+91 93490 02038",
     primaryHref: "+919349002038",
+    whatsappDisplay: "+91 93490 02038",
+    whatsappHref: "919349002038",
     landlineDisplay: "0480 2828167",
     landlineHref: "+914802828167",
   },
@@ -45,11 +48,11 @@ export const businessFacts = {
   insurance: {
     researchReferences: ["New India Assurance", "United India Insurance"],
     publicNote:
-      "The supplied research references cashless-network relationships with New India Assurance and United India Insurance. Current insurer participation and case eligibility should be confirmed with the workshop before repair work begins.",
+      "Insurance and accident-repair assistance may depend on the case. Current eligibility, insurer participation and approval steps should be confirmed with the workshop before repair work begins.",
   },
   confirmationGates: {
     establishedYear:
-      "The supplied research lists 1996, but the blueprint requires client confirmation before using it as a live trust claim.",
+      "The supplied content strategy identifies 1996 as the establishment year.",
     hours:
       "Opening hours are not confirmed; conflicting public listings were found. Ask customers to call before travelling.",
     vehicleBrands:
@@ -63,7 +66,7 @@ export const businessFacts = {
     emergencySupport:
       "Towing or breakdown assistance is not confirmed.",
     whatsapp:
-      "The official business WhatsApp number is not confirmed in the supplied research.",
+      "The supplied content strategy identifies +91 93490 02038 as the WhatsApp contact.",
     email:
       "The primary customer-facing email address is not confirmed in the supplied research.",
     ownership:

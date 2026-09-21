@@ -1,8 +1,30 @@
 import {
-  ArrowLeft, ArrowRight, ArrowUpRight, Check, CircleHelp, Clock3, Compass,
-  Droplets, Gauge, Images, MapPin, Phone, ShieldCheck, Sparkles, Upload,
-  Wrench, Wind, CarFront, ClipboardCheck, Palette, Disc3, PackageSearch,
-  Route, Camera, FileCheck2, MessageCircle, ChevronRight
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  CircleHelp,
+  Clock3,
+  Gauge,
+  MapPin,
+  Phone,
+  ShieldCheck,
+  Sparkles,
+  Wrench,
+  Wind,
+  CarFront,
+  Palette,
+  Disc3,
+  PackageSearch,
+  Camera,
+  MessageCircle,
+  ChevronRight,
+  ClipboardCheck,
+  Navigation,
+  CircleAlert,
+  Search,
+  Settings2,
+  Boxes,
+  CalendarDays,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
@@ -17,275 +39,1226 @@ import {
   PageProgressRail,
   ScrollRevealSection,
 } from "@/components/immersive/inner-page-experiences";
+import { WhatsAppLeadForm } from "@/components/immersive/whatsapp-lead-form";
 
 const img = {
-  workshop:"https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1600&q=74",
-  repair:"https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1600&q=74",
-  car:"https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=74",
-  road:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=74",
-  detail:"https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1440&q=74",
-  interior:"https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1440&q=74"
+  workshop: "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1800&q=76",
+  repair: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1800&q=76",
+  car: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1800&q=76",
+  road: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1800&q=76",
+  detail: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1600&q=76",
+  interior: "https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1600&q=76",
+  wheel: "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1600&q=76",
 };
 
-const phone=businessFacts.phones.primaryHref;
+const phone = businessFacts.phones.primaryHref;
 
-function CTA({label="Book a Service",href="/book-service/"}:{label?:string;href?:string}){
-  return <Link data-magnetic prefetch={false} className="primary-link" href={href}>{label}<ArrowUpRight size={15}/></Link>;
+function whatsAppHref(message: string) {
+  return "https://wa.me/" + businessFacts.phones.whatsappHref + "?text=" + encodeURIComponent(message);
 }
-function Call(){ return <a data-magnetic className="outline-link" href={"tel:"+phone}><Phone size={15}/>Call the workshop</a>; }
-function Back(){ return <Link data-magnetic prefetch={false} className="back" href="/"><ArrowLeft size={15}/>Asian Automobiles / Home</Link>; }
 
-function Frame({eyebrow,title,intro,children,theme="paper"}:{eyebrow:string;title:string;intro?:string;children:ReactNode;theme?:string}){
-  return <main className={"creative-page immersive-page immersive-page-v9 "+theme}><PageProgressRail/>
-    <section className="creative-head">
-      <div className="creative-head-grid" aria-hidden="true"/>
-      <div className="wrap creative-wrap">
-        <Back/>
-        <div className="creative-heading aa-view-reveal">
-          <span className="eyebrow">{eyebrow}</span>
-          <h1>{title}</h1>
-          {intro&&<p>{intro}</p>}
+function CTA({
+  label = "Book a service",
+  href = "/book-service/",
+  tone = "primary",
+}: {
+  label?: string;
+  href?: string;
+  tone?: "primary" | "dark" | "ghost";
+}) {
+  return (
+    <Link
+      data-magnetic
+      prefetch={false}
+      className={"aa-v10-button aa-v10-button-" + tone}
+      href={href}
+    >
+      <span>{label}</span>
+      <ArrowUpRight size={15} />
+    </Link>
+  );
+}
+
+function WhatsAppAction({
+  label = "WhatsApp us",
+  message = "Hello Asian Automobiles, I would like help with my vehicle.",
+}: {
+  label?: string;
+  message?: string;
+}) {
+  return (
+    <a
+      data-magnetic
+      className="aa-v10-button aa-v10-button-whatsapp"
+      href={whatsAppHref(message)}
+      target="_blank"
+      rel="noreferrer"
+    >
+      <MessageCircle size={15} />
+      <span>{label}</span>
+      <ArrowUpRight size={14} />
+    </a>
+  );
+}
+
+function Call({ label = "Call workshop" }: { label?: string }) {
+  return (
+    <a data-magnetic className="aa-v10-button aa-v10-button-ghost" href={"tel:" + phone}>
+      <Phone size={15} />
+      <span>{label}</span>
+    </a>
+  );
+}
+
+function Directions() {
+  return (
+    <a
+      data-magnetic
+      className="aa-v10-button aa-v10-button-ghost"
+      href={directionsHref}
+      target="_blank"
+      rel="noreferrer"
+    >
+      <Navigation size={15} />
+      <span>Get directions</span>
+    </a>
+  );
+}
+
+function Back() {
+  return (
+    <Link data-magnetic prefetch={false} className="back" href="/">
+      <ArrowLeft size={15} />
+      Asian Automobiles / Home
+    </Link>
+  );
+}
+
+function Frame({
+  eyebrow,
+  title,
+  intro,
+  actions,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  intro?: string;
+  actions?: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <main className="creative-page immersive-page immersive-page-v9 aa-inner-v10">
+      <PageProgressRail />
+      <section className="creative-head aa-v10-head">
+        <div className="creative-head-grid" aria-hidden="true" />
+        <div className="wrap creative-wrap aa-v10-hero-wrap">
+          <Back />
+          <div className="aa-v10-hero-layout">
+            <div className="creative-heading aa-view-reveal">
+              <span className="eyebrow">{eyebrow}</span>
+              <h1>{title}</h1>
+              {intro && <p>{intro}</p>}
+            </div>
+            <div className="aa-v10-hero-side">
+              <div className="aa-v10-hero-proof">
+                <span>IRINJALAKUDA</span>
+                <b>Multi-brand vehicle care</b>
+                <small>Service + wheel care + spare parts</small>
+              </div>
+              <div className="aa-v10-hero-actions">
+                {actions ?? (
+                  <>
+                    <CTA />
+                    <Call />
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+          <a data-magnetic href="#page-content" className="creative-compass">
+            <span>SCROLL / SEE WHAT MATTERS</span>
+            <ArrowRight size={16} />
+          </a>
         </div>
-        <a data-magnetic href="#page-content" className="creative-compass">
-          <span>SCROLL / FOLLOW THE DETAILS</span>
-          <ArrowRight size={16}/>
-        </a>
+      </section>
+      <div id="page-content" className="creative-body aa-v10-body">
+        {children}
+      </div>
+    </main>
+  );
+}
+
+function SectionHead({
+  eyebrow,
+  title,
+  copy,
+  light = false,
+}: {
+  eyebrow: string;
+  title: string;
+  copy?: string;
+  light?: boolean;
+}) {
+  return (
+    <div className={"aa-v10-section-head " + (light ? "is-light" : "")}>
+      <span className="eyebrow">{eyebrow}</span>
+      <h2>{title}</h2>
+      {copy && <p>{copy}</p>}
+    </div>
+  );
+}
+
+function SignalCard({
+  no,
+  title,
+  copy,
+  icon,
+  href,
+}: {
+  no: string;
+  title: string;
+  copy: string;
+  icon: ReactNode;
+  href?: string;
+}) {
+  const body = (
+    <>
+      <div className="aa-v10-card-top">
+        <span>{no}</span>
+        {icon}
+      </div>
+      <h3>{title}</h3>
+      <p>{copy}</p>
+      {href && <span className="aa-v10-card-arrow"><ArrowUpRight size={16} /></span>}
+    </>
+  );
+
+  if (href) {
+    return (
+      <Link href={href} prefetch={false} className="aa-v10-signal-card">
+        {body}
+      </Link>
+    );
+  }
+
+  return <div className="aa-v10-signal-card">{body}</div>;
+}
+
+function FeatureCard({
+  no,
+  eyebrow,
+  title,
+  copy,
+  icon,
+  href,
+}: {
+  no: string;
+  eyebrow: string;
+  title: string;
+  copy: string;
+  icon?: ReactNode;
+  href?: string;
+}) {
+  const body = (
+    <>
+      <div className="aa-v10-feature-meta">
+        <span>{no}</span>
+        <small>{eyebrow}</small>
+        {icon}
+      </div>
+      <h3>{title}</h3>
+      <p>{copy}</p>
+      {href && <ArrowUpRight className="aa-v10-feature-arrow" size={18} />}
+    </>
+  );
+
+  return href ? (
+    <Link href={href} prefetch={false} className="aa-v10-feature-card">
+      {body}
+    </Link>
+  ) : (
+    <article className="aa-v10-feature-card">{body}</article>
+  );
+}
+
+function PageCTA({
+  eyebrow,
+  title,
+  copy,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  copy: string;
+  children: ReactNode;
+}) {
+  return (
+    <section className="aa-v10-section aa-v10-endcap">
+      <div className="wrap aa-v10-endcap-grid">
+        <div>
+          <span className="eyebrow light">{eyebrow}</span>
+          <h2>{title}</h2>
+        </div>
+        <div>
+          <p>{copy}</p>
+          <div className="aa-v10-inline-actions">{children}</div>
+        </div>
       </div>
     </section>
-    <div id="page-content" className="creative-body">{children}</div>
-  </main>
+  );
 }
 
-function About(){
-  return <Frame eyebrow="About / Asian Automobiles" title="Independent multi-brand service and automobile parts in Irinjalakuda." intro="Public copy is constrained to the verified business foundation in the supplied client blueprint.">
-    <section className="about-opening"><div className="wrap about-grid"><div className="year-mark"><span>LOCAL</span><strong>AA</strong><small>{businessFacts.address.locality.toUpperCase()} · {businessFacts.address.region.toUpperCase()}</small></div><div><span className="eyebrow">VERIFIED BUSINESS FOUNDATION</span><h2>Service & repair.<br/><em>Automobile spare parts.</em></h2><p>Asian Automobiles is positioned in the supplied blueprint as an independent multi-brand service center for private cars, with automobile parts and car repair & services as the two connected business pillars.</p><div className="about-proof"><span><Check/>Independent multi-brand</span><span><Wrench/>Car repair & services</span><span><PackageSearch/>Automobile spare parts</span></div></div></div></section>
-    <section className="timeline-section timeline-section-v9"><div className="wrap"><div className="timeline-intro"><span className="eyebrow">A / VERIFIED POSITIONING</span><p>The blueprint prioritizes clear service discovery, direct workshop contact, real photography and only verified public claims.</p></div><BlueprintTimeline items={[
-      {no:"01",label:"POSITIONING",title:"Private cars / multibrand",text:"Asian Automobiles is positioned as an independent multi-brand service center for private cars."},
-      {no:"02",label:"BUSINESS MODEL",title:"Service + parts",text:"Car repair & services and automobile spare parts are the two verified business pillars."},
-      {no:"03",label:"LOCATION",title:"Irinjalakuda",text:businessFacts.address.full+"."}
-    ]}/></div></section>
-  </Frame>
-}
-
-function Services(){
-  const cards: Array<[string,string,string,string,typeof Wrench]> = [
-    ["01","Routine / mechanical","General car service & repairs","/services/car-service/",Wrench],
-    ["02","AC / service","Car AC service & repair","/services/car-ac-repair/",Wind],
-    ["03","Accident / bodywork","Denting, painting & accident repair","/services/accident-repair/",CarFront],
-    ["04","Wheels / tyres","Wheel alignment, balancing & tyre services","/services/wheel-alignment/",Disc3],
-    ["05","Parts / enquiry","Automobile spare parts","/spare-parts/",PackageSearch]
-  ];
-  return <Frame eyebrow="Services / start with the symptom" title="Start with what the car is doing." intro="No need to know the workshop vocabulary first. Pick the situation that sounds like yours.">
-    <section className="service-command"><div className="wrap"><div className="command-bar"><span><Sparkles size={15}/>WHAT BROUGHT YOU HERE?</span><small>CHOOSE A STARTING POINT</small></div><div className="command-grid">{cards.map(([n,k,t,href,Icon])=><Link href={href as string} data-magnetic className="command-card" key={n as string}><span className="command-number">{n}</span><Icon size={22}/><small>{k}</small><h2>{t}</h2><span className="command-go"><ArrowRight size={16}/></span></Link>)}</div></div></section>
-    <section className="service-closer"><div className="wrap service-closer-grid"><div><span className="eyebrow">Still not sure?</span><h2>Tell us what<br/>the car is doing.</h2></div><div><p>You don't have to diagnose it yourself. Describe the symptom in your own words and start from there.</p><CTA label="Describe the problem" href="/request-quote/"/></div></div></section>
-  </Frame>
-}
-
-function CarService(){
-  return <Frame eyebrow="01 / General car service & repairs" title="Routine maintenance and mechanical repair." intro="A dedicated enquiry path for the verified general car service and repair category.">
-    <section className="diagnostic"><div className="wrap"><div className="diagnostic-top"><div><span className="eyebrow">SERVICE DESK / 01</span><h2>Start with the service need.</h2></div><span className="status-pill"><span/>MULTI-BRAND / PRIVATE CARS</span></div><div className="symptom-grid">{["Routine maintenance","Mechanical repair","General service enquiry"].map((x,i)=><div className="symptom" key={x}><span>0{i+1}</span><b>{x}</b><ChevronRight size={16}/></div>)}</div><div className="diagnostic-flow"><div><ClipboardCheck size={20}/><small>STEP 01</small><h3>Share details</h3><p>Provide the vehicle and the service or repair requirement.</p></div><div><Gauge size={20}/><small>STEP 02</small><h3>Confirm scope</h3><p>The workshop confirms the appropriate next step for the enquiry.</p></div><div><Wrench size={20}/><small>STEP 03</small><h3>Service / repair</h3><p>Proceed with the agreed service or repair scope.</p></div></div></div></section>
-    <section className="split-photo"><div className="wrap"><Image src={img.detail} alt="Temporary automotive service visual pending approved workshop photography" width={1600} height={1000} sizes="(max-width: 900px) 100vw, 55vw"/><div><span className="eyebrow">VERIFIED SCOPE</span><h2>General service and mechanical repair.</h2><p>Exact workshop workflow, equipment and vehicle-brand coverage remain confirmation-gated until approved by the client.</p><CTA label="Book a service"/></div></div></section>
-  </Frame>
-}
-
-function AC(){
-  return <Frame eyebrow="02 / Car AC service & repair" title="Car AC service and repair in Irinjalakuda." intro="A dedicated enquiry path for the verified AC service and repair category.">
-    <section className="thermal"><div className="wrap thermal-grid"><div className="thermal-visual"><div className="thermal-ring"><Wind size={34}/><strong>AC</strong><span>COOLING<br/>CHECK</span></div><div className="thermal-readings"><span>FLOW <b>01</b></span><span>COMFORT <b>02</b></span><span>SYSTEM <b>03</b></span></div></div><div className="thermal-copy"><span className="eyebrow">VERIFIED SERVICE SCOPE</span><h2>AC service.<br/>AC repair.</h2><p>The blueprint supports car AC service and repair. Refrigerants, machine models and exact procedures are intentionally not published until confirmed.</p><div className="ac-tags">{["CAR AC SERVICE","CAR AC REPAIR","IRINJALAKUDA"].map(x=><span key={x}>{x}</span>)}</div><CTA label="Request AC service"/></div></div></section>
-    <section className="dark-callout"><div className="wrap"><span className="eyebrow light">DIRECT CONTACT</span><h2>Need AC service?<br/><i>Contact the workshop.</i></h2><Call/></div></section>
-  </Frame>
-}
-
-function Accident(){
-  return <Frame eyebrow="03 / Accident repair" title="You've already had the bad moment. The next step should feel simpler." intro="A calmer path from damage photos to repair enquiry and insurance assistance.">
-    <section className="incident"><div className="wrap"><div className="incident-board"><div className="incident-label"><span>ACCIDENT REPAIR ENQUIRY</span><b>PROPOSED EXPLANATORY FLOW</b></div><div className="incident-main"><div className="incident-icon"><CarFront size={34}/></div><div><small>FIRST THING</small><h2>Show us what happened.</h2><p>Photos, a short description and your contact details are enough to start the conversation.</p></div></div><div className="dropzone"><Upload size={21}/><b>Prepare damage photos</b><span>photo upload is supported in the Request a Quote flow</span></div></div><BlueprintTimeline items={[
-      {no:"01",label:"ACCIDENT",title:"Share damage details",text:"Start with the vehicle, contact details and visible damage information."},
-      {no:"02",label:"CONTACT",title:"Start the workshop enquiry",text:"Use the accident-repair route or call the verified workshop number."},
-      {no:"03",label:"SURVEY / APPROVAL",title:"Coordination where applicable",text:"Survey and approval coordination depends on the insurer and case."},
-      {no:"04",label:"REPAIR",title:"Proceed with agreed scope",text:"Repair proceeds after the applicable scope and approvals are agreed."},
-      {no:"05",label:"HANDOVER",title:"Complete the repair journey",text:"The exact internal handover workflow remains subject to workshop confirmation."}
-    ]}/></div></section>
-    <section className="photo-statement"><div className="wrap"><Image src={img.repair} alt="Automotive accident repair" width={1600} height={1000} sizes="(max-width: 900px) 100vw, 55vw"/><div><span className="eyebrow">KEEP IT SIMPLE</span><h2>No insurance jargon required.</h2><p>Cashless repair assistance has its own enquiry path. Current insurer participation and case eligibility should be confirmed with the workshop before repair work begins.</p><Link data-magnetic className="dark-link" href="/insurance/">See insurance assistance <ArrowUpRight size={16}/></Link></div></div></section>
-  </Frame>
-}
-
-function Denting(){
-  return <Frame eyebrow="04 / Denting & painting" title="Bodywork is detail work." intro="A visual route for dents, scratches, panels and paint-related enquiries.">
-    <section className="paint-studio"><div className="wrap"><div className="studio-header"><span className="eyebrow">BODY SHOP / VISUAL CHECK</span><h2>Show the mark.<br/><em>We'll start there.</em></h2></div><div className="before-after"><div className="ba-image first"><Image src={img.car} alt="Temporary automotive bodywork reference visual" width={1600} height={1000} sizes="(max-width: 900px) 100vw, 55vw"/><span>DAMAGE / REFERENCE</span></div><div className="ba-image second"><Image src={img.detail} alt="Temporary automotive finish reference visual" width={1440} height={1000} sizes="(max-width: 900px) 100vw, 50vw"/><span>FINISH / REFERENCE</span></div><div className="ba-divider"/></div><div className="paint-notes"><span><Palette/>Denting & painting</span><span><CarFront/>Accident restoration</span><span><Camera/>Damage photo upload</span><CTA label="Send damage details" href="/request-quote/"/></div></div></section>
-  </Frame>
-}
-
-function Wheel(){
-  return <Frame eyebrow="05 / Wheel alignment & balancing" title="If the car isn't going straight, start with the wheels." intro="Alignment, balancing, tyre and rim repair enquiries in one focused visual.">
-    <section className="alignment"><div className="wrap alignment-grid"><div className="alignment-graphic"><div className="wheel-axis a"/><div className="wheel-axis b"/><div className="wheel left"/><div className="wheel right"/><span>TRACK / 01</span><span>ALIGN / 02</span></div><div className="alignment-copy"><span className="eyebrow">VERIFIED WHEEL / TYRE SCOPE</span><h2>Alignment.<br/>Balancing. Tyres. Rims.</h2><div className="wheel-signals">{["Computerized wheel alignment","Wheel balancing","Tyre repair","Rim repair"].map((x,i)=><div key={x}><b>0{i+1}</b><span>{x}</span><ArrowRight size={14}/></div>)}</div><CTA label="Book wheel service" href="/book-service/"/></div></div></section>
-    <section className="micro-strip"><div className="wrap"><span>ALIGNMENT</span><span>BALANCING</span><span>TYRE REPAIR</span><span>RIM REPAIR</span></div></section>
-  </Frame>
-}
-
-function Tyres(){
-  return <Frame eyebrow="06 / Tyre services" title="Tyre repair, balancing and rim-repair enquiries." intro="A dedicated route for the verified wheel and tyre service scope.">
-    <section className="tyre-wall"><div className="wrap"><div className="tyre-hero-card"><div className="tread"><span/><span/><span/><span/><span/></div><div><span className="eyebrow light">VERIFIED SERVICE SCOPE</span><h2>Tyre repair.<br/>Wheel balancing.</h2><p>Rim repair and tyre-service enquiries are also included in the verified service list.</p><CTA label="Start a tyre enquiry" href="/request-quote/"/></div></div><div className="tyre-grid">{["Tyre repair / puncture","Wheel balancing","Rim repair","Tyre enquiry"].map((x,i)=><div key={x}><small>0{i+1}</small><h3>{x}</h3><ArrowUpRight size={17}/></div>)}</div></div></section>
-  </Frame>
-}
-
-function Parts(){
-  return <Frame eyebrow="07 / Automobile spare parts" title="Automobile spare parts, enquiry first." intro="The blueprint gives the parts business equal visibility to service and repair, without assuming a live inventory or ecommerce system.">
-    <section className="parts-desk"><div className="wrap parts-grid"><HoverStatRail items={[
-      {no:"01",label:"Name / phone",text:"Contact details for the parts enquiry."},
-      {no:"02",label:"Vehicle / part",text:"Vehicle information or the part requirement."},
-      {no:"03",label:"Quantity",text:"Quantity where relevant to the request."},
-      {no:"04",label:"Notes",text:"Any additional reference information."}
-    ]}/><div className="parts-receipt"><PackageSearch size={30}/><span>PARTS INQUIRY</span><h2>Tell us what<br/>you need.</h2><p>Product availability, warranty wording and OEM authorization are not assumed. Exact terms should be confirmed with the workshop.</p><Link data-magnetic className="primary-link" href="/request-quote/">Make a parts enquiry <ArrowUpRight size={15}/></Link></div></div></section>
-  </Frame>
-}
-
-function Insurance(){
-  return <Frame eyebrow="08 / Cashless insurance repairs" title="Insurance repair assistance, with current eligibility confirmed case by case." intro="The supplied research references cashless-network relationships with New India Assurance and United India Insurance; current participation must still be confirmed with the workshop.">
-    <section className="claims"><div className="wrap"><BlueprintTimeline items={[
-      {no:"01",label:"ACCIDENT",title:"Start the repair enquiry",text:"Begin with the vehicle and accident details."},
-      {no:"02",label:"CONTACT",title:"Share insurer details",text:"Provide insurer information so current eligibility can be checked."},
-      {no:"03",label:"SURVEY / APPROVAL",title:"Coordination where applicable",text:"Survey and approval steps vary by case and insurer."},
-      {no:"04",label:"REPAIR",title:"Approved repair scope",text:"Proceed after the applicable repair scope and approvals are clear."},
-      {no:"05",label:"HANDOVER",title:"Complete the repair journey",text:"Exact internal handover steps remain client-confirmation dependent."}
-    ]}/><div className="claims-note"><ShieldCheck size={24}/><div><b>Research references / confirmation required</b><p>{businessFacts.insurance.publicNote}</p></div></div></div></section>
-    <section className="insurance-actions"><div className="wrap"><span className="eyebrow">YOUR NEXT MOVE</span><h2>Have the photos?<br/><em>Start the enquiry.</em></h2><div><CTA label="Request repair assistance" href="/request-quote/"/><Call/></div></div></section>
-  </Frame>
-}
-
-function Facilities(){
-  const zones=[
-    ["Workshop floor",img.workshop,"PHOTO BRIEF"],
-    ["Service bays",img.workshop,"PHOTO BRIEF"],
-    ["Alignment equipment",img.road,"PHOTO BRIEF"],
-    ["Parts inventory",img.repair,"PHOTO BRIEF"],
-    ["Repair activity",img.detail,"PHOTO BRIEF"],
-    ["Customer-facing areas",img.interior,"PHOTO BRIEF"]
-  ];
-  return <Frame eyebrow="09 / Our facilities" title="Workshop proof should come from the real workshop." intro="The blueprint prioritizes real photography of the workshop floor, service bays, alignment equipment, parts inventory, repair activity and customer-facing areas.">
-    <section className="facility-map"><div className="wrap"><ExpandGallery items={zones.map(([label,image,eyebrow])=>({label,eyebrow,image,alt:"Temporary visual placeholder pending approved Asian Automobiles "+label.toLowerCase()+" photography"}))}/><div className="facility-caption"><div><span className="eyebrow">VERIFIED CONTENT RULE</span><h2>Real photography.<br/><em>No invented facility specs.</em></h2></div><p>Exact bay count, lift count, equipment brands and customer amenities stay off the public site until directly confirmed by the client.</p></div></div></section>
-  </Frame>
-}
-
-function Gallery(){
-  const items=[[img.workshop,"WORKSHOP"],[img.repair,"REPAIRS"],[img.car,"PARTS"],[img.detail,"TEAM"],[img.interior,"EXTERIOR"],[img.road,"COMPLETED WORK"]];
-  return <Frame eyebrow="10 / Gallery" title="The final gallery belongs to real workshop photography." intro="The blueprint defines six gallery filters: Workshop, Repairs, Parts, Team, Exterior and Completed Work. Current generic imagery is temporary until approved Asian Automobiles photography is supplied.">
-    <section className="gallery-wall gallery-wall-v9"><div className="wrap"><ExpandGallery items={items.map(([image,label])=>({label,eyebrow:"GALLERY FILTER",image,alt:"Temporary visual placeholder for "+label.toLowerCase()}))}/></div></section>
-  </Frame>
-}
-
-function Reviews(){
-  return <Frame eyebrow="11 / Reviews & customer stories" title="Only attributable reviews belong here." intro="The blueprint requires public reviews to retain source, date and context, and customer stories to be consented rather than fabricated.">
-    <section className="review-wall"><div className="wrap"><div className="review-statement"><span className="eyebrow">PROOF / NOT PERFORMANCE</span><h2>Real words.<br/><em>Real context.</em></h2><p>Customer stories can show what was done, when it happened and where the feedback came from.</p></div><div className="review-notes">{[["SOURCE","Google / approved source"],["DATE","Publication date"],["CONTEXT","What work was done"],["PERMISSION","Usage confirmed"]].map(([a,b],i)=><div key={a}><span>0{i+1}</span><small>{a}</small><b>{b}</b><ArrowUpRight size={15}/></div>)}</div></div></section>
-  </Frame>
-}
-
-function Contact(){
-  return <Frame eyebrow="12 / Contact & directions" title="Contact Asian Automobiles in Irinjalakuda." intro={businessFacts.address.full + "."}>
-    <section className="contact-map"><div className="wrap contact-map-grid"><div className="map-art"><div className="map-road r1"/><div className="map-road r2"/><div className="map-road r3"/><div className="map-pin"><MapPin size={24}/><span>ASIAN<br/>AUTOMOBILES</span></div><span className="map-label l1">KATTOOR ROAD</span><span className="map-label l2">{businessFacts.address.locality.toUpperCase()}</span></div><div className="contact-console"><div><span className="eyebrow">VERIFIED CONTACT</span><h2>Talk to the workshop.</h2></div><a href={"tel:"+businessFacts.phones.primaryHref} data-magnetic className="console-row"><Phone/><span><small>PRIMARY PHONE</small><b>{businessFacts.phones.primaryDisplay}</b></span><ArrowUpRight/></a><a href={"tel:"+businessFacts.phones.landlineHref} data-magnetic className="console-row"><Phone/><span><small>LANDLINE</small><b>{businessFacts.phones.landlineDisplay}</b></span><ArrowUpRight/></a><div className="console-row muted"><Clock3/><span><small>OPENING HOURS</small><b>Call to confirm before travelling</b></span></div><a href={directionsHref} target="_blank" rel="noreferrer" data-magnetic className="console-row"><MapPin/><span><small>DIRECTIONS</small><b>Kattoor Road, Irinjalakuda</b></span><ArrowUpRight/></a></div></div></section>
-  </Frame>
-}
-
-function FAQ(){
-  const qs=[
-    ["What services are offered?","Asian Automobiles handles general car service and repairs, AC, accident repair, denting and painting, wheel alignment and balancing, tyre services and automobile spare-parts enquiries."],
-    ["Which vehicle brands do you service?","For vehicle-specific service availability, call the workshop with your make, model and year."],
-    ["Do you provide cashless insurance repair?","Insurance assistance is available as an enquiry route. Call the workshop to confirm insurer-specific eligibility and the process for your case."],
-    ["What are the opening hours?","Please call the workshop to confirm today's opening hours before travelling."],
-    ["How do I start a service booking?","Use the service enquiry page to prepare the vehicle and service details, or call the workshop directly to arrange the next step."],
-    ["Can I upload damage photos?","The Request a Quote flow is designed to accept photos where applicable, especially for accident and body-repair enquiries."]
-  ];
-  return <Frame eyebrow="13 / FAQ" title="The questions people actually ask before they drive over." intro="Straight answers to the questions that matter before you call, book or drive over.">
-    <section className="faq-stage"><div className="wrap faq-layout"><div className="faq-aside"><CircleHelp size={32}/><span>NO GUESSWORK</span><p>If a detail isn't verified, the answer says so.</p></div><MotionFaq items={qs.map(([question,answer])=>({question,answer}))}/></div></section>
-  </Frame>
-}
-
-function Form({quote=false}:{quote?:boolean}){
-  return <section className={"form-stage "+(quote?"quote-stage":"booking-stage")}><div className="wrap form-layout"><div className="form-intro">{quote?<><span className="eyebrow">DAMAGE / PARTS DESK</span><h2>Show us what needs attention.</h2><p>Write it like you would tell a mechanic. Clear details make the repair conversation easier.</p><div className="form-side-note"><Camera size={18}/><span>Photo upload is especially useful for accident and body-repair enquiries.</span></div></>:<><span className="eyebrow">SERVICE DESK</span><h2>Let's find a sensible time to talk.</h2><p>Keep the useful details together: who you are, which vehicle, what it needs and when you would prefer to visit.</p><div className="booking-steps"><span>01 / YOU</span><span>02 / VEHICLE</span><span>03 / SERVICE</span><span>04 / TIME</span></div></>}</div><div className="real-form"><label>Name<input placeholder="What should we call you?"/></label><label>Phone<input placeholder="A number we can reach"/></label><label>Vehicle make / model<input placeholder="e.g. Hyundai i20"/></label><label>{quote?"What needs attention?":"Service needed"}<input placeholder={quote?"Tell it in your own words":"Choose or describe the service"}/></label>{!quote&&<label>Preferred date / time<input placeholder="Your preferred slot"/></label>}<label className="wide">More detail<textarea placeholder={quote?"Service, parts or damage details.":"Anything we should know before the appointment?"}/></label>{quote&&<label className="upload wide"><Upload size={17}/><span>Attach damage / reference photos</span></label>}<button>Send enquiry <ArrowUpRight size={16}/></button><small>Prefer to speak to someone? Call {businessFacts.phones.primaryDisplay}. The official WhatsApp number and form-routing endpoints remain confirmation-gated.</small></div></div></section>
-}
-
-function Booking({quote=false}){ 
-  const eyebrow = quote ? "Request a quote / damage desk" : "Book a service / service desk";
-  const title = quote ? "A photo can say more than a paragraph." : "Let's get the basics on the table.";
-  const intro = quote
-    ? "Send the problem in your own words and prepare the right details for a repair conversation."
-    : "Keep the useful vehicle and service details together before you contact the workshop.";
-
+function About() {
   return (
-    <Frame eyebrow={eyebrow} title={title} intro={intro}>
-      <Form quote={quote}/>
+    <Frame
+      eyebrow="About / Asian Automobiles"
+      title="Built around cars. Built around Irinjalakuda."
+      intro="Asian Automobiles combines multi-brand vehicle service, wheel care and spare-parts support from Kattoor Road."
+      actions={<><CTA label="Book a service" /><Directions /></>}
+    >
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap aa-v10-story-grid">
+          <div className="aa-v10-year-card">
+            <span>ESTABLISHED</span>
+            <strong>{businessFacts.establishedYear}</strong>
+            <small>IRINJALAKUDA / KERALA</small>
+          </div>
+          <ScrollRevealSection>
+            <SectionHead
+              eyebrow="THREE DECADES / ONE LOCAL BUSINESS"
+              title="Cars changed. The job stayed simple: understand the problem and do the work properly."
+              copy="Since 1996, the business has grown alongside the vehicles driven in and around Irinjalakuda. Today, service, mechanical repair, precision wheel care and parts support come together at one location."
+            />
+            <div className="aa-v10-inline-actions">
+              <CTA label="Visit the workshop" href="/contact/" tone="dark" />
+              <Call />
+            </div>
+          </ScrollRevealSection>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-soft">
+        <div className="wrap">
+          <SectionHead
+            eyebrow="WHAT DEFINES THE WORKSHOP"
+            title="Useful experience, without the showroom theatre."
+            copy="The website should make the business easy to understand: independent multi-brand support, practical diagnosis, local access and parts knowledge."
+          />
+          <div className="aa-v10-feature-grid">
+            <FeatureCard no="01" eyebrow="EXPERIENCE" title="Decades around vehicles" copy="Practical exposure to common automotive problems, maintenance needs and replacement components." icon={<Gauge size={19} />} />
+            <FeatureCard no="02" eyebrow="MULTI-BRAND" title="Different cars. Same clear process." copy="Tell the workshop your make, model and problem. Vehicle-specific availability can be confirmed before you visit." icon={<CarFront size={19} />} />
+            <FeatureCard no="03" eyebrow="DIAGNOSIS" title="Start with the actual problem" copy="Good service begins by understanding the complaint before jumping straight to replacement parts." icon={<Search size={19} />} />
+            <FeatureCard no="04" eyebrow="PARTS + SERVICE" title="Two sides of the same job" copy="Workshop support is connected to an established automotive spare-parts operation." icon={<PackageSearch size={19} />} />
+          </div>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-dark">
+        <div className="wrap">
+          <SectionHead
+            light
+            eyebrow="OUR APPROACH"
+            title="Inspect carefully. Explain clearly. Keep the next step obvious."
+            copy="A premium experience should reduce uncertainty, not add more jargon."
+          />
+          <HoverStatRail
+            items={[
+              { no: "01", label: "Understand", text: "Start with the symptom, service need or part requirement in plain language." },
+              { no: "02", label: "Inspect", text: "Check the relevant vehicle area before deciding what the repair should be." },
+              { no: "03", label: "Explain", text: "Keep the customer clear on what needs attention and what happens next." },
+              { no: "04", label: "Proceed", text: "Move ahead with the agreed service, repair or parts enquiry." },
+            ]}
+          />
+        </div>
+      </section>
+
+      <PageCTA
+        eyebrow="READY WHEN YOU ARE"
+        title="Need us to look at the car?"
+        copy="Tell us the model and what you are noticing. You do not need to diagnose it yourself."
+      >
+        <CTA label="Book a service" />
+        <WhatsAppAction label="Message the workshop" />
+      </PageCTA>
     </Frame>
   );
 }
 
-function SpareRedirect(){return <Parts/>}
+function Services() {
+  const problems = [
+    ["01", "It is due for service", "Routine maintenance, fluids, filters and general checks.", "/services/car-service/", <CalendarDays size={20} />],
+    ["02", "Something sounds or feels wrong", "Noise, vibration, steering, brakes or a mechanical concern.", "/services/car-service/", <Wrench size={20} />],
+    ["03", "The AC is not cooling", "Weak cooling, poor airflow or an AC-system concern.", "/services/car-ac-repair/", <Wind size={20} />],
+    ["04", "The car pulls or vibrates", "Alignment, balancing, tyre wear and wheel-related checks.", "/services/wheel-alignment/", <Disc3 size={20} />],
+    ["05", "There is body damage", "Dents, scratches, panels, paint or accident-related damage.", "/services/accident-repair/", <CarFront size={20} />],
+    ["06", "I need a part", "Start a fitment-first spare-parts enquiry.", "/spare-parts/", <PackageSearch size={20} />],
+  ] as const;
+
+  return (
+    <Frame
+      eyebrow="Services / start with what you notice"
+      title="You do not need to know the workshop vocabulary."
+      intro="Choose the closest problem. We’ll guide you to the right service from there."
+      actions={<><WhatsAppAction label="Tell us the problem" /><Call /></>}
+    >
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap">
+          <SectionHead eyebrow="QUICK START" title="What brought you here today?" copy="One tap should get you close to the right next step." />
+          <div className="aa-v10-signal-grid">
+            {problems.map(([no, title, copy, href, icon]) => (
+              <SignalCard key={no} no={no} title={title} copy={copy} href={href} icon={icon} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-soft">
+        <div className="wrap">
+          <SectionHead eyebrow="SERVICE DIRECTORY" title="Everything your car needs. Organised so it is easy to scan." />
+          <div className="aa-v10-feature-grid aa-v10-feature-grid-wide">
+            <FeatureCard no="01" eyebrow="MAINTENANCE" title="Periodic vehicle maintenance" copy="Routine servicing, filters, fluids and preventive checks for everyday reliability." href="/services/car-service/" icon={<ClipboardCheck size={19} />} />
+            <FeatureCard no="02" eyebrow="MECHANICAL" title="General mechanical repairs" copy="Diagnosis and repair for common braking, steering, suspension and mechanical concerns." href="/services/car-service/" icon={<Wrench size={19} />} />
+            <FeatureCard no="03" eyebrow="WHEELS" title="Computerized wheel alignment" copy="For pulling, off-centre steering and irregular tyre wear." href="/services/wheel-alignment/" icon={<Gauge size={19} />} />
+            <FeatureCard no="04" eyebrow="BALANCING" title="Wheel balancing & tyre care" copy="For steering vibration, wheel imbalance, tyre condition and rim-related enquiries." href="/services/tyre-services/" icon={<Disc3 size={19} />} />
+            <FeatureCard no="05" eyebrow="CLIMATE" title="Car AC service" copy="For weak cooling, airflow problems and AC-system concerns." href="/services/car-ac-repair/" icon={<Wind size={19} />} />
+            <FeatureCard no="06" eyebrow="BODY" title="Denting, painting & accident repair" copy="A direct path for body damage, accident restoration and photo-led enquiries." href="/services/accident-repair/" icon={<CarFront size={19} />} />
+            <FeatureCard no="07" eyebrow="PARTS" title="Automobile spare parts" copy="Fitment-first parts support for maintenance, braking, suspension, electrical and more." href="/spare-parts/" icon={<PackageSearch size={19} />} />
+            <FeatureCard no="08" eyebrow="NOT SURE" title="Describe the symptom instead" copy="Send the vehicle and the problem in your own words. The workshop can guide the next step." href="/request-quote/" icon={<MessageCircle size={19} />} />
+          </div>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-dark">
+        <div className="wrap">
+          <SectionHead light eyebrow="A SIMPLE SERVICE JOURNEY" title="Tell us. Inspect. Explain. Service. Check." />
+          <BlueprintTimeline
+            items={[
+              { no: "01", label: "TELL US", title: "Start with the complaint", text: "Share the vehicle model, the symptom or the service you already know you need." },
+              { no: "02", label: "INSPECT", title: "Look at the relevant system", text: "The useful next step is inspection, not guesswork." },
+              { no: "03", label: "EXPLAIN", title: "Make the work clear", text: "Keep the repair requirement understandable before the job moves ahead." },
+              { no: "04", label: "SERVICE", title: "Carry out the agreed work", text: "Proceed with the maintenance or repair scope that applies to the vehicle." },
+              { no: "05", label: "CHECK", title: "Verify the affected area", text: "Finish by checking the area that was serviced before handover." },
+            ]}
+          />
+        </div>
+      </section>
+
+      <PageCTA
+        eyebrow="STILL NOT SURE?"
+        title="Just tell us what the car is doing."
+        copy="No mechanic-speak required. A short WhatsApp message is enough to start."
+      >
+        <WhatsAppAction label="Describe the problem" />
+        <CTA label="Book service" />
+      </PageCTA>
+    </Frame>
+  );
+}
+
+function CarService() {
+  return (
+    <Frame
+      eyebrow="General car service & mechanical repair"
+      title="Maintenance when it is due. Diagnosis when something feels wrong."
+      intro="Routine servicing and common mechanical concerns, without making you choose the exact repair before the car is inspected."
+      actions={<><CTA label="Book general service" /><WhatsAppAction label="Ask about a symptom" /></>}
+    >
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap">
+          <SectionHead eyebrow="START WITH THE NEED" title="Which of these sounds closest?" />
+          <div className="aa-v10-signal-grid">
+            <SignalCard no="01" title="Service is due" copy="Routine maintenance, fluids, filters and preventive checks." icon={<CalendarDays size={20} />} />
+            <SignalCard no="02" title="There is a noise or vibration" copy="A useful starting point for mechanical troubleshooting." icon={<Gauge size={20} />} />
+            <SignalCard no="03" title="Brakes or steering feel different" copy="Changes in feel, stability or braking deserve inspection." icon={<CarFront size={20} />} />
+            <SignalCard no="04" title="I just want the car checked" copy="Share the vehicle and concern. The workshop can confirm the sensible next step." icon={<Search size={20} />} />
+          </div>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-soft">
+        <div className="wrap aa-v10-two-col">
+          <SectionHead
+            eyebrow="SERVICE SCOPE"
+            title="Routine care and common mechanical support."
+            copy="The supplied content system groups maintenance, braking, suspension, steering and general mechanical troubleshooting under the workshop offer."
+          />
+          <div className="aa-v10-stack-list">
+            {[
+              ["01", "Periodic maintenance", "Oil, filters, fluids and preventive vehicle checks."],
+              ["02", "Mechanical concerns", "Noise, vibration, cooling, clutch and general troubleshooting."],
+              ["03", "Brakes", "Wear, noise and braking-component inspection or repair where required."],
+              ["04", "Suspension & steering", "Ride, handling, worn components and stability-related complaints."],
+            ].map(([no, title, copy]) => (
+              <div key={no}>
+                <span>{no}</span>
+                <div><b>{title}</b><p>{copy}</p></div>
+                <ChevronRight size={17} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-dark">
+        <div className="wrap">
+          <SectionHead light eyebrow="NO-GUESSWORK PROCESS" title="The vehicle decides the repair. Not the other way around." />
+          <BlueprintTimeline
+            items={[
+              { no: "01", label: "DETAILS", title: "Tell us what you notice", text: "Vehicle model, symptoms and the service history you know are enough to begin." },
+              { no: "02", label: "INSPECTION", title: "Check the relevant area", text: "The affected components and systems are inspected before a repair path is agreed." },
+              { no: "03", label: "RECOMMENDATION", title: "Explain the useful work", text: "The repair or maintenance need should be clear before unnecessary parts are replaced." },
+              { no: "04", label: "SERVICE", title: "Complete and verify", text: "Carry out the agreed work and check the affected system before handover." },
+            ]}
+          />
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap aa-v10-photo-split">
+          <div className="aa-v10-photo-frame">
+            <Image src={img.detail} alt="Automotive service reference visual" fill sizes="(max-width: 900px) 100vw, 54vw" />
+          </div>
+          <div className="aa-v10-photo-copy">
+            <span className="eyebrow">EASY START</span>
+            <h2>You do not need to know the diagnosis.</h2>
+            <p>“There is a sound when I turn”, “the steering vibrates”, or “service is due” is enough to begin the conversation.</p>
+            <div className="aa-v10-inline-actions">
+              <CTA label="Book a service" tone="dark" />
+              <WhatsAppAction label="Send the symptom" />
+            </div>
+          </div>
+        </div>
+      </section>
+    </Frame>
+  );
+}
+
+function AC() {
+  return (
+    <Frame
+      eyebrow="Car AC service / Irinjalakuda"
+      title="AC not cooling properly? Start with what you can feel."
+      intro="Weak cooling, inconsistent airflow and unusual AC-system behaviour are enough to start an enquiry."
+      actions={<><WhatsAppAction label="Request AC service" message="Hello Asian Automobiles, I would like help with my car AC." /><Call /></>}
+    >
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap">
+          <SectionHead eyebrow="COMMON STARTING POINTS" title="What is the cabin doing?" />
+          <div className="aa-v10-signal-grid">
+            <SignalCard no="01" title="Cooling feels weak" copy="The cabin takes too long to cool or never gets properly cold." icon={<Wind size={20} />} />
+            <SignalCard no="02" title="Airflow feels low" copy="Air is coming through, but not with the airflow you expect." icon={<Gauge size={20} />} />
+            <SignalCard no="03" title="Cooling is inconsistent" copy="Performance changes during the drive or between vents." icon={<Settings2 size={20} />} />
+            <SignalCard no="04" title="There is an unusual AC sound" copy="Tell the workshop when the sound appears and what changes with it." icon={<CircleAlert size={20} />} />
+          </div>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-soft">
+        <div className="wrap aa-v10-two-col">
+          <SectionHead
+            eyebrow="AC SERVICE SCOPE"
+            title="Cooling, airflow and component checks - explained without overcomplicating it."
+            copy="Exact refrigerants, machine models and procedures should be confirmed for the vehicle rather than advertised as one-size-fits-all."
+          />
+          <div className="aa-v10-stack-list">
+            <div><span>01</span><div><b>Cooling diagnosis</b><p>Start with the temperature complaint and system performance.</p></div><ChevronRight size={17} /></div>
+            <div><span>02</span><div><b>Airflow checks</b><p>Look at weak or inconsistent cabin airflow and filter-related concerns.</p></div><ChevronRight size={17} /></div>
+            <div><span>03</span><div><b>Component inspection</b><p>Check relevant AC components when the symptom points beyond normal operation.</p></div><ChevronRight size={17} /></div>
+          </div>
+        </div>
+      </section>
+
+      <PageCTA
+        eyebrow="AC SERVICE"
+        title="Tell us what the cabin feels like."
+        copy="That is enough to start. The workshop can confirm the next step for your vehicle."
+      >
+        <WhatsAppAction label="Message AC issue" message="Hello Asian Automobiles, I need help with my car AC. The issue is: " />
+        <Call />
+      </PageCTA>
+    </Frame>
+  );
+}
+
+function Accident() {
+  return (
+    <Frame
+      eyebrow="Accident & body repair / start here"
+      title="Had an accident? Start with the damage, not the paperwork."
+      intro="Send a few clear photos and a short description. We’ll help you work out the useful next step."
+      actions={<><WhatsAppAction label="Send damage details" message="Hello Asian Automobiles, I need help with accident / body damage. I can send photos." /><Call label="Call for accident help" /></>}
+    >
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap aa-v10-accident-start">
+          <div>
+            <SectionHead
+              eyebrow="FIRST 3 THINGS"
+              title="Keep the first message simple."
+              copy="You do not need an estimate, insurance jargon or a perfect damage list before contacting the workshop."
+            />
+            <div className="aa-v10-inline-actions">
+              <WhatsAppAction label="Open WhatsApp" message="Hello Asian Automobiles, I need help with accident / body damage. Vehicle: " />
+              <CTA label="Request a quote" href="/request-quote/" tone="dark" />
+            </div>
+          </div>
+          <div className="aa-v10-accident-steps">
+            <div><span>01</span><Camera size={19} /><b>Take clear photos</b><p>Wide view + closer damage photos are useful.</p></div>
+            <div><span>02</span><CarFront size={19} /><b>Tell us the vehicle</b><p>Make, model and what happened in a sentence or two.</p></div>
+            <div><span>03</span><MessageCircle size={19} /><b>Send it over</b><p>The workshop can tell you what information is needed next.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-soft">
+        <div className="wrap">
+          <SectionHead
+            eyebrow="BODY DAMAGE"
+            title="From everyday dents to accident-related bodywork."
+            copy="The supplied content covers dent, panel, scratch, paint, bumper and accident-restoration enquiries."
+          />
+          <div className="aa-v10-feature-grid aa-v10-feature-grid-wide">
+            <FeatureCard no="01" eyebrow="DENTS" title="Dent & panel damage" copy="Start with visible dents, creases or damaged body panels." icon={<CarFront size={19} />} />
+            <FeatureCard no="02" eyebrow="PAINT" title="Scratches & paint damage" copy="Show the affected area clearly so the workshop can understand the scope." icon={<Palette size={19} />} />
+            <FeatureCard no="03" eyebrow="BUMPER" title="Bumper / trim damage" copy="Share close-ups plus one wider photo showing the full affected area." icon={<Camera size={19} />} />
+            <FeatureCard no="04" eyebrow="ACCIDENT" title="Accident restoration enquiry" copy="Body damage can be assessed together with any repair or documentation needs that apply." icon={<ShieldCheck size={19} />} />
+          </div>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-dark">
+        <div className="wrap">
+          <SectionHead
+            light
+            eyebrow="A CALMER REPAIR PATH"
+            title="Assessment to final check, one clear step at a time."
+            copy="This is an explanatory customer journey. Exact repair and insurance steps can vary by vehicle and case."
+          />
+          <BlueprintTimeline
+            items={[
+              { no: "01", label: "ASSESS", title: "Look at the visible damage", text: "Start with the damaged areas and identify what needs closer inspection." },
+              { no: "02", label: "DOCUMENT", title: "Prepare useful photos and details", text: "Relevant photographs and repair details can be gathered where the case requires them." },
+              { no: "03", label: "ESTIMATE", title: "Make the work understandable", text: "Clarify the repair scope and components involved before approved work begins." },
+              { no: "04", label: "REPAIR", title: "Carry out the agreed bodywork", text: "Proceed with the approved repair scope for the vehicle." },
+              { no: "05", label: "CHECK", title: "Inspect the repaired area", text: "The repaired areas are checked before the vehicle is handed back." },
+            ]}
+          />
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap aa-v10-insurance-bridge">
+          <div className="aa-v10-icon-disc"><ShieldCheck size={24} /></div>
+          <div>
+            <span className="eyebrow">INSURANCE CASE?</span>
+            <h2>We keep insurer-specific claims out of the guesswork.</h2>
+            <p>Insurance assistance, insurer participation and approval steps can differ by case. Ask the workshop what currently applies before repair work begins.</p>
+          </div>
+          <CTA label="See insurance assistance" href="/insurance/" tone="dark" />
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-soft">
+        <div className="wrap">
+          <WhatsAppLeadForm mode="accident" />
+        </div>
+      </section>
+    </Frame>
+  );
+}
+
+function Denting() {
+  return (
+    <Frame
+      eyebrow="Denting & painting"
+      title="Bodywork is easier to discuss when we can see it."
+      intro="A clean photo-led path for dents, scratches, panel damage and paint-related enquiries."
+      actions={<><WhatsAppAction label="Send body damage photos" message="Hello Asian Automobiles, I have dent / paint damage. I can send photos." /><CTA label="Request a quote" href="/request-quote/" /></>}
+    >
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap">
+          <SectionHead eyebrow="SHOW THE MARK" title="Start with photos. The workshop can ask for the rest." />
+          <div className="aa-v10-before-after">
+            <figure>
+              <Image src={img.car} alt="Reference visual for vehicle body damage" fill sizes="(max-width: 900px) 100vw, 50vw" />
+              <figcaption><span>01 / DAMAGE VIEW</span><b>Wide view + close-up</b></figcaption>
+            </figure>
+            <figure>
+              <Image src={img.detail} alt="Reference visual for automotive finish detail" fill sizes="(max-width: 900px) 100vw, 50vw" />
+              <figcaption><span>02 / DETAIL VIEW</span><b>Show the panel clearly</b></figcaption>
+            </figure>
+          </div>
+          <p className="aa-v10-reference-note">Reference visuals only. Final site photography should use approved Asian Automobiles workshop and repair images.</p>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-soft">
+        <div className="wrap">
+          <div className="aa-v10-feature-grid">
+            <FeatureCard no="01" eyebrow="DENT" title="Dents & creases" copy="Show the affected panel and the damage from more than one angle." />
+            <FeatureCard no="02" eyebrow="SCRATCH" title="Scratch / paint damage" copy="A close photo helps start the paint-related enquiry." />
+            <FeatureCard no="03" eyebrow="PANEL" title="Panel / bumper damage" copy="Include one wider shot so the workshop can understand the full area." />
+            <FeatureCard no="04" eyebrow="ACCIDENT" title="Accident-related bodywork" copy="Use the accident page when damage is part of a larger repair or insurance case." href="/services/accident-repair/" />
+          </div>
+        </div>
+      </section>
+
+      <PageCTA
+        eyebrow="PHOTO-LED ENQUIRY"
+        title="Show us the damage. We’ll start there."
+        copy="No need to write an essay. Vehicle + photos + one short note is enough."
+      >
+        <WhatsAppAction label="Send damage photos" message="Hello Asian Automobiles, I have body damage and can send photos. Vehicle: " />
+        <CTA label="Request quote" href="/request-quote/" />
+      </PageCTA>
+    </Frame>
+  );
+}
+
+function Wheel() {
+  return (
+    <Frame
+      eyebrow="Wheel alignment & balancing"
+      title="Pulling, vibration or uneven tyre wear? Start with the wheels."
+      intro="Computerized alignment is a key workshop capability, with balancing and tyre care around it."
+      actions={<><CTA label="Book wheel service" /><WhatsAppAction label="Describe the wheel issue" message="Hello Asian Automobiles, I need help with wheel alignment / balancing. The symptom is: " /></>}
+    >
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap">
+          <SectionHead eyebrow="COMMON SIGNS" title="What are you noticing on the road?" />
+          <div className="aa-v10-signal-grid">
+            <SignalCard no="01" title="Car pulls left or right" copy="Straight-line stability can point to alignment-related issues." icon={<ArrowRight size={20} />} />
+            <SignalCard no="02" title="Steering wheel is off-centre" copy="A useful reason to ask for an alignment check." icon={<Gauge size={20} />} />
+            <SignalCard no="03" title="Steering vibrates at speed" copy="Wheel imbalance is a common starting point for investigation." icon={<Disc3 size={20} />} />
+            <SignalCard no="04" title="Tyres are wearing unevenly" copy="Wheel geometry and tyre condition should be looked at together." icon={<Search size={20} />} />
+          </div>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-dark">
+        <div className="wrap aa-v10-wheel-compare">
+          <SectionHead light eyebrow="ALIGNMENT VS BALANCING" title="Two different problems. Two different checks." />
+          <div className="aa-v10-compare-grid">
+            <div>
+              <span>ALIGNMENT / 01</span>
+              <h3>Where the wheels point.</h3>
+              <p>Wheel geometry affects straight-line stability, steering position and tyre wear.</p>
+              <small>Pulling / off-centre steering / uneven wear</small>
+            </div>
+            <div>
+              <span>BALANCING / 02</span>
+              <h3>How the wheel rotates.</h3>
+              <p>Correct balancing helps reduce unwanted vibration and supports smoother vehicle behaviour.</p>
+              <small>Steering vibration / wheel imbalance / smoothness</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-soft">
+        <div className="wrap">
+          <SectionHead eyebrow="WHEEL CARE" title="Alignment, balancing, tyre checks and rim-related enquiries." />
+          <div className="aa-v10-feature-grid">
+            <FeatureCard no="01" eyebrow="ALIGNMENT" title="Computerized wheel alignment" copy="Check and correct wheel geometry where required." />
+            <FeatureCard no="02" eyebrow="BALANCING" title="Wheel balancing" copy="Address wheel imbalance and vibration-related complaints." />
+            <FeatureCard no="03" eyebrow="TYRES" title="Tyre condition & wear" copy="Look at tyre wear patterns, condition and rotation needs." href="/services/tyre-services/" />
+            <FeatureCard no="04" eyebrow="RIMS" title="Rim-related enquiry" copy="Start with a visible issue or vibration and let the workshop confirm the next step." href="/services/tyre-services/" />
+          </div>
+        </div>
+      </section>
+
+      <PageCTA eyebrow="WHEEL SERVICE" title="If it does not feel straight or smooth, get it checked." copy="Tell us the symptom and when you notice it most.">
+        <CTA label="Book wheel service" />
+        <WhatsAppAction label="Message the symptom" />
+      </PageCTA>
+    </Frame>
+  );
+}
+
+function Tyres() {
+  return (
+    <Frame
+      eyebrow="Tyre & wheel care"
+      title="Tyres tell you a lot about what the car is doing."
+      intro="Tyre condition, balancing, wear patterns and rim concerns can all point to useful next checks."
+      actions={<><WhatsAppAction label="Ask about tyre / wheel care" /><CTA label="Book wheel service" /></>}
+    >
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap">
+          <SectionHead eyebrow="WHAT TO LOOK FOR" title="Three quick signs worth checking." />
+          <div className="aa-v10-signal-grid">
+            <SignalCard no="01" title="Uneven tyre wear" copy="Different wear across the tyre can be a reason to inspect wheel geometry." icon={<Search size={20} />} />
+            <SignalCard no="02" title="Vibration at speed" copy="Balancing is one of the useful starting checks." icon={<Disc3 size={20} />} />
+            <SignalCard no="03" title="Visible tyre or rim concern" copy="Send a clear photo and tell us what changed while driving." icon={<Camera size={20} />} />
+          </div>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-dark">
+        <div className="wrap aa-v10-tyre-stage">
+          <div className="aa-v10-tyre-graphic" aria-hidden="true">
+            <div className="aa-v10-tread-lines"><span /><span /><span /><span /><span /><span /></div>
+            <b>WHEEL / TYRE</b>
+          </div>
+          <div>
+            <SectionHead light eyebrow="WHEEL CARE SYSTEM" title="Keep the tyre, wheel and alignment story together." copy="The most useful diagnosis often comes from looking at how the tyre is wearing and how the vehicle behaves on the road." />
+            <div className="aa-v10-inline-actions">
+              <CTA label="Wheel alignment" href="/services/wheel-alignment/" />
+              <WhatsAppAction label="Send a tyre photo" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-soft">
+        <div className="wrap">
+          <div className="aa-v10-feature-grid">
+            <FeatureCard no="01" eyebrow="BALANCE" title="Wheel balancing" copy="For imbalance and vibration-related complaints." />
+            <FeatureCard no="02" eyebrow="TYRE" title="Tyre inspection" copy="Condition, wear and service-related tyre checks." />
+            <FeatureCard no="03" eyebrow="PUNCTURE" title="Puncture support" copy="Start a tyre repair enquiry with the workshop." />
+            <FeatureCard no="04" eyebrow="RIM" title="Rim inspection / repair enquiry" copy="Share the visible issue or driving symptom first." />
+          </div>
+        </div>
+      </section>
+    </Frame>
+  );
+}
+
+function Parts() {
+  return (
+    <Frame
+      eyebrow="Automobile spare parts"
+      title="The right part starts with the right vehicle details."
+      intro="Model, variant, year and part information reduce fitment guesswork before you travel."
+      actions={<><WhatsAppAction label="Check part availability" message="Hello Asian Automobiles, I would like to check a spare part. Vehicle: " /><Call label="Call parts counter" /></>}
+    >
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap">
+          <SectionHead
+            eyebrow="PARTS CATEGORIES"
+            title="Maintenance, braking, suspension, electrical and more."
+            copy="Availability varies, so this page is enquiry-first rather than pretending to be a live inventory."
+          />
+          <div className="aa-v10-feature-grid aa-v10-feature-grid-wide">
+            <FeatureCard no="01" eyebrow="ENGINE / MAINTENANCE" title="Filters, belts, mountings & service parts" copy="Commonly required maintenance and engine-supporting components." icon={<Settings2 size={19} />} />
+            <FeatureCard no="02" eyebrow="BRAKES" title="Pads, shoes, discs & related parts" copy="Brake components and supporting hydraulic parts subject to availability." icon={<Disc3 size={19} />} />
+            <FeatureCard no="03" eyebrow="SUSPENSION" title="Bushes, tie rods, ball joints & more" copy="Suspension and steering replacement-component enquiries." icon={<CarFront size={19} />} />
+            <FeatureCard no="04" eyebrow="ELECTRICAL" title="Sensors, switches, relays & lighting" copy="Common electrical replacement parts and components." icon={<Sparkles size={19} />} />
+            <FeatureCard no="05" eyebrow="FILTERS" title="Oil, air, fuel & cabin filters" copy="Routine service filters for the correct vehicle application." icon={<Boxes size={19} />} />
+            <FeatureCard no="06" eyebrow="FLUIDS" title="Oils, coolant & maintenance fluids" copy="Vehicle-appropriate lubricants and fluids subject to availability." icon={<Gauge size={19} />} />
+          </div>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-dark">
+        <div className="wrap aa-v10-two-col">
+          <SectionHead
+            light
+            eyebrow="FITMENT CHECKLIST"
+            title="Five details can save a lot of back-and-forth."
+            copy="Send what you know. A photo of the old part can help when available."
+          />
+          <HoverStatRail
+            items={[
+              { no: "01", label: "Vehicle", text: "Manufacturer + model." },
+              { no: "02", label: "Variant", text: "Engine / trim if known." },
+              { no: "03", label: "Year", text: "Registration or model year." },
+              { no: "04", label: "Part", text: "Name, description or part number if known." },
+              { no: "05", label: "Photo", text: "Existing component or packaging if available." },
+            ]}
+          />
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-soft">
+        <div className="wrap">
+          <WhatsAppLeadForm mode="parts" />
+        </div>
+      </section>
+    </Frame>
+  );
+}
+
+function Insurance() {
+  return (
+    <Frame
+      eyebrow="Insurance / accident repair assistance"
+      title="Repair first. Insurance details where they actually apply."
+      intro="Accident cases can involve repair assessment, documentation and insurer-specific approval steps. We keep those details case-by-case."
+      actions={<><WhatsAppAction label="Ask about your case" message="Hello Asian Automobiles, I have an accident / insurance repair enquiry. Vehicle: " /><Call /></>}
+    >
+      <section className="aa-v10-section aa-v10-dark">
+        <div className="wrap">
+          <SectionHead
+            light
+            eyebrow="EXPLANATORY FLOW"
+            title="A clear path from vehicle assessment to repair."
+            copy="Exact insurer and approval steps can vary. The workshop should confirm what applies to your case."
+          />
+          <BlueprintTimeline
+            items={[
+              { no: "01", label: "ASSESS", title: "Vehicle assessment", text: "Visible damage and repair requirements are identified." },
+              { no: "02", label: "DOCUMENT", title: "Photos and repair details", text: "Relevant documentation can be prepared where the case requires it." },
+              { no: "03", label: "ESTIMATE", title: "Repair information", text: "Clarify the work and components involved before approved work moves ahead." },
+              { no: "04", label: "APPROVAL", title: "Case-specific coordination", text: "Insurer, survey and approval steps depend on the current case and eligibility." },
+              { no: "05", label: "REPAIR", title: "Repair and final check", text: "Approved repair work is completed and the repaired area is checked before handover." },
+            ]}
+          />
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap aa-v10-insurance-grid">
+          <div>
+            <ShieldCheck size={28} />
+            <span className="eyebrow">WHAT WE WILL NOT GUESS</span>
+            <h2>No blanket claim-approval promises.</h2>
+            <p>Current insurer participation, cashless eligibility and approval steps need to be confirmed for the actual case.</p>
+          </div>
+          <div className="aa-v10-stack-list">
+            <div><span>01</span><div><b>Damage assessment</b><p>Start with the vehicle and visible damage.</p></div><ChevronRight size={17} /></div>
+            <div><span>02</span><div><b>Documentation support</b><p>Prepare useful photos and repair information where applicable.</p></div><ChevronRight size={17} /></div>
+            <div><span>03</span><div><b>Eligibility check</b><p>Confirm what insurer-specific route currently applies.</p></div><ChevronRight size={17} /></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-soft">
+        <div className="wrap">
+          <WhatsAppLeadForm mode="accident" />
+        </div>
+      </section>
+    </Frame>
+  );
+}
+
+function Facilities() {
+  const zones = [
+    ["Workshop service area", img.workshop, "SERVICE AREA"],
+    ["Wheel alignment area", img.road, "WHEEL CARE"],
+    ["Wheel balancing equipment", img.wheel, "BALANCING"],
+    ["Mechanical service activity", img.repair, "MECHANICAL"],
+    ["Spare-parts support", img.detail, "PARTS"],
+    ["Customer-facing areas", img.interior, "VISIT"],
+  ];
+
+  return (
+    <Frame
+      eyebrow="Our facilities"
+      title="Tools matter. Experience matters more."
+      intro="A visual look at the workshop areas that support maintenance, wheel care, mechanical work and spare-parts enquiries."
+      actions={<><CTA label="View gallery" href="/gallery/" /><Directions /></>}
+    >
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap">
+          <SectionHead eyebrow="WORKSHOP EXPLORER" title="See the spaces that support the work." copy="Real Asian Automobiles photography should remain the final visual source of truth." />
+          <ExpandGallery
+            items={zones.map(([label, image, eyebrow]) => ({
+              label,
+              eyebrow,
+              image,
+              alt: "Automotive workshop reference visual for " + label.toLowerCase(),
+            }))}
+          />
+          <p className="aa-v10-reference-note">Reference imagery is being used until approved Asian Automobiles workshop photography is supplied.</p>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-soft">
+        <div className="wrap">
+          <SectionHead eyebrow="CAPABILITY MAP" title="The page should show the workshop, not invent specifications." />
+          <div className="aa-v10-feature-grid">
+            <FeatureCard no="01" eyebrow="SERVICE" title="Workshop service area" copy="Working areas for routine maintenance and common mechanical repairs." />
+            <FeatureCard no="02" eyebrow="ALIGNMENT" title="Wheel alignment area" copy="A dedicated computerized alignment setup is a key capability in the supplied content." />
+            <FeatureCard no="03" eyebrow="BALANCING" title="Wheel balancing equipment" copy="Precision balancing supports vibration-related wheel-care work." />
+            <FeatureCard no="04" eyebrow="PARTS" title="Parts support" copy="Replacement-component access connects diagnosis, sourcing and repair within the same business." />
+          </div>
+        </div>
+      </section>
+
+      <PageCTA eyebrow="VISIT THE WORKSHOP" title="Want to talk through a vehicle issue in person?" copy="Call before travelling if you need to confirm timing or a specific service.">
+        <Directions />
+        <Call />
+      </PageCTA>
+    </Frame>
+  );
+}
+
+function Gallery() {
+  const items = [
+    [img.workshop, "Workshop", "WORKSHOP"],
+    [img.repair, "Vehicle service", "SERVICE"],
+    [img.road, "Wheel alignment", "WHEELS"],
+    [img.wheel, "Wheel balancing", "BALANCING"],
+    [img.detail, "Mechanical repairs", "REPAIRS"],
+    [img.car, "Body repair", "BODY"],
+  ];
+
+  return (
+    <Frame
+      eyebrow="Gallery / workshop life"
+      title="The work should speak for itself."
+      intro="The final gallery is designed around real workshop, equipment, repair and vehicle photography."
+      actions={<><CTA label="View facilities" href="/facilities/" /><CTA label="Book service" /></>}
+    >
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap">
+          <SectionHead eyebrow="VISUAL PROOF" title="Workshop. Service. Wheels. Repairs. Parts." />
+          <ExpandGallery
+            items={items.map(([image, label, eyebrow]) => ({
+              label,
+              eyebrow,
+              image,
+              alt: "Automotive reference visual for " + label.toLowerCase(),
+            }))}
+          />
+          <p className="aa-v10-reference-note">Reference visuals only. Replace with approved Asian Automobiles photography for production authenticity.</p>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-soft">
+        <div className="wrap aa-v10-gallery-categories">
+          {["Workshop", "Vehicle Service", "Wheel Alignment", "Wheel Balancing", "Mechanical Repairs", "Body Repair", "Spare Parts", "Before & After"].map((label, index) => (
+            <div key={label}><span>{String(index + 1).padStart(2, "0")}</span><b>{label}</b></div>
+          ))}
+        </div>
+      </section>
+    </Frame>
+  );
+}
+
+function Reviews() {
+  return (
+    <Frame
+      eyebrow="Reviews & customer stories"
+      title="Trust is earned one vehicle at a time."
+      intro="This page is deliberately built around genuine customer feedback only - no invented quotes, no fake stars."
+      actions={<><Call label="Talk to the workshop" /><CTA label="Book a service" /></>}
+    >
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap aa-v10-review-intro">
+          <div>
+            <SectionHead
+              eyebrow="REAL FEEDBACK ONLY"
+              title="Source, context and attribution matter."
+              copy="Verified public reviews or customer-approved stories can be added without changing their meaning."
+            />
+          </div>
+          <div className="aa-v10-review-principles">
+            <div><span>01</span><b>Source</b><p>Keep where the review came from.</p></div>
+            <div><span>02</span><b>Date</b><p>Keep useful timing and context.</p></div>
+            <div><span>03</span><b>Work done</b><p>Connect feedback to the actual service where known.</p></div>
+            <div><span>04</span><b>Permission</b><p>Use customer stories responsibly.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-dark">
+        <div className="wrap">
+          <SectionHead light eyebrow="REVIEW CATEGORIES" title="The useful themes are practical, not theatrical." />
+          <div className="aa-v10-feature-grid aa-v10-feature-grid-dark">
+            {[
+              ["01", "General servicing"],
+              ["02", "Wheel alignment"],
+              ["03", "Mechanical repair"],
+              ["04", "Spare-parts availability"],
+              ["05", "Customer service"],
+              ["06", "Repeat customers"],
+            ].map(([no, title]) => (
+              <FeatureCard key={no} no={no} eyebrow="CUSTOMER FEEDBACK" title={title} copy="Only publish genuine, attributable feedback in this category." />
+            ))}
+          </div>
+        </div>
+      </section>
+    </Frame>
+  );
+}
+
+function Contact() {
+  return (
+    <Frame
+      eyebrow="Contact / Kattoor Road"
+      title="Let’s get your vehicle sorted."
+      intro="Call, WhatsApp or get directions to Asian Automobiles in Irinjalakuda."
+      actions={<><WhatsAppAction label="WhatsApp workshop" /><Call /></>}
+    >
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap">
+          <SectionHead eyebrow="FASTEST ROUTE" title="Pick the action you need." />
+          <div className="aa-v10-contact-actions">
+            <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={21} /><span>CALL</span><b>{businessFacts.phones.primaryDisplay}</b><ArrowUpRight size={18} /></a>
+            <a href={whatsAppHref("Hello Asian Automobiles, I would like help with my vehicle.")} target="_blank" rel="noreferrer"><MessageCircle size={21} /><span>WHATSAPP</span><b>{businessFacts.phones.whatsappDisplay}</b><ArrowUpRight size={18} /></a>
+            <a href={directionsHref} target="_blank" rel="noreferrer"><MapPin size={21} /><span>DIRECTIONS</span><b>Kattoor Road, Irinjalakuda</b><ArrowUpRight size={18} /></a>
+          </div>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-soft">
+        <div className="wrap aa-v10-location-grid">
+          <div className="aa-v10-map-card">
+            <div className="aa-v10-map-grid" aria-hidden="true" />
+            <div className="aa-v10-map-pin"><MapPin size={26} /><b>ASIAN<br />AUTOMOBILES</b></div>
+            <span className="aa-v10-map-road">KATTOOR ROAD</span>
+          </div>
+          <div className="aa-v10-address-card">
+            <span className="eyebrow">WORKSHOP</span>
+            <h2>Near Government Rest House, Irinjalakuda.</h2>
+            <p>{businessFacts.address.full}.</p>
+            <div className="aa-v10-address-lines">
+              <div><MapPin size={16} /><span><small>LANDMARK</small><b>Near Government Rest House</b></span></div>
+              <div><Phone size={16} /><span><small>PRIMARY PHONE</small><b>{businessFacts.phones.primaryDisplay}</b></span></div>
+              <div><Clock3 size={16} /><span><small>OPENING HOURS</small><b>Call to confirm before travelling</b></span></div>
+            </div>
+            <Directions />
+          </div>
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap">
+          <WhatsAppLeadForm mode="service" />
+        </div>
+      </section>
+    </Frame>
+  );
+}
+
+function FAQ() {
+  const qs = [
+    ["What services are available?", "Asian Automobiles covers multi-brand vehicle maintenance, mechanical repair, wheel alignment and balancing, tyre and wheel care, car AC enquiries, body / accident repair enquiries and automobile spare parts."],
+    ["I do not know what is wrong with my car. Can I still contact you?", "Yes. Tell the workshop the vehicle model and describe the noise, vibration, warning sign, cooling issue or change in behaviour in your own words."],
+    ["Do you service every car brand?", "The business is positioned as an independent multi-brand workshop. For a specific make, model or job, contact the workshop first so current service availability can be confirmed."],
+    ["Can I send accident or body-damage photos?", "Yes. WhatsApp is the easiest route for a photo-led body or accident enquiry. Send the vehicle details, a short description and clear photos."],
+    ["Do you provide insurance assistance?", "Accident-repair and insurance-assistance enquiries are supported as a case-by-case route. Current insurer participation, eligibility and approval steps should be confirmed with the workshop."],
+    ["How do I check a spare part?", "Send the vehicle manufacturer, model, variant, model year and the required part. A photo or part number is useful when available."],
+    ["What are the opening hours?", "The supplied sources contain conflicting hours. Please call the workshop before travelling until the business confirms the final published schedule."],
+    ["Where is Asian Automobiles?", "Kattoor Road, near Government Rest House, Irinjalakuda, Thrissur, Kerala - 680121."],
+  ];
+
+  return (
+    <Frame
+      eyebrow="FAQ / quick answers"
+      title="The questions people ask before they drive over."
+      intro="Short answers, clear next steps and no made-up workshop promises."
+      actions={<><WhatsAppAction label="Ask a question" /><Call /></>}
+    >
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap aa-v10-faq-layout">
+          <div className="aa-v10-faq-aside">
+            <CircleHelp size={28} />
+            <span>NO GUESSWORK</span>
+            <h2>Can’t find your question?</h2>
+            <p>Send the vehicle and the question directly. That is usually faster than searching through more copy.</p>
+            <WhatsAppAction label="Ask on WhatsApp" />
+          </div>
+          <MotionFaq items={qs.map(([question, answer]) => ({ question, answer }))} />
+        </div>
+      </section>
+    </Frame>
+  );
+}
+
+function Booking({ quote = false }: { quote?: boolean }) {
+  const title = quote ? "Tell us what needs attention." : "Tell us the basics. We’ll take it from there.";
+  const intro = quote
+    ? "A simple repair or parts quote starts with the vehicle, the requirement and a short description."
+    : "Keep the useful details in one place, then continue the conversation on WhatsApp.";
+
+  return (
+    <Frame
+      eyebrow={quote ? "Request a quote" : "Book a service"}
+      title={title}
+      intro={intro}
+      actions={<><Call /><WhatsAppAction label={quote ? "Start on WhatsApp" : "WhatsApp booking"} /></>}
+    >
+      <section className="aa-v10-section aa-v10-paper">
+        <div className="wrap">
+          <WhatsAppLeadForm mode={quote ? "quote" : "service"} />
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-soft">
+        <div className="wrap aa-v10-booking-help">
+          <SectionHead eyebrow="WHAT HAPPENS NEXT" title="No account. No long booking maze." />
+          <div className="aa-v10-booking-steps">
+            <div><span>01</span><b>Fill the basics</b><p>Vehicle + requirement + contact details.</p></div>
+            <div><span>02</span><b>Continue on WhatsApp</b><p>The prepared message opens with your details.</p></div>
+            <div><span>03</span><b>Confirm with the workshop</b><p>Timing, service scope or parts availability can be agreed directly.</p></div>
+          </div>
+        </div>
+      </section>
+    </Frame>
+  );
+}
 
 const routeMeta: Record<string, { title: string; description: string }> = {
   about: {
-    title: "About Asian Automobiles | Irinjalakuda",
-    description: "Learn about Asian Automobiles, its multi-brand automobile service and parts business in Irinjalakuda, Kerala.",
+    title: "About Asian Automobiles Irinjalakuda | Established 1996",
+    description: "Learn about Asian Automobiles, a multi-brand automotive service, wheel-care and spare-parts business in Irinjalakuda.",
   },
   services: {
-    title: "Car Service & Repair in Irinjalakuda | Asian Automobiles",
-    description: "Explore general car service, AC repair, accident restoration, denting and painting, wheel services, tyre repair and spare-parts enquiries.",
+    title: "Car Service & Repairs in Irinjalakuda | Asian Automobiles",
+    description: "Explore multi-brand car servicing, mechanical repair, wheel alignment, balancing, AC service and spare-parts support in Irinjalakuda.",
   },
   "services/car-service": {
-    title: "General Car Service & Repair | Asian Automobiles",
-    description: "General car service and mechanical repair enquiries in Irinjalakuda, Kerala.",
+    title: "General Car Service & Repair | Asian Automobiles Irinjalakuda",
+    description: "Routine vehicle maintenance and common mechanical repair enquiries in Irinjalakuda, Kerala.",
   },
   "services/car-ac-repair": {
-    title: "Car AC Service & Repair | Asian Automobiles",
-    description: "Car AC service and repair enquiries in Irinjalakuda, Kerala.",
+    title: "Car AC Service & Repair | Asian Automobiles Irinjalakuda",
+    description: "Car AC cooling, airflow and repair enquiries in Irinjalakuda, Kerala.",
   },
   "services/accident-repair": {
-    title: "Accident Repair & Restoration | Asian Automobiles",
-    description: "Accident restoration, denting and painting enquiries with a direct path to insurance assistance.",
+    title: "Accident Repair in Irinjalakuda | Asian Automobiles",
+    description: "Start an accident, body-repair or damage-photo enquiry with Asian Automobiles in Irinjalakuda.",
   },
   "services/denting-painting": {
-    title: "Car Denting & Painting | Asian Automobiles",
-    description: "Denting, painting and body-repair enquiries from Asian Automobiles in Irinjalakuda.",
+    title: "Car Denting & Painting | Asian Automobiles Irinjalakuda",
+    description: "Start a photo-led denting, painting and body-repair enquiry in Irinjalakuda.",
   },
   "services/wheel-alignment": {
-    title: "Wheel Alignment & Balancing | Asian Automobiles",
-    description: "Computerized wheel alignment, wheel balancing, tyre repair and rim-repair enquiries in Irinjalakuda.",
+    title: "Wheel Alignment & Balancing | Asian Automobiles Irinjalakuda",
+    description: "Computerized wheel alignment, wheel balancing and wheel-care enquiries in Irinjalakuda.",
   },
   "services/tyre-services": {
-    title: "Tyre Services | Asian Automobiles",
-    description: "Tyre repair, balancing and related wheel-service enquiries in Irinjalakuda, Kerala.",
+    title: "Tyre & Wheel Care | Asian Automobiles Irinjalakuda",
+    description: "Tyre-condition, balancing, rim and related wheel-care enquiries in Irinjalakuda.",
   },
   "spare-parts": {
-    title: "Automobile Spare Parts | Asian Automobiles",
-    description: "Automobile spare-parts enquiries from Asian Automobiles in Irinjalakuda.",
+    title: "Automobile Spare Parts in Irinjalakuda | Asian Automobiles",
+    description: "Check automobile spare-parts availability for maintenance, braking, suspension, electrical and service components.",
   },
   insurance: {
-    title: "Cashless Insurance Repair Assistance | Asian Automobiles",
-    description: "Start an accident-repair and insurance-assistance enquiry with Asian Automobiles.",
+    title: "Accident Repair & Insurance Assistance | Asian Automobiles",
+    description: "Start an accident-repair and case-specific insurance-assistance enquiry with Asian Automobiles in Irinjalakuda.",
   },
   facilities: {
-    title: "Workshop Facilities | Asian Automobiles",
-    description: "Facilities page for approved Asian Automobiles workshop photography and verified facility information.",
+    title: "Automotive Workshop Facilities | Asian Automobiles Irinjalakuda",
+    description: "Explore the workshop, wheel-care and service areas at Asian Automobiles on Kattoor Road, Irinjalakuda.",
   },
   gallery: {
-    title: "Gallery | Asian Automobiles",
-    description: "Gallery for approved Asian Automobiles workshop, repair, parts, team, exterior and completed-work photography.",
+    title: "Asian Automobiles Workshop Gallery | Irinjalakuda",
+    description: "Explore the visual structure for workshop, wheel-care, repairs, parts and service photography.",
   },
   reviews: {
-    title: "Customer Stories | Asian Automobiles",
-    description: "Customer feedback and service stories presented with source and context.",
+    title: "Asian Automobiles Reviews | Car Service in Irinjalakuda",
+    description: "Customer feedback at Asian Automobiles is presented only from genuine, attributable review sources.",
   },
   contact: {
-    title: "Contact Asian Automobiles | Irinjalakuda",
-    description: "Call Asian Automobiles or find the workshop on Kattoor Road, Irinjalakuda, Thrissur, Kerala.",
+    title: "Contact Asian Automobiles Irinjalakuda | Car Service & Spare Parts",
+    description: "Call, WhatsApp or get directions to Asian Automobiles on Kattoor Road, Irinjalakuda.",
   },
   faq: {
-    title: "FAQ | Asian Automobiles",
-    description: "Answers about services, insurance assistance, vehicle enquiries, booking and workshop contact.",
+    title: "FAQ | Asian Automobiles Irinjalakuda",
+    description: "Answers about services, accident repair, insurance assistance, parts, booking and workshop contact.",
   },
   "book-service": {
-    title: "Book a Service | Asian Automobiles",
-    description: "Prepare your vehicle and service details before contacting Asian Automobiles in Irinjalakuda.",
+    title: "Book a Service | Asian Automobiles Irinjalakuda",
+    description: "Prepare a simple service request and continue directly with Asian Automobiles on WhatsApp.",
   },
   "request-quote": {
     title: "Request a Repair or Parts Quote | Asian Automobiles",
-    description: "Prepare the useful vehicle, damage or parts details for a quote conversation with Asian Automobiles.",
+    description: "Prepare a repair or parts quote request and continue directly with Asian Automobiles on WhatsApp.",
   },
 };
 
@@ -296,17 +1269,23 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug = [] } = await params;
   const rawKey = slug.join("/");
-  const key = rawKey.startsWith("services/") || rawKey === "services"
-    ? rawKey
-    : rawKey === "car-service" || rawKey === "car-ac-repair" || rawKey === "accident-repair" || rawKey === "denting-painting" || rawKey === "wheel-alignment" || rawKey === "tyre-services"
-      ? `services/${rawKey}`
-      : rawKey;
+  const key =
+    rawKey.startsWith("services/") || rawKey === "services"
+      ? rawKey
+      : rawKey === "car-service" ||
+          rawKey === "car-ac-repair" ||
+          rawKey === "accident-repair" ||
+          rawKey === "denting-painting" ||
+          rawKey === "wheel-alignment" ||
+          rawKey === "tyre-services"
+        ? "services/" + rawKey
+        : rawKey;
   const meta = routeMeta[key];
   if (!meta) return {};
   return {
     title: meta.title,
     description: meta.description,
-    alternates: { canonical: `/${key}/` },
+    alternates: { canonical: "/" + key + "/" },
     openGraph: {
       title: meta.title,
       description: meta.description,
@@ -315,22 +1294,50 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({params}:{params:Promise<{slug?:string[]}>}){
-  const {slug=[]}=await params;
-  const key=slug.join("/");
-  const map:Record<string,()=>ReactNode>={
-    about:About,services:Services,
-    "car-service":CarService,"services/car-service":CarService,
-    "car-ac-repair":AC,"services/car-ac-repair":AC,
-    "accident-repair":Accident,"services/accident-repair":Accident,
-    "denting-painting":Denting,"services/denting-painting":Denting,
-    "wheel-alignment":Wheel,"services/wheel-alignment":Wheel,
-    "tyre-services":Tyres,"services/tyre-services":Tyres,
-    "spare-parts":SpareRedirect,"services/spare-parts":SpareRedirect,insurance:Insurance,
-    facilities:Facilities,gallery:Gallery,reviews:Reviews,contact:Contact,faq:FAQ,
-    "book-service":()=> <Booking/>,"request-quote":()=> <Booking quote/>
+export default async function Page({ params }: { params: Promise<{ slug?: string[] }> }) {
+  const { slug = [] } = await params;
+  const key = slug.join("/");
+  const map: Record<string, () => ReactNode> = {
+    about: About,
+    services: Services,
+    "car-service": CarService,
+    "services/car-service": CarService,
+    "car-ac-repair": AC,
+    "services/car-ac-repair": AC,
+    "accident-repair": Accident,
+    "services/accident-repair": Accident,
+    "denting-painting": Denting,
+    "services/denting-painting": Denting,
+    "wheel-alignment": Wheel,
+    "services/wheel-alignment": Wheel,
+    "tyre-services": Tyres,
+    "services/tyre-services": Tyres,
+    "spare-parts": Parts,
+    "services/spare-parts": Parts,
+    insurance: Insurance,
+    facilities: Facilities,
+    gallery: Gallery,
+    reviews: Reviews,
+    contact: Contact,
+    faq: FAQ,
+    "book-service": () => <Booking />,
+    "request-quote": () => <Booking quote />,
   };
-  const PageView=map[key];
-  if(!PageView) return <main className="creative-404"><div><span>404 / WRONG TURN</span><h1>Looks like we took the scenic route.</h1><p>This page isn't in the workshop.</p><CTA label="Back to the workshop"/></div></main>;
+
+  const PageView = map[key];
+
+  if (!PageView) {
+    return (
+      <main className="creative-404">
+        <div>
+          <span>404 / WRONG TURN</span>
+          <h1>Looks like we took the scenic route.</h1>
+          <p>This page is not in the workshop.</p>
+          <CTA label="Back to the workshop" href="/" />
+        </div>
+      </main>
+    );
+  }
+
   return PageView();
 }
