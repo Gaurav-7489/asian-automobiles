@@ -9,6 +9,7 @@ import {
   ChevronDown,
   MapPin,
   Menu,
+  MessageCircle,
   Phone,
   X,
 } from "lucide-react";
@@ -101,6 +102,12 @@ export function SiteHeader() {
 
   const servicesActive =
     pathname.startsWith("/services") || pathname.startsWith("/spare-parts");
+  const innerPage = pathname !== "/";
+  const whatsappHref =
+    "https://wa.me/" +
+    businessFacts.phones.whatsappHref +
+    "?text=" +
+    encodeURIComponent("Hello Asian Automobiles, I would like help with my vehicle.");
 
   return (
     <>
@@ -309,13 +316,31 @@ export function SiteHeader() {
         </div>
       </header>
 
-      {/* WhatsApp is intentionally omitted until the official business number is client-confirmed. */}
+      {innerPage && (
+        <a
+          className="aa-v10-whatsapp-float"
+          href={whatsappHref}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Message Asian Automobiles on WhatsApp"
+        >
+          <MessageCircle size={17} />
+          <span>WhatsApp</span>
+        </a>
+      )}
+
       <nav className="aa-mobile-actions" aria-label="Quick actions">
         <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={15} /><span>Call</span></a>
-        <Link href="/book-service/" prefetch={false}><CalendarDays size={15} /><span>Book</span></Link>
-        <a href={directionsHref} target="_blank" rel="noreferrer">
-          <MapPin size={15} /><span>Directions</span>
-        </a>
+        {innerPage ? (
+          <a href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle size={15} /><span>WhatsApp</span></a>
+        ) : (
+          <Link href="/book-service/" prefetch={false}><CalendarDays size={15} /><span>Book</span></Link>
+        )}
+        {innerPage ? (
+          <Link href="/book-service/" prefetch={false}><CalendarDays size={15} /><span>Book</span></Link>
+        ) : (
+          <a href={directionsHref} target="_blank" rel="noreferrer"><MapPin size={15} /><span>Directions</span></a>
+        )}
       </nav>
     </>
   );
