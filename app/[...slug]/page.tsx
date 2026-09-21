@@ -57,11 +57,11 @@ function About(){
 
 function Services(){
   const cards: Array<[string,string,string,string,typeof Wrench]> = [
-    ["01","I hear / feel something","General service & repairs","/services/car-service/",Wrench],
-    ["02","The cabin isn't cooling","Car AC service & repair","/services/car-ac-repair/",Wind],
-    ["03","I've had an accident","Denting, painting & accident repair","/services/accident-repair/",CarFront],
-    ["04","The car isn't tracking right","Wheel alignment & balancing","/services/wheel-alignment/",Disc3],
-    ["05","I need the right part","Automobile spare parts","/spare-parts/",PackageSearch]
+    ["01","Routine / mechanical","General car service & repairs","/services/car-service/",Wrench],
+    ["02","AC / service","Car AC service & repair","/services/car-ac-repair/",Wind],
+    ["03","Accident / bodywork","Denting, painting & accident repair","/services/accident-repair/",CarFront],
+    ["04","Wheels / tyres","Wheel alignment, balancing & tyre services","/services/wheel-alignment/",Disc3],
+    ["05","Parts / enquiry","Automobile spare parts","/spare-parts/",PackageSearch]
   ];
   return <Frame eyebrow="Services / start with the symptom" title="Start with what the car is doing." intro="No need to know the workshop vocabulary first. Pick the situation that sounds like yours.">
     <section className="service-command"><div className="wrap"><div className="command-bar"><span><Sparkles size={15}/>WHAT BROUGHT YOU HERE?</span><small>CHOOSE A STARTING POINT</small></div><div className="command-grid">{cards.map(([n,k,t,href,Icon])=><Link href={href as string} data-magnetic className="command-card" key={n as string}><span className="command-number">{n}</span><Icon size={22}/><small>{k}</small><h2>{t}</h2><span className="command-go"><ArrowRight size={16}/></span></Link>)}</div></div></section>
@@ -70,16 +70,16 @@ function Services(){
 }
 
 function CarService(){
-  return <Frame eyebrow="01 / General service & repairs" title="Tell us the symptom. We'll start from there." intro="Routine service and mechanical repair enquiries, starting with what you have noticed.">
-    <section className="diagnostic"><div className="wrap"><div className="diagnostic-top"><div><span className="eyebrow">SERVICE DESK / 01</span><h2>What changed?</h2></div><span className="status-pill"><span/>ENQUIRY READY</span></div><div className="symptom-grid">{["Strange sound","Warning light","Poor pickup","Brake concern","Routine service","Something feels off"].map((x,i)=><div className="symptom" key={x}><span>0{i+1}</span><b>{x}</b><ChevronRight size={16}/></div>)}</div><div className="diagnostic-flow"><div><ClipboardCheck size={20}/><small>STEP 01</small><h3>Describe</h3><p>Use normal language. Noise, vibration, light, smell, mileage — all useful.</p></div><div><Gauge size={20}/><small>STEP 02</small><h3>Inspect</h3><p>The actual inspection and diagnosis are determined at the workshop.</p></div><div><Wrench size={20}/><small>STEP 03</small><h3>Service</h3><p>Proceed with the agreed scope, then hand the vehicle back clearly.</p></div></div></div></section>
-    <section className="split-photo"><div className="wrap"><Image src={img.detail} alt="Vehicle service detail" width={1600} height={1000} sizes="(max-width: 900px) 100vw, 55vw"/><div><span className="eyebrow">GOOD TO KNOW</span><h2>You don't need the technical words.</h2><p>“It makes a clicking noise when I turn left” is already useful information. Start there.</p><CTA label="Book a service"/></div></div></section>
+  return <Frame eyebrow="01 / General car service & repairs" title="Routine maintenance and mechanical repair." intro="A dedicated enquiry path for the verified general car service and repair category.">
+    <section className="diagnostic"><div className="wrap"><div className="diagnostic-top"><div><span className="eyebrow">SERVICE DESK / 01</span><h2>Start with the service need.</h2></div><span className="status-pill"><span/>MULTI-BRAND / PRIVATE CARS</span></div><div className="symptom-grid">{["Routine maintenance","Mechanical repair","General service enquiry"].map((x,i)=><div className="symptom" key={x}><span>0{i+1}</span><b>{x}</b><ChevronRight size={16}/></div>)}</div><div className="diagnostic-flow"><div><ClipboardCheck size={20}/><small>STEP 01</small><h3>Share details</h3><p>Provide the vehicle and the service or repair requirement.</p></div><div><Gauge size={20}/><small>STEP 02</small><h3>Confirm scope</h3><p>The workshop confirms the appropriate next step for the enquiry.</p></div><div><Wrench size={20}/><small>STEP 03</small><h3>Service / repair</h3><p>Proceed with the agreed service or repair scope.</p></div></div></div></section>
+    <section className="split-photo"><div className="wrap"><Image src={img.detail} alt="Temporary automotive service visual pending approved workshop photography" width={1600} height={1000} sizes="(max-width: 900px) 100vw, 55vw"/><div><span className="eyebrow">VERIFIED SCOPE</span><h2>General service and mechanical repair.</h2><p>Exact workshop workflow, equipment and vehicle-brand coverage remain confirmation-gated until approved by the client.</p><CTA label="Book a service"/></div></div></section>
   </Frame>
 }
 
 function AC(){
-  return <Frame eyebrow="02 / Car AC service & repair" title="Hot cabin? Let's get specific." intro="A dedicated place to start when cooling or airflow needs attention.">
-    <section className="thermal"><div className="wrap thermal-grid"><div className="thermal-visual"><div className="thermal-ring"><Wind size={34}/><strong>AC</strong><span>COOLING<br/>CHECK</span></div><div className="thermal-readings"><span>FLOW <b>01</b></span><span>COMFORT <b>02</b></span><span>SYSTEM <b>03</b></span></div></div><div className="thermal-copy"><span className="eyebrow">AC / THE SHORT VERSION</span><h2>When “it's not cold” isn't enough.</h2><p>Tell us what you notice: weak airflow, warm air, unusual smell, noise, intermittent cooling or another symptom.</p><div className="ac-tags">{["Weak airflow","Warm air","Bad smell","Noise","Stops cooling"].map(x=><span key={x}>{x}</span>)}</div><CTA label="Book AC service"/></div></div></section>
-    <section className="dark-callout"><div className="wrap"><span className="eyebrow light">NO GUESSWORK</span><h2>Describe the cabin.<br/><i>We'll handle the vocabulary.</i></h2><Call/></div></section>
+  return <Frame eyebrow="02 / Car AC service & repair" title="Car AC service and repair in Irinjalakuda." intro="A dedicated enquiry path for the verified AC service and repair category.">
+    <section className="thermal"><div className="wrap thermal-grid"><div className="thermal-visual"><div className="thermal-ring"><Wind size={34}/><strong>AC</strong><span>COOLING<br/>CHECK</span></div><div className="thermal-readings"><span>FLOW <b>01</b></span><span>COMFORT <b>02</b></span><span>SYSTEM <b>03</b></span></div></div><div className="thermal-copy"><span className="eyebrow">VERIFIED SERVICE SCOPE</span><h2>AC service.<br/>AC repair.</h2><p>The blueprint supports car AC service and repair. Refrigerants, machine models and exact procedures are intentionally not published until confirmed.</p><div className="ac-tags">{["CAR AC SERVICE","CAR AC REPAIR","IRINJALAKUDA"].map(x=><span key={x}>{x}</span>)}</div><CTA label="Request AC service"/></div></div></section>
+    <section className="dark-callout"><div className="wrap"><span className="eyebrow light">DIRECT CONTACT</span><h2>Need AC service?<br/><i>Contact the workshop.</i></h2><Call/></div></section>
   </Frame>
 }
 
