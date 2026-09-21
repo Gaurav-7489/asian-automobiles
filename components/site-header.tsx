@@ -76,6 +76,29 @@ export function SiteHeader() {
   }, [pathname]);
 
   useEffect(() => {
+    const root = document.documentElement;
+    const previousOverflow = root.style.overflow;
+
+    if (menuOpen) root.style.overflow = "hidden";
+
+    return () => {
+      root.style.overflow = previousOverflow;
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth > 1240) {
+        setMenuOpen(false);
+        setServicesOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setMenuOpen(false);
@@ -246,7 +269,7 @@ export function SiteHeader() {
           </div>
         </div>
 
-        <div className="aa-mobile-panel">
+        <div className="aa-mobile-panel" aria-hidden={!menuOpen}>
           <div className="aa-mobile-panel-inner">
             <div className="aa-mobile-service-list">
               <span className="aa-mobile-label">SERVICES / START WITH THE NEED</span>
