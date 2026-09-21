@@ -141,7 +141,7 @@ export function ImmersiveHero() {
           </motion.div>
 
           <div className="aa-hero-v8-meta" aria-hidden="true">
-            <span>10.53° N / 76.21° E</span>
+            <span>IRINJALAKUDA / THRISSUR</span>
             <span>WORKSHOP / KATTOOR ROAD</span>
             <span>KERALA / INDIA</span>
           </div>
