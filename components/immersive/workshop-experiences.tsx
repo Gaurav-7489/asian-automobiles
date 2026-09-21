@@ -132,16 +132,16 @@ export function BeforeAfterSlider({
         if (event.currentTarget.hasPointerCapture(event.pointerId)) update(event.clientX);
       }}
     >
-      <Image src={after} alt="Restored vehicle finish" fill quality={72} sizes="(max-width: 820px) 100vw, 68vw" />
+      <Image src={after} alt="Automotive finish reference visual" fill quality={72} sizes="(max-width: 820px) 100vw, 68vw" />
       <div className="aa-before-layer">
-        <Image src={before} alt="Vehicle bodywork before restoration" fill quality={70} sizes="(max-width: 820px) 100vw, 68vw" />
+        <Image src={before} alt="Automotive bodywork damage reference visual" fill quality={70} sizes="(max-width: 820px) 100vw, 68vw" />
       </div>
-      <span className="aa-ba-label aa-ba-before">BEFORE</span>
-      <span className="aa-ba-label aa-ba-after">AFTER</span>
+      <span className="aa-ba-label aa-ba-before">DAMAGE REFERENCE</span>
+      <span className="aa-ba-label aa-ba-after">FINISH REFERENCE</span>
       <button
         type="button"
         className="aa-ba-handle"
-        aria-label="Drag to compare before and after"
+        aria-label="Drag to compare damage and finish reference visuals"
         onKeyDown={(event) => {
           if (event.key === "ArrowLeft") setPosition((value) => Math.max(4, value - 4));
           if (event.key === "ArrowRight") setPosition((value) => Math.min(96, value + 4));
