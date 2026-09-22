@@ -8,7 +8,7 @@ import "./responsive-fixes.css";
 import "./inner-pages-v10.css";
 import "./inner-pages-v11.css";
 import "./responsive-contrast-v12.css";
-import "./inner-pages-v13.css";
+import "./inner-pages-v13.css";\nimport "./contrast-v14.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { InteractiveLayer } from "@/components/interactive";
