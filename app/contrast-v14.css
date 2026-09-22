@@ -1,0 +1,789 @@
+/* =========================================================
+   V14 — GLOBAL CONTRAST / INTERACTION SAFETY LAYER
+   Loaded last. Keep visual design intact while making every
+   text/control state deterministic on light and dark surfaces.
+   ========================================================= */
+
+:root{
+  --aa-v14-ink:#0a0c0f;
+  --aa-v14-muted:#4f534d;
+  --aa-v14-paper:#f3f1ea;
+  --aa-v14-dark:#080a0d;
+  --aa-v14-accent:#d8ff3e;
+  --aa-v14-white:#fff;
+  --aa-v14-white-muted:rgba(255,255,255,.78);
+  --aa-v14-white-soft:rgba(255,255,255,.66);
+  --aa-v14-line-dark:rgba(10,12,15,.2);
+  --aa-v14-line-light:rgba(255,255,255,.22);
+}
+
+/* Base text must never inherit a nearly-transparent accidental color. */
+body{
+  color:var(--aa-v14-ink);
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+/* Strong, consistent keyboard focus on every surface. */
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{
+  outline:3px solid var(--aa-v14-accent)!important;
+  outline-offset:3px!important;
+}
+
+/* =========================================================
+   HEADER / NAVIGATION
+   ========================================================= */
+
+.aa-header-v5,
+.aa-header-v5 .aa-nav-main{
+  color:#fff;
+}
+
+.aa-header-v5 .aa-brand-name :is(b,small),
+.aa-header-v5 .aa-desktop-nav-v4 :is(a,button),
+.aa-header-v5 .aa-header-phone,
+.aa-header-v5 .aa-menu-button{
+  color:rgba(255,255,255,.88)!important;
+}
+
+.aa-header-v5 .aa-desktop-nav-v4 :is(a,button):is(:hover,:focus-visible,.is-active),
+.aa-header-v5 .aa-header-phone:is(:hover,:focus-visible),
+.aa-header-v5 .aa-menu-button:is(:hover,:focus-visible){
+  color:#fff!important;
+}
+
+.aa-header-v5 .aa-header-cta{
+  background:var(--aa-v14-accent)!important;
+  color:#080a0d!important;
+}
+
+.aa-header-v5 .aa-header-cta :is(span,b,strong,svg){
+  color:#080a0d!important;
+}
+
+.aa-header-v5 .aa-mega{
+  background:#f3f1ea!important;
+  color:var(--aa-v14-ink)!important;
+  border-color:var(--aa-v14-line-dark)!important;
+}
+
+.aa-header-v5 .aa-mega :is(h2,h3,h4,b,strong){
+  color:var(--aa-v14-ink)!important;
+}
+
+.aa-header-v5 .aa-mega :is(p,small,span){
+  color:#555a53!important;
+}
+
+.aa-header-v5 .aa-mega-link{
+  color:var(--aa-v14-ink)!important;
+}
+
+.aa-header-v5 .aa-mega-link :is(b,strong,svg){
+  color:var(--aa-v14-ink)!important;
+}
+
+.aa-header-v5 .aa-mega-link:is(:hover,:focus-visible){
+  background:#101318!important;
+  color:#fff!important;
+}
+
+.aa-header-v5 .aa-mega-link:is(:hover,:focus-visible) :is(b,strong,small,span,svg){
+  color:#fff!important;
+}
+
+.aa-header-v5 .aa-mega-book{
+  background:var(--aa-v14-accent)!important;
+  color:#080a0d!important;
+}
+
+.aa-header-v5 .aa-mega-book :is(b,strong,small,span,svg){
+  color:#080a0d!important;
+}
+
+.aa-header-v5 .aa-mobile-panel{
+  background:#07090b!important;
+  color:#fff!important;
+}
+
+.aa-header-v5 .aa-mobile-panel :is(a,b,strong){
+  color:#fff!important;
+}
+
+.aa-header-v5 .aa-mobile-panel :is(.aa-mobile-label,small,span){
+  color:rgba(255,255,255,.72)!important;
+}
+
+.aa-header-v5 .aa-mobile-service-list>a,
+.aa-header-v5 .aa-mobile-primary-links>a{
+  border-color:rgba(255,255,255,.18)!important;
+}
+
+.aa-header-v5 .aa-mobile-service-list>a:is(:hover,:focus-visible),
+.aa-header-v5 .aa-mobile-primary-links>a:is(:hover,:focus-visible){
+  color:var(--aa-v14-accent)!important;
+}
+
+/* =========================================================
+   INNER PAGE HERO — always dark
+   ========================================================= */
+
+.aa-inner-v10 .aa-v10-head{
+  color:#fff!important;
+}
+
+.aa-inner-v10 .aa-v10-head :is(h1,h2,h3,h4,h5,b,strong){
+  color:#fff!important;
+}
+
+.aa-inner-v10 .aa-v10-head :is(.back,.eyebrow,.creative-compass){
+  color:rgba(255,255,255,.82)!important;
+}
+
+.aa-inner-v10 .aa-v10-head .creative-heading>p{
+  color:rgba(255,255,255,.82)!important;
+}
+
+.aa-inner-v10 .aa-v10-head .aa-v10-hero-proof :is(span,small){
+  color:rgba(255,255,255,.7)!important;
+}
+
+/* =========================================================
+   LIGHT SURFACES
+   ========================================================= */
+
+.aa-inner-v10 :is(
+  .aa-v10-paper,
+  .aa-v10-soft,
+  .aa-v11-service-intake,
+  .aa-v11-ac-console-section,
+  .aa-v11-accident-intake-section,
+  .aa-v11-wheel-lab-section,
+  .aa-v11-tyre-lab-section,
+  .aa-v11-parts-finder-section,
+  .aa-v13-about-section,
+  .aa-v13-faq-route-section
+){
+  color:var(--aa-v14-ink)!important;
+}
+
+.aa-inner-v10 :is(
+  .aa-v10-paper,
+  .aa-v10-soft,
+  .aa-v11-service-intake,
+  .aa-v11-ac-console-section,
+  .aa-v11-accident-intake-section,
+  .aa-v11-wheel-lab-section,
+  .aa-v11-tyre-lab-section,
+  .aa-v11-parts-finder-section,
+  .aa-v13-about-section,
+  .aa-v13-faq-route-section
+) :is(h1,h2,h3,h4,h5,h6,b,strong){
+  color:var(--aa-v14-ink)!important;
+}
+
+.aa-inner-v10 :is(
+  .aa-v10-paper,
+  .aa-v10-soft,
+  .aa-v13-about-section,
+  .aa-v13-faq-route-section
+) p{
+  color:var(--aa-v14-muted)!important;
+}
+
+.aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(
+  .eyebrow,
+  .aa-v10-section-head>span,
+  .aa-v10-feature-meta,
+  .aa-v10-card-top,
+  .aa-v10-reference-note,
+  .aa-v10-map-road,
+  small
+){
+  color:#555a53!important;
+}
+
+/* =========================================================
+   DARK SURFACES + NESTED DARK MODULES
+   ========================================================= */
+
+:is(.aa-section-dark,.aa-final,.aa-footer),
+.aa-inner-v10 :is(
+  .aa-v10-dark,
+  .aa-v10-endcap,
+  .aa-v13-facility-gallery-section,
+  .aa-v13-booking-journey-section
+){
+  color:#fff!important;
+}
+
+:is(.aa-section-dark,.aa-final,.aa-footer) :is(h1,h2,h3,h4,h5,h6,b,strong),
+.aa-inner-v10 :is(
+  .aa-v10-dark,
+  .aa-v10-endcap,
+  .aa-v13-facility-gallery-section,
+  .aa-v13-booking-journey-section
+) :is(h1,h2,h3,h4,h5,h6,b,strong){
+  color:#fff!important;
+}
+
+:is(.aa-section-dark,.aa-final,.aa-footer) p,
+.aa-inner-v10 :is(
+  .aa-v10-dark,
+  .aa-v10-endcap,
+  .aa-v13-facility-gallery-section,
+  .aa-v13-booking-journey-section
+) p{
+  color:var(--aa-v14-white-muted)!important;
+}
+
+:is(.aa-section-dark,.aa-final,.aa-footer) :is(.aa-kicker,.eyebrow,small),
+.aa-inner-v10 :is(
+  .aa-v10-dark,
+  .aa-v10-endcap,
+  .aa-v13-facility-gallery-section,
+  .aa-v13-booking-journey-section
+) :is(.eyebrow,.aa-v10-feature-meta,.aa-v10-card-top,.aa-v10-reference-note,small){
+  color:var(--aa-v14-white-soft)!important;
+}
+
+.aa-inner-v10 :is(
+  .aa-v11-service-scanner,
+  .aa-v11-climate-console,
+  .aa-v11-geometry-lab,
+  .aa-v11-tyre-lab,
+  .aa-v11-parts-finder,
+  .aa-v11-claim-deck,
+  .aa-v11-accident-strip,
+  .aa-blueprint-timeline,
+  .aa-v13-service-board,
+  .aa-v13-review-board,
+  .aa-v13-damage-guide,
+  .aa-v13-floor-explorer,
+  .aa-v13-booking-journey,
+  .aa-v10-tyre-graphic,
+  .aa-v10-map-pin
+){
+  color:#fff!important;
+}
+
+.aa-inner-v10 :is(
+  .aa-v11-service-scanner,
+  .aa-v11-climate-console,
+  .aa-v11-geometry-lab,
+  .aa-v11-tyre-lab,
+  .aa-v11-parts-finder,
+  .aa-v11-claim-deck,
+  .aa-v11-accident-strip,
+  .aa-blueprint-timeline,
+  .aa-v13-service-board,
+  .aa-v13-review-board,
+  .aa-v13-damage-guide,
+  .aa-v13-floor-explorer,
+  .aa-v13-booking-journey,
+  .aa-v10-tyre-graphic,
+  .aa-v10-map-pin
+) :is(h1,h2,h3,h4,h5,h6,b,strong,svg){
+  color:#fff!important;
+}
+
+.aa-inner-v10 :is(
+  .aa-v11-service-scanner,
+  .aa-v11-climate-console,
+  .aa-v11-geometry-lab,
+  .aa-v11-tyre-lab,
+  .aa-v11-parts-finder,
+  .aa-v11-claim-deck,
+  .aa-blueprint-timeline,
+  .aa-v13-service-board,
+  .aa-v13-review-board,
+  .aa-v13-damage-guide,
+  .aa-v13-floor-explorer,
+  .aa-v13-booking-journey
+) p{
+  color:var(--aa-v14-white-muted)!important;
+}
+
+.aa-inner-v10 :is(
+  .aa-v11-service-scanner,
+  .aa-v11-climate-console,
+  .aa-v11-geometry-lab,
+  .aa-v11-tyre-lab,
+  .aa-v11-parts-finder,
+  .aa-v11-claim-deck,
+  .aa-blueprint-timeline,
+  .aa-v13-service-board,
+  .aa-v13-review-board,
+  .aa-v13-damage-guide,
+  .aa-v13-floor-explorer,
+  .aa-v13-booking-journey
+) :is(small,.eyebrow){
+  color:var(--aa-v14-white-soft)!important;
+}
+
+/* Gallery is intentionally dark even though it reuses the paper wrapper. */
+.aa-inner-v10.theme-gallery .aa-v10-paper{
+  background:#0b0b0b!important;
+  color:#fff!important;
+}
+
+.aa-inner-v10.theme-gallery .aa-v10-paper :is(h1,h2,h3,h4,h5,h6,b,strong){
+  color:#fff!important;
+}
+
+.aa-inner-v10.theme-gallery .aa-v10-paper :is(p,.eyebrow,.aa-v10-section-head>span,small){
+  color:var(--aa-v14-white-muted)!important;
+}
+
+/* =========================================================
+   CARDS / HOVER STATES
+   ========================================================= */
+
+.aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card{
+  background:#0e1115!important;
+  color:#fff!important;
+  border-color:var(--aa-v14-line-light)!important;
+}
+
+.aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card :is(h3,h4,b,strong,svg){
+  color:#fff!important;
+}
+
+.aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card p{
+  color:var(--aa-v14-white-muted)!important;
+}
+
+.aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-meta{
+  color:var(--aa-v14-white-soft)!important;
+}
+
+.aa-inner-v10.theme-services .aa-v10-signal-card:nth-child(3){
+  background:#0b0d10!important;
+  color:#fff!important;
+}
+
+.aa-inner-v10.theme-services .aa-v10-signal-card:nth-child(3) :is(h3,h4,b,strong,svg){
+  color:#fff!important;
+}
+
+.aa-inner-v10.theme-services .aa-v10-signal-card:nth-child(3) :is(p,.aa-v10-card-top,small,span){
+  color:var(--aa-v14-white-muted)!important;
+}
+
+@media (hover:hover) and (pointer:fine){
+  .aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover{
+    color:#fff!important;
+  }
+
+  .aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover :is(h3,h4,b,strong,svg){
+    color:#fff!important;
+  }
+
+  .aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover :is(p,.aa-v10-feature-meta,.aa-v10-card-top,small,span){
+    color:var(--aa-v14-white-muted)!important;
+  }
+
+  .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card:hover{
+    background:var(--aa-v14-accent)!important;
+    color:#080a0d!important;
+  }
+
+  .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card:hover :is(h3,h4,b,strong,p,small,span,svg,.aa-v10-feature-meta){
+    color:#080a0d!important;
+  }
+
+  .aa-inner-v10.theme-ac .aa-v10-stack-list>div:hover{
+    background:#07141a!important;
+    color:#fff!important;
+  }
+
+  .aa-inner-v10.theme-ac .aa-v10-stack-list>div:hover :is(h3,h4,b,strong,svg){
+    color:#fff!important;
+  }
+
+  .aa-inner-v10.theme-ac .aa-v10-stack-list>div:hover :is(p,small,span){
+    color:var(--aa-v14-white-muted)!important;
+  }
+
+  .aa-review-card:hover{
+    background:#0b0b0b!important;
+    color:#fff!important;
+  }
+
+  .aa-review-card:hover :is(b,strong,p,small,span,svg){
+    color:#fff!important;
+  }
+}
+
+/* Touch devices should never get stuck in a desktop hover palette. */
+@media (hover:none), (pointer:coarse){
+  .aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover{
+    color:var(--aa-v14-ink)!important;
+  }
+
+  .aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover :is(h3,h4,b,strong,svg){
+    color:var(--aa-v14-ink)!important;
+  }
+
+  .aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover :is(p,.aa-v10-feature-meta,.aa-v10-card-top,small,span){
+    color:var(--aa-v14-muted)!important;
+  }
+
+  .aa-inner-v10.theme-services .aa-v10-signal-card:nth-child(3):hover{
+    color:#fff!important;
+  }
+
+  .aa-inner-v10.theme-services .aa-v10-signal-card:nth-child(3):hover :is(h3,h4,b,strong,svg){
+    color:#fff!important;
+  }
+
+  .aa-inner-v10.theme-services .aa-v10-signal-card:nth-child(3):hover :is(p,.aa-v10-card-top,small,span){
+    color:var(--aa-v14-white-muted)!important;
+  }
+
+  .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card:hover{
+    background:#0e1115!important;
+    color:#fff!important;
+  }
+
+  .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card:hover :is(h3,h4,b,strong,p,small,span,svg,.aa-v10-feature-meta){
+    color:#fff!important;
+  }
+
+  .aa-review-card:hover{
+    background:transparent!important;
+    color:inherit!important;
+  }
+}
+
+/* =========================================================
+   INTERACTIVE DARK CONTROLS
+   ========================================================= */
+
+.aa-inner-v10 :is(
+  .aa-v11-scanner-menu,
+  .aa-v11-climate-modes,
+  .aa-v11-geometry-controls,
+  .aa-v11-parts-index,
+  .aa-v11-claim-controls,
+  .aa-v13-service-index,
+  .aa-v13-damage-tabs,
+  .aa-v13-review-tabs
+) button{
+  color:#fff!important;
+}
+
+.aa-inner-v10 :is(
+  .aa-v11-scanner-menu,
+  .aa-v11-climate-modes,
+  .aa-v11-geometry-controls,
+  .aa-v11-parts-index,
+  .aa-v11-claim-controls,
+  .aa-v13-service-index,
+  .aa-v13-damage-tabs,
+  .aa-v13-review-tabs
+) button :is(b,strong,svg){
+  color:#fff!important;
+}
+
+.aa-inner-v10 :is(
+  .aa-v11-scanner-menu,
+  .aa-v11-climate-modes,
+  .aa-v11-geometry-controls,
+  .aa-v11-parts-index,
+  .aa-v11-claim-controls,
+  .aa-v13-service-index,
+  .aa-v13-damage-tabs,
+  .aa-v13-review-tabs
+) button :is(span,small){
+  color:rgba(255,255,255,.68)!important;
+}
+
+.aa-inner-v10 :is(
+  .aa-v11-scanner-menu,
+  .aa-v11-climate-modes,
+  .aa-v11-geometry-controls,
+  .aa-v11-parts-index,
+  .aa-v11-claim-controls,
+  .aa-v13-service-index,
+  .aa-v13-review-tabs
+) button:is(.is-active,:hover,:focus-visible){
+  color:#071018!important;
+}
+
+.aa-inner-v10 :is(
+  .aa-v11-scanner-menu,
+  .aa-v11-climate-modes,
+  .aa-v11-geometry-controls,
+  .aa-v11-parts-index,
+  .aa-v11-claim-controls,
+  .aa-v13-service-index,
+  .aa-v13-review-tabs
+) button:is(.is-active,:hover,:focus-visible) :is(b,strong,small,span,svg){
+  color:#071018!important;
+}
+
+.aa-inner-v10 .aa-v13-damage-tabs button:is(.is-active,:hover,:focus-visible),
+.aa-inner-v10 .aa-v13-damage-tabs button:is(.is-active,:hover,:focus-visible) :is(b,strong,small,span,svg){
+  color:#0b0d0f!important;
+}
+
+.aa-inner-v10 .aa-v11-tread-tabs button{
+  color:#fff!important;
+}
+
+.aa-inner-v10 .aa-v11-tread-tabs button.is-active,
+.aa-inner-v10 .aa-v11-tread-tabs button.is-active :is(b,strong,small,span,svg){
+  color:#090b0d!important;
+}
+
+/* Timeline */
+.aa-inner-v10 .aa-blueprint-timeline-nav,
+.aa-inner-v10 .aa-blueprint-timeline-stage{
+  background:#0b0e12!important;
+  color:#fff!important;
+  border-color:var(--aa-v14-line-light)!important;
+}
+
+.aa-inner-v10 .aa-blueprint-timeline-nav button{
+  color:#fff!important;
+  border-color:var(--aa-v14-line-light)!important;
+}
+
+.aa-inner-v10 .aa-blueprint-timeline-nav button :is(b,strong){
+  color:#fff!important;
+}
+
+.aa-inner-v10 .aa-blueprint-timeline-nav button :is(span,small){
+  color:var(--aa-v14-white-soft)!important;
+}
+
+.aa-inner-v10 .aa-blueprint-timeline-nav button.is-active{
+  background:var(--aa-v14-accent)!important;
+  color:#080a0d!important;
+}
+
+.aa-inner-v10 .aa-blueprint-timeline-nav button.is-active :is(b,strong,span,small,svg){
+  color:#080a0d!important;
+}
+
+/* =========================================================
+   BUTTONS / LINKS
+   ========================================================= */
+
+.aa-v10-button-whatsapp,
+.aa-v10-button-primary,
+.aa-light-button{
+  color:#080a0d!important;
+}
+
+.aa-v10-button-whatsapp :is(span,b,strong,svg),
+.aa-v10-button-primary :is(span,b,strong,svg),
+.aa-light-button :is(span,b,strong,svg){
+  color:inherit!important;
+}
+
+.aa-v10-button-dark,
+.aa-primary-button{
+  color:#fff!important;
+}
+
+.aa-v10-button-dark :is(span,b,strong,svg),
+.aa-primary-button :is(span,b,strong,svg){
+  color:#fff!important;
+}
+
+.aa-inner-v10 .aa-v10-button-ghost{
+  color:#fff!important;
+  border-color:rgba(255,255,255,.32)!important;
+}
+
+.aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) .aa-v10-button-ghost{
+  color:var(--aa-v14-ink)!important;
+  border-color:rgba(10,12,15,.3)!important;
+}
+
+.aa-inner-v10 .aa-v10-contact-actions>a{
+  background:#ece9e1!important;
+  color:var(--aa-v14-ink)!important;
+}
+
+.aa-inner-v10 .aa-v10-contact-actions>a :is(b,strong,span,svg){
+  color:var(--aa-v14-ink)!important;
+}
+
+.aa-inner-v10 .aa-v10-contact-actions>a:is(:hover,:focus-visible){
+  background:#0b0d10!important;
+  color:#fff!important;
+}
+
+.aa-inner-v10 .aa-v10-contact-actions>a:is(:hover,:focus-visible) :is(b,strong,span,svg){
+  color:#fff!important;
+}
+
+.aa-inner-v10 .aa-v10-submit{
+  background:#0b0d10!important;
+  color:#fff!important;
+}
+
+.aa-inner-v10 .aa-v10-submit :is(span,svg){
+  color:#fff!important;
+}
+
+.aa-inner-v10 .aa-v10-submit:is(:hover,:focus-visible){
+  background:var(--aa-v14-accent)!important;
+  color:#080a0d!important;
+}
+
+.aa-inner-v10 .aa-v10-submit:is(:hover,:focus-visible) :is(span,svg){
+  color:#080a0d!important;
+}
+
+/* =========================================================
+   FORMS / FAQ / CONTACT
+   ========================================================= */
+
+.aa-inner-v10 .aa-v10-lead-copy{
+  background:#0c0f12!important;
+  color:#fff!important;
+}
+
+.aa-inner-v10 .aa-v10-lead-copy :is(h1,h2,h3,h4,b,strong,a,svg){
+  color:#fff!important;
+}
+
+.aa-inner-v10 .aa-v10-lead-copy p{
+  color:var(--aa-v14-white-muted)!important;
+}
+
+.aa-inner-v10 .aa-v10-lead-copy :is(small,span){
+  color:var(--aa-v14-white-soft)!important;
+}
+
+.aa-inner-v10 .aa-v10-lead-form{
+  background:#f4f1e9!important;
+  color:var(--aa-v14-ink)!important;
+}
+
+.aa-inner-v10 .aa-v10-lead-form label>span{
+  color:#20231e!important;
+}
+
+.aa-inner-v10 .aa-v10-lead-form :is(input,select,textarea){
+  background:#fff!important;
+  color:var(--aa-v14-ink)!important;
+  caret-color:var(--aa-v14-ink)!important;
+  border-color:rgba(10,12,15,.34)!important;
+  opacity:1!important;
+}
+
+.aa-inner-v10 .aa-v10-lead-form :is(input,textarea)::placeholder{
+  color:#5d625b!important;
+  opacity:1!important;
+}
+
+.aa-inner-v10 .aa-v10-lead-form select:invalid{
+  color:#5d625b!important;
+}
+
+.aa-inner-v10 .aa-v10-lead-form :is(input,select,textarea):focus{
+  border-color:#0a0c0f!important;
+  box-shadow:0 0 0 3px rgba(216,255,62,.5)!important;
+}
+
+.aa-inner-v10 .aa-v10-lead-form>small{
+  color:#515650!important;
+}
+
+.aa-inner-v10 .aa-motion-faq article>button{
+  color:var(--aa-v14-ink)!important;
+}
+
+.aa-inner-v10 .aa-motion-faq article>button :is(b,strong,span,svg){
+  color:var(--aa-v14-ink)!important;
+}
+
+.aa-inner-v10 .aa-motion-faq-answer p{
+  color:#4c504a!important;
+}
+
+.aa-inner-v10 .aa-v10-address-card,
+.aa-inner-v10 .aa-v10-address-card :is(h1,h2,h3,b,strong,svg){
+  color:var(--aa-v14-ink)!important;
+}
+
+.aa-inner-v10 .aa-v10-address-card :is(p,small){
+  color:#515650!important;
+}
+
+/* =========================================================
+   IMAGE OVERLAYS / FOOTER / MOBILE ACTIONS
+   ========================================================= */
+
+.aa-inner-v10 :is(
+  .aa-expand-gallery-card,
+  .aa-v11-gallery-tile,
+  .aa-v10-before-after figure
+) figcaption,
+.aa-expand-gallery-copy{
+  color:#fff!important;
+  text-shadow:0 2px 16px rgba(0,0,0,.9);
+}
+
+.aa-inner-v10 :is(
+  .aa-expand-gallery-card,
+  .aa-v11-gallery-tile,
+  .aa-v10-before-after figure
+) figcaption :is(b,strong,small,span,svg),
+.aa-expand-gallery-copy :is(b,strong,small,span,svg){
+  color:#fff!important;
+}
+
+.aa-footer :is(h1,h2,h3,h4,b,strong,a){
+  color:#fff!important;
+}
+
+.aa-footer :is(p,small,span){
+  color:rgba(255,255,255,.72)!important;
+}
+
+.aa-footer a:is(:hover,:focus-visible){
+  color:var(--aa-v14-accent)!important;
+}
+
+.aa-mobile-actions a{
+  color:#fff!important;
+}
+
+.aa-mobile-actions a :is(span,svg){
+  color:#fff!important;
+}
+
+.aa-mobile-actions a:last-child{
+  background:var(--aa-v14-accent)!important;
+  color:#080a0d!important;
+}
+
+.aa-mobile-actions a:last-child :is(span,svg){
+  color:#080a0d!important;
+}
+
+/* Preserve readable system high-contrast mode. */
+@media (forced-colors:active){
+  :where(a,button,input,select,textarea,[tabindex]):focus-visible{
+    outline:2px solid Highlight!important;
+  }
+
+  .aa-v10-button,
+  .aa-header-cta,
+  .aa-light-button,
+  .aa-v10-submit,
+  .aa-mobile-actions a{
+    border:1px solid ButtonText!important;
+  }
+}
