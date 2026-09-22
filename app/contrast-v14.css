@@ -787,3 +787,139 @@ textarea{
     border:1px solid ButtonText!important;
   }
 }
+
+
+/* =========================================================
+   V14.1 — SCREENSHOT-VERIFIED CONTRAST HOTFIXES
+   Fix components whose surface changes on hover but descendants
+   retained colors from an earlier cascade layer.
+   ========================================================= */
+
+/* Homepage / Verified Foundation:
+   blockquote was not included in the previous hover descendant reset. */
+@media (hover:hover) and (pointer:fine){
+  .aa-home .aa-review-card:hover,
+  .aa-home .aa-review-card:focus-within{
+    background:#0b0b0b!important;
+    color:#fff!important;
+  }
+
+  .aa-home .aa-review-card:hover :is(blockquote,b,strong,p,small,span,svg),
+  .aa-home .aa-review-card:focus-within :is(blockquote,b,strong,p,small,span,svg){
+    color:#fff!important;
+  }
+
+  .aa-home .aa-review-card:hover :is(span,small),
+  .aa-home .aa-review-card:focus-within :is(span,small){
+    color:rgba(255,255,255,.68)!important;
+    opacity:1!important;
+  }
+}
+
+/* Denting / painting cards:
+   always pair the white hover typography with an actually dark surface.
+   This prevents pale beige / blue / tan cards from ending up white-on-light. */
+@media (hover:hover) and (pointer:fine){
+  .aa-inner-v10.theme-paint .aa-v10-feature-card:hover,
+  .aa-inner-v10.theme-paint .aa-v10-feature-card:focus-within{
+    background:#0b0d10!important;
+    color:#fff!important;
+    border-color:#0b0d10!important;
+  }
+
+  .aa-inner-v10.theme-paint .aa-v10-feature-card:hover :is(h2,h3,h4,b,strong,p,small,span,svg,.aa-v10-feature-meta,.aa-v10-card-top),
+  .aa-inner-v10.theme-paint .aa-v10-feature-card:focus-within :is(h2,h3,h4,b,strong,p,small,span,svg,.aa-v10-feature-meta,.aa-v10-card-top){
+    color:#fff!important;
+  }
+
+  .aa-inner-v10.theme-paint .aa-v10-feature-card:hover :is(p,small,.aa-v10-feature-meta,.aa-v10-card-top),
+  .aa-inner-v10.theme-paint .aa-v10-feature-card:focus-within :is(p,small,.aa-v10-feature-meta,.aa-v10-card-top){
+    color:rgba(255,255,255,.76)!important;
+  }
+}
+
+/* Wheel comparison:
+   hover uses a light accent surface, therefore ALL copy must flip dark. */
+@media (hover:hover) and (pointer:fine){
+  .aa-inner-v10.theme-wheel .aa-v10-compare-grid>div:hover,
+  .aa-inner-v10.theme-wheel .aa-v10-compare-grid>div:focus-within{
+    color:#080a0d!important;
+  }
+
+  .aa-inner-v10.theme-wheel .aa-v10-compare-grid>div:hover :is(h2,h3,h4,b,strong,p,small,span,svg),
+  .aa-inner-v10.theme-wheel .aa-v10-compare-grid>div:focus-within :is(h2,h3,h4,b,strong,p,small,span,svg){
+    color:#080a0d!important;
+  }
+
+  .aa-inner-v10.theme-wheel .aa-v10-compare-grid>div:hover :is(p,small,span),
+  .aa-inner-v10.theme-wheel .aa-v10-compare-grid>div:focus-within :is(p,small,span){
+    color:rgba(8,10,13,.7)!important;
+  }
+}
+
+/* About / approach rail:
+   lime active row is a light surface — never leave white text on it. */
+@media (hover:hover) and (pointer:fine){
+  .aa-inner-v10.theme-about .aa-v10-dark .aa-hover-stat-rail>div:hover,
+  .aa-inner-v10.theme-about .aa-v10-dark .aa-hover-stat-rail>div:focus-within{
+    background:var(--aa-v14-accent)!important;
+    color:#080a0d!important;
+  }
+
+  .aa-inner-v10.theme-about .aa-v10-dark .aa-hover-stat-rail>div:hover :is(b,strong,p,small,span,svg),
+  .aa-inner-v10.theme-about .aa-v10-dark .aa-hover-stat-rail>div:focus-within :is(b,strong,p,small,span,svg){
+    color:#080a0d!important;
+  }
+
+  .aa-inner-v10.theme-about .aa-v10-dark .aa-hover-stat-rail>div:hover :is(p,small,span),
+  .aa-inner-v10.theme-about .aa-v10-dark .aa-hover-stat-rail>div:focus-within :is(p,small,span){
+    color:rgba(8,10,13,.7)!important;
+    opacity:1!important;
+  }
+}
+
+/* Touch: keep static palettes; don't synthesize desktop hover contrast. */
+@media (hover:none), (pointer:coarse){
+  .aa-home .aa-review-card:hover{
+    background:transparent!important;
+    color:inherit!important;
+  }
+
+  .aa-inner-v10.theme-paint .aa-v10-feature-card:hover{
+    color:var(--aa-v14-ink)!important;
+  }
+
+  .aa-inner-v10.theme-paint .aa-v10-feature-card:hover :is(h2,h3,h4,b,strong,svg){
+    color:var(--aa-v14-ink)!important;
+  }
+
+  .aa-inner-v10.theme-paint .aa-v10-feature-card:hover :is(p,small,span,.aa-v10-feature-meta,.aa-v10-card-top){
+    color:var(--aa-v14-muted)!important;
+  }
+
+  .aa-inner-v10.theme-wheel .aa-v10-compare-grid>div:hover{
+    background:transparent!important;
+    color:#fff!important;
+  }
+
+  .aa-inner-v10.theme-wheel .aa-v10-compare-grid>div:hover :is(h2,h3,h4,b,strong,svg){
+    color:#fff!important;
+  }
+
+  .aa-inner-v10.theme-wheel .aa-v10-compare-grid>div:hover :is(p,small,span){
+    color:var(--aa-v14-white-muted)!important;
+  }
+
+  .aa-inner-v10.theme-about .aa-v10-dark .aa-hover-stat-rail>div:hover{
+    background:transparent!important;
+    color:#fff!important;
+  }
+
+  .aa-inner-v10.theme-about .aa-v10-dark .aa-hover-stat-rail>div:hover :is(b,strong,svg){
+    color:#fff!important;
+  }
+
+  .aa-inner-v10.theme-about .aa-v10-dark .aa-hover-stat-rail>div:hover :is(p,small,span){
+    color:var(--aa-v14-white-muted)!important;
+  }
+}
