@@ -8,6 +8,7 @@ import {
   MapPin,
   Phone,
   ShieldCheck,
+  Snowflake,
   Sparkles,
   Wrench,
   Wind,
