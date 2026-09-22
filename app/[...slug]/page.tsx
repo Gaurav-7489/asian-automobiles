@@ -8,7 +8,6 @@ import {
   MapPin,
   Phone,
   ShieldCheck,
-  Snowflake,
   Sparkles,
   Wrench,
   Wind,
@@ -164,130 +163,33 @@ type PageTheme =
   | "quote";
 
 function HeroArt({ theme }: { theme: PageTheme }) {
-  if (theme === "ac") {
-    return (
-      <div className="aa-v11-hero-art aa-v11-hero-ac" aria-hidden="true">
-        <div className="aa-v11-ac-ring"><Snowflake size={30} /><strong>18°</strong><small>AUTO / COOL</small></div>
-        <div className="aa-v11-air-lines"><i /><i /><i /><i /></div>
-        <span className="aa-v11-art-label">CABIN CLIMATE / COOLING</span>
-      </div>
-    );
-  }
-  if (theme === "wheel") {
-    return (
-      <div className="aa-v11-hero-art aa-v11-hero-wheel" aria-hidden="true">
-        <div className="aa-v11-wheel-disc"><i /><i /><b>0.00°</b></div>
-        <div className="aa-v11-wheel-guides"><span /><span /><span /></div>
-        <small>GEOMETRY / ALIGNMENT</small>
-      </div>
-    );
-  }
-  if (theme === "tyre") {
-    return (
-      <div className="aa-v11-hero-art aa-v11-hero-tyre" aria-hidden="true">
-        <div className="aa-v11-tyre-ring">{Array.from({ length: 18 }).map((_, i) => <i key={i} />)}</div>
-        <b>TYRE / WEAR</b><small>CONDITION / BALANCE / RIM</small>
-      </div>
-    );
-  }
-  if (theme === "accident") {
-    return (
-      <div className="aa-v11-hero-art aa-v11-hero-accident" aria-hidden="true">
-        <div className="aa-v11-impact-cross"><i /><i /></div>
-        <span className="aa-v11-damage-marker">01</span>
-        <b>DAMAGE / INTAKE</b><small>PHOTOS FIRST</small>
-      </div>
-    );
-  }
-  if (theme === "paint") {
-    return (
-      <div className="aa-v11-hero-art aa-v11-hero-paint" aria-hidden="true">
-        <div className="aa-v11-paint-panel"><i /><i /><i /><i /></div>
-        <span>BODY / PANEL / FINISH</span>
-      </div>
-    );
-  }
-  if (theme === "parts") {
-    return (
-      <div className="aa-v11-hero-art aa-v11-hero-parts" aria-hidden="true">
-        <div className="aa-v11-parts-rings"><i /><i /><i /><PackageSearch size={28} /></div>
-        <b>FITMENT > GUESSWORK</b><small>MODEL / VARIANT / YEAR / PART</small>
-      </div>
-    );
-  }
-  if (theme === "insurance") {
-    return (
-      <div className="aa-v11-hero-art aa-v11-hero-insurance" aria-hidden="true">
-        <div className="aa-v11-doc-stack"><i /><i /><strong><ShieldCheck size={24} /> CASE / 01</strong></div>
-        <small>ASSESS / DOCUMENT / COORDINATE</small>
-      </div>
-    );
-  }
-  if (theme === "facilities") {
-    return (
-      <div className="aa-v11-hero-art aa-v11-hero-facility" aria-hidden="true">
-        <div className="aa-v11-blueprint-zones"><i>01</i><i>02</i><i>03</i><i>04</i></div>
-        <b>WORKSHOP / MAP</b>
-      </div>
-    );
-  }
-  if (theme === "gallery") {
-    return (
-      <div className="aa-v11-hero-art aa-v11-hero-gallery" aria-hidden="true">
-        <div className="aa-v11-photo-stack"><i /><i /><i /></div>
-        <b>WORK / EQUIPMENT / PEOPLE</b>
-      </div>
-    );
-  }
-  if (theme === "reviews") {
-    return (
-      <div className="aa-v11-hero-art aa-v11-hero-reviews" aria-hidden="true">
-        <strong>“</strong><i /><i /><i /><small>REAL FEEDBACK / ATTRIBUTED</small>
-      </div>
-    );
-  }
-  if (theme === "contact") {
-    return (
-      <div className="aa-v11-hero-art aa-v11-hero-contact" aria-hidden="true">
-        <div className="aa-v11-mini-map"><i /><i /><MapPin size={26} /></div>
-        <b>KATTOOR ROAD</b><small>IRINJALAKUDA</small>
-      </div>
-    );
-  }
-  if (theme === "faq") {
-    return (
-      <div className="aa-v11-hero-art aa-v11-hero-faq" aria-hidden="true">
-        <strong>?</strong><i /><i /><small>ASK / FIND / GO</small>
-      </div>
-    );
-  }
-  if (theme === "booking" || theme === "quote") {
-    return (
-      <div className={"aa-v11-hero-art aa-v11-hero-" + theme} aria-hidden="true">
-        <div className="aa-v11-form-preview"><i /><i /><i /><strong>{theme === "quote" ? "QUOTE" : "BOOK"}</strong></div>
-        <small>NO ACCOUNT / LOW FRICTION</small>
-      </div>
-    );
-  }
-  if (theme === "about") {
-    return (
-      <div className="aa-v11-hero-art aa-v11-hero-about" aria-hidden="true">
-        <strong>1996</strong><span>→</span><b>NOW</b><small>IRINJALAKUDA / AUTOMOTIVE</small>
-      </div>
-    );
-  }
-  if (theme === "services") {
-    return (
-      <div className="aa-v11-hero-art aa-v11-hero-services" aria-hidden="true">
-        <div className="aa-v11-service-radar"><i /><i /><i /><Wrench size={24} /></div>
-        <small>SERVICE / WHEELS / AC / BODY / PARTS</small>
-      </div>
-    );
-  }
+  const labels: Record<PageTheme, [string, string]> = {
+    about: ["1996 → NOW", "LOCAL AUTOMOTIVE STORY"],
+    services: ["SERVICE MAP", "CHOOSE BY NEED"],
+    service: ["VEHICLE CHECK", "MAINTENANCE / DIAGNOSIS"],
+    ac: ["18° / COOL", "CABIN CLIMATE"],
+    accident: ["DAMAGE / 01", "PHOTOS FIRST"],
+    paint: ["PANEL / FINISH", "BODY & PAINT"],
+    wheel: ["0.00°", "WHEEL GEOMETRY"],
+    tyre: ["TREAD / WEAR", "TYRE CONDITION"],
+    parts: ["FITMENT", "MODEL / VARIANT / YEAR"],
+    insurance: ["CASE / 01", "ASSESS / DOCUMENT"],
+    facilities: ["WORKSHOP MAP", "SERVICE ZONES"],
+    gallery: ["CONTACT SHEET", "WORK / EQUIPMENT / PEOPLE"],
+    reviews: ["REAL FEEDBACK", "SOURCE / DATE / CONTEXT"],
+    contact: ["KATTOOR ROAD", "IRINJALAKUDA"],
+    faq: ["?", "ASK / FIND / GO"],
+    booking: ["BOOK", "NO ACCOUNT / LOW FRICTION"],
+    quote: ["QUOTE", "VEHICLE / NEED / PHOTO"],
+  };
+
+  const [primary, secondary] = labels[theme];
+
   return (
-    <div className="aa-v11-hero-art aa-v11-hero-service" aria-hidden="true">
-      <div className="aa-v11-service-gauge"><Gauge size={24} /><strong>CHECK</strong><i /></div>
-      <small>MAINTENANCE / DIAGNOSIS</small>
+    <div className={"aa-v11-hero-art aa-v11-hero-" + theme} aria-hidden="true">
+      <div className="aa-v11-theme-core"><i /><i /><i /><i /></div>
+      <strong>{primary}</strong>
+      <small>{secondary}</small>
     </div>
   );
 }
