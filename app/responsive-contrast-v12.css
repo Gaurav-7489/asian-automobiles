@@ -1640,3 +1640,81 @@ a{
     outline:2px solid Highlight;
   }
 }
+
+
+/* ---------- LAST-MILE SAFETY ---------- */
+
+.aa-header-v5.is-open ~ .aa-mobile-actions{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.aa-page-progress{
+  color:rgba(255,255,255,.62);
+}
+
+.aa-page-progress i{
+  background:rgba(255,255,255,.16);
+}
+
+.aa-page-progress i b{
+  background:var(--aa-v12-accent);
+}
+
+.aa-expand-gallery-copy,
+.aa-v11-gallery-tile figcaption{
+  text-shadow:0 1px 14px rgba(0,0,0,.8);
+}
+
+.aa-expand-gallery-copy :is(b,small,span,svg),
+.aa-v11-gallery-tile figcaption :is(b,span){
+  color:#fff!important;
+}
+
+/* 404 is part of the responsive surface too. */
+.creative-404{
+  min-height:100svh;
+  display:grid;
+  place-items:center;
+  padding:120px clamp(18px,5vw,72px) 80px;
+  background:#080a0d;
+  color:#fff;
+}
+
+.creative-404>div{
+  width:min(760px,100%);
+}
+
+.creative-404 span{
+  color:rgba(255,255,255,.62);
+  font-size:8px;
+  font-weight:850;
+  letter-spacing:.16em;
+}
+
+.creative-404 h1{
+  margin:18px 0;
+  color:#fff;
+  font-size:clamp(3rem,8vw,7rem);
+  line-height:.88;
+  letter-spacing:-.065em;
+}
+
+.creative-404 p{
+  margin:0 0 28px;
+  color:rgba(255,255,255,.72);
+  font-size:14px;
+  line-height:1.65;
+}
+
+@media(max-width:640px){
+  .creative-404{
+    padding:96px 14px 100px;
+    align-items:center;
+  }
+
+  .creative-404 h1{
+    font-size:clamp(2.7rem,14vw,4.5rem);
+  }
+}
