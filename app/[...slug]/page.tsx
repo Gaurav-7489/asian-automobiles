@@ -49,6 +49,15 @@ import {
   TyreTreadLab,
   WheelGeometryLab,
 } from "@/components/immersive/page-specific-experiences";
+import {
+  AboutTimeline,
+  BodyworkDamageGuide,
+  BookingJourney,
+  FaqRouteCards,
+  ReviewProofBoard,
+  ServiceDecisionBoard,
+  WorkshopFloorExplorer,
+} from "@/components/immersive/v13-page-experiences";
 
 const img = {
   workshop: "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1800&q=76",
@@ -413,6 +422,13 @@ function About() {
         </div>
       </section>
 
+      <section className="aa-v10-section aa-v10-soft aa-v13-about-section">
+        <div className="wrap">
+          <SectionHead eyebrow="1996 → NOW / INTERACTIVE TIMELINE" title="A local automotive business, explained as a living system." copy="Move through the timeline to see how service, wheel care, parts support and a lower-friction customer journey fit together." />
+          <AboutTimeline />
+        </div>
+      </section>
+
       <section className="aa-v10-section aa-v10-dark">
         <div className="wrap">
           <SectionHead
@@ -465,7 +481,8 @@ function Services() {
       <section className="aa-v10-section aa-v10-paper">
         <div className="wrap">
           <SectionHead eyebrow="QUICK START" title="What brought you here today?" copy="One tap should get you close to the right next step." />
-          <div className="aa-v10-signal-grid">
+          <ServiceDecisionBoard />
+          <div className="aa-v13-service-links">
             {problems.map(([no, title, copy, href, icon]) => (
               <SignalCard key={no} no={no} title={title} copy={copy} href={href} icon={icon} />
             ))}
@@ -734,8 +751,9 @@ function Denting() {
     >
       <section className="aa-v10-section aa-v10-paper">
         <div className="wrap">
-          <SectionHead eyebrow="SHOW THE MARK" title="Start with photos. The workshop can ask for the rest." />
-          <div className="aa-v10-before-after">
+          <SectionHead eyebrow="SHOW THE MARK" title="Start with photos. The workshop can ask for the rest." copy="Use the interactive damage guide first, then compare the wide-view and detail-view photography pattern below." />
+          <BodyworkDamageGuide />
+          <div className="aa-v10-before-after aa-v13-body-photo-pair">
             <figure>
               <Image src={img.car} alt="Reference visual for vehicle body damage" fill sizes="(max-width: 900px) 100vw, 50vw" />
               <figcaption><span>01 / DAMAGE VIEW</span><b>Wide view + close-up</b></figcaption>
@@ -980,7 +998,14 @@ function Facilities() {
     >
       <section className="aa-v10-section aa-v10-paper">
         <div className="wrap">
-          <SectionHead eyebrow="WORKSHOP EXPLORER" title="See the spaces that support the work." copy="Real Asian Automobiles photography should remain the final visual source of truth." />
+          <SectionHead eyebrow="WORKSHOP EXPLORER" title="Read the workshop like a capability map." copy="The floor-plan interaction explains what each zone supports without inventing equipment counts or unsupported specifications." />
+          <WorkshopFloorExplorer />
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-dark aa-v13-facility-gallery-section">
+        <div className="wrap">
+          <SectionHead light eyebrow="VISUAL WORKSHOP WALK" title="Move through the service areas visually." copy="Real Asian Automobiles photography should remain the final visual source of truth." />
           <ExpandGallery
             items={zones.map(([label, image, eyebrow]) => ({
               label,
@@ -1075,12 +1100,7 @@ function Reviews() {
               copy="Verified public reviews or customer-approved stories can be added without changing their meaning."
             />
           </div>
-          <div className="aa-v10-review-principles">
-            <div><span>01</span><b>Source</b><p>Keep where the review came from.</p></div>
-            <div><span>02</span><b>Date</b><p>Keep useful timing and context.</p></div>
-            <div><span>03</span><b>Work done</b><p>Connect feedback to the actual service where known.</p></div>
-            <div><span>04</span><b>Permission</b><p>Use customer stories responsibly.</p></div>
-          </div>
+          <ReviewProofBoard />
         </div>
       </section>
 
@@ -1175,6 +1195,13 @@ function FAQ() {
       intro="Short answers, clear next steps and no made-up workshop promises."
       actions={<><WhatsAppAction label="Ask a question" /><Call /></>}
     >
+      <section className="aa-v10-section aa-v10-soft aa-v13-faq-route-section">
+        <div className="wrap">
+          <SectionHead eyebrow="QUESTION ROUTES" title="Start with the kind of question, not a wall of text." copy="These four routes keep the FAQ scannable before you open the detailed answers." />
+          <FaqRouteCards />
+        </div>
+      </section>
+
       <section className="aa-v10-section aa-v10-paper">
         <div className="wrap aa-v10-faq-layout">
           <div className="aa-v10-faq-aside">
@@ -1205,6 +1232,13 @@ function Booking({ quote = false }: { quote?: boolean }) {
       intro={intro}
       actions={<><Call /><WhatsAppAction label={quote ? "Start on WhatsApp" : "WhatsApp booking"} /></>}
     >
+      <section className="aa-v10-section aa-v10-dark aa-v13-booking-journey-section">
+        <div className="wrap">
+          <SectionHead light eyebrow={quote ? "QUOTE FLOW / FOUR STEPS" : "BOOKING FLOW / FOUR STEPS"} title={quote ? "Vehicle. Need. Detail. Conversation." : "Vehicle. Service. Preference. Confirmation."} copy="A short path keeps the effort low and makes the final WhatsApp conversation more useful." />
+          <BookingJourney quote={quote} />
+        </div>
+      </section>
+
       <section className="aa-v10-section aa-v10-paper">
         <div className="wrap">
           <WhatsAppLeadForm mode={quote ? "quote" : "service"} />
