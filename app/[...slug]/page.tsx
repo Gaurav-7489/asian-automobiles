@@ -622,15 +622,10 @@ function CarService() {
       intro="Routine servicing and common mechanical concerns, without making you choose the exact repair before the car is inspected."
       actions={<><CTA label="Book general service" /><WhatsAppAction label="Ask about a symptom" /></>}
     >
-      <section className="aa-v10-section aa-v10-paper">
+      <section className="aa-v10-section aa-v10-paper aa-v11-service-intake">
         <div className="wrap">
-          <SectionHead eyebrow="START WITH THE NEED" title="Which of these sounds closest?" />
-          <div className="aa-v10-signal-grid">
-            <SignalCard no="01" title="Service is due" copy="Routine maintenance, fluids, filters and preventive checks." icon={<CalendarDays size={20} />} />
-            <SignalCard no="02" title="There is a noise or vibration" copy="A useful starting point for mechanical troubleshooting." icon={<Gauge size={20} />} />
-            <SignalCard no="03" title="Brakes or steering feel different" copy="Changes in feel, stability or braking deserve inspection." icon={<CarFront size={20} />} />
-            <SignalCard no="04" title="I just want the car checked" copy="Share the vehicle and concern. The workshop can confirm the sensible next step." icon={<Search size={20} />} />
-          </div>
+          <SectionHead eyebrow="SERVICE INTAKE / INTERACTIVE" title="Start with the way the car feels, not a repair name." copy="Move across the intake states and choose the closest starting point." />
+          <ServiceScanner />
         </div>
       </section>
 
@@ -701,15 +696,10 @@ function AC() {
       intro="Weak cooling, inconsistent airflow and unusual AC-system behaviour are enough to start an enquiry."
       actions={<><WhatsAppAction label="Request AC service" message="Hello Asian Automobiles, I would like help with my car AC." /><Call /></>}
     >
-      <section className="aa-v10-section aa-v10-paper">
+      <section className="aa-v10-section aa-v10-paper aa-v11-ac-console-section">
         <div className="wrap">
-          <SectionHead eyebrow="COMMON STARTING POINTS" title="What is the cabin doing?" />
-          <div className="aa-v10-signal-grid">
-            <SignalCard no="01" title="Cooling feels weak" copy="The cabin takes too long to cool or never gets properly cold." icon={<Wind size={20} />} />
-            <SignalCard no="02" title="Airflow feels low" copy="Air is coming through, but not with the airflow you expect." icon={<Gauge size={20} />} />
-            <SignalCard no="03" title="Cooling is inconsistent" copy="Performance changes during the drive or between vents." icon={<Settings2 size={20} />} />
-            <SignalCard no="04" title="There is an unusual AC sound" copy="Tell the workshop when the sound appears and what changes with it." icon={<CircleAlert size={20} />} />
-          </div>
+          <SectionHead eyebrow="CABIN CLIMATE / INTERACTIVE" title="What is the AC doing inside the car?" copy="This climate-control style interface makes the symptoms easy to compare without pretending to diagnose the vehicle online." />
+          <ClimateConsole />
         </div>
       </section>
 
@@ -749,7 +739,10 @@ function Accident() {
       intro="Send a few clear photos and a short description. We’ll help you work out the useful next step."
       actions={<><WhatsAppAction label="Send damage details" message="Hello Asian Automobiles, I need help with accident / body damage. I can send photos." /><Call label="Call for accident help" /></>}
     >
-      <section className="aa-v10-section aa-v10-paper">
+      <section className="aa-v10-section aa-v10-paper aa-v11-accident-intake-section">
+        <div className="wrap">
+          <AccidentIntakeStrip />
+        </div>
         <div className="wrap aa-v10-accident-start">
           <div>
             <SectionHead
@@ -885,15 +878,10 @@ function Wheel() {
       intro="Computerized alignment is a key workshop capability, with balancing and tyre care around it."
       actions={<><CTA label="Book wheel service" /><WhatsAppAction label="Describe the wheel issue" message="Hello Asian Automobiles, I need help with wheel alignment / balancing. The symptom is: " /></>}
     >
-      <section className="aa-v10-section aa-v10-paper">
+      <section className="aa-v10-section aa-v10-paper aa-v11-wheel-lab-section">
         <div className="wrap">
-          <SectionHead eyebrow="COMMON SIGNS" title="What are you noticing on the road?" />
-          <div className="aa-v10-signal-grid">
-            <SignalCard no="01" title="Car pulls left or right" copy="Straight-line stability can point to alignment-related issues." icon={<ArrowRight size={20} />} />
-            <SignalCard no="02" title="Steering wheel is off-centre" copy="A useful reason to ask for an alignment check." icon={<Gauge size={20} />} />
-            <SignalCard no="03" title="Steering vibrates at speed" copy="Wheel imbalance is a common starting point for investigation." icon={<Disc3 size={20} />} />
-            <SignalCard no="04" title="Tyres are wearing unevenly" copy="Wheel geometry and tyre condition should be looked at together." icon={<Search size={20} />} />
-          </div>
+          <SectionHead eyebrow="WHEEL GEOMETRY / INTERACTIVE" title="See the symptoms through an alignment-style view." copy="Switch between pulling, off-centre steering and uneven tyre wear to understand why wheel geometry matters." />
+          <WheelGeometryLab />
         </div>
       </section>
 
@@ -946,14 +934,10 @@ function Tyres() {
       intro="Tyre condition, balancing, wear patterns and rim concerns can all point to useful next checks."
       actions={<><WhatsAppAction label="Ask about tyre / wheel care" /><CTA label="Book wheel service" /></>}
     >
-      <section className="aa-v10-section aa-v10-paper">
+      <section className="aa-v10-section aa-v10-paper aa-v11-tyre-lab-section">
         <div className="wrap">
-          <SectionHead eyebrow="WHAT TO LOOK FOR" title="Three quick signs worth checking." />
-          <div className="aa-v10-signal-grid">
-            <SignalCard no="01" title="Uneven tyre wear" copy="Different wear across the tyre can be a reason to inspect wheel geometry." icon={<Search size={20} />} />
-            <SignalCard no="02" title="Vibration at speed" copy="Balancing is one of the useful starting checks." icon={<Disc3 size={20} />} />
-            <SignalCard no="03" title="Visible tyre or rim concern" copy="Send a clear photo and tell us what changed while driving." icon={<Camera size={20} />} />
-          </div>
+          <SectionHead eyebrow="TYRE CONDITION / INTERACTIVE" title="Read the tyre before guessing the repair." copy="Use the tread-style interface to compare broad wear patterns, then send a real tyre photo if something looks wrong." />
+          <TyreTreadLab />
         </div>
       </section>
 
@@ -996,21 +980,10 @@ function Parts() {
       intro="Model, variant, year and part information reduce fitment guesswork before you travel."
       actions={<><WhatsAppAction label="Check part availability" message="Hello Asian Automobiles, I would like to check a spare part. Vehicle: " /><Call label="Call parts counter" /></>}
     >
-      <section className="aa-v10-section aa-v10-paper">
+      <section className="aa-v10-section aa-v10-paper aa-v11-parts-finder-section">
         <div className="wrap">
-          <SectionHead
-            eyebrow="PARTS CATEGORIES"
-            title="Maintenance, braking, suspension, electrical and more."
-            copy="Availability varies, so this page is enquiry-first rather than pretending to be a live inventory."
-          />
-          <div className="aa-v10-feature-grid aa-v10-feature-grid-wide">
-            <FeatureCard no="01" eyebrow="ENGINE / MAINTENANCE" title="Filters, belts, mountings & service parts" copy="Commonly required maintenance and engine-supporting components." icon={<Settings2 size={19} />} />
-            <FeatureCard no="02" eyebrow="BRAKES" title="Pads, shoes, discs & related parts" copy="Brake components and supporting hydraulic parts subject to availability." icon={<Disc3 size={19} />} />
-            <FeatureCard no="03" eyebrow="SUSPENSION" title="Bushes, tie rods, ball joints & more" copy="Suspension and steering replacement-component enquiries." icon={<CarFront size={19} />} />
-            <FeatureCard no="04" eyebrow="ELECTRICAL" title="Sensors, switches, relays & lighting" copy="Common electrical replacement parts and components." icon={<Sparkles size={19} />} />
-            <FeatureCard no="05" eyebrow="FILTERS" title="Oil, air, fuel & cabin filters" copy="Routine service filters for the correct vehicle application." icon={<Boxes size={19} />} />
-            <FeatureCard no="06" eyebrow="FLUIDS" title="Oils, coolant & maintenance fluids" copy="Vehicle-appropriate lubricants and fluids subject to availability." icon={<Gauge size={19} />} />
-          </div>
+          <SectionHead eyebrow="PARTS FINDER / CATEGORY INDEX" title="Browse by system. Confirm by vehicle." copy="This is intentionally enquiry-first. It feels like a parts catalogue without pretending there is live inventory." />
+          <PartsFinder />
         </div>
       </section>
 
@@ -1052,23 +1025,10 @@ function Insurance() {
       intro="Accident cases can involve repair assessment, documentation and insurer-specific approval steps. We keep those details case-by-case."
       actions={<><WhatsAppAction label="Ask about your case" message="Hello Asian Automobiles, I have an accident / insurance repair enquiry. Vehicle: " /><Call /></>}
     >
-      <section className="aa-v10-section aa-v10-dark">
+      <section className="aa-v10-section aa-v10-dark aa-v11-insurance-deck-section">
         <div className="wrap">
-          <SectionHead
-            light
-            eyebrow="EXPLANATORY FLOW"
-            title="A clear path from vehicle assessment to repair."
-            copy="Exact insurer and approval steps can vary. The workshop should confirm what applies to your case."
-          />
-          <BlueprintTimeline
-            items={[
-              { no: "01", label: "ASSESS", title: "Vehicle assessment", text: "Visible damage and repair requirements are identified." },
-              { no: "02", label: "DOCUMENT", title: "Photos and repair details", text: "Relevant documentation can be prepared where the case requires it." },
-              { no: "03", label: "ESTIMATE", title: "Repair information", text: "Clarify the work and components involved before approved work moves ahead." },
-              { no: "04", label: "APPROVAL", title: "Case-specific coordination", text: "Insurer, survey and approval steps depend on the current case and eligibility." },
-              { no: "05", label: "REPAIR", title: "Repair and final check", text: "Approved repair work is completed and the repaired area is checked before handover." },
-            ]}
-          />
+          <SectionHead light eyebrow="CLAIM / REPAIR DECK" title="One case. Five possible stages." copy="Move through the document-stack interface. It keeps the journey visual while making it clear that insurer-specific steps vary." />
+          <ClaimDeck />
         </div>
       </section>
 
