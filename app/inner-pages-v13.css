@@ -1697,3 +1697,180 @@
     transition:none!important;
   }
 }
+
+
+/* =========================================================
+   CONTRAST HOTSPOTS — nested dark states inside light sections
+   ========================================================= */
+
+/* Generic cards become dark on hover; explicit light-surface heading rules
+   must not keep their titles black after the surface flips. */
+.aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover{
+  color:#fff!important;
+}
+
+.aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover :is(h3,h4,b,strong,svg){
+  color:#fff!important;
+}
+
+.aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover :is(p,.aa-v10-feature-meta,.aa-v10-card-top,small,span){
+  color:rgba(255,255,255,.72)!important;
+}
+
+/* Services overview contains a deliberately dark card before hover. */
+.aa-inner-v10.theme-services .aa-v10-signal-card:nth-child(3){
+  background:#0b0d10!important;
+  color:#fff!important;
+}
+
+.aa-inner-v10.theme-services .aa-v10-signal-card:nth-child(3) :is(h3,h4,b,strong,svg){
+  color:#fff!important;
+}
+
+.aa-inner-v10.theme-services .aa-v10-signal-card:nth-child(3) :is(p,.aa-v10-card-top,small,span){
+  color:rgba(255,255,255,.72)!important;
+}
+
+/* Dark modules that live inside .aa-v10-paper / .aa-v10-soft. */
+.aa-inner-v10 .aa-v11-accident-strip,
+.aa-inner-v10 .aa-v10-tyre-graphic,
+.aa-inner-v10 .aa-v10-map-pin{
+  color:#fff!important;
+}
+
+.aa-inner-v10 .aa-v11-accident-strip :is(b,strong,svg),
+.aa-inner-v10 .aa-v10-tyre-graphic :is(b,strong,svg),
+.aa-inner-v10 .aa-v10-map-pin :is(b,strong,svg){
+  color:#fff!important;
+}
+
+.aa-inner-v10 .aa-v11-accident-strip :is(small,span,p){
+  color:rgba(255,255,255,.7)!important;
+}
+
+/* Gallery's main visual section is intentionally dark even though it uses
+   the generic .aa-v10-paper class. */
+.aa-inner-v10.theme-gallery .aa-v10-paper{
+  background:#0b0b0b!important;
+  color:#fff!important;
+}
+
+.aa-inner-v10.theme-gallery .aa-v10-paper :is(h1,h2,h3,h4,b,strong){
+  color:#fff!important;
+}
+
+.aa-inner-v10.theme-gallery .aa-v10-paper :is(p,.eyebrow,.aa-v10-section-head>span,small){
+  color:rgba(255,255,255,.7)!important;
+}
+
+/* AC list rows turn dark on hover. */
+.aa-inner-v10.theme-ac .aa-v10-stack-list>div:hover{
+  background:#07141a!important;
+  color:#fff!important;
+}
+
+.aa-inner-v10.theme-ac .aa-v10-stack-list>div:hover :is(b,strong,svg){
+  color:#fff!important;
+}
+
+.aa-inner-v10.theme-ac .aa-v10-stack-list>div:hover :is(p,span,small){
+  color:rgba(255,255,255,.72)!important;
+}
+
+/* Buttons and form submit states. */
+.aa-inner-v10 .aa-v10-submit{
+  background:#0b0d10!important;
+  color:#fff!important;
+}
+
+.aa-inner-v10 .aa-v10-submit :is(span,svg){
+  color:#fff!important;
+}
+
+.aa-inner-v10 .aa-v10-submit:hover{
+  background:var(--v13-accent)!important;
+  color:#080a0d!important;
+}
+
+.aa-inner-v10 .aa-v10-submit:hover :is(span,svg){
+  color:#080a0d!important;
+}
+
+/* Insurance icon disc is a dark circular island on a light card. */
+.aa-inner-v10 .aa-v10-icon-disc,
+.aa-inner-v10 .aa-v10-icon-disc svg{
+  color:#fff!important;
+}
+
+/* Hero support copy was still too faint on some page themes. */
+.aa-inner-v10 .aa-v10-head .back{
+  color:rgba(255,255,255,.8)!important;
+}
+
+.aa-inner-v10 .aa-v10-head .creative-heading>.eyebrow{
+  color:rgba(255,255,255,.82)!important;
+}
+
+.aa-inner-v10 .aa-v10-head .creative-heading>p{
+  color:rgba(255,255,255,.82)!important;
+}
+
+.aa-inner-v10 .aa-v10-head .aa-v10-hero-proof :is(span,small){
+  color:rgba(255,255,255,.68)!important;
+}
+
+.aa-inner-v10 .aa-v10-head .creative-compass{
+  color:rgba(255,255,255,.72)!important;
+}
+
+/* Small labels across light sections were visually disappearing. */
+.aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(
+  .aa-v10-section-head>.eyebrow,
+  .aa-v10-section-head>span,
+  .aa-v10-feature-meta,
+  .aa-v10-card-top,
+  .aa-v10-reference-note,
+  .aa-v10-map-road,
+  .aa-v10-address-lines small
+){
+  color:#555951!important;
+}
+
+/* Dark-section labels should be visible without becoming dominant. */
+.aa-inner-v10 :is(.aa-v10-dark,.aa-v10-endcap,.aa-v13-facility-gallery-section,.aa-v13-booking-journey-section) :is(
+  .aa-v10-section-head>.eyebrow,
+  .aa-v10-section-head>span,
+  .aa-v10-feature-meta,
+  .aa-v10-card-top,
+  .aa-v10-reference-note
+){
+  color:rgba(255,255,255,.68)!important;
+}
+
+@media(pointer:coarse){
+  .aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover{
+    background:inherit!important;
+    color:var(--v13-ink)!important;
+  }
+
+  .aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover :is(h3,h4,b,strong,svg){
+    color:var(--v13-ink)!important;
+  }
+
+  .aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover :is(p,.aa-v10-feature-meta,.aa-v10-card-top,small,span){
+    color:var(--v13-muted)!important;
+  }
+
+  .aa-inner-v10.theme-services .aa-v10-signal-card:nth-child(3):hover{
+    background:#0b0d10!important;
+    color:#fff!important;
+  }
+
+  .aa-inner-v10.theme-services .aa-v10-signal-card:nth-child(3):hover :is(h3,h4,b,strong,svg){
+    color:#fff!important;
+  }
+
+  .aa-inner-v10.theme-services .aa-v10-signal-card:nth-child(3):hover :is(p,.aa-v10-card-top,small,span){
+    color:rgba(255,255,255,.72)!important;
+  }
+}
