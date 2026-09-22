@@ -1906,3 +1906,410 @@
     min-height:68vw;
   }
 }
+
+
+/* Generic V11 hero primitive used by the typed renderer. Each theme reinterprets
+   the same four lines into a different automotive instrument. */
+.aa-v11-hero-art>.aa-v11-theme-core{
+  position:absolute;
+  inset:24px;
+  z-index:1;
+}
+
+.aa-v11-hero-art>strong{
+  position:absolute;
+  z-index:3;
+  left:18px;
+  top:16px;
+  max-width:80%;
+  color:#fff;
+  font-size:clamp(1.2rem,2.2vw,2rem);
+  line-height:.95;
+  font-weight:560;
+  letter-spacing:-.045em;
+}
+
+.aa-v11-hero-art>small{
+  text-transform:uppercase;
+}
+
+/* About / horizontal history axis */
+.aa-v11-hero-about .aa-v11-theme-core:before{
+  content:"";
+  position:absolute;
+  left:8%;
+  right:8%;
+  top:55%;
+  height:1px;
+  background:rgba(216,255,62,.55);
+}
+.aa-v11-hero-about .aa-v11-theme-core i{
+  position:absolute;
+  top:55%;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  background:#10120d;
+  border:1px solid rgba(216,255,62,.7);
+}
+.aa-v11-hero-about .aa-v11-theme-core i:nth-child(1){left:8%}
+.aa-v11-hero-about .aa-v11-theme-core i:nth-child(2){left:36%}
+.aa-v11-hero-about .aa-v11-theme-core i:nth-child(3){left:67%}
+.aa-v11-hero-about .aa-v11-theme-core i:nth-child(4){left:92%;background:var(--v11-green)}
+
+/* Services / radar */
+.aa-v11-hero-services .aa-v11-theme-core{
+  width:170px;
+  height:170px;
+  inset:auto;
+  left:50%;
+  top:52%;
+  transform:translate(-50%,-50%);
+  border:1px solid rgba(216,255,62,.42);
+  border-radius:50%;
+}
+.aa-v11-hero-services .aa-v11-theme-core:before,
+.aa-v11-hero-services .aa-v11-theme-core:after{
+  content:"";
+  position:absolute;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:50%;
+}
+.aa-v11-hero-services .aa-v11-theme-core:before{inset:28px}
+.aa-v11-hero-services .aa-v11-theme-core:after{inset:62px}
+.aa-v11-hero-services .aa-v11-theme-core i{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--v11-green);
+}
+.aa-v11-hero-services .aa-v11-theme-core i:nth-child(1){transform:rotate(10deg) translateX(68px)}
+.aa-v11-hero-services .aa-v11-theme-core i:nth-child(2){transform:rotate(95deg) translateX(68px)}
+.aa-v11-hero-services .aa-v11-theme-core i:nth-child(3){transform:rotate(185deg) translateX(68px)}
+.aa-v11-hero-services .aa-v11-theme-core i:nth-child(4){transform:rotate(275deg) translateX(68px)}
+
+/* General service / diagnostic gauge */
+.aa-v11-hero-service .aa-v11-theme-core{
+  inset:42px 36px;
+  border:1px solid rgba(255,174,61,.32);
+  border-radius:140px 140px 16px 16px;
+}
+.aa-v11-hero-service .aa-v11-theme-core:before{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:28%;
+  width:37%;
+  height:2px;
+  background:#ffae3d;
+  transform-origin:left;
+  transform:rotate(-28deg);
+}
+.aa-v11-hero-service .aa-v11-theme-core i{
+  position:absolute;
+  bottom:20px;
+  width:1px;
+  height:10px;
+  background:rgba(255,255,255,.22);
+}
+.aa-v11-hero-service .aa-v11-theme-core i:nth-child(1){left:20%}
+.aa-v11-hero-service .aa-v11-theme-core i:nth-child(2){left:40%}
+.aa-v11-hero-service .aa-v11-theme-core i:nth-child(3){left:60%}
+.aa-v11-hero-service .aa-v11-theme-core i:nth-child(4){left:80%}
+
+/* AC / concentric climate control + airflow */
+.aa-v11-hero-ac .aa-v11-theme-core{
+  width:150px;
+  height:150px;
+  inset:auto;
+  left:50%;
+  top:52%;
+  transform:translate(-50%,-50%);
+  border:1px solid rgba(121,245,255,.55);
+  border-radius:50%;
+  box-shadow:0 0 0 26px rgba(121,245,255,.03),0 0 50px rgba(121,245,255,.1);
+}
+.aa-v11-hero-ac .aa-v11-theme-core:before{
+  content:"";
+  position:absolute;
+  inset:38px;
+  border:1px solid rgba(121,245,255,.28);
+  border-radius:50%;
+}
+.aa-v11-hero-ac .aa-v11-theme-core i{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:1px;
+  height:44%;
+  background:rgba(121,245,255,.28);
+  transform-origin:0 0;
+}
+.aa-v11-hero-ac .aa-v11-theme-core i:nth-child(1){transform:rotate(0deg)}
+.aa-v11-hero-ac .aa-v11-theme-core i:nth-child(2){transform:rotate(90deg)}
+.aa-v11-hero-ac .aa-v11-theme-core i:nth-child(3){transform:rotate(180deg)}
+.aa-v11-hero-ac .aa-v11-theme-core i:nth-child(4){transform:rotate(270deg)}
+
+/* Accident / impact cross */
+.aa-v11-hero-accident .aa-v11-theme-core:before,
+.aa-v11-hero-accident .aa-v11-theme-core:after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:150%;
+  height:1px;
+  background:rgba(255,255,255,.17);
+}
+.aa-v11-hero-accident .aa-v11-theme-core:before{transform:translate(-50%,-50%) rotate(33deg)}
+.aa-v11-hero-accident .aa-v11-theme-core:after{transform:translate(-50%,-50%) rotate(-33deg)}
+.aa-v11-hero-accident .aa-v11-theme-core i:first-child{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:72px;
+  height:72px;
+  transform:translate(-50%,-50%);
+  border:1px solid var(--v11-red);
+  border-radius:50%;
+  box-shadow:0 0 0 18px rgba(255,90,79,.04);
+}
+
+/* Paint / four finish samples */
+.aa-v11-hero-paint .aa-v11-theme-core{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+  transform:skewX(-7deg);
+}
+.aa-v11-hero-paint .aa-v11-theme-core i:nth-child(1){background:#d9dde0}
+.aa-v11-hero-paint .aa-v11-theme-core i:nth-child(2){background:#5b636e}
+.aa-v11-hero-paint .aa-v11-theme-core i:nth-child(3){background:#b2453f}
+.aa-v11-hero-paint .aa-v11-theme-core i:nth-child(4){background:#d9c7a8}
+
+/* Wheel / alignment reticle */
+.aa-v11-hero-wheel .aa-v11-theme-core{
+  width:160px;
+  height:160px;
+  inset:auto;
+  left:50%;
+  top:52%;
+  transform:translate(-50%,-50%);
+  border:1px solid rgba(139,200,255,.48);
+  border-radius:50%;
+}
+.aa-v11-hero-wheel .aa-v11-theme-core:before,
+.aa-v11-hero-wheel .aa-v11-theme-core:after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:-26%;
+  width:1px;
+  height:152%;
+  background:rgba(139,200,255,.25);
+  transform-origin:center;
+}
+.aa-v11-hero-wheel .aa-v11-theme-core:before{transform:rotate(9deg)}
+.aa-v11-hero-wheel .aa-v11-theme-core:after{transform:rotate(-9deg)}
+.aa-v11-hero-wheel .aa-v11-theme-core i{
+  position:absolute;
+  inset:40px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:50%;
+}
+
+/* Tyre / tread strips */
+.aa-v11-hero-tyre .aa-v11-theme-core{
+  left:50%;
+  top:52%;
+  width:152px;
+  height:152px;
+  inset:auto;
+  transform:translate(-50%,-50%);
+  border:26px solid #191d20;
+  border-radius:50%;
+  box-shadow:0 0 0 1px rgba(255,255,255,.16);
+}
+.aa-v11-hero-tyre .aa-v11-theme-core i{
+  position:absolute;
+  width:30px;
+  height:7px;
+  background:#444b51;
+}
+.aa-v11-hero-tyre .aa-v11-theme-core i:nth-child(1){left:-22px;top:22px;transform:rotate(32deg)}
+.aa-v11-hero-tyre .aa-v11-theme-core i:nth-child(2){right:-22px;top:28px;transform:rotate(-32deg)}
+.aa-v11-hero-tyre .aa-v11-theme-core i:nth-child(3){left:-22px;bottom:22px;transform:rotate(-32deg)}
+.aa-v11-hero-tyre .aa-v11-theme-core i:nth-child(4){right:-22px;bottom:28px;transform:rotate(32deg)}
+
+/* Parts / exploded concentric component */
+.aa-v11-hero-parts .aa-v11-theme-core{
+  width:160px;
+  height:160px;
+  inset:auto;
+  left:50%;
+  top:52%;
+  transform:translate(-50%,-50%);
+  border:1px solid rgba(255,207,92,.42);
+  border-radius:50%;
+}
+.aa-v11-hero-parts .aa-v11-theme-core:before,
+.aa-v11-hero-parts .aa-v11-theme-core:after{
+  content:"";
+  position:absolute;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:50%;
+}
+.aa-v11-hero-parts .aa-v11-theme-core:before{inset:26px}
+.aa-v11-hero-parts .aa-v11-theme-core:after{inset:56px;background:rgba(255,207,92,.09)}
+.aa-v11-hero-parts .aa-v11-theme-core i{
+  position:absolute;
+  width:22px;
+  height:22px;
+  border:1px solid rgba(255,207,92,.4);
+}
+.aa-v11-hero-parts .aa-v11-theme-core i:nth-child(1){left:-34px;top:20px}
+.aa-v11-hero-parts .aa-v11-theme-core i:nth-child(2){right:-32px;top:62px}
+.aa-v11-hero-parts .aa-v11-theme-core i:nth-child(3){left:18px;bottom:-32px}
+.aa-v11-hero-parts .aa-v11-theme-core i:nth-child(4){right:12px;top:-28px}
+
+/* Insurance / stacked documents */
+.aa-v11-hero-insurance .aa-v11-theme-core i{
+  position:absolute;
+  left:18%;
+  top:24%;
+  width:66%;
+  height:56%;
+  border:1px solid rgba(145,199,255,.2);
+  background:#111821;
+}
+.aa-v11-hero-insurance .aa-v11-theme-core i:nth-child(1){transform:translate(22px,16px)}
+.aa-v11-hero-insurance .aa-v11-theme-core i:nth-child(2){transform:translate(11px,8px)}
+.aa-v11-hero-insurance .aa-v11-theme-core i:nth-child(3){border-color:rgba(145,199,255,.46)}
+.aa-v11-hero-insurance .aa-v11-theme-core i:nth-child(4){width:14px;height:14px;left:auto;right:24%;top:34%;border-radius:50%;background:#91c7ff}
+
+/* Facilities / workshop plan */
+.aa-v11-hero-facilities .aa-v11-theme-core{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  grid-template-rows:.8fr 1.2fr;
+  gap:6px;
+}
+.aa-v11-hero-facilities .aa-v11-theme-core i{
+  border:1px solid rgba(216,255,62,.24);
+}
+.aa-v11-hero-facilities .aa-v11-theme-core i:nth-child(1){grid-row:span 2}
+.aa-v11-hero-facilities .aa-v11-theme-core i:nth-child(3){background:rgba(216,255,62,.06)}
+
+/* Gallery / stacked frames */
+.aa-v11-hero-gallery .aa-v11-theme-core i{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:58%;
+  height:68%;
+  border:1px solid rgba(255,255,255,.18);
+  background:#111;
+}
+.aa-v11-hero-gallery .aa-v11-theme-core i:nth-child(1){transform:translate(-58%,-49%) rotate(-8deg)}
+.aa-v11-hero-gallery .aa-v11-theme-core i:nth-child(2){transform:translate(-42%,-52%) rotate(7deg)}
+.aa-v11-hero-gallery .aa-v11-theme-core i:nth-child(3){transform:translate(-50%,-50%);border-color:rgba(216,255,62,.42)}
+.aa-v11-hero-gallery .aa-v11-theme-core i:nth-child(4){display:none}
+
+/* Reviews / quote rules */
+.aa-v11-hero-reviews .aa-v11-theme-core:before{
+  content:"“";
+  position:absolute;
+  left:4%;
+  top:-8%;
+  color:rgba(216,255,62,.65);
+  font-family:Georgia,serif;
+  font-size:120px;
+}
+.aa-v11-hero-reviews .aa-v11-theme-core i{
+  position:absolute;
+  left:44%;
+  right:4%;
+  height:1px;
+  background:rgba(255,255,255,.17);
+}
+.aa-v11-hero-reviews .aa-v11-theme-core i:nth-child(1){top:32%}
+.aa-v11-hero-reviews .aa-v11-theme-core i:nth-child(2){top:48%}
+.aa-v11-hero-reviews .aa-v11-theme-core i:nth-child(3){top:64%}
+.aa-v11-hero-reviews .aa-v11-theme-core i:nth-child(4){top:80%;right:28%}
+
+/* Contact / street map */
+.aa-v11-hero-contact .aa-v11-theme-core{
+  background:
+    linear-gradient(32deg,transparent 49%,rgba(255,255,255,.16) 49.3% 50%,transparent 50.3%),
+    linear-gradient(116deg,transparent 44%,rgba(255,255,255,.12) 44.2% 45%,transparent 45.2%);
+}
+.aa-v11-hero-contact .aa-v11-theme-core:after{
+  content:"";
+  position:absolute;
+  left:57%;
+  top:48%;
+  width:16px;
+  height:16px;
+  border-radius:50% 50% 50% 0;
+  background:var(--v11-green);
+  transform:rotate(-45deg);
+  box-shadow:0 0 0 10px rgba(216,255,62,.07);
+}
+
+/* FAQ / question orbit */
+.aa-v11-hero-faq .aa-v11-theme-core{
+  width:150px;
+  height:150px;
+  inset:auto;
+  left:50%;
+  top:53%;
+  transform:translate(-50%,-50%);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:50%;
+}
+.aa-v11-hero-faq .aa-v11-theme-core:after{
+  content:"?";
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-size:78px;
+  font-weight:500;
+}
+.aa-v11-hero-faq .aa-v11-theme-core i{
+  position:absolute;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--v11-green);
+}
+.aa-v11-hero-faq .aa-v11-theme-core i:nth-child(1){left:50%;top:-4px}
+.aa-v11-hero-faq .aa-v11-theme-core i:nth-child(2){right:-4px;top:50%}
+.aa-v11-hero-faq .aa-v11-theme-core i:nth-child(3){left:50%;bottom:-4px}
+.aa-v11-hero-faq .aa-v11-theme-core i:nth-child(4){left:-4px;top:50%}
+
+/* Booking / quote fields */
+.aa-v11-hero-booking .aa-v11-theme-core,
+.aa-v11-hero-quote .aa-v11-theme-core{
+  display:grid;
+  align-content:center;
+  gap:10px;
+}
+.aa-v11-hero-booking .aa-v11-theme-core i,
+.aa-v11-hero-quote .aa-v11-theme-core i{
+  height:36px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.025);
+}
+.aa-v11-hero-booking .aa-v11-theme-core i:nth-child(4),
+.aa-v11-hero-quote .aa-v11-theme-core i:nth-child(4){
+  width:42%;
+  justify-self:end;
+  background:var(--v11-green);
+  border-color:var(--v11-green);
+}
