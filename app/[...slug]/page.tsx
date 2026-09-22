@@ -40,6 +40,15 @@ import {
   ScrollRevealSection,
 } from "@/components/immersive/inner-page-experiences";
 import { WhatsAppLeadForm } from "@/components/immersive/whatsapp-lead-form";
+import {
+  AccidentIntakeStrip,
+  ClaimDeck,
+  ClimateConsole,
+  PartsFinder,
+  ServiceScanner,
+  TyreTreadLab,
+  WheelGeometryLab,
+} from "@/components/immersive/page-specific-experiences";
 
 const img = {
   workshop: "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1800&q=76",
@@ -134,21 +143,171 @@ function Back() {
   );
 }
 
+type PageTheme =
+  | "about"
+  | "services"
+  | "service"
+  | "ac"
+  | "accident"
+  | "paint"
+  | "wheel"
+  | "tyre"
+  | "parts"
+  | "insurance"
+  | "facilities"
+  | "gallery"
+  | "reviews"
+  | "contact"
+  | "faq"
+  | "booking"
+  | "quote";
+
+function HeroArt({ theme }: { theme: PageTheme }) {
+  if (theme === "ac") {
+    return (
+      <div className="aa-v11-hero-art aa-v11-hero-ac" aria-hidden="true">
+        <div className="aa-v11-ac-ring"><Snowflake size={30} /><strong>18°</strong><small>AUTO / COOL</small></div>
+        <div className="aa-v11-air-lines"><i /><i /><i /><i /></div>
+        <span className="aa-v11-art-label">CABIN CLIMATE / COOLING</span>
+      </div>
+    );
+  }
+  if (theme === "wheel") {
+    return (
+      <div className="aa-v11-hero-art aa-v11-hero-wheel" aria-hidden="true">
+        <div className="aa-v11-wheel-disc"><i /><i /><b>0.00°</b></div>
+        <div className="aa-v11-wheel-guides"><span /><span /><span /></div>
+        <small>GEOMETRY / ALIGNMENT</small>
+      </div>
+    );
+  }
+  if (theme === "tyre") {
+    return (
+      <div className="aa-v11-hero-art aa-v11-hero-tyre" aria-hidden="true">
+        <div className="aa-v11-tyre-ring">{Array.from({ length: 18 }).map((_, i) => <i key={i} />)}</div>
+        <b>TYRE / WEAR</b><small>CONDITION / BALANCE / RIM</small>
+      </div>
+    );
+  }
+  if (theme === "accident") {
+    return (
+      <div className="aa-v11-hero-art aa-v11-hero-accident" aria-hidden="true">
+        <div className="aa-v11-impact-cross"><i /><i /></div>
+        <span className="aa-v11-damage-marker">01</span>
+        <b>DAMAGE / INTAKE</b><small>PHOTOS FIRST</small>
+      </div>
+    );
+  }
+  if (theme === "paint") {
+    return (
+      <div className="aa-v11-hero-art aa-v11-hero-paint" aria-hidden="true">
+        <div className="aa-v11-paint-panel"><i /><i /><i /><i /></div>
+        <span>BODY / PANEL / FINISH</span>
+      </div>
+    );
+  }
+  if (theme === "parts") {
+    return (
+      <div className="aa-v11-hero-art aa-v11-hero-parts" aria-hidden="true">
+        <div className="aa-v11-parts-rings"><i /><i /><i /><PackageSearch size={28} /></div>
+        <b>FITMENT > GUESSWORK</b><small>MODEL / VARIANT / YEAR / PART</small>
+      </div>
+    );
+  }
+  if (theme === "insurance") {
+    return (
+      <div className="aa-v11-hero-art aa-v11-hero-insurance" aria-hidden="true">
+        <div className="aa-v11-doc-stack"><i /><i /><strong><ShieldCheck size={24} /> CASE / 01</strong></div>
+        <small>ASSESS / DOCUMENT / COORDINATE</small>
+      </div>
+    );
+  }
+  if (theme === "facilities") {
+    return (
+      <div className="aa-v11-hero-art aa-v11-hero-facility" aria-hidden="true">
+        <div className="aa-v11-blueprint-zones"><i>01</i><i>02</i><i>03</i><i>04</i></div>
+        <b>WORKSHOP / MAP</b>
+      </div>
+    );
+  }
+  if (theme === "gallery") {
+    return (
+      <div className="aa-v11-hero-art aa-v11-hero-gallery" aria-hidden="true">
+        <div className="aa-v11-photo-stack"><i /><i /><i /></div>
+        <b>WORK / EQUIPMENT / PEOPLE</b>
+      </div>
+    );
+  }
+  if (theme === "reviews") {
+    return (
+      <div className="aa-v11-hero-art aa-v11-hero-reviews" aria-hidden="true">
+        <strong>“</strong><i /><i /><i /><small>REAL FEEDBACK / ATTRIBUTED</small>
+      </div>
+    );
+  }
+  if (theme === "contact") {
+    return (
+      <div className="aa-v11-hero-art aa-v11-hero-contact" aria-hidden="true">
+        <div className="aa-v11-mini-map"><i /><i /><MapPin size={26} /></div>
+        <b>KATTOOR ROAD</b><small>IRINJALAKUDA</small>
+      </div>
+    );
+  }
+  if (theme === "faq") {
+    return (
+      <div className="aa-v11-hero-art aa-v11-hero-faq" aria-hidden="true">
+        <strong>?</strong><i /><i /><small>ASK / FIND / GO</small>
+      </div>
+    );
+  }
+  if (theme === "booking" || theme === "quote") {
+    return (
+      <div className={"aa-v11-hero-art aa-v11-hero-" + theme} aria-hidden="true">
+        <div className="aa-v11-form-preview"><i /><i /><i /><strong>{theme === "quote" ? "QUOTE" : "BOOK"}</strong></div>
+        <small>NO ACCOUNT / LOW FRICTION</small>
+      </div>
+    );
+  }
+  if (theme === "about") {
+    return (
+      <div className="aa-v11-hero-art aa-v11-hero-about" aria-hidden="true">
+        <strong>1996</strong><span>→</span><b>NOW</b><small>IRINJALAKUDA / AUTOMOTIVE</small>
+      </div>
+    );
+  }
+  if (theme === "services") {
+    return (
+      <div className="aa-v11-hero-art aa-v11-hero-services" aria-hidden="true">
+        <div className="aa-v11-service-radar"><i /><i /><i /><Wrench size={24} /></div>
+        <small>SERVICE / WHEELS / AC / BODY / PARTS</small>
+      </div>
+    );
+  }
+  return (
+    <div className="aa-v11-hero-art aa-v11-hero-service" aria-hidden="true">
+      <div className="aa-v11-service-gauge"><Gauge size={24} /><strong>CHECK</strong><i /></div>
+      <small>MAINTENANCE / DIAGNOSIS</small>
+    </div>
+  );
+}
+
 function Frame({
   eyebrow,
   title,
   intro,
   actions,
+  theme,
   children,
 }: {
   eyebrow: string;
   title: string;
   intro?: string;
   actions?: ReactNode;
+  theme: PageTheme;
   children: ReactNode;
 }) {
   return (
-    <main className="creative-page immersive-page immersive-page-v9 aa-inner-v10">
+    <main className={"creative-page immersive-page immersive-page-v9 aa-inner-v10 aa-v11-page theme-" + theme}>
       <PageProgressRail />
       <section className="creative-head aa-v10-head">
         <div className="creative-head-grid" aria-hidden="true" />
@@ -160,12 +319,8 @@ function Frame({
               <h1>{title}</h1>
               {intro && <p>{intro}</p>}
             </div>
-            <div className="aa-v10-hero-side">
-              <div className="aa-v10-hero-proof">
-                <span>IRINJALAKUDA</span>
-                <b>Multi-brand vehicle care</b>
-                <small>Service + wheel care + spare parts</small>
-              </div>
+            <div className="aa-v10-hero-side aa-v11-hero-side">
+              <HeroArt theme={theme} />
               <div className="aa-v10-hero-actions">
                 {actions ?? (
                   <>
