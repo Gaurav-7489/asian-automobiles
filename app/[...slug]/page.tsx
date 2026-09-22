@@ -467,6 +467,7 @@ function PageCTA({
 function About() {
   return (
     <Frame
+      theme="about"
       eyebrow="About / Asian Automobiles"
       title="Built around cars. Built around Irinjalakuda."
       intro="Asian Automobiles combines multi-brand vehicle service, wheel care and spare-parts support from Kattoor Road."
@@ -552,6 +553,7 @@ function Services() {
 
   return (
     <Frame
+      theme="services"
       eyebrow="Services / start with what you notice"
       title="You do not need to know the workshop vocabulary."
       intro="Choose the closest problem. We’ll guide you to the right service from there."
@@ -614,6 +616,7 @@ function Services() {
 function CarService() {
   return (
     <Frame
+      theme="service"
       eyebrow="General car service & mechanical repair"
       title="Maintenance when it is due. Diagnosis when something feels wrong."
       intro="Routine servicing and common mechanical concerns, without making you choose the exact repair before the car is inspected."
@@ -692,6 +695,7 @@ function CarService() {
 function AC() {
   return (
     <Frame
+      theme="ac"
       eyebrow="Car AC service / Irinjalakuda"
       title="AC not cooling properly? Start with what you can feel."
       intro="Weak cooling, inconsistent airflow and unusual AC-system behaviour are enough to start an enquiry."
@@ -739,6 +743,7 @@ function AC() {
 function Accident() {
   return (
     <Frame
+      theme="accident"
       eyebrow="Accident & body repair / start here"
       title="Had an accident? Start with the damage, not the paperwork."
       intro="Send a few clear photos and a short description. We’ll help you work out the useful next step."
@@ -825,6 +830,7 @@ function Accident() {
 function Denting() {
   return (
     <Frame
+      theme="paint"
       eyebrow="Denting & painting"
       title="Bodywork is easier to discuss when we can see it."
       intro="A clean photo-led path for dents, scratches, panel damage and paint-related enquiries."
@@ -873,6 +879,7 @@ function Denting() {
 function Wheel() {
   return (
     <Frame
+      theme="wheel"
       eyebrow="Wheel alignment & balancing"
       title="Pulling, vibration or uneven tyre wear? Start with the wheels."
       intro="Computerized alignment is a key workshop capability, with balancing and tyre care around it."
@@ -933,6 +940,7 @@ function Wheel() {
 function Tyres() {
   return (
     <Frame
+      theme="tyre"
       eyebrow="Tyre & wheel care"
       title="Tyres tell you a lot about what the car is doing."
       intro="Tyre condition, balancing, wear patterns and rim concerns can all point to useful next checks."
@@ -982,6 +990,7 @@ function Tyres() {
 function Parts() {
   return (
     <Frame
+      theme="parts"
       eyebrow="Automobile spare parts"
       title="The right part starts with the right vehicle details."
       intro="Model, variant, year and part information reduce fitment guesswork before you travel."
@@ -1037,6 +1046,7 @@ function Parts() {
 function Insurance() {
   return (
     <Frame
+      theme="insurance"
       eyebrow="Insurance / accident repair assistance"
       title="Repair first. Insurance details where they actually apply."
       intro="Accident cases can involve repair assessment, documentation and insurer-specific approval steps. We keep those details case-by-case."
@@ -1099,6 +1109,7 @@ function Facilities() {
 
   return (
     <Frame
+      theme="facilities"
       eyebrow="Our facilities"
       title="Tools matter. Experience matters more."
       intro="A visual look at the workshop areas that support maintenance, wheel care, mechanical work and spare-parts enquiries."
@@ -1151,6 +1162,7 @@ function Gallery() {
 
   return (
     <Frame
+      theme="gallery"
       eyebrow="Gallery / workshop life"
       title="The work should speak for itself."
       intro="The final gallery is designed around real workshop, equipment, repair and vehicle photography."
@@ -1185,6 +1197,7 @@ function Gallery() {
 function Reviews() {
   return (
     <Frame
+      theme="reviews"
       eyebrow="Reviews & customer stories"
       title="Trust is earned one vehicle at a time."
       intro="This page is deliberately built around genuine customer feedback only - no invented quotes, no fake stars."
@@ -1232,6 +1245,7 @@ function Reviews() {
 function Contact() {
   return (
     <Frame
+      theme="contact"
       eyebrow="Contact / Kattoor Road"
       title="Let’s get your vehicle sorted."
       intro="Call, WhatsApp or get directions to Asian Automobiles in Irinjalakuda."
@@ -1292,6 +1306,7 @@ function FAQ() {
 
   return (
     <Frame
+      theme="faq"
       eyebrow="FAQ / quick answers"
       title="The questions people ask before they drive over."
       intro="Short answers, clear next steps and no made-up workshop promises."
@@ -1321,6 +1336,7 @@ function Booking({ quote = false }: { quote?: boolean }) {
 
   return (
     <Frame
+      theme={quote ? "quote" : "booking"}
       eyebrow={quote ? "Request a quote" : "Book a service"}
       title={title}
       intro={intro}
