@@ -1113,11 +1113,11 @@ function Facilities() {
 
 function Gallery() {
   const items = [
-    [img.workshop, "Workshop", "WORKSHOP"],
+    [img.workshop, "Workshop floor", "WORKSHOP"],
     [img.repair, "Vehicle service", "SERVICE"],
     [img.road, "Wheel alignment", "WHEELS"],
     [img.wheel, "Wheel balancing", "BALANCING"],
-    [img.detail, "Mechanical repairs", "REPAIRS"],
+    [img.detail, "Mechanical detail", "REPAIRS"],
     [img.car, "Body repair", "BODY"],
   ];
 
@@ -1129,17 +1129,17 @@ function Gallery() {
       intro="The final gallery is designed around real workshop, equipment, repair and vehicle photography."
       actions={<><CTA label="View facilities" href="/facilities/" /><CTA label="Book service" /></>}
     >
-      <section className="aa-v10-section aa-v10-paper">
+      <section className="aa-v10-section aa-v10-paper aa-v11-gallery-wall-section">
         <div className="wrap">
-          <SectionHead eyebrow="VISUAL PROOF" title="Workshop. Service. Wheels. Repairs. Parts." />
-          <ExpandGallery
-            items={items.map(([image, label, eyebrow]) => ({
-              label,
-              eyebrow,
-              image,
-              alt: "Automotive reference visual for " + label.toLowerCase(),
-            }))}
-          />
+          <SectionHead eyebrow="VISUAL PROOF / CONTACT SHEET" title="A gallery should feel like the workshop, not a stock-photo slideshow." />
+          <div className="aa-v11-gallery-wall">
+            {items.map(([image, label, eyebrow], index) => (
+              <figure key={label} className={"aa-v11-gallery-tile tile-" + (index + 1)}>
+                <Image src={image} alt={"Automotive reference visual for " + label.toLowerCase()} fill sizes="(max-width: 820px) 100vw, 50vw" />
+                <figcaption><span>{String(index + 1).padStart(2, "0")} / {eyebrow}</span><b>{label}</b></figcaption>
+              </figure>
+            ))}
+          </div>
           <p className="aa-v10-reference-note">Reference visuals only. Replace with approved Asian Automobiles photography for production authenticity.</p>
         </div>
       </section>
