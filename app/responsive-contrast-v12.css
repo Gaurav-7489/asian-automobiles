@@ -1718,3 +1718,163 @@ a{
     font-size:clamp(2.7rem,14vw,4.5rem);
   }
 }
+
+
+/* ---------- TARGETED CONTRAST + RESPONSIVE GAPS FOUND IN AUDIT ---------- */
+
+/* Dark feature collections must remain light even though generic cards are light-surface by default. */
+.aa-v10-feature-grid-dark .aa-v10-feature-card{
+  color:#fff!important;
+}
+
+.aa-v10-feature-grid-dark .aa-v10-feature-card :is(h3,b,strong,svg){
+  color:#fff!important;
+}
+
+.aa-v10-feature-grid-dark .aa-v10-feature-card p{
+  color:rgba(255,255,255,.72)!important;
+}
+
+.aa-v10-feature-grid-dark .aa-v10-feature-meta{
+  color:rgba(255,255,255,.6)!important;
+}
+
+.aa-v10-feature-grid-dark .aa-v10-feature-card:hover{
+  background:var(--aa-v12-accent)!important;
+  color:#080a0d!important;
+}
+
+.aa-v10-feature-grid-dark .aa-v10-feature-card:hover :is(h3,b,strong,svg){
+  color:#080a0d!important;
+}
+
+.aa-v10-feature-grid-dark .aa-v10-feature-card:hover p,
+.aa-v10-feature-grid-dark .aa-v10-feature-card:hover .aa-v10-feature-meta{
+  color:rgba(8,10,13,.72)!important;
+}
+
+/* The services overview intentionally contains one dark tile. */
+.theme-services .aa-v10-signal-card:nth-child(3){
+  color:#fff!important;
+}
+
+.theme-services .aa-v10-signal-card:nth-child(3) :is(h3,b,strong,svg){
+  color:#fff!important;
+}
+
+.theme-services .aa-v10-signal-card:nth-child(3) p{
+  color:rgba(255,255,255,.72)!important;
+}
+
+.theme-services .aa-v10-signal-card:nth-child(3) .aa-v10-card-top{
+  color:rgba(255,255,255,.7)!important;
+}
+
+/* Contact map / address split stays readable and stacks before it gets cramped. */
+.aa-v10-map-pin :is(b,svg),
+.aa-v10-map-road{
+  color:#fff!important;
+}
+
+.aa-v10-address-card :is(h2,b,strong){
+  color:#0b0d0f!important;
+}
+
+.aa-v10-address-card p{
+  color:#555852!important;
+}
+
+@media(max-width:900px){
+  .aa-v10-location-grid,
+  .aa-v10-booking-help{
+    grid-template-columns:minmax(0,1fr)!important;
+    min-height:0!important;
+  }
+
+  .aa-v10-map-card{
+    min-height:480px!important;
+  }
+
+  .aa-v10-address-card{
+    border-left:1px solid var(--aa-v12-line)!important;
+    border-top:0!important;
+  }
+
+  .aa-v10-review-principles>div,
+  .aa-v10-booking-steps>div{
+    grid-template-columns:42px minmax(0,1fr)!important;
+    gap:12px 16px!important;
+    padding-block:18px!important;
+  }
+
+  .aa-v10-review-principles>div p,
+  .aa-v10-booking-steps>div p{
+    grid-column:2;
+  }
+}
+
+@media(max-width:640px){
+  .aa-v10-map-card{
+    min-height:92vw!important;
+  }
+
+  .aa-v10-map-pin{
+    width:132px!important;
+    height:132px!important;
+  }
+
+  .aa-v10-address-card{
+    padding:28px 20px!important;
+  }
+
+  .aa-v10-address-card h2{
+    font-size:clamp(2.6rem,12vw,4rem)!important;
+  }
+
+  .aa-v10-review-principles>div,
+  .aa-v10-booking-steps>div{
+    min-height:0!important;
+    grid-template-columns:30px minmax(0,1fr)!important;
+    padding-block:20px!important;
+  }
+
+  .aa-v10-review-principles b,
+  .aa-v10-booking-steps b{
+    font-size:17px!important;
+    line-height:1.15!important;
+  }
+
+  .aa-v10-review-principles p,
+  .aa-v10-booking-steps p{
+    grid-column:1/-1!important;
+    padding-left:46px;
+  }
+
+  .aa-v10-gallery-categories{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+}
+
+@media(pointer:coarse){
+  .theme-services .aa-v10-signal-card:nth-child(3):hover{
+    background:#0b0d10!important;
+    color:#fff!important;
+  }
+
+  .theme-services .aa-v10-signal-card:nth-child(3):hover p{
+    color:rgba(255,255,255,.72)!important;
+  }
+
+  .aa-v10-feature-grid-dark .aa-v10-feature-card:hover{
+    background:transparent!important;
+    color:#fff!important;
+  }
+
+  .aa-v10-feature-grid-dark .aa-v10-feature-card:hover :is(h3,b,strong,svg){
+    color:#fff!important;
+  }
+
+  .aa-v10-feature-grid-dark .aa-v10-feature-card:hover p{
+    color:rgba(255,255,255,.72)!important;
+  }
+}
