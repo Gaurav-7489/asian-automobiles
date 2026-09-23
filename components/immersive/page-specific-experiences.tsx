@@ -281,43 +281,159 @@ export function WheelGeometryLab() {
 
 export function TyreTreadLab() {
   const [active, setActive] = useState(0);
+
   const states = [
-    { label: "EVEN", title: "Even-looking wear", note: "Keep monitoring tyre condition and pressure." },
-    { label: "EDGE", title: "Edge-heavy wear", note: "A reason to have tyre condition and wheel geometry checked." },
-    { label: "PATCH", title: "Irregular wear", note: "Share a tyre photo and the driving symptom with the workshop." },
-  ];
+    {
+      label: "EVEN",
+      title: "Even-looking wear",
+      note: "The tread is wearing consistently across the tyre surface.",
+      metric: "GOOD",
+      metricLabel: "WEAR PATTERN",
+    },
+    {
+      label: "EDGE",
+      title: "Edge-heavy wear",
+      note: "More wear near one edge can be a reason to check tyre condition and wheel geometry.",
+      metric: "EDGE",
+      metricLabel: "CHECK AREA",
+    },
+    {
+      label: "PATCH",
+      title: "Irregular wear",
+      note: "Patchy wear can point to an uneven contact pattern that is worth inspecting.",
+      metric: "PATCH",
+      metricLabel: "CHECK AREA",
+    },
+  ] as const;
+
+  const current = states[active];
 
   return (
-    <div className="aa-v11-tyre-lab">
-      <div className={"aa-v11-tread-visual tread-" + active} aria-hidden="true">
-        <div className="aa-v16-module-photo aa-v16-tyre-photo">
-          <Image src={aaModuleImages.tyre} alt="" fill quality={76} sizes="(max-width: 900px) 100vw, 52vw" />
+    <div className="aa-v21-tyre-condition">
+      <div className="aa-v21-tyre-stage">
+        <div className="aa-v21-tyre-head">
+          <span>TYRE / CONDITION VIEW</span>
+          <b>FRONT TREAD</b>
+        </div>
+
+        <svg
+          className={"aa-v21-tyre-svg tyre-state-" + active}
+          viewBox="0 0 620 620"
+          role="img"
+          aria-label={"Front tyre tread condition: " + current.title}
+        >
+          <defs>
+            <filter id="aa-v21-shadow" x="-20%" y="-20%" width="140%" height="160%">
+              <feDropShadow dx="0" dy="18" stdDeviation="18" floodColor="#000000" floodOpacity=".16" />
+            </filter>
+            <clipPath id="aa-v21-tyre-clip">
+              <rect x="180" y="70" width="260" height="455" rx="105" />
+            </clipPath>
+          </defs>
+
+          <ellipse className="aa-v21-ground" cx="310" cy="540" rx="145" ry="23" />
+
+          <g filter="url(#aa-v21-shadow)">
+            <rect className="aa-v21-tyre-shell" x="180" y="70" width="260" height="455" rx="105" />
+            <g clipPath="url(#aa-v21-tyre-clip)">
+              <rect className="aa-v21-tread-base" x="180" y="70" width="260" height="455" />
+
+              {Array.from({ length: 9 }).map((_, row) => {
+                const y = 96 + row * 48;
+                return (
+                  <g key={row}>
+                    <path className="aa-v21-groove" d={`M194 ${y} L258 ${y + 18} L288 ${y + 5}`} />
+                    <path className="aa-v21-groove" d={`M426 ${y} L362 ${y + 18} L332 ${y + 5}`} />
+                    <path className="aa-v21-groove centre" d={`M274 ${y + 26} L310 ${y + 8} L346 ${y + 26}`} />
+                  </g>
+                );
+              })}
+
+              <line className="aa-v21-channel" x1="270" y1="72" x2="270" y2="525" />
+              <line className="aa-v21-channel" x1="350" y1="72" x2="350" y2="525" />
+
+              {active === 1 && (
+                <rect className="aa-v21-edge-wear" x="184" y="72" width="58" height="451" />
+              )}
+
+              {active === 2 && (
+                <>
+                  <ellipse className="aa-v21-patch-wear" cx="254" cy="190" rx="58" ry="78" />
+                  <ellipse className="aa-v21-patch-wear second" cx="365" cy="385" rx="48" ry="70" />
+                </>
+              )}
+
+              {active === 0 && (
+                <line className="aa-v21-even-guide" x1="205" y1="300" x2="415" y2="300" />
+              )}
+            </g>
+          </g>
+
+          {active === 0 && (
+            <>
+              <line className="aa-v21-pointer" x1="445" y1="300" x2="510" y2="300" />
+              <text className="aa-v21-svg-label" x="522" y="304">EVEN</text>
+            </>
+          )}
+
+          {active === 1 && (
+            <>
+              <line className="aa-v21-pointer" x1="205" y1="252" x2="118" y2="252" />
+              <text className="aa-v21-svg-label" x="42" y="245">EDGE</text>
+              <text className="aa-v21-svg-sub" x="42" y="265">CHECK</text>
+            </>
+          )}
+
+          {active === 2 && (
+            <>
+              <line className="aa-v21-pointer" x1="400" y1="385" x2="500" y2="385" />
+              <text className="aa-v21-svg-label" x="512" y="378">PATCH</text>
+              <text className="aa-v21-svg-sub" x="512" y="398">WEAR</text>
+            </>
+          )}
+        </svg>
+
+        <div className="aa-v21-tyre-scale" aria-hidden="true">
+          <span>INNER</span>
           <i />
+          <span>CENTRE</span>
+          <i />
+          <span>OUTER</span>
         </div>
-        <div className="aa-v11-tread">
-          {Array.from({ length: 16 }).map((_, index) => <i key={index} />)}
-        </div>
-        <div className="aa-v11-tread-scan" />
-        <span>TYRE / CONDITION VIEW</span>
       </div>
-      <div className="aa-v11-tread-copy">
+
+      <div className="aa-v21-tyre-copy">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={active}
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: .28, ease }}
+            transition={{ duration: .24, ease }}
           >
-            <small>{states[active].label}</small>
-            <h3>{states[active].title}</h3>
-            <p>{states[active].note}</p>
+            <small>{current.label}</small>
+            <h3>{current.title}</h3>
+            <p>{current.note}</p>
+
+            <div className="aa-v21-tyre-readout">
+              <span>{current.metricLabel}</span>
+              <b>{current.metric}</b>
+              <small>VISUAL GUIDE</small>
+            </div>
           </motion.div>
         </AnimatePresence>
-        <div className="aa-v11-tread-tabs">
+
+        <div className="aa-v21-tyre-tabs">
           {states.map((state, index) => (
-            <button type="button" key={state.label} className={active === index ? "is-active" : ""} onClick={() => setActive(index)}>
-              <span>0{index + 1}</span>{state.label}
+            <button
+              type="button"
+              key={state.label}
+              aria-pressed={active === index}
+              className={active === index ? "is-active" : ""}
+              onClick={() => setActive(index)}
+            >
+              <span>0{index + 1}</span>
+              <b>{state.label}</b>
             </button>
           ))}
         </div>
