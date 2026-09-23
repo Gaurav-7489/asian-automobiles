@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -20,19 +19,6 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
-
-const WheelAlignment3D = dynamic(
-  () => import("./wheel-alignment-3d").then((mod) => mod.WheelAlignment3D),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="aa-v17-wheel3d-loading" aria-hidden="true">
-        <span />
-        <b>Loading 3D wheel geometry</b>
-      </div>
-    ),
-  },
-);
 
 const aaModuleImages = {
   service: [
@@ -184,120 +170,109 @@ export function ClimateConsole() {
 export function WheelGeometryLab() {
   const [active, setActive] = useState<"pull" | "center" | "wear">("pull");
 
-  const labels = {
+  const states = {
     pull: {
       eyebrow: "PULLING",
       title: "Toe angle",
-      copy: "The tyre points away from the centre reference line.",
+      copy: "The centre line helps show when the tyre points away from straight.",
       metric: "+2.3 mm",
       metricLabel: "TOE EXAMPLE",
     },
     center: {
       eyebrow: "OFF-CENTRE",
       title: "Steering offset",
-      copy: "The wheel is shown slightly away from the straight-ahead position.",
+      copy: "The reference marker shows a small steering position offset.",
       metric: "4°",
       metricLabel: "OFFSET EXAMPLE",
     },
     wear: {
       eyebrow: "UNEVEN WEAR",
-      title: "Camber angle",
-      copy: "The tyre leans on one edge, showing where uneven wear can develop.",
+      title: "Inner-edge wear",
+      copy: "The highlighted tread edge shows where uneven tyre wear can appear.",
       metric: "-1.6°",
       metricLabel: "CAMBER EXAMPLE",
     },
   } as const;
 
-  const current = labels[active];
+  const current = states[active];
 
   return (
-    <div className="aa-v11-geometry-lab aa-v19-alignment-lab">
-      <div className="aa-v19-alignment-stage">
-        <WheelAlignment3D mode={active} />
-
+    <div className="aa-v11-geometry-lab aa-v20-alignment-lab">
+      <div className="aa-v20-alignment-stage">
         <svg
-          className={"aa-v19-measure-overlay mode-" + active}
-          viewBox="0 0 1000 700"
-          preserveAspectRatio="none"
-          aria-hidden="true"
+          className="aa-v20-tyre-graphic"
+          viewBox="0 0 760 620"
+          role="img"
+          aria-label={"Front-facing tyre alignment illustration: " + current.title}
         >
-          <line className="aa-v19-axis aa-v19-axis-center" x1="500" y1="72" x2="500" y2="620" />
-          <line className="aa-v19-axis aa-v19-axis-cross" x1="248" y1="350" x2="752" y2="350" />
+          <defs>
+            <filter id="aa-v20-tyre-shadow" x="-30%" y="-30%" width="160%" height="180%">
+              <feDropShadow dx="0" dy="18" stdDeviation="16" floodColor="#000000" floodOpacity=".18" />
+            </filter>
+          </defs>
+
+          <ellipse className="aa-v20-ground-shadow" cx="380" cy="510" rx="185" ry="25" />
+
+          <g className="aa-v20-tyre" filter="url(#aa-v20-tyre-shadow)">
+            <circle className="aa-v20-tyre-body" cx="380" cy="285" r="176" />
+            <circle className="aa-v20-tread-ring" cx="380" cy="285" r="188" />
+            <circle className="aa-v20-sidewall-ring" cx="380" cy="285" r="142" />
+            <circle className="aa-v20-tyre-hole" cx="380" cy="285" r="92" />
+            <circle className="aa-v20-inner-edge" cx="380" cy="285" r="98" />
+          </g>
+
+          <line className="aa-v20-centre-line" x1="380" y1="54" x2="380" y2="515" />
+          <line className="aa-v20-cross-line" x1="176" y1="285" x2="584" y2="285" />
 
           {active === "pull" && (
             <>
-              <line className="aa-v19-measure-line" x1="500" y1="120" x2="565" y2="185" />
-              <line className="aa-v19-measure-line" x1="500" y1="580" x2="565" y2="515" />
-              <path className="aa-v19-measure-arc" d="M500 156 A92 92 0 0 1 548 180" />
-              <text className="aa-v19-measure-text" x="582" y="180">TOE +2.3 mm</text>
+              <line className="aa-v20-angle-line" x1="380" y1="92" x2="430" y2="478" />
+              <path className="aa-v20-angle-arc" d="M380 120 A74 74 0 0 1 405 126" />
+              <text className="aa-v20-measure-text" x="455" y="142">TOE +2.3 mm</text>
             </>
           )}
 
           {active === "center" && (
             <>
-              <line className="aa-v19-measure-line" x1="500" y1="110" x2="545" y2="590" />
-              <path className="aa-v19-measure-arc" d="M500 150 A88 88 0 0 1 529 162" />
-              <text className="aa-v19-measure-text" x="558" y="166">OFFSET 4°</text>
+              <line className="aa-v20-angle-line" x1="380" y1="102" x2="404" y2="492" />
+              <path className="aa-v20-angle-arc" d="M380 132 A68 68 0 0 1 394 135" />
+              <text className="aa-v20-measure-text" x="432" y="150">OFFSET 4°</text>
             </>
           )}
 
           {active === "wear" && (
             <>
-              <line className="aa-v19-measure-line" x1="455" y1="115" x2="515" y2="590" />
-              <path className="aa-v19-measure-arc" d="M500 160 A88 88 0 0 0 466 170" />
-              <text className="aa-v19-measure-text" x="272" y="170">CAMBER -1.6°</text>
-              <line className="aa-v19-wear-guide" x1="355" y1="215" x2="355" y2="495" />
-              <text className="aa-v19-wear-text" x="274" y="518">INNER EDGE</text>
+              <path className="aa-v20-wear-highlight" d="M258 161 A176 176 0 0 0 258 409" />
+              <line className="aa-v20-wear-pointer" x1="245" y1="285" x2="145" y2="285" />
+              <text className="aa-v20-measure-text" x="72" y="270">INNER EDGE</text>
+              <text className="aa-v20-measure-text" x="72" y="292">-1.6°</text>
             </>
           )}
         </svg>
 
-        <div className="aa-v19-measure-card" aria-live="polite">
-          <div className="aa-v19-measure-copy">
+        <div className="aa-v20-measure-card" aria-live="polite">
+          <div>
             <small>{current.eyebrow}</small>
             <strong>{current.title}</strong>
             <p>{current.copy}</p>
           </div>
-          <div className="aa-v19-measure-value">
+          <aside>
             <span>{current.metricLabel}</span>
             <b>{current.metric}</b>
             <small>ILLUSTRATIVE</small>
-          </div>
+          </aside>
         </div>
       </div>
 
-      <div className="aa-v19-alignment-controls">
-        <button
-          type="button"
-          aria-pressed={active === "pull"}
-          onClick={() => setActive("pull")}
-          className={active === "pull" ? "is-active" : ""}
-        >
-          <span>01</span>
-          <b>Pulling</b>
-          <small>Toe angle</small>
+      <div className="aa-v20-alignment-controls">
+        <button type="button" aria-pressed={active === "pull"} onClick={() => setActive("pull")} className={active === "pull" ? "is-active" : ""}>
+          <span>01</span><b>Pulling</b><small>Toe angle</small>
         </button>
-
-        <button
-          type="button"
-          aria-pressed={active === "center"}
-          onClick={() => setActive("center")}
-          className={active === "center" ? "is-active" : ""}
-        >
-          <span>02</span>
-          <b>Off-centre</b>
-          <small>Steering offset</small>
+        <button type="button" aria-pressed={active === "center"} onClick={() => setActive("center")} className={active === "center" ? "is-active" : ""}>
+          <span>02</span><b>Off-centre</b><small>Steering offset</small>
         </button>
-
-        <button
-          type="button"
-          aria-pressed={active === "wear"}
-          onClick={() => setActive("wear")}
-          className={active === "wear" ? "is-active" : ""}
-        >
-          <span>03</span>
-          <b>Uneven wear</b>
-          <small>Camber / edge wear</small>
+        <button type="button" aria-pressed={active === "wear"} onClick={() => setActive("wear")} className={active === "wear" ? "is-active" : ""}>
+          <span>03</span><b>Uneven wear</b><small>Inner edge</small>
         </button>
       </div>
     </div>
