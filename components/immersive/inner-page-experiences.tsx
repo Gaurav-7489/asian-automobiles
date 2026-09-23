@@ -54,28 +54,29 @@ export function BlueprintTimeline({ items }: { items: BlueprintTimelineItem[] })
 
   return (
     <div className="aa-blueprint-timeline">
-      <div className="aa-blueprint-timeline-nav" role="list">
+      <ol className="aa-blueprint-timeline-nav" aria-label="Service process steps">
         {items.map((item, index) => (
-          <button
-            type="button"
-            role="listitem"
-            key={item.no}
-            className={active === index ? "is-active" : ""}
-            onPointerEnter={() => setActive(index)}
-            onFocus={() => setActive(index)}
-            onClick={() => setActive(index)}
-          >
-            <span>{item.no}</span>
-            <div>
-              <small>{item.label}</small>
-              <b>{item.title}</b>
-            </div>
-            <i />
-          </button>
+          <li key={item.no}>
+            <button
+              type="button"
+              className={active === index ? "is-active" : ""}
+              aria-pressed={active === index}
+              onPointerEnter={() => setActive(index)}
+              onFocus={() => setActive(index)}
+              onClick={() => setActive(index)}
+            >
+              <span>{item.no}</span>
+              <div>
+                <small>{item.label}</small>
+                <b>{item.title}</b>
+              </div>
+              <i />
+            </button>
+          </li>
         ))}
-      </div>
+      </ol>
 
-      <div className="aa-blueprint-timeline-stage">
+      <div className="aa-blueprint-timeline-stage" aria-live="polite">
         <div className="aa-v16-timeline-photo" aria-hidden="true">
           <Image key={active} src={aaTimelineImages[active % aaTimelineImages.length]} alt="" fill quality={76} sizes="(max-width: 900px) 100vw, 64vw" />
           <i />

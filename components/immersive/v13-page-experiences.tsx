@@ -127,7 +127,7 @@ export function BodyworkDamageGuide(){
       </div>
     </div>
     <div className="aa-v13-damage-tabs">
-      {damageItems.map((x,index)=><button key={x.no} type="button" className={index===active?"is-active":""} onClick={()=>setActive(index)}><span>{x.no}</span><b>{x.label}</b><Camera size={16}/></button>)}
+      {damageItems.map((x,index)=><button key={x.no} type="button" className={index===active?"is-active":""} aria-pressed={index===active} onClick={()=>setActive(index)}><span>{x.no}</span><b>{x.label}</b><Camera size={16}/></button>)}
     </div>
   </div>;
 }
@@ -145,7 +145,7 @@ export function WorkshopFloorExplorer(){
   const item=facilityItems[active];
   return <div className="aa-v13-floor-explorer">
     <div className="aa-v13-floor-plan" aria-label="Interactive workshop capability map">
-      {facilityItems.map((x,index)=><button key={x.no} type="button" className={"zone zone-"+(index+1)+" "+(index===active?"is-active":"")} onClick={()=>setActive(index)}>
+      {facilityItems.map((x,index)=><button key={x.no} type="button" className={"zone zone-"+(index+1)+" "+(index===active?"is-active":"")} aria-pressed={index===active} onClick={()=>setActive(index)}>
         <span>{x.no}</span><b>{x.label}</b>
       </button>)}
       <div className="aa-v13-floor-axis" aria-hidden="true"/>
@@ -179,7 +179,7 @@ export function ReviewProofBoard(){
       <CheckCircle2 size={28}/>
     </div>
     <div className="aa-v13-review-tabs">
-      {reviewRules.map((x,index)=><button key={x.no} type="button" className={index===active?"is-active":""} onClick={()=>setActive(index)}>
+      {reviewRules.map((x,index)=><button key={x.no} type="button" className={index===active?"is-active":""} aria-pressed={index===active} onClick={()=>setActive(index)}>
         <span>{x.no}</span><b>{x.label}</b><ArrowUpRight size={15}/>
       </button>)}
     </div>

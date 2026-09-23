@@ -30,6 +30,7 @@ import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import { businessFacts, directionsHref } from "@/lib/business-facts";
 import {
   BlueprintTimeline,
@@ -851,12 +852,14 @@ function Wheel() {
           <SectionHead light eyebrow="ALIGNMENT VS BALANCING" title="Two different problems. Two different checks." />
           <div className="aa-v10-compare-grid">
             <div>
+              <Image className="aa-production-compare-photo" src={img.wheel} alt="" fill quality={74} sizes="(max-width: 640px) 100vw, 50vw" />
               <span>ALIGNMENT / 01</span>
               <h3>Where the wheels point.</h3>
               <p>Wheel geometry affects straight-line stability, steering position and tyre wear.</p>
               <small>Pulling / off-centre steering / uneven wear</small>
             </div>
             <div>
+              <Image className="aa-production-compare-photo" src={img.car} alt="" fill quality={74} sizes="(max-width: 640px) 100vw, 50vw" />
               <span>BALANCING / 02</span>
               <h3>How the wheel rotates.</h3>
               <p>Correct balancing helps reduce unwanted vibration and supports smoother vehicle behaviour.</p>
@@ -1414,11 +1417,14 @@ export async function generateMetadata({
         ? "services/" + rawKey
         : rawKey;
   const meta = routeMeta[key];
-  if (!meta) return {};
+  if (!meta) {
+    return { robots: { index: false, follow: false } };
+  }
+  const canonicalKey = key === "services/spare-parts" ? "spare-parts" : key;
   return {
     title: meta.title,
     description: meta.description,
-    alternates: { canonical: "/" + key + "/" },
+    alternates: { canonical: "/" + canonicalKey + "/" },
     openGraph: {
       title: meta.title,
       description: meta.description,
@@ -1460,16 +1466,7 @@ export default async function Page({ params }: { params: Promise<{ slug?: string
   const PageView = map[key];
 
   if (!PageView) {
-    return (
-      <main className="creative-404">
-        <div>
-          <span>404 / WRONG TURN</span>
-          <h1>Looks like we took the scenic route.</h1>
-          <p>This page is not in the workshop.</p>
-          <CTA label="Back to the workshop" href="/" />
-        </div>
-      </main>
-    );
+    notFound();
   }
 
   return PageView();
