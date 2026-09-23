@@ -6,15 +6,14 @@ import * as THREE from "three";
 
 export type AlignmentMode = "pull" | "center" | "wear";
 
-function SingleTyre({ mode }: { mode: AlignmentMode }) {
+function FrontTyre({ mode }: { mode: AlignmentMode }) {
   const tyre = useRef<THREE.Group>(null);
-  const spin = useRef<THREE.Group>(null);
 
   const tread = useMemo(
     () =>
-      Array.from({ length: 38 }, (_, index) => {
-        const angle = (index / 38) * Math.PI * 2;
-        const radius = 1.72;
+      Array.from({ length: 42 }, (_, index) => {
+        const angle = (index / 42) * Math.PI * 2;
+        const radius = 1.7;
         return {
           angle,
           x: Math.cos(angle) * radius,
@@ -26,35 +25,33 @@ function SingleTyre({ mode }: { mode: AlignmentMode }) {
   );
 
   useFrame((state, delta) => {
-    if (!tyre.current || !spin.current) return;
+    if (!tyre.current) return;
 
     const targetY =
-      mode === "pull" ? -0.22 :
-      mode === "center" ? 0.08 :
-      -0.08;
+      mode === "pull" ? -0.2 :
+      mode === "center" ? 0.09 :
+      0;
 
     const targetZ =
-      mode === "wear" ? -0.16 :
-      mode === "center" ? 0.035 :
-      0.02;
+      mode === "wear" ? -0.13 :
+      mode === "center" ? 0.025 :
+      0;
 
     tyre.current.rotation.y = THREE.MathUtils.damp(
       tyre.current.rotation.y,
       targetY,
-      5,
+      5.5,
       delta,
     );
 
     tyre.current.rotation.z = THREE.MathUtils.damp(
       tyre.current.rotation.z,
       targetZ,
-      5,
+      5.5,
       delta,
     );
 
-    spin.current.rotation.z += delta * 0.05;
-
-    const float = Math.sin(state.clock.elapsedTime * 0.7) * 0.035;
+    const float = Math.sin(state.clock.elapsedTime * 0.65) * 0.018;
     tyre.current.position.y = THREE.MathUtils.damp(
       tyre.current.position.y,
       float,
@@ -64,72 +61,63 @@ function SingleTyre({ mode }: { mode: AlignmentMode }) {
   });
 
   return (
-    <group
-      ref={tyre}
-      rotation={[-0.08, -0.16, -0.04]}
-      position={[0, 0, 0]}
-    >
-      <group ref={spin}>
-        <mesh castShadow receiveShadow>
-          <torusGeometry args={[1.28, 0.46, 32, 96]} />
-          <meshStandardMaterial
-            color="#111214"
-            roughness={0.9}
-            metalness={0.02}
-          />
-        </mesh>
+    <group ref={tyre}>
+      <mesh castShadow receiveShadow>
+        <torusGeometry args={[1.28, 0.46, 36, 112]} />
+        <meshStandardMaterial
+          color="#101113"
+          roughness={0.92}
+          metalness={0.01}
+        />
+      </mesh>
 
-        <mesh>
-          <torusGeometry args={[1.08, 0.055, 18, 96]} />
-          <meshStandardMaterial
-            color="#242628"
-            roughness={0.85}
-            metalness={0.01}
-          />
-        </mesh>
+      <mesh>
+        <torusGeometry args={[1.08, 0.055, 20, 112]} />
+        <meshStandardMaterial
+          color="#252729"
+          roughness={0.88}
+          metalness={0}
+        />
+      </mesh>
 
-        <mesh>
-          <torusGeometry args={[1.49, 0.025, 12, 96]} />
-          <meshStandardMaterial
-            color="#2f3133"
-            roughness={0.9}
-            metalness={0}
-          />
-        </mesh>
+      <mesh>
+        <torusGeometry args={[1.5, 0.026, 14, 112]} />
+        <meshStandardMaterial
+          color="#303234"
+          roughness={0.94}
+          metalness={0}
+        />
+      </mesh>
 
-        {tread.map((block, index) => {
-          const highlight =
-            mode === "wear" &&
-            ((block.side < 0 && index > 5 && index < 16) ||
-              (block.side > 0 && index > 24 && index < 35));
+      {tread.map((block, index) => {
+        const wearHighlight =
+          mode === "wear" &&
+          block.x < -0.42 &&
+          block.y > -1.25 &&
+          block.y < 1.25;
 
-          return (
-            <mesh
-              key={index}
-              position={[
-                block.x,
-                block.y,
-                block.side * 0.22,
-              ]}
-              rotation={[
-                0,
-                block.side * 0.18,
-                block.angle + Math.PI / 2,
-              ]}
-              castShadow
-            >
-              <boxGeometry args={[0.34, 0.12, 0.46]} />
-              <meshStandardMaterial
-                color={highlight ? "#d7ff34" : "#181a1c"}
-                roughness={0.96}
-                metalness={0}
-                emissive={highlight ? "#1c2500" : "#000000"}
-                emissiveIntensity={highlight ? 0.22 : 0}
-              />
-            </mesh>
-          );
-        })}
-      </group>
+        return (
+          <mesh
+            key={index}
+            position={[block.x, block.y, block.side * 0.22]}
+            rotation={[
+              0,
+              block.side * 0.17,
+              block.angle + Math.PI / 2,
+            ]}
+            castShadow
+          >
+            <boxGeometry args={[0.31, 0.115, 0.46]} />
+            <meshStandardMaterial
+              color={wearHighlight ? "#d7ff34" : "#17191b"}
+              roughness={0.97}
+              metalness={0}
+              emissive={wearHighlight ? "#1f2900" : "#000000"}
+              emissiveIntensity={wearHighlight ? 0.24 : 0}
+            />
+          </mesh>
+        );
+      })}
     </group>
   );
 }
@@ -137,14 +125,14 @@ function SingleTyre({ mode }: { mode: AlignmentMode }) {
 export function WheelAlignment3D({ mode }: { mode: AlignmentMode }) {
   return (
     <div
-      className="aa-v18-tyre-canvas"
-      aria-label="Interactive 3D tyre alignment visualisation"
+      className="aa-v19-tyre-canvas"
+      aria-label="Front view 3D tyre alignment visualisation"
     >
       <Canvas
-        dpr={[1, 1.4]}
+        dpr={[1, 1.35]}
         camera={{
-          position: [4.4, 2.8, 5.8],
-          fov: 34,
+          position: [0, 0.08, 5.9],
+          fov: 31,
           near: 0.1,
           far: 40,
         }}
@@ -158,11 +146,11 @@ export function WheelAlignment3D({ mode }: { mode: AlignmentMode }) {
       >
         <color attach="background" args={["#f1efe8"]} />
 
-        <ambientLight intensity={1.6} />
+        <ambientLight intensity={1.7} />
 
         <directionalLight
-          position={[4, 6, 5]}
-          intensity={4.3}
+          position={[4.5, 6, 6]}
+          intensity={4.4}
           color="#ffffff"
           castShadow
           shadow-mapSize-width={1024}
@@ -170,23 +158,20 @@ export function WheelAlignment3D({ mode }: { mode: AlignmentMode }) {
         />
 
         <directionalLight
-          position={[-3, 2, -4]}
-          intensity={1.5}
-          color="#cfd4d8"
+          position={[-4, 1.5, 4]}
+          intensity={1.15}
+          color="#d4d9dd"
         />
 
-        <SingleTyre mode={mode} />
+        <FrontTyre mode={mode} />
 
         <mesh
-          position={[0, -2.03, 0]}
+          position={[0, -2.02, 0]}
           rotation={[-Math.PI / 2, 0, 0]}
           receiveShadow
         >
           <planeGeometry args={[12, 12]} />
-          <shadowMaterial
-            transparent
-            opacity={0.22}
-          />
+          <shadowMaterial transparent opacity={0.2} />
         </mesh>
       </Canvas>
     </div>
