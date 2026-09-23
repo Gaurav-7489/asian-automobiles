@@ -15,7 +15,7 @@ export function SmoothScroll() {
       (typeof nav.deviceMemory === "number" && nav.deviceMemory <= 4) ||
       (typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 4);
 
-    if (reduced || coarse || nav.connection?.saveData || lowPower) {
+    if (reduced || nav.connection?.saveData || lowPower) {
       document.documentElement.classList.add("aa-native-motion");
       return () => document.documentElement.classList.remove("aa-native-motion");
     }
@@ -26,7 +26,7 @@ export function SmoothScroll() {
       smoothWheel: true,
       wheelMultiplier: 0.92,
       touchMultiplier: 1,
-      syncTouch: false,
+      syncTouch: coarse,
       gestureOrientation: "vertical",
       orientation: "vertical",
       anchors: true,

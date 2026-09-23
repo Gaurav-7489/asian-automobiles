@@ -192,13 +192,53 @@ function HeroArt({ theme }: { theme: PageTheme }) {
     quote: ["QUOTE", "VEHICLE / NEED / PHOTO"],
   };
 
+  const photos: Record<PageTheme, [string, string, string]> = {
+    about: [img.workshop, img.detail, img.car],
+    services: [img.repair, img.workshop, img.wheel],
+    service: [img.repair, img.detail, img.workshop],
+    ac: [img.interior, img.detail, img.car],
+    accident: [img.repair, img.car, img.detail],
+    paint: [img.detail, img.car, img.repair],
+    wheel: [img.wheel, img.car, img.road],
+    tyre: [img.wheel, img.road, img.detail],
+    parts: [img.workshop, img.detail, img.repair],
+    insurance: [img.car, img.repair, img.road],
+    facilities: [img.workshop, img.repair, img.wheel],
+    gallery: [img.car, img.detail, img.workshop],
+    reviews: [img.detail, img.workshop, img.car],
+    contact: [img.road, img.workshop, img.car],
+    faq: [img.detail, img.repair, img.workshop],
+    booking: [img.car, img.workshop, img.detail],
+    quote: [img.repair, img.car, img.detail],
+  };
+
   const [primary, secondary] = labels[theme];
+  const [mainPhoto, detailPhoto, contextPhoto] = photos[theme];
 
   return (
-    <div className={"aa-v11-hero-art aa-v11-hero-" + theme} aria-hidden="true">
-      <div className="aa-v11-theme-core"><i /><i /><i /><i /></div>
+    <div className={"aa-v11-hero-art aa-v11-hero-" + theme + " aa-v15-photo-hero"} aria-hidden="true">
+      <div className="aa-v15-hero-photo-main">
+        <Image
+          src={mainPhoto}
+          alt=""
+          fill
+          quality={76}
+          sizes="(max-width: 720px) 92vw, (max-width: 1100px) 58vw, 520px"
+        />
+      </div>
+      <div className="aa-v15-hero-photo-stack">
+        <span className="aa-v15-hero-thumb">
+          <Image src={detailPhoto} alt="" fill quality={68} sizes="160px" />
+        </span>
+        <span className="aa-v15-hero-thumb">
+          <Image src={contextPhoto} alt="" fill quality={68} sizes="160px" />
+        </span>
+      </div>
+      <div className="aa-v15-hero-scrim" />
+      <div className="aa-v11-theme-core aa-v15-theme-core"><i /><i /><i /><i /></div>
       <strong>{primary}</strong>
       <small>{secondary}</small>
+      <span className="aa-v15-photo-index">PHOTO / {theme.toUpperCase()}</span>
     </div>
   );
 }
