@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test:smoke": "playwright test"
   },
   "dependencies": {
     "framer-motion": "^12.23.12",
@@ -21,6 +22,7 @@
     "typescript": "^5.8.3",
     "@types/node": "^22.15.0",
     "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2"
+    "@types/react-dom": "^19.1.2",
+    "@playwright/test": "^1.55.0"
   }
 }

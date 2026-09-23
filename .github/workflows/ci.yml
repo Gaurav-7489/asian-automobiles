@@ -4,13 +4,50 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+
 jobs:
-  build:
+  production-check:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm install
-      - run: npm run build
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build
+        run: npm run build
+
+      - name: Start production server
+        run: |
+          npm start > /tmp/asian-next.log 2>&1 &
+          echo $! > /tmp/asian-next.pid
+          for i in {1..40}; do
+            if curl --fail --silent http://127.0.0.1:3000/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/asian-next.log
+          exit 1
+
+      - name: Desktop + mobile browser smoke tests
+        run: npm run test:smoke
+
+      - name: Upload failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-test-diagnostics
+          if-no-files-found: ignore
+          path: |
+            playwright-report
+            test-results
+            /tmp/asian-next.log
