@@ -167,6 +167,133 @@ export function ClimateConsole() {
   );
 }
 
+type TyreGraphicMode = "toe" | "offset" | "camber" | "even" | "edge" | "patch";
+
+function FrontTyreGraphic({
+  mode,
+  label,
+}: {
+  mode: TyreGraphicMode;
+  label: string;
+}) {
+  const conditionMode = mode === "even" || mode === "edge" || mode === "patch";
+
+  return (
+    <svg
+      className={"aa-v22-front-tyre mode-" + mode}
+      viewBox="0 0 700 620"
+      role="img"
+      aria-label={label}
+    >
+      <defs>
+        <linearGradient id="aa-v22-rubber" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#25282a" />
+          <stop offset=".46" stopColor="#111315" />
+          <stop offset="1" stopColor="#080a0c" />
+        </linearGradient>
+        <linearGradient id="aa-v22-shoulder" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#08090b" />
+          <stop offset=".18" stopColor="#1e2123" />
+          <stop offset=".82" stopColor="#1e2123" />
+          <stop offset="1" stopColor="#08090b" />
+        </linearGradient>
+        <filter id="aa-v22-shadow" x="-30%" y="-20%" width="160%" height="170%">
+          <feDropShadow dx="0" dy="20" stdDeviation="18" floodColor="#000" floodOpacity=".2" />
+        </filter>
+        <clipPath id="aa-v22-clip">
+          <rect x="202" y="58" width="296" height="474" rx="122" />
+        </clipPath>
+      </defs>
+
+      <ellipse className="aa-v22-ground" cx="350" cy="548" rx="168" ry="24" />
+
+      <g filter="url(#aa-v22-shadow)" className="aa-v22-tyre-shell">
+        <rect x="202" y="58" width="296" height="474" rx="122" fill="url(#aa-v22-shoulder)" />
+        <rect x="222" y="70" width="256" height="450" rx="105" fill="url(#aa-v22-rubber)" />
+
+        <g clipPath="url(#aa-v22-clip)">
+          {Array.from({ length: 10 }).map((_, row) => {
+            const y = 82 + row * 44;
+            return (
+              <g key={row}>
+                <path className="aa-v22-groove outer" d={`M208 ${y} L262 ${y + 18} L291 ${y + 8}`} />
+                <path className="aa-v22-groove outer" d={`M492 ${y} L438 ${y + 18} L409 ${y + 8}`} />
+                <path className="aa-v22-groove inner" d={`M276 ${y + 28} L322 ${y + 9} L350 ${y + 24} L378 ${y + 9} L424 ${y + 28}`} />
+              </g>
+            );
+          })}
+
+          <line className="aa-v22-channel" x1="292" y1="58" x2="292" y2="532" />
+          <line className="aa-v22-channel" x1="350" y1="58" x2="350" y2="532" />
+          <line className="aa-v22-channel" x1="408" y1="58" x2="408" y2="532" />
+
+          {mode === "edge" && <rect className="aa-v22-wear edge" x="222" y="70" width="56" height="450" />}
+          {mode === "patch" && (
+            <>
+              <ellipse className="aa-v22-wear patch patch-a" cx="294" cy="202" rx="54" ry="78" />
+              <ellipse className="aa-v22-wear patch patch-b" cx="405" cy="390" rx="48" ry="68" />
+            </>
+          )}
+          {mode === "camber" && <rect className="aa-v22-wear camber" x="222" y="70" width="44" height="450" />}
+          {mode === "even" && <line className="aa-v22-even-line" x1="238" y1="298" x2="462" y2="298" />}
+        </g>
+      </g>
+
+      <line className="aa-v22-reference vertical" x1="350" y1="42" x2="350" y2="548" />
+      <line className="aa-v22-reference horizontal" x1="166" y1="298" x2="534" y2="298" />
+
+      {mode === "toe" && (
+        <>
+          <line className="aa-v22-measure-line" x1="350" y1="70" x2="392" y2="520" />
+          <path className="aa-v22-arc" d="M350 104 A78 78 0 0 1 371 109" />
+          <text className="aa-v22-label" x="416" y="126">TOE +2.3 mm</text>
+        </>
+      )}
+
+      {mode === "offset" && (
+        <>
+          <line className="aa-v22-measure-line" x1="350" y1="76" x2="370" y2="520" />
+          <path className="aa-v22-arc" d="M350 108 A66 66 0 0 1 362 111" />
+          <text className="aa-v22-label" x="398" y="128">OFFSET 4°</text>
+        </>
+      )}
+
+      {mode === "camber" && (
+        <>
+          <line className="aa-v22-measure-line" x1="350" y1="72" x2="320" y2="522" />
+          <path className="aa-v22-arc" d="M350 108 A68 68 0 0 0 334 113" />
+          <line className="aa-v22-pointer" x1="242" y1="286" x2="128" y2="286" />
+          <text className="aa-v22-label" x="54" y="278">INNER EDGE</text>
+          <text className="aa-v22-sub" x="54" y="300">CAMBER -1.6°</text>
+        </>
+      )}
+
+      {conditionMode && mode === "even" && (
+        <>
+          <line className="aa-v22-pointer" x1="478" y1="298" x2="558" y2="298" />
+          <text className="aa-v22-label" x="570" y="302">EVEN</text>
+        </>
+      )}
+
+      {conditionMode && mode === "edge" && (
+        <>
+          <line className="aa-v22-pointer" x1="244" y1="252" x2="128" y2="252" />
+          <text className="aa-v22-label" x="56" y="246">EDGE</text>
+          <text className="aa-v22-sub" x="56" y="266">CHECK</text>
+        </>
+      )}
+
+      {conditionMode && mode === "patch" && (
+        <>
+          <line className="aa-v22-pointer" x1="430" y1="392" x2="548" y2="392" />
+          <text className="aa-v22-label" x="560" y="386">PATCH</text>
+          <text className="aa-v22-sub" x="560" y="406">WEAR</text>
+        </>
+      )}
+    </svg>
+  );
+}
+
 export function WheelGeometryLab() {
   const [active, setActive] = useState<"pull" | "center" | "wear">("pull");
 
@@ -177,6 +304,7 @@ export function WheelGeometryLab() {
       copy: "The centre line helps show when the tyre points away from straight.",
       metric: "+2.3 mm",
       metricLabel: "TOE EXAMPLE",
+      graphic: "toe" as const,
     },
     center: {
       eyebrow: "OFF-CENTRE",
@@ -184,6 +312,7 @@ export function WheelGeometryLab() {
       copy: "The reference marker shows a small steering position offset.",
       metric: "4°",
       metricLabel: "OFFSET EXAMPLE",
+      graphic: "offset" as const,
     },
     wear: {
       eyebrow: "UNEVEN WEAR",
@@ -191,89 +320,62 @@ export function WheelGeometryLab() {
       copy: "The highlighted tread edge shows where uneven tyre wear can appear.",
       metric: "-1.6°",
       metricLabel: "CAMBER EXAMPLE",
+      graphic: "camber" as const,
     },
   } as const;
 
   const current = states[active];
 
   return (
-    <div className="aa-v11-geometry-lab aa-v20-alignment-lab">
-      <div className="aa-v20-alignment-stage">
-        <svg
-          className="aa-v20-tyre-graphic"
-          viewBox="0 0 760 620"
-          role="img"
-          aria-label={"Front-facing tyre alignment illustration: " + current.title}
-        >
-          <defs>
-            <filter id="aa-v20-tyre-shadow" x="-30%" y="-30%" width="160%" height="180%">
-              <feDropShadow dx="0" dy="18" stdDeviation="16" floodColor="#000000" floodOpacity=".18" />
-            </filter>
-          </defs>
+    <div className="aa-v11-geometry-lab aa-v22-diagnostic-lab">
+      <div className="aa-v22-visual-stage">
+        <div className="aa-v22-stage-head">
+          <span>WHEEL / ALIGNMENT VIEW</span>
+          <b>FRONT TREAD</b>
+        </div>
 
-          <ellipse className="aa-v20-ground-shadow" cx="380" cy="510" rx="185" ry="25" />
+        <FrontTyreGraphic
+          mode={current.graphic}
+          label={"Front-facing tyre alignment illustration: " + current.title}
+        />
 
-          <g className="aa-v20-tyre" filter="url(#aa-v20-tyre-shadow)">
-            <circle className="aa-v20-tyre-body" cx="380" cy="285" r="176" />
-            <circle className="aa-v20-tread-ring" cx="380" cy="285" r="188" />
-            <circle className="aa-v20-sidewall-ring" cx="380" cy="285" r="142" />
-            <circle className="aa-v20-tyre-hole" cx="380" cy="285" r="92" />
-            <circle className="aa-v20-inner-edge" cx="380" cy="285" r="98" />
-          </g>
-
-          <line className="aa-v20-centre-line" x1="380" y1="54" x2="380" y2="515" />
-          <line className="aa-v20-cross-line" x1="176" y1="285" x2="584" y2="285" />
-
-          {active === "pull" && (
-            <>
-              <line className="aa-v20-angle-line" x1="380" y1="92" x2="430" y2="478" />
-              <path className="aa-v20-angle-arc" d="M380 120 A74 74 0 0 1 405 126" />
-              <text className="aa-v20-measure-text" x="455" y="142">TOE +2.3 mm</text>
-            </>
-          )}
-
-          {active === "center" && (
-            <>
-              <line className="aa-v20-angle-line" x1="380" y1="102" x2="404" y2="492" />
-              <path className="aa-v20-angle-arc" d="M380 132 A68 68 0 0 1 394 135" />
-              <text className="aa-v20-measure-text" x="432" y="150">OFFSET 4°</text>
-            </>
-          )}
-
-          {active === "wear" && (
-            <>
-              <path className="aa-v20-wear-highlight" d="M258 161 A176 176 0 0 0 258 409" />
-              <line className="aa-v20-wear-pointer" x1="245" y1="285" x2="145" y2="285" />
-              <text className="aa-v20-measure-text" x="72" y="270">INNER EDGE</text>
-              <text className="aa-v20-measure-text" x="72" y="292">-1.6°</text>
-            </>
-          )}
-        </svg>
-
-        <div className="aa-v20-measure-card" aria-live="polite">
-          <div>
-            <small>{current.eyebrow}</small>
-            <strong>{current.title}</strong>
-            <p>{current.copy}</p>
-          </div>
-          <aside>
-            <span>{current.metricLabel}</span>
-            <b>{current.metric}</b>
-            <small>ILLUSTRATIVE</small>
-          </aside>
+        <div className="aa-v22-stage-scale" aria-hidden="true">
+          <span>INNER</span><i /><span>CENTRE</span><i /><span>OUTER</span>
         </div>
       </div>
 
-      <div className="aa-v20-alignment-controls">
-        <button type="button" aria-pressed={active === "pull"} onClick={() => setActive("pull")} className={active === "pull" ? "is-active" : ""}>
-          <span>01</span><b>Pulling</b><small>Toe angle</small>
-        </button>
-        <button type="button" aria-pressed={active === "center"} onClick={() => setActive("center")} className={active === "center" ? "is-active" : ""}>
-          <span>02</span><b>Off-centre</b><small>Steering offset</small>
-        </button>
-        <button type="button" aria-pressed={active === "wear"} onClick={() => setActive("wear")} className={active === "wear" ? "is-active" : ""}>
-          <span>03</span><b>Uneven wear</b><small>Inner edge</small>
-        </button>
+      <div className="aa-v22-copy-panel">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: .24, ease }}
+          >
+            <small>{current.eyebrow}</small>
+            <h3>{current.title}</h3>
+            <p>{current.copy}</p>
+
+            <div className="aa-v22-readout">
+              <span>{current.metricLabel}</span>
+              <b>{current.metric}</b>
+              <small>ILLUSTRATIVE</small>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        <div className="aa-v22-tabs">
+          <button type="button" aria-pressed={active === "pull"} onClick={() => setActive("pull")} className={active === "pull" ? "is-active" : ""}>
+            <span>01</span><b>Pulling</b><small>Toe angle</small>
+          </button>
+          <button type="button" aria-pressed={active === "center"} onClick={() => setActive("center")} className={active === "center" ? "is-active" : ""}>
+            <span>02</span><b>Off-centre</b><small>Steering offset</small>
+          </button>
+          <button type="button" aria-pressed={active === "wear"} onClick={() => setActive("wear")} className={active === "wear" ? "is-active" : ""}>
+            <span>03</span><b>Uneven wear</b><small>Inner edge</small>
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -289,6 +391,7 @@ export function TyreTreadLab() {
       note: "The tread is wearing consistently across the tyre surface.",
       metric: "GOOD",
       metricLabel: "WEAR PATTERN",
+      graphic: "even" as const,
     },
     {
       label: "EDGE",
@@ -296,6 +399,7 @@ export function TyreTreadLab() {
       note: "More wear near one edge can be a reason to check tyre condition and wheel geometry.",
       metric: "EDGE",
       metricLabel: "CHECK AREA",
+      graphic: "edge" as const,
     },
     {
       label: "PATCH",
@@ -303,106 +407,31 @@ export function TyreTreadLab() {
       note: "Patchy wear can point to an uneven contact pattern that is worth inspecting.",
       metric: "PATCH",
       metricLabel: "CHECK AREA",
+      graphic: "patch" as const,
     },
   ] as const;
 
   const current = states[active];
 
   return (
-    <div className="aa-v21-tyre-condition">
-      <div className="aa-v21-tyre-stage">
-        <div className="aa-v21-tyre-head">
+    <div className="aa-v22-diagnostic-lab">
+      <div className="aa-v22-visual-stage">
+        <div className="aa-v22-stage-head">
           <span>TYRE / CONDITION VIEW</span>
           <b>FRONT TREAD</b>
         </div>
 
-        <svg
-          className={"aa-v21-tyre-svg tyre-state-" + active}
-          viewBox="0 0 620 620"
-          role="img"
-          aria-label={"Front tyre tread condition: " + current.title}
-        >
-          <defs>
-            <filter id="aa-v21-shadow" x="-20%" y="-20%" width="140%" height="160%">
-              <feDropShadow dx="0" dy="18" stdDeviation="18" floodColor="#000000" floodOpacity=".16" />
-            </filter>
-            <clipPath id="aa-v21-tyre-clip">
-              <rect x="180" y="70" width="260" height="455" rx="105" />
-            </clipPath>
-          </defs>
+        <FrontTyreGraphic
+          mode={current.graphic}
+          label={"Front tyre tread condition: " + current.title}
+        />
 
-          <ellipse className="aa-v21-ground" cx="310" cy="540" rx="145" ry="23" />
-
-          <g filter="url(#aa-v21-shadow)">
-            <rect className="aa-v21-tyre-shell" x="180" y="70" width="260" height="455" rx="105" />
-            <g clipPath="url(#aa-v21-tyre-clip)">
-              <rect className="aa-v21-tread-base" x="180" y="70" width="260" height="455" />
-
-              {Array.from({ length: 9 }).map((_, row) => {
-                const y = 96 + row * 48;
-                return (
-                  <g key={row}>
-                    <path className="aa-v21-groove" d={`M194 ${y} L258 ${y + 18} L288 ${y + 5}`} />
-                    <path className="aa-v21-groove" d={`M426 ${y} L362 ${y + 18} L332 ${y + 5}`} />
-                    <path className="aa-v21-groove centre" d={`M274 ${y + 26} L310 ${y + 8} L346 ${y + 26}`} />
-                  </g>
-                );
-              })}
-
-              <line className="aa-v21-channel" x1="270" y1="72" x2="270" y2="525" />
-              <line className="aa-v21-channel" x1="350" y1="72" x2="350" y2="525" />
-
-              {active === 1 && (
-                <rect className="aa-v21-edge-wear" x="184" y="72" width="58" height="451" />
-              )}
-
-              {active === 2 && (
-                <>
-                  <ellipse className="aa-v21-patch-wear" cx="254" cy="190" rx="58" ry="78" />
-                  <ellipse className="aa-v21-patch-wear second" cx="365" cy="385" rx="48" ry="70" />
-                </>
-              )}
-
-              {active === 0 && (
-                <line className="aa-v21-even-guide" x1="205" y1="300" x2="415" y2="300" />
-              )}
-            </g>
-          </g>
-
-          {active === 0 && (
-            <>
-              <line className="aa-v21-pointer" x1="445" y1="300" x2="510" y2="300" />
-              <text className="aa-v21-svg-label" x="522" y="304">EVEN</text>
-            </>
-          )}
-
-          {active === 1 && (
-            <>
-              <line className="aa-v21-pointer" x1="205" y1="252" x2="118" y2="252" />
-              <text className="aa-v21-svg-label" x="42" y="245">EDGE</text>
-              <text className="aa-v21-svg-sub" x="42" y="265">CHECK</text>
-            </>
-          )}
-
-          {active === 2 && (
-            <>
-              <line className="aa-v21-pointer" x1="400" y1="385" x2="500" y2="385" />
-              <text className="aa-v21-svg-label" x="512" y="378">PATCH</text>
-              <text className="aa-v21-svg-sub" x="512" y="398">WEAR</text>
-            </>
-          )}
-        </svg>
-
-        <div className="aa-v21-tyre-scale" aria-hidden="true">
-          <span>INNER</span>
-          <i />
-          <span>CENTRE</span>
-          <i />
-          <span>OUTER</span>
+        <div className="aa-v22-stage-scale" aria-hidden="true">
+          <span>INNER</span><i /><span>CENTRE</span><i /><span>OUTER</span>
         </div>
       </div>
 
-      <div className="aa-v21-tyre-copy">
+      <div className="aa-v22-copy-panel">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={active}
@@ -415,7 +444,7 @@ export function TyreTreadLab() {
             <h3>{current.title}</h3>
             <p>{current.note}</p>
 
-            <div className="aa-v21-tyre-readout">
+            <div className="aa-v22-readout">
               <span>{current.metricLabel}</span>
               <b>{current.metric}</b>
               <small>VISUAL GUIDE</small>
@@ -423,7 +452,7 @@ export function TyreTreadLab() {
           </motion.div>
         </AnimatePresence>
 
-        <div className="aa-v21-tyre-tabs">
+        <div className="aa-v22-tabs">
           {states.map((state, index) => (
             <button
               type="button"
@@ -434,6 +463,7 @@ export function TyreTreadLab() {
             >
               <span>0{index + 1}</span>
               <b>{state.label}</b>
+              <small>{index === 0 ? "Balanced wear" : index === 1 ? "Shoulder wear" : "Irregular wear"}</small>
             </button>
           ))}
         </div>
