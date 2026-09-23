@@ -1204,807 +1204,219 @@
 
 
 /* =========================================================
-   V17 — TRUE 3D WHEEL ALIGNMENT VISUAL
+   V20 — SIMPLE FRONT-FACING TYRE ALIGNMENT
+   No canvas, no WebGL, no 3D model.
    ========================================================= */
 
-.aa-v17-wheel3d-lab{
-  min-height:590px!important;
-  grid-template-columns:minmax(0,1.42fr) minmax(300px,.58fr)!important;
-  background:#080a0c;
-  border-radius:26px!important;
-  overflow:hidden;
-  border:1px solid rgba(9,11,13,.13)!important;
-  box-shadow:0 34px 90px rgba(20,24,28,.2)!important;
-}
-
-.aa-v17-wheel3d-stage{
-  position:relative;
-  min-height:590px!important;
-  overflow:hidden;
-  isolation:isolate;
-  background:#080a0c!important;
-}
-
-.aa-v17-wheel3d-stage:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:2;
-  pointer-events:none;
-  background:
-    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
-  background-size:52px 52px;
-  mask-image:linear-gradient(to bottom,rgba(0,0,0,.7),transparent 72%);
-}
-
-.aa-v17-wheel3d-stage:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:2;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at 30% 36%,rgba(215,255,52,.08),transparent 24%),
-    linear-gradient(0deg,rgba(6,8,10,.93) 0%,rgba(6,8,10,.05) 48%,rgba(6,8,10,.1) 100%);
-}
-
-.aa-v17-wheel3d-canvas{
-  position:absolute;
-  inset:0;
-  z-index:1;
-}
-
-.aa-v17-wheel3d-canvas canvas{
-  display:block;
-  width:100%!important;
-  height:100%!important;
-  touch-action:pan-y;
-}
-
-.aa-v17-wheel3d-hud{
-  position:absolute;
-  z-index:4;
-  top:22px;
-  left:24px;
-  right:24px;
-  display:grid;
-  grid-template-columns:auto 1fr auto;
-  gap:14px;
-  align-items:center;
-  pointer-events:none;
-}
-
-.aa-v17-wheel3d-hud span,
-.aa-v17-wheel3d-hud b{
-  color:rgba(255,255,255,.72)!important;
-  font-size:7px;
-  font-weight:800;
-  letter-spacing:.17em;
-}
-
-.aa-v17-wheel3d-hud i{
-  height:1px;
-  background:linear-gradient(90deg,rgba(215,255,52,.7),rgba(255,255,255,.09));
-}
-
-.aa-v17-wheel3d-corner{
-  position:absolute;
-  z-index:4;
-  width:42px;
-  height:42px;
-  pointer-events:none;
-}
-.aa-v17-wheel3d-corner.corner-a{
-  top:70px;
-  right:24px;
-  border-top:1px solid rgba(215,255,52,.58);
-  border-right:1px solid rgba(215,255,52,.58);
-}
-.aa-v17-wheel3d-corner.corner-b{
-  left:24px;
-  bottom:24px;
-  border-left:1px solid rgba(215,255,52,.34);
-  border-bottom:1px solid rgba(215,255,52,.34);
-}
-
-.aa-v17-wheel3d-readout{
-  z-index:5!important;
-  left:28px!important;
-  right:auto!important;
-  bottom:28px!important;
-  width:min(620px,calc(100% - 56px))!important;
-  max-width:none!important;
-  padding:26px 28px 28px!important;
-  border:1px solid rgba(255,255,255,.17)!important;
-  background:linear-gradient(145deg,rgba(8,10,12,.84),rgba(8,10,12,.66))!important;
-  box-shadow:0 18px 60px rgba(0,0,0,.2);
-  backdrop-filter:blur(18px);
-}
-
-.aa-v17-wheel3d-readout small{
-  display:block;
-  margin-bottom:12px;
-  color:rgba(215,255,52,.82)!important;
-  font-size:8px!important;
-  letter-spacing:.16em!important;
-}
-
-.aa-v17-wheel3d-readout strong{
-  display:block;
-  max-width:540px;
-  color:#fff!important;
-  font-size:clamp(3rem,5vw,5.4rem)!important;
-  line-height:.88!important;
-  letter-spacing:-.065em!important;
-}
-
-.aa-v17-wheel3d-readout p{
-  margin:16px 0 0!important;
-  color:rgba(255,255,255,.72)!important;
-}
-
-.aa-v17-wheel3d-controls{
-  display:grid!important;
-  grid-template-rows:repeat(3,1fr)!important;
-  min-height:590px;
-  background:#0c0f12!important;
-}
-
-.aa-v17-wheel3d-controls button{
-  position:relative;
-  display:grid!important;
-  grid-template-columns:34px 1fr;
-  grid-template-rows:auto auto;
-  align-content:center;
-  gap:5px 10px;
-  min-height:0!important;
-  padding:24px 26px!important;
-  text-align:left;
-  overflow:hidden;
-}
-
-.aa-v17-wheel3d-controls button span{
-  grid-row:1/3;
-  align-self:start;
-  color:rgba(255,255,255,.42);
-  font-size:7px;
-  font-weight:800;
-  letter-spacing:.12em;
-}
-
-.aa-v17-wheel3d-controls button b{
-  color:#fff;
-  font-size:14px;
-  font-weight:650;
-  letter-spacing:-.02em;
-}
-
-.aa-v17-wheel3d-controls button small{
-  color:rgba(255,255,255,.5);
-  font-size:9px;
-  line-height:1.35;
-}
-
-.aa-v17-wheel3d-controls button:after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  height:2px;
-  transform:scaleX(0);
-  transform-origin:left;
-  background:#d7ff34;
-  transition:transform .45s cubic-bezier(.16,1,.3,1);
-}
-
-.aa-v17-wheel3d-controls button.is-active:after{
-  transform:scaleX(1);
-}
-
-.aa-v17-wheel3d-controls button.is-active span,
-.aa-v17-wheel3d-controls button.is-active b,
-.aa-v17-wheel3d-controls button.is-active small{
-  color:#080a0c!important;
-}
-
-.aa-v17-wheel3d-loading{
-  position:absolute;
-  inset:0;
-  z-index:1;
-  display:grid;
-  place-items:center;
-  align-content:center;
-  gap:14px;
-  background:#080a0c;
-}
-
-.aa-v17-wheel3d-loading span{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  border:1px solid rgba(255,255,255,.16);
-  border-top-color:#d7ff34;
-  animation:aaV17WheelLoad .9s linear infinite;
-}
-
-.aa-v17-wheel3d-loading b{
-  color:rgba(255,255,255,.58);
-  font-size:8px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-}
-
-@keyframes aaV17WheelLoad{to{transform:rotate(360deg)}}
-
-@media(max-width:900px){
-  .aa-v17-wheel3d-lab{
-    grid-template-columns:1fr!important;
-    min-height:0!important;
-  }
-
-  .aa-v17-wheel3d-stage{
-    min-height:540px!important;
-  }
-
-  .aa-v17-wheel3d-controls{
-    min-height:0;
-    grid-template-columns:repeat(3,1fr)!important;
-    grid-template-rows:1fr!important;
-  }
-
-  .aa-v17-wheel3d-controls button{
-    min-height:112px!important;
-    padding:18px!important;
-    grid-template-columns:1fr;
-    grid-template-rows:auto auto auto;
-  }
-
-  .aa-v17-wheel3d-controls button span{
-    grid-row:auto;
-  }
-}
-
-@media(max-width:640px){
-  .aa-v17-wheel3d-stage{
-    min-height:500px!important;
-  }
-
-  .aa-v17-wheel3d-hud{
-    left:14px;
-    right:14px;
-    top:16px;
-  }
-
-  .aa-v17-wheel3d-hud b{
-    display:none;
-  }
-
-  .aa-v17-wheel3d-readout{
-    left:14px!important;
-    bottom:14px!important;
-    width:calc(100% - 28px)!important;
-    padding:20px!important;
-  }
-
-  .aa-v17-wheel3d-readout strong{
-    font-size:clamp(2.4rem,11vw,3.8rem)!important;
-  }
-
-  .aa-v17-wheel3d-controls{
-    grid-template-columns:1fr!important;
-  }
-
-  .aa-v17-wheel3d-controls button{
-    min-height:84px!important;
-    grid-template-columns:28px 1fr;
-    grid-template-rows:auto auto;
-  }
-
-  .aa-v17-wheel3d-controls button span{
-    grid-row:1/3;
-  }
-}
-
-@media(prefers-reduced-motion:reduce){
-  .aa-v17-wheel3d-loading span{
-    animation:none;
-  }
-}
-
-
-/* =========================================================
-   V18 — SIMPLE SINGLE-TYRE ALIGNMENT VISUAL
-   ========================================================= */
-
-.aa-v18-simple-tyre-lab{
+.aa-v20-alignment-lab{
   min-height:520px!important;
-  grid-template-columns:minmax(0,1.45fr) minmax(270px,.55fr)!important;
-  border-radius:24px!important;
+  grid-template-columns:minmax(0,1.45fr) minmax(260px,.55fr)!important;
   overflow:hidden;
-  background:#f1efe8!important;
-  border:1px solid rgba(9,11,13,.11)!important;
-  box-shadow:0 26px 70px rgba(20,24,28,.14)!important;
+  border-radius:24px!important;
+  background:#f2f0e9!important;
+  border:1px solid rgba(9,11,13,.1)!important;
+  box-shadow:0 24px 64px rgba(20,24,28,.12)!important;
 }
 
-.aa-v18-simple-tyre-stage{
+.aa-v20-alignment-stage{
   position:relative;
   min-height:520px;
   overflow:hidden;
-  background:#f1efe8;
+  background:#f2f0e9;
 }
 
-.aa-v18-tyre-canvas{
+.aa-v20-tyre-graphic{
   position:absolute;
-  inset:0;
+  inset:12px 22px 88px;
+  width:calc(100% - 44px);
+  height:calc(100% - 100px);
 }
 
-.aa-v18-tyre-canvas canvas{
-  display:block;
-  width:100%!important;
-  height:100%!important;
-  touch-action:pan-y;
-}
-
-.aa-v18-simple-tyre-label{
-  position:absolute;
-  z-index:3;
-  left:24px;
-  bottom:24px;
-  width:min(430px,calc(100% - 48px));
-  padding:20px 22px 22px;
-  background:rgba(8,10,12,.9);
-  border:1px solid rgba(255,255,255,.12);
-  backdrop-filter:blur(10px);
-}
-
-.aa-v18-simple-tyre-label small{
-  display:block;
-  margin-bottom:9px;
-  color:#d7ff34!important;
-  font-size:7px!important;
-  font-weight:800;
-  letter-spacing:.16em;
-}
-
-.aa-v18-simple-tyre-label strong{
-  display:block;
-  color:#fff!important;
-  font-size:clamp(2rem,4vw,4rem)!important;
-  line-height:.92!important;
-  letter-spacing:-.055em!important;
-}
-
-.aa-v18-simple-tyre-label p{
-  margin:12px 0 0!important;
-  color:rgba(255,255,255,.68)!important;
-  font-size:11px!important;
-  line-height:1.5!important;
-}
-
-.aa-v18-simple-tyre-controls{
-  display:grid;
-  grid-template-rows:repeat(3,1fr);
-  background:#0b0e11;
-}
-
-.aa-v18-simple-tyre-controls button{
-  display:grid;
-  grid-template-columns:34px 1fr;
-  align-items:center;
-  gap:10px;
-  min-height:0;
-  padding:24px 22px;
-  border:0;
-  border-bottom:1px solid rgba(255,255,255,.12);
-  background:#0b0e11;
-  color:#fff;
-  text-align:left;
-  transition:
-    background .25s ease,
-    color .25s ease,
-    transform .25s cubic-bezier(.16,1,.3,1);
-}
-
-.aa-v18-simple-tyre-controls button:last-child{
-  border-bottom:0;
-}
-
-.aa-v18-simple-tyre-controls button span{
-  color:rgba(255,255,255,.38);
-  font-size:7px;
-  font-weight:800;
-  letter-spacing:.12em;
-}
-
-.aa-v18-simple-tyre-controls button b{
-  color:#fff;
-  font-size:14px;
-  font-weight:650;
-}
-
-.aa-v18-simple-tyre-controls button.is-active{
-  background:#d7ff34;
-  color:#080a0c;
-}
-
-.aa-v18-simple-tyre-controls button.is-active span,
-.aa-v18-simple-tyre-controls button.is-active b{
-  color:#080a0c!important;
-}
-
-@media(hover:hover) and (pointer:fine){
-  .aa-v18-simple-tyre-controls button:not(.is-active):hover{
-    background:#14181b;
-  }
-}
-
-@media(max-width:900px){
-  .aa-v18-simple-tyre-lab{
-    grid-template-columns:1fr!important;
-    min-height:0!important;
-  }
-
-  .aa-v18-simple-tyre-stage{
-    min-height:500px;
-  }
-
-  .aa-v18-simple-tyre-controls{
-    grid-template-columns:repeat(3,1fr);
-    grid-template-rows:1fr;
-  }
-
-  .aa-v18-simple-tyre-controls button{
-    min-height:96px;
-    border-bottom:0;
-    border-right:1px solid rgba(255,255,255,.12);
-  }
-
-  .aa-v18-simple-tyre-controls button:last-child{
-    border-right:0;
-  }
-}
-
-@media(max-width:640px){
-  .aa-v18-simple-tyre-stage{
-    min-height:430px;
-  }
-
-  .aa-v18-simple-tyre-label{
-    left:14px;
-    right:14px;
-    bottom:14px;
-    width:auto;
-    padding:18px;
-  }
-
-  .aa-v18-simple-tyre-label strong{
-    font-size:clamp(2rem,10vw,3.2rem)!important;
-  }
-
-  .aa-v18-simple-tyre-controls{
-    grid-template-columns:1fr;
-  }
-
-  .aa-v18-simple-tyre-controls button{
-    min-height:72px;
-    border-right:0;
-    border-bottom:1px solid rgba(255,255,255,.12);
-  }
-
-  .aa-v18-simple-tyre-controls button:last-child{
-    border-bottom:0;
-  }
-}
-
-
-/* =========================================================
-   V19 — FRONT TYRE + SIMPLE ALIGNMENT MEASUREMENT
-   ========================================================= */
-
-.aa-v19-alignment-lab{
-  min-height:540px!important;
-  grid-template-columns:minmax(0,1.5fr) minmax(275px,.5fr)!important;
-  overflow:hidden;
-  border-radius:24px!important;
-  background:#f1efe8!important;
-  border:1px solid rgba(9,11,13,.1)!important;
-  box-shadow:0 26px 72px rgba(20,24,28,.14)!important;
-}
-
-.aa-v19-alignment-stage{
-  position:relative;
-  min-height:540px;
-  overflow:hidden;
-  isolation:isolate;
-  background:#f1efe8;
-}
-
-.aa-v19-tyre-canvas{
-  position:absolute;
-  inset:0;
-  z-index:0;
-}
-
-.aa-v19-tyre-canvas canvas{
-  display:block;
-  width:100%!important;
-  height:100%!important;
-  touch-action:pan-y;
-}
-
-.aa-v19-measure-overlay{
-  position:absolute;
-  inset:0;
-  z-index:2;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-}
-
-.aa-v19-axis{
+.aa-v20-ground-shadow{fill:rgba(0,0,0,.11)}
+.aa-v20-tyre-body{fill:none;stroke:#111315;stroke-width:92}
+.aa-v20-tread-ring{
   fill:none;
-  stroke:#0b0e11;
-  stroke-width:1.35;
+  stroke:#292c2e;
+  stroke-width:21;
+  stroke-dasharray:13 8;
+  stroke-linecap:round;
+}
+.aa-v20-sidewall-ring{fill:none;stroke:#222426;stroke-width:2}
+.aa-v20-tyre-hole{fill:#f2f0e9}
+.aa-v20-inner-edge{fill:none;stroke:#282b2d;stroke-width:8}
+
+.aa-v20-centre-line,
+.aa-v20-cross-line,
+.aa-v20-angle-line,
+.aa-v20-angle-arc,
+.aa-v20-wear-pointer{
+  fill:none;
   vector-effect:non-scaling-stroke;
 }
-
-.aa-v19-axis-center{
-  opacity:.2;
-  stroke-dasharray:8 9;
+.aa-v20-centre-line{
+  stroke:#111315;
+  stroke-width:1.3;
+  stroke-dasharray:7 8;
+  opacity:.25;
 }
-
-.aa-v19-axis-cross{
-  opacity:.09;
-}
-
-.aa-v19-measure-line,
-.aa-v19-measure-arc,
-.aa-v19-wear-guide{
+.aa-v20-cross-line{stroke:#111315;stroke-width:1;opacity:.08}
+.aa-v20-angle-line{stroke:#9bb900;stroke-width:2}
+.aa-v20-angle-arc{stroke:#111315;stroke-width:1.5;opacity:.65}
+.aa-v20-wear-highlight{
   fill:none;
-  stroke:#9ab800;
-  stroke-width:2;
-  vector-effect:non-scaling-stroke;
-}
-
-.aa-v19-measure-arc{
-  stroke:#0b0e11;
-  opacity:.72;
-}
-
-.aa-v19-wear-guide{
   stroke:#d7ff34;
-  stroke-width:7;
-  opacity:.9;
+  stroke-width:15;
+  stroke-linecap:round;
 }
-
-.aa-v19-measure-text,
-.aa-v19-wear-text{
+.aa-v20-wear-pointer{stroke:#9bb900;stroke-width:2}
+.aa-v20-measure-text{
   fill:#0b0e11;
-  font-family:inherit;
-  font-size:13px;
-  font-weight:800;
-  letter-spacing:.1em;
-}
-
-.aa-v19-wear-text{
   font-size:10px;
+  font-weight:800;
+  letter-spacing:.11em;
 }
 
-.aa-v19-measure-card{
+.aa-v20-measure-card{
   position:absolute;
-  z-index:4;
-  left:22px;
-  bottom:22px;
-  width:min(560px,calc(100% - 44px));
+  z-index:2;
+  left:20px;
+  right:20px;
+  bottom:20px;
   display:grid;
   grid-template-columns:minmax(0,1fr) auto;
-  gap:22px;
   align-items:end;
-  padding:20px 20px 19px;
+  gap:20px;
+  padding:17px 19px;
+  background:#0b0e11;
   color:#fff;
-  background:rgba(8,10,12,.92);
-  border:1px solid rgba(255,255,255,.12);
-  backdrop-filter:blur(12px);
 }
 
-.aa-v19-measure-copy small{
+.aa-v20-measure-card>div>small{
   display:block;
-  margin-bottom:8px;
+  margin-bottom:6px;
   color:#d7ff34!important;
   font-size:7px!important;
   font-weight:800;
   letter-spacing:.16em;
 }
 
-.aa-v19-measure-copy strong{
+.aa-v20-measure-card strong{
   display:block;
   color:#fff!important;
-  font-size:clamp(1.9rem,3.4vw,3.4rem)!important;
-  line-height:.92!important;
-  letter-spacing:-.055em!important;
+  font-size:clamp(1.75rem,3vw,3rem)!important;
+  line-height:.94!important;
+  letter-spacing:-.05em!important;
 }
 
-.aa-v19-measure-copy p{
+.aa-v20-measure-card p{
   max-width:360px;
-  margin:10px 0 0!important;
-  color:rgba(255,255,255,.68)!important;
+  margin:8px 0 0!important;
+  color:rgba(255,255,255,.65)!important;
   font-size:10px!important;
-  line-height:1.5!important;
+  line-height:1.45!important;
 }
 
-.aa-v19-measure-value{
-  min-width:112px;
-  padding-left:18px;
-  border-left:1px solid rgba(255,255,255,.14);
+.aa-v20-measure-card aside{
+  min-width:105px;
+  padding-left:16px;
+  border-left:1px solid rgba(255,255,255,.13);
   text-align:right;
 }
 
-.aa-v19-measure-value span,
-.aa-v19-measure-value small{
+.aa-v20-measure-card aside span,
+.aa-v20-measure-card aside small{
   display:block;
-  color:rgba(255,255,255,.46)!important;
+  color:rgba(255,255,255,.43)!important;
   font-size:6px!important;
   font-weight:800;
-  letter-spacing:.14em;
+  letter-spacing:.13em;
 }
 
-.aa-v19-measure-value b{
+.aa-v20-measure-card aside b{
   display:block;
-  margin:6px 0 5px;
+  margin:5px 0 4px;
   color:#d7ff34!important;
-  font-size:28px;
+  font-size:25px;
   line-height:1;
-  letter-spacing:-.045em;
+  letter-spacing:-.04em;
 }
 
-.aa-v19-alignment-controls{
+.aa-v20-alignment-controls{
   display:grid;
   grid-template-rows:repeat(3,1fr);
-  min-height:540px;
+  min-height:520px;
   background:#0b0e11;
 }
 
-.aa-v19-alignment-controls button{
+.aa-v20-alignment-controls button{
   display:grid;
-  grid-template-columns:34px 1fr;
+  grid-template-columns:32px 1fr;
   grid-template-rows:auto auto;
   align-content:center;
-  gap:4px 10px;
-  padding:22px;
+  gap:4px 9px;
+  padding:20px;
   border:0;
   border-bottom:1px solid rgba(255,255,255,.12);
-  color:#fff;
   background:#0b0e11;
   text-align:left;
-  transition:
-    background .25s ease,
-    color .25s ease,
-    transform .25s cubic-bezier(.16,1,.3,1);
 }
 
-.aa-v19-alignment-controls button:last-child{
-  border-bottom:0;
-}
-
-.aa-v19-alignment-controls button span{
+.aa-v20-alignment-controls button:last-child{border-bottom:0}
+.aa-v20-alignment-controls button span{
   grid-row:1/3;
-  align-self:start;
-  color:rgba(255,255,255,.38);
+  color:rgba(255,255,255,.36);
   font-size:7px;
   font-weight:800;
-  letter-spacing:.12em;
 }
-
-.aa-v19-alignment-controls button b{
-  color:#fff;
-  font-size:14px;
-  font-weight:650;
-  letter-spacing:-.02em;
-}
-
-.aa-v19-alignment-controls button small{
-  color:rgba(255,255,255,.48);
-  font-size:8px;
-  line-height:1.3;
-}
-
-.aa-v19-alignment-controls button.is-active{
-  background:#d7ff34;
-  color:#080a0c;
-}
-
-.aa-v19-alignment-controls button.is-active span,
-.aa-v19-alignment-controls button.is-active b,
-.aa-v19-alignment-controls button.is-active small{
-  color:#080a0c!important;
-}
+.aa-v20-alignment-controls button b{color:#fff;font-size:14px;font-weight:650}
+.aa-v20-alignment-controls button small{color:rgba(255,255,255,.48);font-size:8px}
+.aa-v20-alignment-controls button.is-active{background:#d7ff34}
+.aa-v20-alignment-controls button.is-active :is(span,b,small){color:#080a0c!important}
 
 @media(hover:hover) and (pointer:fine){
-  .aa-v19-alignment-controls button:not(.is-active):hover{
-    background:#15191c;
-  }
+  .aa-v20-alignment-controls button:not(.is-active):hover{background:#15191c}
 }
 
 @media(max-width:900px){
-  .aa-v19-alignment-lab{
-    grid-template-columns:1fr!important;
-    min-height:0!important;
-  }
-
-  .aa-v19-alignment-stage{
-    min-height:510px;
-  }
-
-  .aa-v19-alignment-controls{
+  .aa-v20-alignment-lab{grid-template-columns:1fr!important;min-height:0!important}
+  .aa-v20-alignment-stage{min-height:500px}
+  .aa-v20-alignment-controls{
+    min-height:0;
     grid-template-columns:repeat(3,1fr);
     grid-template-rows:1fr;
-    min-height:0;
   }
-
-  .aa-v19-alignment-controls button{
-    min-height:100px;
+  .aa-v20-alignment-controls button{
+    min-height:92px;
     border-bottom:0;
     border-right:1px solid rgba(255,255,255,.12);
   }
-
-  .aa-v19-alignment-controls button:last-child{
-    border-right:0;
-  }
+  .aa-v20-alignment-controls button:last-child{border-right:0}
 }
 
 @media(max-width:640px){
-  .aa-v19-alignment-stage{
-    min-height:470px;
+  .aa-v20-alignment-stage{min-height:440px}
+  .aa-v20-tyre-graphic{
+    inset:8px 10px 132px;
+    width:calc(100% - 20px);
+    height:calc(100% - 140px);
   }
-
-  .aa-v19-measure-card{
-    left:14px;
-    right:14px;
-    bottom:14px;
-    width:auto;
-    grid-template-columns:1fr;
+  .aa-v20-measure-card{
+    left:12px;
+    right:12px;
+    bottom:12px;
+    grid-template-columns:1fr auto;
     gap:12px;
-    padding:16px;
+    padding:14px;
   }
-
-  .aa-v19-measure-copy strong{
-    font-size:clamp(1.8rem,9vw,2.8rem)!important;
-  }
-
-  .aa-v19-measure-value{
-    display:grid;
-    grid-template-columns:1fr auto auto;
-    align-items:center;
-    gap:10px;
-    min-width:0;
-    padding:10px 0 0;
-    border-left:0;
-    border-top:1px solid rgba(255,255,255,.12);
-    text-align:left;
-  }
-
-  .aa-v19-measure-value b{
-    margin:0;
-    font-size:21px;
-  }
-
-  .aa-v19-measure-overlay .aa-v19-measure-text{
-    font-size:11px;
-  }
-
-  .aa-v19-alignment-controls{
-    grid-template-columns:1fr;
-  }
-
-  .aa-v19-alignment-controls button{
-    min-height:72px;
+  .aa-v20-measure-card strong{font-size:clamp(1.55rem,8vw,2.35rem)!important}
+  .aa-v20-measure-card p{display:none}
+  .aa-v20-measure-card aside{min-width:84px;padding-left:11px}
+  .aa-v20-measure-card aside b{font-size:20px}
+  .aa-v20-alignment-controls{grid-template-columns:1fr}
+  .aa-v20-alignment-controls button{
+    min-height:70px;
     border-right:0;
     border-bottom:1px solid rgba(255,255,255,.12);
   }
-
-  .aa-v19-alignment-controls button:last-child{
-    border-bottom:0;
-  }
+  .aa-v20-alignment-controls button:last-child{border-bottom:0}
 }
