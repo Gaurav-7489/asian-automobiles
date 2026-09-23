@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -19,6 +20,25 @@ import { useState } from "react";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
+const aaModuleImages = {
+  service: [
+    "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1600&q=78",
+    "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1600&q=78",
+    "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1600&q=78",
+    "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=78",
+  ],
+  wheel: "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1700&q=78",
+  tyre: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1700&q=78",
+  parts: [
+    "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1600&q=78",
+    "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1600&q=78",
+    "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1600&q=78",
+    "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1600&q=78",
+    "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1600&q=78",
+  ],
+  accident: "https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=1500&q=78",
+};
+
 export function ServiceScanner() {
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
@@ -35,6 +55,10 @@ export function ServiceScanner() {
   return (
     <div className="aa-v11-service-scanner">
       <div className="aa-v11-scanner-screen">
+        <div className="aa-v16-module-photo aa-v16-scanner-photo" aria-hidden="true">
+          <Image key={active} src={aaModuleImages.service[active]} alt="" fill quality={74} sizes="(max-width: 900px) 100vw, 60vw" />
+          <i />
+        </div>
         <div className="aa-v11-scanner-grid" aria-hidden="true" />
         <div className="aa-v11-scanner-top">
           <span>VEHICLE / SERVICE INTAKE</span>
@@ -155,6 +179,10 @@ export function WheelGeometryLab() {
   return (
     <div className="aa-v11-geometry-lab">
       <div className={"aa-v11-geometry-stage mode-" + active}>
+        <div className="aa-v16-module-photo aa-v16-geometry-photo" aria-hidden="true">
+          <Image src={aaModuleImages.wheel} alt="" fill quality={76} sizes="(max-width: 900px) 100vw, 62vw" />
+          <i />
+        </div>
         <div className="aa-v11-geometry-axis axis-x" />
         <div className="aa-v11-geometry-axis axis-y" />
         <div className="aa-v11-car-outline">
@@ -190,6 +218,10 @@ export function TyreTreadLab() {
   return (
     <div className="aa-v11-tyre-lab">
       <div className={"aa-v11-tread-visual tread-" + active} aria-hidden="true">
+        <div className="aa-v16-module-photo aa-v16-tyre-photo">
+          <Image src={aaModuleImages.tyre} alt="" fill quality={76} sizes="(max-width: 900px) 100vw, 52vw" />
+          <i />
+        </div>
         <div className="aa-v11-tread">
           {Array.from({ length: 16 }).map((_, index) => <i key={index} />)}
         </div>
@@ -252,6 +284,10 @@ export function PartsFinder() {
         ))}
       </div>
       <div className="aa-v11-parts-stage">
+        <div className="aa-v16-module-photo aa-v16-parts-photo" aria-hidden="true">
+          <Image key={active} src={aaModuleImages.parts[active]} alt="" fill quality={76} sizes="(max-width: 900px) 100vw, 62vw" />
+          <i />
+        </div>
         <div className="aa-v11-parts-orbit" aria-hidden="true">
           <PackageSearch size={44} />
           <i /><i /><i />
@@ -335,7 +371,13 @@ export function AccidentIntakeStrip() {
 
   return (
     <div className="aa-v11-accident-strip">
-      <div className="aa-v11-accident-alert"><CircleAlert size={22} /><span>ACCIDENT INTAKE</span></div>
+      <div className="aa-v11-accident-alert">
+        <div className="aa-v16-accident-strip-photo" aria-hidden="true">
+          <Image src={aaModuleImages.accident} alt="" fill quality={72} sizes="300px" />
+          <i />
+        </div>
+        <CircleAlert size={22} /><span>ACCIDENT INTAKE</span>
+      </div>
       {items.map(([no, title, copy]) => (
         <div key={no}>
           <span>{no}</span>

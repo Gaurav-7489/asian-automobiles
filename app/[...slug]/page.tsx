@@ -1088,6 +1088,17 @@ function Gallery() {
     [img.car, "Body repair", "BODY"],
   ];
 
+  const categoryItems = [
+    [img.workshop, "Workshop", "SHOP FLOOR"],
+    [img.repair, "Vehicle Service", "SERVICE"],
+    [img.road, "Wheel Alignment", "GEOMETRY"],
+    [img.wheel, "Wheel Balancing", "PRECISION"],
+    [img.detail, "Mechanical Repairs", "DETAIL"],
+    [img.car, "Body Repair", "BODYWORK"],
+    [img.workshop, "Spare Parts", "PARTS"],
+    [img.detail, "Before & After", "RESULT"],
+  ];
+
   return (
     <Frame
       theme="gallery"
@@ -1111,11 +1122,25 @@ function Gallery() {
         </div>
       </section>
 
-      <section className="aa-v10-section aa-v10-soft">
-        <div className="wrap aa-v10-gallery-categories">
-          {["Workshop", "Vehicle Service", "Wheel Alignment", "Wheel Balancing", "Mechanical Repairs", "Body Repair", "Spare Parts", "Before & After"].map((label, index) => (
-            <div key={label}><span>{String(index + 1).padStart(2, "0")}</span><b>{label}</b></div>
-          ))}
+      <section className="aa-v10-section aa-v10-soft aa-v16-gallery-index-section">
+        <div className="wrap">
+          <div className="aa-v16-gallery-index-head">
+            <span className="eyebrow">EXPLORE BY WORK TYPE</span>
+            <p>Use these visual groups as a quicker way to scan the workshop story.</p>
+          </div>
+          <div className="aa-v10-gallery-categories aa-v16-gallery-categories">
+            {categoryItems.map(([image, label, meta], index) => (
+              <figure key={label} className="aa-v16-gallery-category">
+                <Image src={image} alt="" fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 25vw" />
+                <i />
+                <figcaption>
+                  <span>{String(index + 1).padStart(2, "0")} / {meta}</span>
+                  <b>{label}</b>
+                  <ArrowUpRight size={17} />
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </section>
     </Frame>

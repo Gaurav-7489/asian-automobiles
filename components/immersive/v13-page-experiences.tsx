@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import {
   ArrowUpRight,
@@ -17,6 +18,22 @@ import {
   Sparkles,
   Wrench,
 } from "lucide-react";
+
+const aaV13Visuals = {
+  about: [
+    "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1600&q=78",
+    "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1600&q=78",
+    "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1600&q=78",
+    "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1600&q=78",
+    "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=78",
+  ],
+  damage: [
+    "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=78",
+    "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1600&q=78",
+    "https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=1600&q=78",
+    "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1600&q=78",
+  ],
+};
 
 const serviceItems = [
   { no:"01", label:"Routine service", meta:"MAINTENANCE", title:"Service due?", copy:"Start with routine maintenance, fluids, filters and preventive checks.", icon:CalendarDays },
@@ -72,9 +89,15 @@ export function AboutTimeline(){
       </button>)}
     </div>
     <div className="aa-v13-about-readout">
+      <div className="aa-v16-about-photo" aria-hidden="true">
+        <Image key={active} src={aaV13Visuals.about[active]} alt="" fill quality={76} sizes="(max-width: 900px) 100vw, 42vw" />
+        <i />
+      </div>
+      <div className="aa-v16-about-copy">
       <span>{String(active+1).padStart(2,"0")} / {String(aboutItems.length).padStart(2,"0")}</span>
       <h3>{item.title}</h3>
       <p>{item.copy}</p>
+      </div>
     </div>
   </div>;
 }
@@ -91,6 +114,10 @@ export function BodyworkDamageGuide(){
   const item=damageItems[active];
   return <div className="aa-v13-damage-guide">
     <div className={"aa-v13-damage-stage damage-"+active}>
+      <div className="aa-v16-damage-photo" aria-hidden="true">
+        <Image key={active} src={aaV13Visuals.damage[active]} alt="" fill quality={76} sizes="(max-width: 900px) 100vw, 62vw" />
+        <i />
+      </div>
       <div className="aa-v13-car-silhouette" aria-hidden="true"><i/><i/><i/><i/></div>
       <div className="aa-v13-damage-target" aria-hidden="true"><span/><span/></div>
       <div className="aa-v13-damage-copy">

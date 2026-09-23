@@ -14,6 +14,14 @@ import { useRef, useState } from "react";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
+const aaTimelineImages = [
+  "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1700&q=78",
+  "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1700&q=78",
+  "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1700&q=78",
+  "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1700&q=78",
+  "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1700&q=78",
+];
+
 export function PageProgressRail() {
   const { scrollYProgress } = useScroll();
   const scaleY = useSpring(scrollYProgress, {
@@ -68,6 +76,10 @@ export function BlueprintTimeline({ items }: { items: BlueprintTimelineItem[] })
       </div>
 
       <div className="aa-blueprint-timeline-stage">
+        <div className="aa-v16-timeline-photo" aria-hidden="true">
+          <Image key={active} src={aaTimelineImages[active % aaTimelineImages.length]} alt="" fill quality={76} sizes="(max-width: 900px) 100vw, 64vw" />
+          <i />
+        </div>
         <AnimatePresence mode="wait" initial={false}>
           <motion.article
             key={items[active].no}
