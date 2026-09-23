@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -19,6 +20,19 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
+
+const WheelAlignment3D = dynamic(
+  () => import("./wheel-alignment-3d").then((mod) => mod.WheelAlignment3D),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="aa-v17-wheel3d-loading" aria-hidden="true">
+        <span />
+        <b>Loading 3D wheel geometry</b>
+      </div>
+    ),
+  },
+);
 
 const aaModuleImages = {
   service: [
@@ -170,38 +184,66 @@ export function ClimateConsole() {
 export function WheelGeometryLab() {
   const [active, setActive] = useState<"pull" | "center" | "wear">("pull");
   const labels = {
-    pull: ["PULLING", "Vehicle drifts left or right", "Alignment is a useful starting check."],
-    center: ["STEERING", "Wheel sits off-centre", "Wheel geometry can affect steering position."],
-    wear: ["TYRE WEAR", "Uneven wear pattern", "Tyre condition and geometry should be read together."],
+    pull: ["PULLING", "Vehicle drifts left or right", "The front tyres visibly steer away from the centre line."],
+    center: ["STEERING", "Wheel sits off-centre", "A small steering-angle offset is shown across both front wheels."],
+    wear: ["TYRE WEAR", "Uneven wear pattern", "Camber changes are exaggerated slightly so the tyre angle is easy to read."],
   } as const;
   const current = labels[active];
 
   return (
-    <div className="aa-v11-geometry-lab">
-      <div className={"aa-v11-geometry-stage mode-" + active}>
-        <div className="aa-v16-module-photo aa-v16-geometry-photo" aria-hidden="true">
-          <Image src={aaModuleImages.wheel} alt="" fill quality={76} sizes="(max-width: 900px) 100vw, 62vw" />
+    <div className="aa-v11-geometry-lab aa-v17-wheel3d-lab">
+      <div className={"aa-v11-geometry-stage aa-v17-wheel3d-stage mode-" + active}>
+        <WheelAlignment3D mode={active} />
+
+        <div className="aa-v17-wheel3d-hud" aria-hidden="true">
+          <span>LIVE 3D / WHEEL GEOMETRY</span>
           <i />
+          <b>{active === "wear" ? "CAMBER / CONTACT" : "TOE / STEERING"}</b>
         </div>
-        <div className="aa-v11-geometry-axis axis-x" />
-        <div className="aa-v11-geometry-axis axis-y" />
-        <div className="aa-v11-car-outline">
-          <span className="wheel w1" />
-          <span className="wheel w2" />
-          <span className="wheel w3" />
-          <span className="wheel w4" />
-          <i className="centre-line" />
-        </div>
-        <div className="aa-v11-geometry-readout">
+
+        <div className="aa-v17-wheel3d-corner corner-a" aria-hidden="true" />
+        <div className="aa-v17-wheel3d-corner corner-b" aria-hidden="true" />
+
+        <div className="aa-v11-geometry-readout aa-v17-wheel3d-readout">
           <small>{current[0]}</small>
           <strong>{current[1]}</strong>
           <p>{current[2]}</p>
         </div>
       </div>
-      <div className="aa-v11-geometry-controls">
-        <button type="button" onClick={() => setActive("pull")} className={active === "pull" ? "is-active" : ""}>01 / Pulling</button>
-        <button type="button" onClick={() => setActive("center")} className={active === "center" ? "is-active" : ""}>02 / Off-centre</button>
-        <button type="button" onClick={() => setActive("wear")} className={active === "wear" ? "is-active" : ""}>03 / Uneven wear</button>
+
+      <div className="aa-v11-geometry-controls aa-v17-wheel3d-controls">
+        <button
+          type="button"
+          aria-pressed={active === "pull"}
+          onClick={() => setActive("pull")}
+          className={active === "pull" ? "is-active" : ""}
+        >
+          <span>01</span>
+          <b>Pulling</b>
+          <small>Front wheels steer off-axis</small>
+        </button>
+
+        <button
+          type="button"
+          aria-pressed={active === "center"}
+          onClick={() => setActive("center")}
+          className={active === "center" ? "is-active" : ""}
+        >
+          <span>02</span>
+          <b>Off-centre</b>
+          <small>Steering angle offset</small>
+        </button>
+
+        <button
+          type="button"
+          aria-pressed={active === "wear"}
+          onClick={() => setActive("wear")}
+          className={active === "wear" ? "is-active" : ""}
+        >
+          <span>03</span>
+          <b>Uneven wear</b>
+          <small>Camber / contact patch</small>
+        </button>
       </div>
     </div>
   );
