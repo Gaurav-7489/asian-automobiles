@@ -185,26 +185,88 @@ export function WheelGeometryLab() {
   const [active, setActive] = useState<"pull" | "center" | "wear">("pull");
 
   const labels = {
-    pull: ["PULLING", "Tyre points slightly away", "A simple toe-angle example."],
-    center: ["OFF-CENTRE", "Tyre angle shifts", "A small steering offset shown visually."],
-    wear: ["UNEVEN WEAR", "Tyre leans on one edge", "A simple camber example with the affected tread highlighted."],
+    pull: {
+      eyebrow: "PULLING",
+      title: "Toe angle",
+      copy: "The tyre points away from the centre reference line.",
+      metric: "+2.3 mm",
+      metricLabel: "TOE EXAMPLE",
+    },
+    center: {
+      eyebrow: "OFF-CENTRE",
+      title: "Steering offset",
+      copy: "The wheel is shown slightly away from the straight-ahead position.",
+      metric: "4°",
+      metricLabel: "OFFSET EXAMPLE",
+    },
+    wear: {
+      eyebrow: "UNEVEN WEAR",
+      title: "Camber angle",
+      copy: "The tyre leans on one edge, showing where uneven wear can develop.",
+      metric: "-1.6°",
+      metricLabel: "CAMBER EXAMPLE",
+    },
   } as const;
 
   const current = labels[active];
 
   return (
-    <div className="aa-v11-geometry-lab aa-v18-simple-tyre-lab">
-      <div className="aa-v18-simple-tyre-stage">
+    <div className="aa-v11-geometry-lab aa-v19-alignment-lab">
+      <div className="aa-v19-alignment-stage">
         <WheelAlignment3D mode={active} />
 
-        <div className="aa-v18-simple-tyre-label">
-          <small>{current[0]}</small>
-          <strong>{current[1]}</strong>
-          <p>{current[2]}</p>
+        <svg
+          className={"aa-v19-measure-overlay mode-" + active}
+          viewBox="0 0 1000 700"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <line className="aa-v19-axis aa-v19-axis-center" x1="500" y1="72" x2="500" y2="620" />
+          <line className="aa-v19-axis aa-v19-axis-cross" x1="248" y1="350" x2="752" y2="350" />
+
+          {active === "pull" && (
+            <>
+              <line className="aa-v19-measure-line" x1="500" y1="120" x2="565" y2="185" />
+              <line className="aa-v19-measure-line" x1="500" y1="580" x2="565" y2="515" />
+              <path className="aa-v19-measure-arc" d="M500 156 A92 92 0 0 1 548 180" />
+              <text className="aa-v19-measure-text" x="582" y="180">TOE +2.3 mm</text>
+            </>
+          )}
+
+          {active === "center" && (
+            <>
+              <line className="aa-v19-measure-line" x1="500" y1="110" x2="545" y2="590" />
+              <path className="aa-v19-measure-arc" d="M500 150 A88 88 0 0 1 529 162" />
+              <text className="aa-v19-measure-text" x="558" y="166">OFFSET 4°</text>
+            </>
+          )}
+
+          {active === "wear" && (
+            <>
+              <line className="aa-v19-measure-line" x1="455" y1="115" x2="515" y2="590" />
+              <path className="aa-v19-measure-arc" d="M500 160 A88 88 0 0 0 466 170" />
+              <text className="aa-v19-measure-text" x="272" y="170">CAMBER -1.6°</text>
+              <line className="aa-v19-wear-guide" x1="355" y1="215" x2="355" y2="495" />
+              <text className="aa-v19-wear-text" x="274" y="518">INNER EDGE</text>
+            </>
+          )}
+        </svg>
+
+        <div className="aa-v19-measure-card" aria-live="polite">
+          <div className="aa-v19-measure-copy">
+            <small>{current.eyebrow}</small>
+            <strong>{current.title}</strong>
+            <p>{current.copy}</p>
+          </div>
+          <div className="aa-v19-measure-value">
+            <span>{current.metricLabel}</span>
+            <b>{current.metric}</b>
+            <small>ILLUSTRATIVE</small>
+          </div>
         </div>
       </div>
 
-      <div className="aa-v18-simple-tyre-controls">
+      <div className="aa-v19-alignment-controls">
         <button
           type="button"
           aria-pressed={active === "pull"}
@@ -213,6 +275,7 @@ export function WheelGeometryLab() {
         >
           <span>01</span>
           <b>Pulling</b>
+          <small>Toe angle</small>
         </button>
 
         <button
@@ -223,6 +286,7 @@ export function WheelGeometryLab() {
         >
           <span>02</span>
           <b>Off-centre</b>
+          <small>Steering offset</small>
         </button>
 
         <button
@@ -233,6 +297,7 @@ export function WheelGeometryLab() {
         >
           <span>03</span>
           <b>Uneven wear</b>
+          <small>Camber / edge wear</small>
         </button>
       </div>
     </div>
