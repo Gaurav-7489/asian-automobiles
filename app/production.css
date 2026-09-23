@@ -1512,3 +1512,188 @@
     animation:none;
   }
 }
+
+
+/* =========================================================
+   V18 — SIMPLE SINGLE-TYRE ALIGNMENT VISUAL
+   ========================================================= */
+
+.aa-v18-simple-tyre-lab{
+  min-height:520px!important;
+  grid-template-columns:minmax(0,1.45fr) minmax(270px,.55fr)!important;
+  border-radius:24px!important;
+  overflow:hidden;
+  background:#f1efe8!important;
+  border:1px solid rgba(9,11,13,.11)!important;
+  box-shadow:0 26px 70px rgba(20,24,28,.14)!important;
+}
+
+.aa-v18-simple-tyre-stage{
+  position:relative;
+  min-height:520px;
+  overflow:hidden;
+  background:#f1efe8;
+}
+
+.aa-v18-tyre-canvas{
+  position:absolute;
+  inset:0;
+}
+
+.aa-v18-tyre-canvas canvas{
+  display:block;
+  width:100%!important;
+  height:100%!important;
+  touch-action:pan-y;
+}
+
+.aa-v18-simple-tyre-label{
+  position:absolute;
+  z-index:3;
+  left:24px;
+  bottom:24px;
+  width:min(430px,calc(100% - 48px));
+  padding:20px 22px 22px;
+  background:rgba(8,10,12,.9);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(10px);
+}
+
+.aa-v18-simple-tyre-label small{
+  display:block;
+  margin-bottom:9px;
+  color:#d7ff34!important;
+  font-size:7px!important;
+  font-weight:800;
+  letter-spacing:.16em;
+}
+
+.aa-v18-simple-tyre-label strong{
+  display:block;
+  color:#fff!important;
+  font-size:clamp(2rem,4vw,4rem)!important;
+  line-height:.92!important;
+  letter-spacing:-.055em!important;
+}
+
+.aa-v18-simple-tyre-label p{
+  margin:12px 0 0!important;
+  color:rgba(255,255,255,.68)!important;
+  font-size:11px!important;
+  line-height:1.5!important;
+}
+
+.aa-v18-simple-tyre-controls{
+  display:grid;
+  grid-template-rows:repeat(3,1fr);
+  background:#0b0e11;
+}
+
+.aa-v18-simple-tyre-controls button{
+  display:grid;
+  grid-template-columns:34px 1fr;
+  align-items:center;
+  gap:10px;
+  min-height:0;
+  padding:24px 22px;
+  border:0;
+  border-bottom:1px solid rgba(255,255,255,.12);
+  background:#0b0e11;
+  color:#fff;
+  text-align:left;
+  transition:
+    background .25s ease,
+    color .25s ease,
+    transform .25s cubic-bezier(.16,1,.3,1);
+}
+
+.aa-v18-simple-tyre-controls button:last-child{
+  border-bottom:0;
+}
+
+.aa-v18-simple-tyre-controls button span{
+  color:rgba(255,255,255,.38);
+  font-size:7px;
+  font-weight:800;
+  letter-spacing:.12em;
+}
+
+.aa-v18-simple-tyre-controls button b{
+  color:#fff;
+  font-size:14px;
+  font-weight:650;
+}
+
+.aa-v18-simple-tyre-controls button.is-active{
+  background:#d7ff34;
+  color:#080a0c;
+}
+
+.aa-v18-simple-tyre-controls button.is-active span,
+.aa-v18-simple-tyre-controls button.is-active b{
+  color:#080a0c!important;
+}
+
+@media(hover:hover) and (pointer:fine){
+  .aa-v18-simple-tyre-controls button:not(.is-active):hover{
+    background:#14181b;
+  }
+}
+
+@media(max-width:900px){
+  .aa-v18-simple-tyre-lab{
+    grid-template-columns:1fr!important;
+    min-height:0!important;
+  }
+
+  .aa-v18-simple-tyre-stage{
+    min-height:500px;
+  }
+
+  .aa-v18-simple-tyre-controls{
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows:1fr;
+  }
+
+  .aa-v18-simple-tyre-controls button{
+    min-height:96px;
+    border-bottom:0;
+    border-right:1px solid rgba(255,255,255,.12);
+  }
+
+  .aa-v18-simple-tyre-controls button:last-child{
+    border-right:0;
+  }
+}
+
+@media(max-width:640px){
+  .aa-v18-simple-tyre-stage{
+    min-height:430px;
+  }
+
+  .aa-v18-simple-tyre-label{
+    left:14px;
+    right:14px;
+    bottom:14px;
+    width:auto;
+    padding:18px;
+  }
+
+  .aa-v18-simple-tyre-label strong{
+    font-size:clamp(2rem,10vw,3.2rem)!important;
+  }
+
+  .aa-v18-simple-tyre-controls{
+    grid-template-columns:1fr;
+  }
+
+  .aa-v18-simple-tyre-controls button{
+    min-height:72px;
+    border-right:0;
+    border-bottom:1px solid rgba(255,255,255,.12);
+  }
+
+  .aa-v18-simple-tyre-controls button:last-child{
+    border-bottom:0;
+  }
+}
