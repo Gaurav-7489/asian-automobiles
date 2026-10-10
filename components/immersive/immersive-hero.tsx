@@ -126,8 +126,8 @@ export function ImmersiveHero() {
 
             <div className="aa-hero2-bottom">
               <p>
-                Independent multi-brand car service, accident restoration, wheel and tyre
-                services, and automobile spare-parts enquiries in {businessFacts.address.locality}.
+                Your independent multi-brand workshop in {businessFacts.address.locality}.
+                Tell us what needs attention. We’ll help you plan the next step.
               </p>
 
               <div className="aa-hero2-actions">
