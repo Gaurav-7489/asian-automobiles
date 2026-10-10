@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
@@ -12,8 +15,33 @@ export type StackService = {
 };
 
 export function SkiperServiceStack({ services }: { services: StackService[] }) {
+  const stackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const stack = stackRef.current;
+    if (!stack) return;
+    const cards = Array.from(stack.querySelectorAll<HTMLElement>(".aa-skip-card"));
+    // Taller cards scroll fully into view before pinning. Measure only when
+    // the layout changes, keeping native scrolling off the React render path.
+    const updatePin = () => {
+      const tallest = Math.max(...cards.map((card) => card.offsetHeight));
+      const headerGap = window.innerWidth > 1320 ? 92 : 82;
+      const quickActionsHeight = document.querySelector(".aa-mobile-actions")?.getBoundingClientRect().height ?? 0;
+      const bottomGap = quickActionsHeight > 0 ? quickActionsHeight + 16 : 24;
+      stack.style.setProperty("--stack-pin", `${Math.min(headerGap, window.innerHeight - tallest - bottomGap - (cards.length - 1) * 5)}px`);
+    };
+    const observer = new ResizeObserver(updatePin);
+    cards.forEach((card) => observer.observe(card));
+    window.addEventListener("resize", updatePin);
+    updatePin();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", updatePin);
+    };
+  }, []);
+
   return (
-    <div className="aa-skip-stack">
+    <div ref={stackRef} className="aa-skip-stack">
       {services.map((service, index) => (
         <article
           className="aa-skip-card"
@@ -38,7 +66,7 @@ export function SkiperServiceStack({ services }: { services: StackService[] }) {
               alt=""
               fill
               quality={72}
-              sizes="(max-width: 800px) 92vw, 52vw"
+              sizes="(max-width: 560px) 92vw, (max-width: 1320px) 48vw, 52vw"
             />
             <div className="aa-skip-card-no">{service.no}</div>
           </div>

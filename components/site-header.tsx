@@ -32,6 +32,10 @@ const navLinks = [
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileGroup, setMobileGroup] = useState<"services" | "workshop" | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [servicePreview, setServicePreview] = useState(0);
   const [scrolled, setScrolled] = useState(false);
@@ -67,6 +71,7 @@ export function SiteHeader() {
 
   useEffect(() => {
     setMenuOpen(false);
+    setMobileGroup(null);
     setServicesOpen(false);
   }, [pathname]);
 
@@ -76,8 +81,30 @@ export function SiteHeader() {
     const previousHtmlOverflow = document.documentElement.style.overflow;
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
+    panelRef.current?.querySelector<HTMLButtonElement>("button")?.focus();
+    const onTab = (event: KeyboardEvent) => {
+      if (event.key !== "Tab") return;
+      const controls = Array.from(headerRef.current?.querySelectorAll<HTMLElement>("a[href], button") ?? [])
+        .filter((element) => !element.closest("[inert]") && element.getClientRects().length > 0 && getComputedStyle(element).visibility !== "hidden");
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    };
+    const onResize = () => {
+      if (window.innerWidth > 1320) setMenuOpen(false);
+    };
+    document.addEventListener("keydown", onTab);
+    window.addEventListener("resize", onResize);
 
     return () => {
+      document.removeEventListener("keydown", onTab);
+      window.removeEventListener("resize", onResize);
       document.body.style.overflow = previousBodyOverflow;
       document.documentElement.style.overflow = previousHtmlOverflow;
     };
@@ -86,7 +113,10 @@ export function SiteHeader() {
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setMenuOpen(false);
+        if (menuOpen) {
+          setMenuOpen(false);
+          menuButtonRef.current?.focus();
+        }
         setServicesOpen(false);
       }
     };
@@ -95,7 +125,7 @@ export function SiteHeader() {
       window.removeEventListener("keydown", onKeyDown);
       if (closeTimer.current) clearTimeout(closeTimer.current);
     };
-  }, []);
+  }, [menuOpen]);
 
   const servicesActive =
     pathname.startsWith("/services") || pathname.startsWith("/spare-parts");
@@ -109,6 +139,7 @@ export function SiteHeader() {
   return (
     <>
       <header
+        ref={headerRef}
         className={`aa-header aa-header-v4 aa-header-v5 ${scrolled ? "is-scrolled" : ""} ${menuOpen ? "is-open" : ""} ${servicesOpen ? "is-services-open" : ""}`}
       >
         <div className="aa-nav-main">
@@ -268,9 +299,12 @@ export function SiteHeader() {
               </Link>
               <button
                 data-magnetic
+                ref={menuButtonRef}
+                type="button"
                 className="aa-menu-button"
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={menuOpen}
+                aria-controls="aa-mobile-navigation"
                 onClick={() => setMenuOpen((value) => !value)}
               >
                 {menuOpen ? <X size={19} /> : <Menu size={19} />}
@@ -279,35 +313,63 @@ export function SiteHeader() {
           </div>
         </div>
 
-        <div className="aa-mobile-panel">
+        <nav
+          ref={panelRef}
+          id="aa-mobile-navigation"
+          className="aa-mobile-panel aa-expandable-menu"
+          aria-label="Expanded navigation"
+          inert={!menuOpen}
+          data-lenis-prevent
+          onClick={(event) => {
+            if ((event.target as HTMLElement).closest("a")) {
+              setMenuOpen(false);
+              setMobileGroup(null);
+            }
+          }}
+        >
           <div className="aa-mobile-panel-inner">
-            <div className="aa-mobile-service-list">
-              <span className="aa-mobile-label">SERVICES / START WITH THE NEED</span>
-              {serviceLinks.map(([label, href], index) => (
-                <Link href={href} key={href} prefetch={false}>
-                  <span>0{index + 1}</span>
-                  <b>{label}</b>
-                  <ArrowUpRight size={16} />
-                </Link>
-              ))}
+            <div className="aa-menu-intro">
+              <span className="aa-mobile-label">YOUR WORKSHOP, ONE TAP AWAY</span>
+              <p>Where shall we start?</p>
             </div>
-
-            <div className="aa-mobile-primary-links">
-              {navLinks.map(([label, href], index) => (
-                <Link href={href} key={href} prefetch={false}>
-                  <span>0{index + 8}</span>
-                  <b>{label}</b>
-                  <ArrowUpRight size={16} />
-                </Link>
-              ))}
+            <div className="aa-menu-groups">
+              {(["services", "workshop"] as const).map((group) => {
+                const expanded = mobileGroup === group;
+                return (
+                  <div className={`aa-menu-group ${expanded ? "is-expanded" : ""}`} key={group}>
+                    <button
+                      type="button"
+                      id={`aa-menu-${group}-toggle`}
+                      aria-expanded={expanded}
+                      aria-controls={`aa-menu-${group}-links`}
+                      onClick={() => setMobileGroup(expanded ? null : group)}
+                    >
+                      <span className="aa-menu-group-icon">{group === "services" ? <CalendarDays size={20} /> : <MapPin size={20} />}</span>
+                      <span><b>{group === "services" ? "Services & repairs" : "Inside the workshop"}</b><small>{group === "services" ? "Find the right care for your car" : "Our story, spaces & customer experiences"}</small></span>
+                      <ChevronDown size={20} />
+                    </button>
+                    <div className="aa-menu-group-reveal" inert={!expanded}>
+                      <div>
+                        <div className="aa-menu-group-links" id={`aa-menu-${group}-links`} aria-labelledby={`aa-menu-${group}-toggle`}>
+                          {(group === "services" ? serviceLinks : navLinks).map(([label, href]) => (
+                            <Link href={href} key={href} prefetch={false} aria-current={pathname === href ? "page" : undefined}>
+                              <span>{label}</span><ArrowUpRight size={16} />
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-
-            <div className="aa-mobile-menu-actions">
-              <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={15} /> Call workshop</a>
-              <Link href="/book-service/" prefetch={false}><CalendarDays size={15} /> Book a service</Link>
+            <div className="aa-menu-booking">
+              <span>LET’S GET YOU BACK ON THE ROAD</span>
+              <Link href="/book-service/" prefetch={false}>Book a service <ArrowUpRight size={22} /></Link>
+              <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={15} /> Speak to the workshop</a>
             </div>
           </div>
-        </div>
+        </nav>
       </header>
 
       {innerPage && (
