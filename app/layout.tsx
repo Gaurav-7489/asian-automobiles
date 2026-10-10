@@ -13,10 +13,9 @@ import "./contrast-v14.css";
 import "./production.css";
 import "./connected-flow.css";
 import "./responsive-layout.css";
-import "./mobile-focus.css";
+import "./mobile-attraction.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { MobilePageFocus } from "@/components/mobile-page-focus";
 import { InteractiveLayer } from "@/components/interactive";
 import { SmoothScroll } from "@/components/immersive/smooth-scroll";
 import { businessFacts } from "@/lib/business-facts";
@@ -73,7 +72,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <SmoothScroll />
         <InteractiveLayer />
         <SiteHeader />
-        <MobilePageFocus />
         {children}
         <SiteFooter />
       </body>
