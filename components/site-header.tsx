@@ -139,10 +139,7 @@ export function SiteHeader() {
                   className={servicesActive ? "is-active" : ""}
                   aria-expanded={servicesOpen}
                   aria-controls="aa-service-mega-menu"
-                  onClick={() => {
-                    if (servicesOpen) setServicesOpen(false);
-                    else openServices();
-                  }}
+                  onClick={openServices}
                 >
                   <span>Services</span> <ChevronDown size={14} />
                 </button>

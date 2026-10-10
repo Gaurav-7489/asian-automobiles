@@ -1,0 +1,409 @@
+/* Shared layout contract. These rules own sizing and alignment after the
+   legacy visual themes; important declarations resolve their older overrides. */
+:root {
+  --aa-page-gutter: clamp(16px, 4vw, 60px);
+  --aa-content-width: 1320px;
+  --aa-section-space: clamp(64px, 7vw, 112px);
+}
+
+.aa-inner-v10 #page-content,
+.aa-home #services { scroll-margin-top: 96px; }
+
+.aa-shell,
+.aa-inner-v10 .wrap,
+.aa-inner-v10 .aa-v10-hero-wrap,
+.aa-header-v5 .aa-header-inner,
+.aa-hero-v8 .aa-hero2-shell {
+  width: min(var(--aa-content-width), calc(100% - 2 * var(--aa-page-gutter))) !important;
+  margin-inline: auto !important;
+}
+
+:is(.aa-home, .aa-inner-v10, .aa-footer) :is(h1, h2, h3, h4) {
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+
+:is(.aa-home, .aa-inner-v10) p {
+  text-wrap: pretty;
+}
+
+:is(.aa-home, .aa-inner-v10) :is(a, button) > svg,
+.aa-footer svg {
+  flex-shrink: 0;
+}
+
+.aa-home :is(.aa-section, .aa-section-dark),
+.aa-inner-v10 .aa-v10-body > .aa-v10-section {
+  padding-block: var(--aa-section-space) !important;
+}
+
+.aa-home :is(.aa-section-head h2, .aa-home-workshop-copy h2),
+.aa-inner-v10 :is(.aa-v10-section-head h2, .aa-v10-endcap h2, .aa-v10-lead-copy h2) {
+  font-size: clamp(2rem, 4.4vw, 4.5rem) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.045em !important;
+  text-wrap: balance;
+}
+
+.aa-home .aa-section-head {
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.aa-home .aa-section-head .aa-count {
+  flex-shrink: 0;
+  padding-top: 6px;
+}
+
+/* One column inside the heading: label, title and introduction share an edge.
+   Size the title from its own column, rather than from the whole viewport. */
+.aa-inner-v10 .aa-v10-head {
+  min-height: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.aa-inner-v10 .aa-v10-hero-wrap {
+  min-height: 0 !important;
+  padding-top: 124px !important;
+  padding-bottom: 40px !important;
+}
+
+.aa-inner-v10 .aa-v10-hero-layout {
+  grid-template-columns: minmax(0, 1.45fr) minmax(300px, .75fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 72px) !important;
+  margin-top: 40px !important;
+}
+
+.aa-inner-v10 .creative-heading {
+  display: block;
+  container-type: inline-size;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.aa-inner-v10 .creative-heading > .eyebrow {
+  max-width: 100%;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.aa-inner-v10 .creative-heading h1 {
+  margin: 24px 0 0 !important;
+  font-size: clamp(2rem, 10.5cqi, 6.25rem) !important;
+  line-height: 1.04 !important;
+  letter-spacing: -.05em !important;
+  text-wrap: balance !important;
+}
+
+.aa-inner-v10 .creative-heading > p {
+  max-width: 58ch !important;
+  margin: 24px 0 0 !important;
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+}
+
+.aa-inner-v10 .creative-compass {
+  margin-top: 40px !important;
+  line-height: 1.5;
+}
+
+.aa-inner-v10 .aa-v15-photo-hero {
+  min-height: clamp(260px, 26vw, 360px) !important;
+}
+
+.aa-inner-v10 .aa-v15-photo-hero > strong {
+  top: 50px !important;
+  max-width: calc(100% - 40px) !important;
+  line-height: 1.1 !important;
+}
+
+.aa-inner-v10 .aa-v15-photo-hero > .aa-v15-photo-index {
+  top: 18px !important;
+  right: 18px !important;
+}
+
+.aa-inner-v10 :is(.aa-v10-button, .aa-connected-action, .aa-router-actions a),
+.aa-home :is(.aa-light-button, .aa-text-link) {
+  max-width: 100%;
+  min-height: 44px;
+  white-space: normal;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.aa-inner-v10 .aa-v10-inline-actions {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.aa-inner-v10 :is(.aa-v10-feature-card h3, .aa-v10-signal-card h3) {
+  font-size: clamp(1.5rem, 2.2vw, 2.25rem) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -.035em !important;
+}
+
+/* Readouts use their own available width and stay in normal flow. Their
+   height can grow when a tab contains more copy or the user enlarges text. */
+.aa-inner-v10 :is(.aa-v11-scanner-focus, .aa-v11-parts-details,
+  .aa-v13-damage-copy, .aa-v16-about-copy, .aa-blueprint-timeline-stage > article) {
+  position: relative !important;
+  inset: auto !important;
+  width: auto;
+  max-width: none !important;
+  margin: clamp(16px, 2.4vw, 32px);
+  padding: clamp(20px, 2.5vw, 32px) !important;
+  container-type: inline-size;
+}
+
+.aa-inner-v10 :is(.aa-v11-scanner-screen, .aa-v11-parts-stage,
+  .aa-v13-damage-stage, .aa-v13-about-readout, .aa-blueprint-timeline-stage) {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+}
+
+.aa-inner-v10 .aa-blueprint-timeline-stage { padding: 0; }
+
+.aa-inner-v10 :is(.aa-v10-photo-copy, .aa-v10-address-card,
+  .aa-v10-faq-aside, .aa-v10-insurance-bridge > div,
+  .aa-v10-two-col > .aa-v10-section-head) { container-type: inline-size; }
+
+.aa-inner-v10 :is(.aa-v10-photo-copy h2, .aa-v10-address-card h2,
+  .aa-v10-faq-aside h2, .aa-v10-insurance-bridge h2,
+  .aa-v10-two-col > .aa-v10-section-head h2) {
+  font-size: clamp(1.75rem, 7cqi, 3.25rem) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -.04em !important;
+}
+
+.aa-inner-v10 .aa-v10-soft .aa-v13-about-line button b,
+.aa-inner-v10 .aa-v13-about-readout .aa-v16-about-copy h3 { color: #fff !important; }
+.aa-inner-v10 .aa-v13-about-readout .aa-v16-about-copy p,
+.aa-inner-v10 .aa-v10-soft .aa-v13-about-line button span { color: #c7ccc5 !important; }
+
+.aa-header-v5 .aa-brand-name b {
+  font-size: 11px !important;
+  line-height: 1.4;
+  letter-spacing: .08em !important;
+}
+.aa-header-v5 .aa-brand-name small { font-size: 8px; line-height: 1.5; }
+
+@media (min-width: 1321px) {
+  .aa-header-v5 .aa-mega {
+    position: fixed;
+    left: 50% !important;
+    top: 94px !important;
+    max-height: calc(100svh - 110px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .aa-header-v5.is-scrolled .aa-mega { top: 80px !important; }
+}
+
+.aa-inner-v10 :is(.aa-v11-scanner-focus strong, .aa-v11-parts-details h3,
+  .aa-v13-damage-copy h3, .aa-v16-about-copy h3,
+  .aa-blueprint-timeline-stage article h3, .aa-v13-service-stage-copy h3,
+  .aa-v13-floor-readout h3, .aa-v13-review-stage h3, .aa-v22-copy-panel h3) {
+  font-size: clamp(1.75rem, 6.8cqi, 3.5rem) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.04em !important;
+}
+
+.aa-inner-v10 :is(.aa-v13-service-stage-copy, .aa-v13-floor-readout,
+  .aa-v13-review-stage, .aa-v22-copy-panel) {
+  container-type: inline-size;
+}
+
+.aa-inner-v10 .aa-v10-paper .aa-v22-copy-panel h3,
+.aa-inner-v10 .aa-v22-tabs button:not(.is-active) b {
+  color: #fff !important;
+}
+
+.aa-inner-v10 .aa-v10-paper .aa-v22-copy-panel p,
+.aa-inner-v10 .aa-v22-readout :is(span, small),
+.aa-inner-v10 .aa-v22-tabs button:not(.is-active) span {
+  color: #c7ccc5 !important;
+}
+
+.aa-inner-v10 .aa-v22-copy-panel > div:first-child > small {
+  color: #d7ff34 !important;
+}
+
+.aa-inner-v10 .aa-v10-lead-form :is(input, select, textarea) {
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 48px;
+}
+
+.aa-inner-v10 .aa-v10-lead-form label > span {
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* Homepage: readable line masks and natural card heights. */
+.aa-home .aa-hero2-copy h1 {
+  font-size: clamp(3rem, 9.2vw, 9rem) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -.055em !important;
+}
+
+.aa-home .aa-hero2-line,
+.aa-home .aa-hero2-line:nth-child(2) {
+  padding-left: 0 !important;
+  padding-bottom: .08em;
+}
+
+.aa-home .aa-hero2-sticky {
+  height: auto !important;
+  min-height: 100svh !important;
+}
+
+.aa-home .aa-hero2-shell {
+  height: auto;
+  min-height: 100svh;
+  padding-block: 124px 40px !important;
+}
+
+.aa-home .aa-hero2-copy {
+  margin-top: clamp(48px, 8svh, 88px) !important;
+  padding-bottom: 0 !important;
+}
+
+.aa-home .aa-hero2-bottom p {
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+}
+
+.aa-home .aa-hero2-scroll { margin-top: 28px; }
+
+.aa-home .aa-skip-card {
+  min-height: 0;
+}
+
+.aa-home .aa-skip-card-copy {
+  container-type: inline-size;
+  min-height: 0 !important;
+  padding: clamp(24px, 3vw, 44px) !important;
+}
+
+.aa-home .aa-skip-card h3 {
+  margin: 40px 0 20px;
+  font-size: clamp(1.75rem, 9cqi, 3.5rem) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.04em;
+}
+
+.aa-home .aa-skip-card-media {
+  min-height: 440px;
+}
+
+.aa-home .aa-workshop-story .aa-home-workshop-copy h2 em { color: #c8cdc3 !important; }
+.aa-home .aa-location-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.aa-home .aa-location-copy { container-type: inline-size; }
+.aa-home .aa-location-copy h2 {
+  font-size: clamp(2rem, 9cqi, 4rem) !important;
+  line-height: 1.08 !important;
+}
+
+.aa-footer .aa-footer-top { gap: clamp(24px, 5vw, 72px); }
+.aa-footer .aa-footer-wordmark {
+  font-size: clamp(1.75rem, 7.8vw, 7rem) !important;
+  line-height: 1.1 !important;
+  white-space: normal !important;
+}
+
+/* Avoid the old tablet rules applying horizontal controls inside a narrow
+   desktop side panel. Below this width all complex modules stack together. */
+@media (max-width: 1100px) {
+  .aa-inner-v10 .aa-v10-hero-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .aa-inner-v10 .creative-heading { max-width: 760px !important; }
+  .aa-inner-v10 .creative-heading h1 { font-size: clamp(2rem, 8cqi, 4.5rem) !important; }
+  .aa-inner-v10 .aa-v10-hero-side { grid-template-columns: minmax(0, 1fr) minmax(200px, .5fr); align-items: end; }
+  .aa-inner-v10 :is(.aa-v11-service-scanner, .aa-v11-climate-console,
+    .aa-v11-geometry-lab, .aa-v11-tyre-lab, .aa-v11-parts-finder,
+    .aa-v11-claim-deck, .aa-v13-about-timeline, .aa-blueprint-timeline,
+    .aa-v22-diagnostic-lab) {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .aa-inner-v10 .aa-v11-scanner-menu {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .aa-inner-v10 .aa-v11-scanner-menu button { min-height: 100px !important; }
+  .aa-inner-v10 .aa-v13-about-line {
+    order: 0;
+    min-height: 0 !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    padding: 28px 16px;
+    overflow: visible;
+  }
+  .aa-inner-v10 .aa-v13-about-line button { min-height: 120px; }
+  .aa-inner-v10 .aa-v13-about-readout { min-height: 360px !important; }
+  .aa-inner-v10 .aa-v11-gallery-wall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+    grid-auto-rows: minmax(280px, auto);
+  }
+  .aa-inner-v10 .aa-v11-gallery-tile {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 800px) {
+  .aa-home .aa-location-grid,
+  .aa-home .aa-home-workshop-grid { grid-template-columns: minmax(0, 1fr); }
+  .aa-home .aa-section-head { flex-direction: column; gap: 16px; }
+  .aa-home .aa-skip-card-media { min-height: 260px; aspect-ratio: 16 / 10; }
+  .aa-home .aa-home-workshop-photo { min-height: 320px; }
+  .aa-inner-v10 .aa-v10-hero-side { grid-template-columns: minmax(0, 1fr); }
+  .aa-inner-v10 .aa-v10-hero-actions { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .aa-inner-v10 .aa-v10-hero-actions > * { width: 100%; }
+  .aa-inner-v10 .aa-v15-photo-hero { min-height: 260px !important; }
+  .aa-inner-v10 .aa-v13-about-line { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .aa-inner-v10 .aa-v13-about-line::before { display: none; }
+  .aa-inner-v10 .aa-v13-about-line button {
+    min-height: 100px;
+    border: 1px solid #ffffff30;
+    padding: 12px 6px;
+  }
+  .aa-inner-v10 .aa-v13-about-line button.is-active { background: #ffffff12; }
+}
+
+@media (max-width: 560px) {
+  .aa-header-v5 .aa-brand-name b { font-size: 10px !important; max-width: none; }
+  .aa-header-v5 .aa-brand-name small { font-size: 7px; }
+  .aa-inner-v10 .aa-v10-hero-wrap { padding-top: 96px !important; padding-bottom: 32px !important; }
+  .aa-inner-v10 .aa-v10-hero-layout { margin-top: 24px !important; gap: 28px !important; }
+  .aa-inner-v10 .creative-heading h1 { font-size: clamp(2rem, 10.5cqi, 3.25rem) !important; }
+  .aa-inner-v10 .creative-heading > p { font-size: 15px !important; }
+  .aa-inner-v10 .aa-v10-hero-actions { grid-template-columns: minmax(0, 1fr) !important; }
+  .aa-inner-v10 .aa-v11-scanner-menu { grid-template-columns: minmax(0, 1fr) !important; }
+  .aa-inner-v10 .aa-v13-about-line { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .aa-inner-v10 .aa-v11-gallery-wall { grid-template-columns: minmax(0, 1fr); }
+  .aa-inner-v10 .aa-v11-gallery-tile figcaption { gap: 12px; flex-wrap: wrap; }
+  .aa-home .aa-hero-v8 { height: auto !important; }
+  .aa-home .aa-hero2-shell { padding-block: 96px 100px !important; }
+  .aa-home .aa-hero2-copy h1 { font-size: clamp(2.75rem, 13vw, 4.5rem) !important; }
+  .aa-home .aa-hero2-bottom p { font-size: 15px !important; }
+  .aa-home .aa-home-arrival { padding: 24px; }
+  .aa-home .aa-skip-card h3 { margin-top: 28px; }
+  .aa-footer .aa-footer-bottom { flex-wrap: wrap; line-height: 1.6; }
+}
+
+/* Landscape phones and enlarged text need natural height, not a cropped svh box. */
+@media (max-height: 650px) {
+  .aa-home .aa-hero-v8 { height: auto !important; }
+  .aa-home .aa-hero2-sticky { position: relative !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aa-scroll-reveal { opacity: 1 !important; transform: none !important; }
+}

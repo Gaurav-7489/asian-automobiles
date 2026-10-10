@@ -245,8 +245,8 @@ export function ScrollRevealSection({
   return (
     <motion.div
       ref={ref}
-      className={className}
-      initial={reduceMotion ? false : { opacity: 0, y: 26 }}
+      className={`aa-scroll-reveal ${className}`}
+      initial={reduceMotion ? false : { opacity: 1, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.58, ease }}
