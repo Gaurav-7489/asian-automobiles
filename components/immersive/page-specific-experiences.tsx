@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { bookingHref } from "@/lib/service-catalog";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -77,6 +79,7 @@ export function ServiceScanner() {
             <small>{current.tag}</small>
             <strong>{current.title}</strong>
             <p>{current.note}</p>
+            <Link className="aa-connected-action" href={bookingHref("car-service", undefined, current.title)}>Enquire about this symptom <ArrowRight size={15} /></Link>
           </motion.div>
         </AnimatePresence>
         <div className="aa-v11-scanner-meter" aria-hidden="true">
@@ -90,8 +93,6 @@ export function ServiceScanner() {
             type="button"
             key={item.value}
             className={active === index ? "is-active" : ""}
-            onPointerEnter={() => setActive(index)}
-            onFocus={() => setActive(index)}
             onClick={() => setActive(index)}
           >
             <span>{item.value}</span>
@@ -144,6 +145,7 @@ export function ClimateConsole() {
         <div className="aa-v11-climate-note">
           <Fan size={17} />
           <p>{current.copy}</p>
+          <Link className="aa-connected-action" href={bookingHref("car-ac-repair", undefined, current.label)}>Enquire about this symptom <ArrowRight size={15} /></Link>
         </div>
       </div>
 
@@ -152,8 +154,6 @@ export function ClimateConsole() {
           <button
             type="button"
             key={item.label}
-            onPointerEnter={() => setMode(index)}
-            onFocus={() => setMode(index)}
             onClick={() => setMode(index)}
             className={mode === index ? "is-active" : ""}
           >
@@ -356,6 +356,7 @@ export function WheelGeometryLab() {
             <small>{current.eyebrow}</small>
             <h3>{current.title}</h3>
             <p>{current.copy}</p>
+            <Link className="aa-connected-action" href={bookingHref("wheel-alignment", undefined, current.title)}>Enquire about this symptom <ArrowRight size={15} /></Link>
 
             <div className="aa-v22-readout">
               <span>{current.metricLabel}</span>
@@ -443,6 +444,7 @@ export function TyreTreadLab() {
             <small>{current.label}</small>
             <h3>{current.title}</h3>
             <p>{current.note}</p>
+            <Link className="aa-connected-action" href={bookingHref("tyre-services", undefined, current.title)}>Enquire about this symptom <ArrowRight size={15} /></Link>
 
             <div className="aa-v22-readout">
               <span>{current.metricLabel}</span>
@@ -491,8 +493,6 @@ export function PartsFinder() {
             type="button"
             key={group.label}
             className={active === index ? "is-active" : ""}
-            onPointerEnter={() => setActive(index)}
-            onFocus={() => setActive(index)}
             onClick={() => setActive(index)}
           >
             <span>0{index + 1}</span>
@@ -525,6 +525,7 @@ export function PartsFinder() {
               {groups[active].items.map((item) => <span key={item}>{item}</span>)}
             </div>
             <p>Availability and exact fitment should be confirmed for the vehicle before travel.</p>
+            <Link className="aa-connected-action" href={bookingHref("spare-parts", undefined, groups[active].label + " parts")}>Enquire about these parts <ArrowRight size={15} /></Link>
           </motion.div>
         </AnimatePresence>
       </div>

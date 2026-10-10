@@ -38,7 +38,7 @@ export function SiteFooter() {
         <div className="aa-footer-bottom">
           <span>© {new Date().getFullYear()} Asian Automobiles</span>
           <span>{businessFacts.address.locality.toUpperCase()} / {businessFacts.address.region.toUpperCase()} / INDIA</span>
-          <Link href="/book-service/">Book service <ArrowUpRight size={12} /></Link>
+          <Link href="/faq/">Frequently asked questions <ArrowUpRight size={12} /></Link>
         </div>
       </div>
     </footer>

@@ -1,0 +1,37 @@
+/* Focused styles for shared service connections and the consolidated enquiry. */
+.aa-service-connections { padding-block: 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.aa-service-connections h2 { font-size: clamp(24px, 3vw, 40px); line-height: 1.15; margin-top: 12px; }
+.aa-service-connection-links { display: grid; gap: 12px; }
+.aa-service-connection-links a { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 20px; border: 1px solid #b9b6ae; color: #151515; background: #f5f3ed; text-decoration: none; }
+.aa-router-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.aa-router-actions a, .aa-connected-action { display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; background: #e8f27a; color: #111; border: 1px solid #c4cd61; text-decoration: none; font-size: 13px; font-weight: 600; }
+.aa-v13-floor-readout .aa-connected-action { margin-block: 16px; }
+.aa-v11-gallery-tile > a { display: block; position: absolute; inset: 0; color: inherit; }
+.aa-v11-gallery-tile figcaption b { display: flex; align-items: center; gap: 10px; }
+.aa-service-connections a:focus-visible, .aa-router-actions a:focus-visible, .aa-connected-action:focus-visible, .aa-v11-gallery-tile a:focus-visible { outline: 3px solid #556515; outline-offset: 4px; }
+@media (max-width: 700px) { .aa-service-connections { grid-template-columns: 1fr; padding-block: 40px; } }
+.aa-v11-gallery-tile::after { pointer-events: none; }
+.aa-v13-service-stage-copy { padding-bottom: 32px; }
+.aa-v13-service-stage-copy h3 { font-size: clamp(2.3rem, 4.5vw, 4.7rem); line-height: .98; }
+.aa-v11-gallery-tile figcaption { pointer-events: none; }
+/* Keep interactive choices and form fields fully readable while scrolling. */
+.aa-inner-v10 .aa-v10-section:has(.aa-v10-lead-shell, .aa-v13-service-board) > .wrap { animation: none !important; opacity: 1 !important; transform: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .aa-inner-v10 .creative-body > section > .wrap { animation: none !important; opacity: 1 !important; transform: none !important; }
+}
+.aa-home-workshop-grid { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: clamp(28px, 6vw, 80px); }
+.aa-home-workshop-photo { position: relative; min-height: 480px; margin: 0; overflow: hidden; }
+.aa-home-workshop-photo img { object-fit: cover; }
+.aa-home-workshop-photo figcaption { position: absolute; left: 20px; bottom: 20px; padding: 10px 14px; color: #fff; background: #111c; font-size: 11px; }
+.aa-home-workshop-copy h2 { color: #fff; font-size: clamp(38px, 5vw, 68px); line-height: 1.05; margin: 22px 0; }
+.aa-home-workshop-copy p, .aa-home-arrival p { color: #d4d4ce; line-height: 1.7; margin-bottom: 26px; }
+.aa-home-workshop-copy .aa-text-link { display: flex; width: fit-content; margin-top: 22px; color: #fff; }
+.aa-home-arrival { padding: clamp(28px, 5vw, 60px); border: 1px solid #ffffff32; }
+.aa-home-arrival > svg { color: #e8f27a; margin-bottom: 24px; }
+.aa-home-arrival h3 { color: #fff; font-size: clamp(28px, 3vw, 42px); line-height: 1.15; margin-block: 20px; }
+.aa-home-arrival p svg { vertical-align: middle; margin-right: 6px; }
+.aa-home-arrival .aa-text-link { color: #e8f27a; }
+@media (max-width: 800px) { .aa-home-workshop-grid { grid-template-columns: 1fr; } .aa-home-workshop-photo { min-height: 320px; } }
+.aa-home .aa-workshop-story { content-visibility: visible; contain-intrinsic-size: none; padding-top: clamp(72px, 8vw, 112px) !important; }
+.aa-home .aa-location-copy h2 { font-size: clamp(2.7rem, 5vw, 5.2rem) !important; line-height: 1 !important; }
+.aa-home .aa-location-copy h2 em { color: #d3d5ca; }

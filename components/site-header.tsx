@@ -15,27 +15,11 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { serviceCatalog, serviceImage } from "@/lib/service-catalog";
 import { businessFacts, directionsHref } from "@/lib/business-facts";
 
-const serviceLinks = [
-  ["General service & repair", "/services/car-service/", "Routine / mechanical"],
-  ["Car AC service & repair", "/services/car-ac-repair/", "AC / service"],
-  ["Accident repair", "/services/accident-repair/", "Accident / restoration"],
-  ["Denting & painting", "/services/denting-painting/", "Denting / painting"],
-  ["Wheel alignment", "/services/wheel-alignment/", "Computerized / balancing"],
-  ["Tyre services", "/services/tyre-services/", "Tyre repair / rim repair"],
-  ["Automobile spare parts", "/spare-parts/", "Parts / enquiry"],
-];
-
-const servicePreviewImages = [
-  "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1000&q=72",
-  "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1000&q=72",
-  "https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=1000&q=72",
-  "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1000&q=72",
-  "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1000&q=72",
-  "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1000&q=72",
-  "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1000&q=72",
-];
+const serviceLinks = serviceCatalog.map((service) => [service.title, service.href, service.meta]);
+const servicePreviewImages = serviceCatalog.map((service) => serviceImage(service));
 
 const navLinks = [
   ["Insurance", "/insurance/"],
