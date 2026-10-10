@@ -1,0 +1,55 @@
+/*
+ * Mobile attraction, not a separate simplified website.
+ * Keep the original cinematic hero and interactive modules.
+ * Phone-only editorial trimming; tablet and desktop stay unchanged.
+ */
+@media (max-width: 600px) {
+  /* Homepage: cinematic hero + the signature sticky service-card experience.
+     Remove the two additional long-form promotional chapters. */
+  .aa-home .aa-workshop-story,
+  .aa-home .aa-location { display: none !important; }
+  .aa-home .aa-hero-v8,
+  .aa-home .aa-hero2-sticky { overflow: visible; }
+  .aa-home .aa-services-v3 { padding-block: 62px 54px !important; }
+  .aa-home .aa-services-v3 .aa-section-head { margin-bottom: 24px; }
+  .aa-home .aa-services-v3 .aa-section-head h2 {
+    font-size: clamp(2.15rem, 10vw, 3.3rem) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -.055em;
+  }
+  .aa-home .aa-skip-card { border-radius: 18px; }
+  .aa-home .aa-skip-card-media { min-height: 140px !important; }
+  .aa-home .aa-skip-card-copy { min-height: 0 !important; }
+  /* Keep service-specific immersive visuals instead of replacing them with copy. */
+  .aa-inner-v10 .aa-v10-hero-wrap { padding-bottom: 38px !important; }
+  .aa-inner-v10 .aa-v10-hero-layout { gap: 26px !important; }
+  .aa-inner-v10 :is(.aa-v10-photo-hero, .aa-v15-photo-hero) {
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  /* Reduce editorial volume, not working interfaces: bookings, enquiry forms,
+     service controls and navigation remain available. */
+  .aa-inner-v10 :is(.aa-v10-kicker, .aa-v10-section-head) { max-width: 100%; }
+  .aa-inner-v10 :is(.aa-v10-section, .aa-v10-soft, .aa-v10-paper) {
+    padding-block: clamp(40px, 9vw, 64px);
+  }
+  .aa-inner-v10 :is(.aa-v10-feature-card, .aa-v10-signal-card) {
+    min-height: auto !important;
+  }
+  .aa-inner-v10 :is(.aa-v10-feature-card p, .aa-v10-signal-card p) {
+    line-height: 1.55;
+  }
+  /* Show one prominent stage without overpowering small devices. */
+  .aa-inner-v10 :is(.aa-v22-visual-stage, .aa-v13-damage-stage, .aa-v13-about-readout) {
+    min-height: clamp(270px, 78vw, 390px) !important;
+  }
+  .aa-inner-v10 .aa-v22-copy-panel {
+    min-height: auto !important;
+    padding: 22px !important;
+  }
+  .aa-inner-v10 :is(.aa-v22-tabs button, .aa-v13-about-line button) { min-height: 50px; }
+  .aa-footer .aa-footer-wordmark { font-size: clamp(2rem, 9vw, 3.5rem) !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aa-home .aa-skip-card { animation: none !important; }
+}
