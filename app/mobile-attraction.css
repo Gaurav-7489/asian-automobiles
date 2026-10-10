@@ -53,3 +53,54 @@
 @media (prefers-reduced-motion: reduce) {
   .aa-home .aa-skip-card { animation: none !important; }
 }
+
+/* V24 — small-screen essentials: visual first, action second. */
+@media (max-width: 600px) {
+  /* Keep the hero image and pinned service cards, not the long descriptions. */
+  .aa-home .aa-hero2-top .aa-hero2-status,
+  .aa-home .aa-hero-v8-meta,
+  .aa-home .aa-hero2-scroll,
+  .aa-home .aa-hero2-eyebrow { display: none !important; }
+  .aa-home .aa-hero2-bottom p {
+    max-width: 34ch !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+  }
+  .aa-home .aa-hero2-copy h1 { max-width: 100%; }
+  .aa-home .aa-section-head .aa-count { display: none !important; }
+  .aa-home .aa-skip-card p { display: none !important; }
+  .aa-home .aa-skip-card h3 { margin: 14px 0 20px !important; }
+  .aa-home .aa-skip-card-meta span:last-child { font-size: 9px; }
+  /* Trim secondary information without removing any forms, actions or controls. */
+  .aa-inner-v10 .creative-heading > p {
+    max-width: 38ch !important;
+    line-height: 1.5 !important;
+    font-size: 14px !important;
+  }
+  .aa-inner-v10 .aa-v10-hero-wrap { padding-bottom: 24px !important; }
+  .aa-inner-v10 .aa-v10-hero-side { gap: 12px !important; }
+  .aa-inner-v10 :is(.aa-v10-feature-grid, .aa-v10-signal-grid, .aa-v10-card-grid) > :nth-child(n+3) {
+    display: none !important;
+  }
+  .aa-inner-v10 :is(.aa-v10-section-head, .aa-v10-photo-copy) > p { max-width: 40ch; }
+  .aa-inner-v10 :is(.aa-v10-feature-card, .aa-v10-signal-card) p {
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+  }
+  /* Direct routes stay available at all times, even while visuals animate. */
+  .aa-mobile-actions {
+    display: grid !important;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .aa-mobile-actions a {
+    min-width: 0;
+    min-height: 54px;
+    justify-content: center;
+    gap: 6px;
+  }
+  .aa-footer .aa-footer-nav,
+  .aa-footer .aa-footer-wordmark { display: none !important; }
+  .aa-footer .aa-footer-top { gap: 24px !important; }
+  .aa-footer .aa-footer-bottom { margin-top: 24px !important; }
+}
