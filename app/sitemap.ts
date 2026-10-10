@@ -16,7 +16,6 @@ const routes = [
   "/gallery/",
   "/reviews/",
   "/book-service/",
-  "/request-quote/",
   "/contact/",
   "/faq/",
 ];

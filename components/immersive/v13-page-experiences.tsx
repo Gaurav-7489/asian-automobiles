@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { bookingHref, serviceCatalog } from "@/lib/service-catalog";
 import { useState } from "react";
 import {
   ArrowUpRight,
@@ -35,14 +37,11 @@ const aaV13Visuals = {
   ],
 };
 
-const serviceItems = [
-  { no:"01", label:"Routine service", meta:"MAINTENANCE", title:"Service due?", copy:"Start with routine maintenance, fluids, filters and preventive checks.", icon:CalendarDays },
-  { no:"02", label:"Noise / vibration", meta:"MECHANICAL", title:"Something feels different?", copy:"Describe the noise, vibration or change in behaviour in plain language.", icon:Wrench },
-  { no:"03", label:"AC cooling", meta:"CLIMATE", title:"Cabin not cooling?", copy:"Weak cooling, airflow or inconsistent AC performance can start here.", icon:Sparkles },
-  { no:"04", label:"Pulling / shaking", meta:"WHEELS", title:"Car pulling or vibrating?", copy:"Alignment, balancing, tyre wear and wheel-condition checks are the right route.", icon:Disc3 },
-  { no:"05", label:"Body damage", meta:"BODY", title:"Dent, scratch or impact?", copy:"Clear photos and one short note are enough to start a body-repair enquiry.", icon:CarFront },
-  { no:"06", label:"Need a part", meta:"PARTS", title:"Looking for a component?", copy:"Vehicle make, model, variant and year are the useful starting details.", icon:PackageSearch },
-];
+const serviceIcons = [Wrench, Sparkles, ShieldCheck, CarFront, Gauge, Disc3, PackageSearch];
+const serviceItems = serviceCatalog.map((service, index) => ({
+  ...service, no: String(index + 1).padStart(2, "0"), label: service.title,
+  copy: service.description, icon: serviceIcons[index],
+}));
 
 export function ServiceDecisionBoard(){
   const [active,setActive]=useState(0);
@@ -51,12 +50,16 @@ export function ServiceDecisionBoard(){
   return <div className="aa-v13-service-board">
     <div className="aa-v13-service-stage">
       <div className="aa-v13-service-grid" aria-hidden="true" />
-      <span className="aa-v13-kicker">LIVE SERVICE ROUTER / {item.no}</span>
+      <span className="aa-v13-kicker">CHOOSE A SERVICE / {item.no}</span>
       <div className="aa-v13-service-stage-copy">
         <Icon size={30}/>
         <small>{item.meta}</small>
         <h3>{item.title}</h3>
         <p>{item.copy}</p>
+        <div className="aa-router-actions">
+          <Link href={item.href}>Explore service <ArrowUpRight size={15} /></Link>
+          <Link href={bookingHref(item.id)}>Start enquiry <ArrowUpRight size={15} /></Link>
+        </div>
       </div>
       <div className="aa-v13-service-pulse" aria-hidden="true"><i/><i/><i/></div>
     </div>
@@ -132,6 +135,7 @@ export function BodyworkDamageGuide(){
   </div>;
 }
 
+const facilityHrefs = ["/services/car-service/", "/services/wheel-alignment/", "/services/tyre-services/", "/spare-parts/", "/contact/"];
 const facilityItems=[
   {no:"01",label:"Service floor",meta:"MAINTENANCE",copy:"Routine servicing and common mechanical work."},
   {no:"02",label:"Alignment zone",meta:"WHEEL GEOMETRY",copy:"Dedicated wheel-alignment workflow."},
@@ -155,6 +159,7 @@ export function WorkshopFloorExplorer(){
       <small>{item.no} / {item.meta}</small>
       <h3>{item.label}</h3>
       <p>{item.copy}</p>
+      <Link className="aa-connected-action" href={facilityHrefs[active]}>Explore this service area <ArrowUpRight size={15} /></Link>
       <span className="aa-v13-floor-note">Capabilities shown here are service categories, not an equipment-count claim.</span>
     </div>
   </div>;

@@ -1,0 +1,21 @@
+/* Focused styles for shared service connections and the consolidated enquiry. */
+.aa-service-connections { padding-block: 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.aa-service-connections h2 { font-size: clamp(24px, 3vw, 40px); line-height: 1.15; margin-top: 12px; }
+.aa-service-connection-links { display: grid; gap: 12px; }
+.aa-service-connection-links a { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 20px; border: 1px solid #b9b6ae; color: #151515; background: #f5f3ed; text-decoration: none; }
+.aa-router-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.aa-router-actions a, .aa-connected-action { display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; background: #e8f27a; color: #111; border: 1px solid #c4cd61; text-decoration: none; font-size: 13px; font-weight: 600; }
+.aa-v13-floor-readout .aa-connected-action { margin-block: 16px; }
+.aa-v11-gallery-tile > a { display: block; position: absolute; inset: 0; color: inherit; }
+.aa-v11-gallery-tile figcaption b { display: flex; align-items: center; gap: 10px; }
+.aa-service-connections a:focus-visible, .aa-router-actions a:focus-visible, .aa-connected-action:focus-visible, .aa-v11-gallery-tile a:focus-visible { outline: 3px solid #556515; outline-offset: 4px; }
+@media (max-width: 700px) { .aa-service-connections { grid-template-columns: 1fr; padding-block: 40px; } }
+.aa-v11-gallery-tile::after { pointer-events: none; }
+.aa-v13-service-stage-copy { padding-bottom: 32px; }
+.aa-v13-service-stage-copy h3 { font-size: clamp(2.3rem, 4.5vw, 4.7rem); line-height: .98; }
+.aa-v11-gallery-tile figcaption { pointer-events: none; }
+/* Keep interactive choices and form fields fully readable while scrolling. */
+.aa-inner-v10 .aa-v10-section:has(.aa-v10-lead-shell, .aa-v13-service-board) > .wrap { animation: none !important; opacity: 1 !important; transform: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .aa-inner-v10 .creative-body > section > .wrap { animation: none !important; opacity: 1 !important; transform: none !important; }
+}

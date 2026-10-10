@@ -1,22 +1,10 @@
 "use client";
 
 import { ArrowUpRight, Check, MessageCircle, Phone } from "lucide-react";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useState } from "react";
 import { businessFacts } from "@/lib/business-facts";
 
-type LeadMode = "service" | "quote" | "accident" | "parts";
-
-const serviceOptions = [
-  "General service",
-  "Mechanical repair",
-  "Wheel alignment",
-  "Wheel balancing / tyre",
-  "Car AC service",
-  "Brake / suspension",
-  "Body / accident repair",
-  "Spare parts",
-  "Not sure yet",
-];
+import { findService, serviceCatalog, type LeadMode } from "@/lib/service-catalog";
 
 const modeCopy: Record<LeadMode, { eyebrow: string; title: string; helper: string; button: string }> = {
   service: {
@@ -45,22 +33,21 @@ const modeCopy: Record<LeadMode, { eyebrow: string; title: string; helper: strin
   },
 };
 
-export function WhatsAppLeadForm({ mode = "service" }: { mode?: LeadMode }) {
+export function WhatsAppLeadForm({ mode: initialMode = "service", selectedService, detail = "", quote = false }: { mode?: LeadMode; selectedService?: string; detail?: string; quote?: boolean }) {
+  const [serviceId, setServiceId] = useState(selectedService ?? "");
+  const [intent, setIntent] = useState(quote || initialMode === "quote" ? "quote" : "service");
+  const service = findService(serviceId);
+  const mode: LeadMode = service?.mode === "parts" || service?.mode === "accident"
+    ? service.mode : intent === "quote" ? "quote" : service?.mode ?? "service";
   const copy = modeCopy[mode];
-  const [sent, setSent] = useState(false);
-
-  const intro = useMemo(() => {
-    if (mode === "parts") {
-      return "Hello Asian Automobiles, I would like to check the availability of a spare part.";
-    }
-    if (mode === "accident") {
-      return "Hello Asian Automobiles, I would like help with an accident / body-repair enquiry.";
-    }
-    if (mode === "quote") {
-      return "Hello Asian Automobiles, I would like to request a repair or parts quote.";
-    }
-    return "Hello Asian Automobiles, I would like to book a vehicle service.";
-  }, [mode]);
+  const [opened, setOpened] = useState(false);
+  const intro = mode === "parts"
+    ? "Hello Asian Automobiles, I would like to check the availability of a spare part."
+    : mode === "accident"
+      ? "Hello Asian Automobiles, I would like help with an accident / body-repair enquiry."
+      : mode === "quote"
+        ? "Hello Asian Automobiles, I would like to request a repair quote."
+        : "Hello Asian Automobiles, I would like to book a vehicle service.";
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -71,7 +58,9 @@ export function WhatsAppLeadForm({ mode = "service" }: { mode?: LeadMode }) {
       `Name: ${data.get("name") || "-"}`,
       `Phone: ${data.get("phone") || "-"}`,
       `Vehicle: ${data.get("vehicle") || "-"}`,
-      `Requirement: ${data.get("requirement") || "-"}`,
+      `Service: ${service?.title ?? "Not sure yet"}`,
+      `Request: ${intent === "quote" ? "Quote" : "Service / availability enquiry"}`,
+      `Requirement: ${data.get("requirement") || service?.title || "Please guide me"}`,
     ];
 
     const preferred = data.get("preferred");
@@ -89,7 +78,7 @@ export function WhatsAppLeadForm({ mode = "service" }: { mode?: LeadMode }) {
     }
 
     const href = `https://wa.me/${businessFacts.phones.whatsappHref}?text=${encodeURIComponent(lines.join("\n"))}`;
-    setSent(true);
+    setOpened(true);
     window.open(href, "_blank", "noopener,noreferrer");
   }
 
@@ -116,7 +105,7 @@ export function WhatsAppLeadForm({ mode = "service" }: { mode?: LeadMode }) {
 
         <label>
           <span>Phone</span>
-          <input name="phone" inputMode="tel" autoComplete="tel" placeholder="A number we can reach" required />
+          <input name="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="A number we can reach" required />
         </label>
 
         <label>
@@ -124,18 +113,25 @@ export function WhatsAppLeadForm({ mode = "service" }: { mode?: LeadMode }) {
           <input name="vehicle" placeholder="Make + model, e.g. Hyundai i20" required />
         </label>
 
-        {mode === "parts" ? (
+        <label>
+          <span>What do you need?</span>
+          <select name="service" value={serviceId} onChange={(event) => { setServiceId(event.target.value); if (findService(event.target.value)?.mode === "quote") setIntent("quote"); setOpened(false); }} required>
+            <option value="" disabled>Choose the closest match</option>
+            {serviceCatalog.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)}
+            <option value="unsure">Not sure yet</option>
+          </select>
+        </label>
+        <label>
+          <span>Request type</span>
+          <select name="intent" value={intent} onChange={(event) => { setIntent(event.target.value); setOpened(false); }}>
+            <option value="service">Service / availability enquiry</option>
+            <option value="quote">Request a quote</option>
+          </select>
+        </label>
+        {mode === "parts" && (
           <label>
             <span>Part needed</span>
-            <input name="requirement" placeholder="Part name or description" required />
-          </label>
-        ) : (
-          <label>
-            <span>What do you need?</span>
-            <select name="requirement" defaultValue="" required>
-              <option value="" disabled>Choose the closest match</option>
-              {serviceOptions.map((option) => <option key={option}>{option}</option>)}
-            </select>
+            <input name="requirement" defaultValue={selectedService === "spare-parts" ? detail : ""} placeholder="Part name or description" required />
           </label>
         )}
 
@@ -164,6 +160,7 @@ export function WhatsAppLeadForm({ mode = "service" }: { mode?: LeadMode }) {
           <span>{mode === "parts" ? "Vehicle / part details" : "Tell us what is happening"}</span>
           <textarea
             name="extra"
+            defaultValue={selectedService !== "spare-parts" ? detail : ""}
             placeholder={
               mode === "parts"
                 ? "Variant, model year, part number if known, or anything else useful."
@@ -173,12 +170,12 @@ export function WhatsAppLeadForm({ mode = "service" }: { mode?: LeadMode }) {
         </label>
 
         <button type="submit" className="aa-v10-submit">
-          <span>{sent ? "Open WhatsApp again" : copy.button}</span>
-          {sent ? <Check size={17} /> : <ArrowUpRight size={17} />}
+          <span>{opened ? "Open WhatsApp again" : copy.button}</span>
+          {opened ? <Check size={17} /> : <ArrowUpRight size={17} />}
         </button>
 
-        <small>
-          This prepares your message and opens WhatsApp. No form data is stored on this website.
+        <small role="status">
+          {opened && "WhatsApp handoff opened. "}This prepares your message and opens WhatsApp. Send the message in WhatsApp to complete your enquiry. The workshop must confirm any booking. No form data is stored on this website.
         </small>
       </form>
     </div>
