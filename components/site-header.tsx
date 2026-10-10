@@ -387,16 +387,8 @@ export function SiteHeader() {
 
       <nav className="aa-mobile-actions" aria-label="Quick actions">
         <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={15} /><span>Call</span></a>
-        {innerPage ? (
-          <a href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle size={15} /><span>WhatsApp</span></a>
-        ) : (
-          <Link href="/book-service/" prefetch={false}><CalendarDays size={15} /><span>Book</span></Link>
-        )}
-        {innerPage ? (
-          <Link href="/book-service/" prefetch={false}><CalendarDays size={15} /><span>Book</span></Link>
-        ) : (
-          <a href={directionsHref} target="_blank" rel="noreferrer"><MapPin size={15} /><span>Directions</span></a>
-        )}
+        <Link href="/book-service/" prefetch={false}><CalendarDays size={15} /><span>Book</span></Link>
+        <a href={directionsHref} target="_blank" rel="noreferrer"><MapPin size={15} /><span>Directions</span></a>
       </nav>
     </>
   );
