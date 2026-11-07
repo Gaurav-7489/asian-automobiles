@@ -1,12 +1,10 @@
 import { expect, test } from "./fixtures";
 
 const routes = [
-  "/", "/about/", "/services/", "/services/car-service/",
-  "/services/car-ac-repair/", "/services/accident-repair/",
-  "/services/denting-painting/", "/services/wheel-alignment/",
-  "/services/tyre-services/", "/spare-parts/", "/insurance/",
-  "/facilities/", "/gallery/", "/reviews/", "/contact/",
-  "/faq/", "/book-service/",
+  "/", "/about/", "/services/", "/services/car-service-maintenance/",
+  "/services/mechanical-repairs/", "/services/car-ac-service/",
+  "/services/wheel-alignment-balancing/", "/services/tyre-care/",
+  "/spare-parts/", "/contact/", "/privacy-policy/",
 ];
 
 const viewports = [
@@ -93,7 +91,7 @@ test("every timeline choice is visible and usable without horizontal scrolling",
 });
 
 test("tyre guide keeps its heading readable on the dark panel", async ({ page }) => {
-  await page.goto("/services/tyre-services/", { waitUntil: "networkidle" });
+  await page.goto("/services/tyre-care/", { waitUntil: "networkidle" });
   const heading = page.locator(".aa-v22-copy-panel h3");
   await expect(heading).toHaveCSS("color", "rgb(255, 255, 255)");
   await expect(page.locator(".aa-v22-copy-panel p").first()).toHaveCSS("color", "rgb(199, 204, 197)");

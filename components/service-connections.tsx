@@ -1,19 +1,19 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { findService, serviceCatalog } from "@/lib/service-catalog";
+import { findService } from "@/lib/service-catalog";
 
-export function ServiceConnections({ theme }: { theme: string }) {
-  const current = serviceCatalog.find((service) => service.theme === theme);
+/** Related services (spec 20.3.10): 2–3 links from the service's related list, published only. */
+export function ServiceConnections({ id }: { id: string }) {
+  const current = findService(id);
   if (!current) return null;
+  const related = current.related.map((r) => findService(r)).filter((s) => s !== undefined);
   return (
     <nav className="aa-service-connections wrap" aria-label="Related services">
-      <div><span className="eyebrow">RELATED SUPPORT</span><h2>Keep the next step connected.</h2></div>
+      <div><span className="eyebrow">RELATED SERVICES</span><h2>Keep the next step connected.</h2></div>
       <div className="aa-service-connection-links">
-        {current.related.map((id) => {
-          const service = findService(id)!;
-          return <Link key={id} href={service.href}>{service.title}<ArrowUpRight size={16} /></Link>;
-        })}
-        {current.id === "accident-repair" && <Link href="/insurance/">Insurance assistance<ArrowUpRight size={16} /></Link>}
+        {related.map((service) => (
+          <Link key={service.id} href={service.href}>{service.title}<ArrowUpRight size={16} /></Link>
+        ))}
         <Link href="/services/">All services<ArrowUpRight size={16} /></Link>
       </div>
     </nav>

@@ -21,9 +21,9 @@ export function EditorialHome() {
           <div className="aa-section-head">
             <div>
               <span className="aa-kicker">01 / EXPLORE SERVICES</span>
-              <h2 className="aa-view-reveal">Find the right support.<br /><em>Start with your car.</em></h2>
+              <h2 className="aa-view-reveal">Everything your car needs.<br /><em>From one workshop.</em></h2>
             </div>
-            <span className="aa-count">7 SERVICES</span>
+            <span className="aa-count">{services.length} SERVICES</span>
           </div>
           <SkiperServiceStack services={services} />
         </div>
@@ -34,17 +34,17 @@ export function EditorialHome() {
           <figure className="aa-home-workshop-photo">
             <Image
               src="https://images.unsplash.com/photo-1632823469850-1b7b1e8b7e3d?auto=format&fit=crop&w=1800&q=76"
-              alt="Automotive workshop reference imagery"
+              alt="Mechanic working on a car"
               fill quality={72} sizes="(max-width: 800px) 94vw, 55vw"
             />
-            <figcaption>Automotive reference imagery</figcaption>
+            <figcaption>Not a dealership. Cars of many makes.</figcaption>
           </figure>
           <div className="aa-home-workshop-copy">
-            <span className="aa-kicker aa-kicker-light">02 / BEHIND THE WORK</span>
-            <h2>Meet the workshop.<br /><em>Know the team.</em></h2>
-            <p>Get to know Asian Automobiles and explore the areas that support your visit.</p>
-            <Link data-magnetic prefetch={false} href="/about/" className="aa-light-button">Our story <ArrowUpRight size={15} /></Link>
-            <Link data-magnetic prefetch={false} href="/facilities/" className="aa-text-link">Explore facilities <ArrowUpRight size={15} /></Link>
+            <span className="aa-kicker aa-kicker-light">02 / ABOUT THE WORKSHOP</span>
+            <h2>An independent service centre.<br /><em>For cars of every make.</em></h2>
+            <p>We look after the routine servicing, repairs and maintenance that keep everyday cars running well, and help customers find the spare parts they need. We don’t sell cars — we look after the one you already drive.</p>
+            <Link data-magnetic prefetch={false} href="/about/" className="aa-light-button">More about us <ArrowUpRight size={15} /></Link>
+            <Link data-magnetic prefetch={false} href="/spare-parts/" className="aa-text-link">Looking for a part? <ArrowUpRight size={15} /></Link>
           </div>
         </div>
       </section>
@@ -62,8 +62,8 @@ export function EditorialHome() {
           <div className="aa-home-arrival">
             <MapPin size={24} />
             <span className="aa-kicker aa-kicker-light">BEFORE YOU SET OFF</span>
-            <h3>Near Government Rest House.</h3>
-            <p><Clock3 size={17} /> Call to confirm opening hours and availability before travelling.</p>
+            <h3>Near Government Rest House / Canara Bank.</h3>
+            <p><Clock3 size={17} /> {businessFacts.hours}. A quick call before you visit helps us plan time for your car.</p>
             <Link data-magnetic prefetch={false} href="/contact/" className="aa-text-link">Contact the workshop <ArrowUpRight size={15} /></Link>
           </div>
         </div>

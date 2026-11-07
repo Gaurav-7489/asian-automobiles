@@ -4,22 +4,14 @@ const routes = [
   "/",
   "/about/",
   "/services/",
-  "/services/car-service/",
-  "/services/car-ac-repair/",
-  "/services/accident-repair/",
-  "/services/denting-painting/",
-  "/services/wheel-alignment/",
-  "/services/tyre-services/",
+  "/services/car-service-maintenance/",
+  "/services/mechanical-repairs/",
+  "/services/car-ac-service/",
+  "/services/wheel-alignment-balancing/",
+  "/services/tyre-care/",
   "/spare-parts/",
-  "/services/spare-parts/",
-  "/insurance/",
-  "/facilities/",
-  "/gallery/",
-  "/reviews/",
   "/contact/",
-  "/faq/",
-  "/book-service/",
-  "/request-quote/",
+  "/privacy-policy/",
 ];
 
 for (const route of routes) {
@@ -72,7 +64,7 @@ test("mobile navigation opens, is usable, and closes", async ({ page }, testInfo
   const panel = page.locator(".aa-mobile-panel");
   await expect(panel).toBeVisible();
   await panel.getByRole("button", { name: /Services & repairs/ }).click();
-  await expect(panel.getByRole("link", { name: /General service & repair/i })).toBeVisible();
+  await expect(panel.getByRole("link", { name: /Car service & maintenance/i })).toBeVisible();
 
   await page.getByRole("button", { name: "Close menu" }).click();
   await expect(page.locator(".aa-header-v5")).not.toHaveClass(/is-open/);

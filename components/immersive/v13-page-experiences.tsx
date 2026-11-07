@@ -75,11 +75,11 @@ export function ServiceDecisionBoard(){
 }
 
 const aboutItems=[
-  {year:"1996",label:"START",title:"Local automotive roots",copy:"Asian Automobiles is presented as an established Irinjalakuda automotive business with service and parts as its two connected pillars."},
-  {year:"SERVICE",label:"WORKSHOP",title:"Multi-brand vehicle support",copy:"Routine maintenance, mechanical repair and problem-led vehicle enquiries sit at the centre of the workshop experience."},
-  {year:"WHEELS",label:"PRECISION",title:"Alignment, balancing and tyre care",copy:"Wheel-related work has its own dedicated service path instead of being buried inside general servicing."},
-  {year:"PARTS",label:"SUPPORT",title:"Parts knowledge alongside service",copy:"Spare-parts enquiries remain a visible business pillar and start with vehicle-fitment details."},
-  {year:"NOW",label:"DIGITAL",title:"A simpler customer journey",copy:"The site reduces friction: describe the issue, choose the closest route and continue directly with the workshop."},
+  {year:"SERVICE",label:"MAINTENANCE",title:"Car service and maintenance",copy:"Periodic servicing, oil and filter changes and general inspections for cars of many makes."},
+  {year:"REPAIRS",label:"MECHANICAL",title:"Mechanical repairs",copy:"Brakes, clutch, suspension, steering and engine problems diagnosed and repaired."},
+  {year:"AC",label:"CLIMATE",title:"Car AC services",copy:"Inspection, fault-finding, gas recharge and compressor-related repairs."},
+  {year:"WHEELS",label:"TYRES",title:"Wheel alignment, balancing and tyre care",copy:"Fix pulling, steering vibration and uneven tyre wear; tyre checks and advice."},
+  {year:"PARTS",label:"ENQUIRIES",title:"Spare-parts enquiries",copy:"Tell us the make, model, year and part — we’ll check genuine (OEM) and aftermarket options."},
 ];
 
 export function AboutTimeline(){
@@ -109,7 +109,7 @@ const damageItems=[
   {no:"01",label:"Dent / crease",title:"Show the shape of the dent",copy:"One wider shot and one angled close-up usually communicate the panel shape better than a single straight-on photo."},
   {no:"02",label:"Scratch / paint",title:"Show the finish clearly",copy:"Use a close photo in good light plus a wider view so the affected panel is easy to identify."},
   {no:"03",label:"Bumper / panel",title:"Show the whole affected area",copy:"Include the edges around the damage so the workshop can understand where the impact sits on the vehicle."},
-  {no:"04",label:"Accident damage",title:"Start wide, then move closer",copy:"A vehicle-wide photo plus detailed damage photos is a useful first step before any case-specific assessment."},
+  {no:"04",label:"Panel damage",title:"Start wide, then move closer",copy:"A vehicle-wide photo plus detailed damage photos is a useful first step."},
 ];
 
 export function BodyworkDamageGuide(){
@@ -135,7 +135,7 @@ export function BodyworkDamageGuide(){
   </div>;
 }
 
-const facilityHrefs = ["/services/car-service/", "/services/wheel-alignment/", "/services/tyre-services/", "/spare-parts/", "/contact/"];
+const facilityHrefs = ["/services/car-service-maintenance/", "/services/wheel-alignment-balancing/", "/services/tyre-care/", "/spare-parts/", "/contact/"];
 const facilityItems=[
   {no:"01",label:"Service floor",meta:"MAINTENANCE",copy:"Routine servicing and common mechanical work."},
   {no:"02",label:"Alignment zone",meta:"WHEEL GEOMETRY",copy:"Dedicated wheel-alignment workflow."},
@@ -193,7 +193,7 @@ export function ReviewProofBoard(){
 
 const faqItems=[
   {no:"01",label:"Service",icon:Wrench,copy:"Maintenance, mechanical concerns and what to do when you are not sure."},
-  {no:"02",label:"Accident",icon:CarFront,copy:"Body damage, photo-led enquiries and case-specific insurance assistance."},
+  {no:"02",label:"Repairs",icon:CarFront,copy:"Brakes, clutch, suspension, steering and engine problems."},
   {no:"03",label:"Parts",icon:PackageSearch,copy:"Vehicle details, fitment information and availability enquiries."},
   {no:"04",label:"Visit",icon:MapPin,copy:"Location, directions and why calling before travelling can help."},
 ];

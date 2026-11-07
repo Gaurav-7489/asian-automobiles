@@ -16,17 +16,15 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { serviceCatalog, serviceImage } from "@/lib/service-catalog";
-import { businessFacts, directionsHref } from "@/lib/business-facts";
+import { businessFacts, directionsHref, whatsappEnabled, whatsappLink } from "@/lib/business-facts";
 
 const serviceLinks = serviceCatalog.map((service) => [service.title, service.href, service.meta]);
 const servicePreviewImages = serviceCatalog.map((service) => serviceImage(service));
 
+// Spec 6.2: About · Services ▾ · Spare Parts · Contact
 const navLinks = [
-  ["Insurance", "/insurance/"],
   ["About", "/about/"],
-  ["Facilities", "/facilities/"],
-  ["Gallery", "/gallery/"],
-  ["Reviews", "/reviews/"],
+  ["Spare Parts", "/spare-parts/"],
   ["Contact", "/contact/"],
 ];
 
@@ -130,11 +128,7 @@ export function SiteHeader() {
   const servicesActive =
     pathname.startsWith("/services") || pathname.startsWith("/spare-parts");
   const innerPage = pathname !== "/";
-  const whatsappHref =
-    "https://wa.me/" +
-    businessFacts.phones.whatsappHref +
-    "?text=" +
-    encodeURIComponent("Hello Asian Automobiles, I would like help with my vehicle.");
+  const whatsappHref = whatsappLink("Hello Asian Automobiles, I'd like to ask about my car. Make/model: … Problem: …");
 
   return (
     <>
@@ -229,21 +223,18 @@ export function SiteHeader() {
                           <ArrowUpRight size={16} />
                         </Link>
                       ))}
-                      <Link
+                      <a
                         data-magnetic
-                        href="/book-service/"
-                        prefetch={false}
-                        onPointerEnter={() => warm("/book-service/")}
-                        onFocus={() => warm("/book-service/")}
+                        href={"tel:" + businessFacts.phones.primaryHref}
                         className="aa-mega-book"
                       >
-                        <CalendarDays size={19} />
+                        <Phone size={19} />
                         <div>
-                          <span>READY TO START?</span>
-                          <b>Book a service</b>
+                          <span>NOT SURE WHAT YOU NEED?</span>
+                          <b>Call the workshop</b>
                         </div>
                         <ArrowRight size={18} />
-                      </Link>
+                      </a>
                     </div>
 
                     <figure className="aa-mega-preview" aria-hidden="true">
@@ -283,20 +274,18 @@ export function SiteHeader() {
             </nav>
 
             <div className="aa-header-actions">
-              <a data-magnetic href={"tel:" + businessFacts.phones.primaryHref} className="aa-header-phone">
-                <Phone size={14} />
-                <span>Call workshop</span>
+              <a data-magnetic href={directionsHref} target="_blank" rel="noreferrer" className="aa-header-phone">
+                <MapPin size={14} />
+                <span>Get directions</span>
               </a>
-              <Link
+              <a
                 data-magnetic
-                href="/book-service/"
-                prefetch={false}
-                onPointerEnter={() => warm("/book-service/")}
-                onFocus={() => warm("/book-service/")}
+                href={"tel:" + businessFacts.phones.primaryHref}
                 className="aa-header-cta"
+                aria-label={"Call the workshop on " + businessFacts.phones.primaryDisplay}
               >
-                <span>Book service</span> <ArrowUpRight size={15} />
-              </Link>
+                <span>Call workshop</span> <Phone size={15} />
+              </a>
               <button
                 data-magnetic
                 ref={menuButtonRef}
@@ -365,14 +354,14 @@ export function SiteHeader() {
             </div>
             <div className="aa-menu-booking">
               <span>LET’S GET YOU BACK ON THE ROAD</span>
-              <Link href="/book-service/" prefetch={false}>Book a service <ArrowUpRight size={22} /></Link>
-              <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={15} /> Speak to the workshop</a>
+              <a href={"tel:" + businessFacts.phones.primaryHref}>Call the workshop <ArrowUpRight size={22} /></a>
+              <a href={directionsHref} target="_blank" rel="noreferrer"><MapPin size={15} /> Get directions</a>
             </div>
           </div>
         </nav>
       </header>
 
-      {innerPage && (
+      {innerPage && whatsappEnabled && whatsappHref && (
         <a
           className="aa-v10-whatsapp-float"
           href={whatsappHref}
@@ -387,7 +376,9 @@ export function SiteHeader() {
 
       <nav className="aa-mobile-actions" aria-label="Quick actions">
         <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={15} /><span>Call</span></a>
-        <Link href="/book-service/" prefetch={false}><CalendarDays size={15} /><span>Book</span></Link>
+        {whatsappEnabled && whatsappHref
+          ? <a href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle size={15} /><span>WhatsApp</span></a>
+          : <Link href="/contact/" prefetch={false}><CalendarDays size={15} /><span>Contact</span></Link>}
         <a href={directionsHref} target="_blank" rel="noreferrer"><MapPin size={15} /><span>Directions</span></a>
       </nav>
     </>

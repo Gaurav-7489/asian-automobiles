@@ -79,7 +79,7 @@ export function ServiceScanner() {
             <small>{current.tag}</small>
             <strong>{current.title}</strong>
             <p>{current.note}</p>
-            <Link className="aa-connected-action" href={bookingHref("car-service", undefined, current.title)}>Enquire about this symptom <ArrowRight size={15} /></Link>
+            <Link className="aa-connected-action" href={bookingHref("mechanical-repairs", undefined, current.title)}>Enquire about this symptom <ArrowRight size={15} /></Link>
           </motion.div>
         </AnimatePresence>
         <div className="aa-v11-scanner-meter" aria-hidden="true">
@@ -145,7 +145,7 @@ export function ClimateConsole() {
         <div className="aa-v11-climate-note">
           <Fan size={17} />
           <p>{current.copy}</p>
-          <Link className="aa-connected-action" href={bookingHref("car-ac-repair", undefined, current.label)}>Enquire about this symptom <ArrowRight size={15} /></Link>
+          <Link className="aa-connected-action" href={bookingHref("car-ac-service", undefined, current.label)}>Enquire about this symptom <ArrowRight size={15} /></Link>
         </div>
       </div>
 
@@ -356,7 +356,7 @@ export function WheelGeometryLab() {
             <small>{current.eyebrow}</small>
             <h3>{current.title}</h3>
             <p>{current.copy}</p>
-            <Link className="aa-connected-action" href={bookingHref("wheel-alignment", undefined, current.title)}>Enquire about this symptom <ArrowRight size={15} /></Link>
+            <Link className="aa-connected-action" href={bookingHref("wheel-alignment-balancing", undefined, current.title)}>Enquire about this symptom <ArrowRight size={15} /></Link>
 
             <div className="aa-v22-readout">
               <span>{current.metricLabel}</span>
@@ -444,7 +444,7 @@ export function TyreTreadLab() {
             <small>{current.label}</small>
             <h3>{current.title}</h3>
             <p>{current.note}</p>
-            <Link className="aa-connected-action" href={bookingHref("tyre-services", undefined, current.title)}>Enquire about this symptom <ArrowRight size={15} /></Link>
+            <Link className="aa-connected-action" href={bookingHref("tyre-care", undefined, current.title)}>Enquire about this symptom <ArrowRight size={15} /></Link>
 
             <div className="aa-v22-readout">
               <span>{current.metricLabel}</span>

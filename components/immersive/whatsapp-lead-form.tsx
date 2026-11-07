@@ -19,12 +19,6 @@ const modeCopy: Record<LeadMode, { eyebrow: string; title: string; helper: strin
     helper: "For body damage, you can attach photos directly in WhatsApp after this message opens.",
     button: "Start quote on WhatsApp",
   },
-  accident: {
-    eyebrow: "ACCIDENT ASSISTANCE",
-    title: "Start with the vehicle and visible damage.",
-    helper: "Keep it simple. Tell us what happened, then attach damage photos in WhatsApp.",
-    button: "Start accident enquiry",
-  },
   parts: {
     eyebrow: "PARTS ENQUIRY",
     title: "The right part starts with the right vehicle details.",
@@ -37,17 +31,15 @@ export function WhatsAppLeadForm({ mode: initialMode = "service", selectedServic
   const [serviceId, setServiceId] = useState(selectedService ?? "");
   const [intent, setIntent] = useState(quote || initialMode === "quote" ? "quote" : "service");
   const service = findService(serviceId);
-  const mode: LeadMode = service?.mode === "parts" || service?.mode === "accident"
+  const mode: LeadMode = service?.mode === "parts"
     ? service.mode : intent === "quote" ? "quote" : service?.mode ?? "service";
   const copy = modeCopy[mode];
   const [opened, setOpened] = useState(false);
   const intro = mode === "parts"
     ? "Hello Asian Automobiles, I would like to check the availability of a spare part."
-    : mode === "accident"
-      ? "Hello Asian Automobiles, I would like help with an accident / body-repair enquiry."
-      : mode === "quote"
-        ? "Hello Asian Automobiles, I would like to request a repair quote."
-        : "Hello Asian Automobiles, I would like to book a vehicle service.";
+    : mode === "quote"
+      ? "Hello Asian Automobiles, I'd like advice on a repair."
+      : "Hello Asian Automobiles, I'd like to ask about my car.";
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -73,7 +65,7 @@ export function WhatsAppLeadForm({ mode: initialMode = "service", selectedServic
     if (quantity) lines.push(`Quantity: ${quantity}`);
     if (extra) lines.push(`More detail: ${extra}`);
 
-    if (mode === "quote" || mode === "accident") {
+    if (mode === "quote") {
       lines.push("", "I can attach reference / damage photos in WhatsApp.");
     }
 
@@ -115,7 +107,7 @@ export function WhatsAppLeadForm({ mode: initialMode = "service", selectedServic
 
         <label>
           <span>What do you need?</span>
-          <select name="service" value={serviceId} onChange={(event) => { setServiceId(event.target.value); if (findService(event.target.value)?.mode === "quote") setIntent("quote"); setOpened(false); }} required>
+          <select name="service" value={serviceId} onChange={(event) => { setServiceId(event.target.value); setOpened(false); }} required>
             <option value="" disabled>Choose the closest match</option>
             {serviceCatalog.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)}
             <option value="unsure">Not sure yet</option>
@@ -135,12 +127,6 @@ export function WhatsAppLeadForm({ mode: initialMode = "service", selectedServic
           </label>
         )}
 
-        {mode === "accident" && (
-          <label>
-            <span>Insurer (optional)</span>
-            <input name="insurer" placeholder="Only if this is an insurance case" />
-          </label>
-        )}
 
         {mode === "parts" && (
           <label>

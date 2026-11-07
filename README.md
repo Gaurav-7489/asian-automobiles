@@ -4,7 +4,7 @@ Premium multi-page automotive service website for Asian Automobiles, Irinjalakud
 
 The UI is an original implementation inspired by the structural language observed in the Fixonic Webflow demo: oversized editorial typography, dark/off-white contrast, image-led sections, restrained hover interactions, horizontal proof cards, strong CTAs and technical details. It does not copy Fixonic's proprietary source/assets.
 
-Business/content requirements are based on the supplied Asian Automobiles Website Development & Design Blueprint. Unverified claims are intentionally marked for confirmation.
+Content follows the *Website Development Specification v1.0*: 11 live pages (Home, About, Services, five service pages, Spare Parts, Contact, Privacy Policy), the PDF's copy, and only verified claims. Retired pages (Insurance, Facilities, Gallery, Reviews, FAQ, Book Service, Accident Repair) redirect permanently. Business facts live in `lib/business-facts.ts`; open owner questions are in `docs/OWNER_CHECKLIST.md`.
 ## Connected customer flow
 
 Services are defined once in `lib/service-catalog.ts` and reused by the header,

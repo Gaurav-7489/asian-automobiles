@@ -103,13 +103,13 @@ export function ImmersiveHero() {
           >
             <div className="aa-hero2-eyebrow">
               <span>01</span>
-              <span>SERVICE · REPAIR · PARTS</span>
+              <span>MULTI-BRAND CAR SERVICE CENTRE IN IRINJALAKUDA</span>
             </div>
 
             <h1>
               <span className="aa-hero2-line">
                 <motion.i initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 0.72, ease }}>
-                  Precision
+                  Reliable care
                 </motion.i>
               </span>
               <span className="aa-hero2-line">
@@ -119,24 +119,24 @@ export function ImmersiveHero() {
               </span>
               <span className="aa-hero2-line aa-hero2-line-outline">
                 <motion.i initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 0.72, delay: 0.09, ease }}>
-                  drive.
+                  journey.
                 </motion.i>
               </span>
             </h1>
 
             <div className="aa-hero2-bottom">
               <p>
-                Your independent multi-brand workshop in {businessFacts.address.locality}.
-                Tell us what needs attention. We’ll help you plan the next step.
+                Servicing, repairs, AC, wheel alignment, tyre care and spare parts for cars of many makes —
+                from our workshop on Kattoor Road, {businessFacts.address.locality}.
               </p>
 
               <div className="aa-hero2-actions">
-                <Link data-magnetic href="/book-service/" prefetch={false} className="aa-hero2-primary">
-                  Book service <ArrowUpRight size={15} />
-                </Link>
-                <a data-magnetic href={"tel:" + businessFacts.phones.primaryHref} className="aa-hero2-circle" aria-label="Call Asian Automobiles">
-                  <ArrowDownRight size={19} />
+                <a data-magnetic href={"tel:" + businessFacts.phones.primaryHref} className="aa-hero2-primary" aria-label={"Call the workshop on " + businessFacts.phones.primaryDisplay}>
+                  Call the workshop <ArrowUpRight size={15} />
                 </a>
+                <Link data-magnetic href="/services/" prefetch={false} className="aa-hero2-circle" aria-label="Explore our services">
+                  <ArrowDownRight size={19} />
+                </Link>
               </div>
             </div>
           </motion.div>

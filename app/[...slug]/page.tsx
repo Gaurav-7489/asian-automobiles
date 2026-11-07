@@ -31,9 +31,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { ServiceConnections } from "@/components/service-connections";
-import { bookingHref, findService, serviceRouteAliases, type LeadMode } from "@/lib/service-catalog";
+import { bookingHref, findService, serviceRouteAliases } from "@/lib/service-catalog";
 import { notFound, permanentRedirect } from "next/navigation";
-import { businessFacts, directionsHref } from "@/lib/business-facts";
+import { businessFacts, directionsHref, whatsappEnabled, whatsappLink } from "@/lib/business-facts";
 import {
   BlueprintTimeline,
   HoverStatRail,
@@ -43,22 +43,13 @@ import {
 } from "@/components/immersive/inner-page-experiences";
 import { WhatsAppLeadForm } from "@/components/immersive/whatsapp-lead-form";
 import {
-  AccidentIntakeStrip,
-  ClaimDeck,
   ClimateConsole,
   PartsFinder,
   ServiceScanner,
   TyreTreadLab,
   WheelGeometryLab,
 } from "@/components/immersive/page-specific-experiences";
-import {
-  AboutTimeline,
-  BodyworkDamageGuide,
-  FaqRouteCards,
-  ReviewProofBoard,
-  ServiceDecisionBoard,
-  WorkshopFloorExplorer,
-} from "@/components/immersive/v13-page-experiences";
+import { AboutTimeline, ServiceDecisionBoard } from "@/components/immersive/v13-page-experiences";
 
 const img = {
   workshop: "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1800&q=76",
@@ -72,13 +63,10 @@ const img = {
 
 const phone = businessFacts.phones.primaryHref;
 
-function whatsAppHref(message: string) {
-  return "https://wa.me/" + businessFacts.phones.whatsappHref + "?text=" + encodeURIComponent(message);
-}
 
 function CTA({
-  label = "Book a service",
-  href = "/book-service/",
+  label = "Contact the workshop",
+  href = "/contact/",
   tone = "primary",
 }: {
   label?: string;
@@ -105,11 +93,14 @@ function WhatsAppAction({
   label?: string;
   message?: string;
 }) {
+  const href = whatsappLink(message);
+  // WhatsApp number not confirmed yet (spec 2.4): offer directions beside the call button instead.
+  if (!href) return <Directions />;
   return (
     <a
       data-magnetic
       className="aa-v10-button aa-v10-button-whatsapp"
-      href={whatsAppHref(message)}
+      href={href}
       target="_blank"
       rel="noreferrer"
     >
@@ -157,6 +148,8 @@ type PageTheme =
   | "about"
   | "services"
   | "service"
+  | "mechanical"
+  | "privacy"
   | "ac"
   | "accident"
   | "paint"
@@ -174,10 +167,12 @@ type PageTheme =
 
 function HeroArt({ theme }: { theme: PageTheme }) {
   const labels: Record<PageTheme, [string, string]> = {
-    about: ["1996 → NOW", "LOCAL AUTOMOTIVE STORY"],
+    about: ["KATTOOR ROAD", "INDEPENDENT / MULTI-BRAND"],
+    mechanical: ["DIAGNOSE", "BRAKES / CLUTCH / STEERING"],
+    privacy: ["PRIVACY", "YOUR INFORMATION"],
     services: ["SERVICE MAP", "CHOOSE BY NEED"],
     service: ["VEHICLE CHECK", "MAINTENANCE / DIAGNOSIS"],
-    ac: ["18° / COOL", "CABIN CLIMATE"],
+    ac: ["COOLING", "CABIN CLIMATE"],
     accident: ["DAMAGE / 01", "PHOTOS FIRST"],
     paint: ["PANEL / FINISH", "BODY & PAINT"],
     wheel: ["0.00°", "WHEEL GEOMETRY"],
@@ -189,12 +184,14 @@ function HeroArt({ theme }: { theme: PageTheme }) {
     reviews: ["REAL FEEDBACK", "SOURCE / DATE / CONTEXT"],
     contact: ["KATTOOR ROAD", "IRINJALAKUDA"],
     faq: ["?", "ASK / FIND / GO"],
-    booking: ["BOOK", "NO ACCOUNT / LOW FRICTION"],
+    booking: ["ENQUIRY", "VEHICLE / NEED"],
     quote: ["QUOTE", "VEHICLE / NEED / PHOTO"],
   };
 
   const photos: Record<PageTheme, [string, string, string]> = {
     about: [img.workshop, img.detail, img.car],
+    mechanical: [img.repair, img.workshop, img.detail],
+    privacy: [img.detail, img.workshop, img.road],
     services: [img.repair, img.workshop, img.wheel],
     service: [img.repair, img.detail, img.workshop],
     ac: [img.interior, img.detail, img.car],
@@ -250,6 +247,7 @@ function Frame({
   intro,
   actions,
   theme,
+  serviceId,
   children,
 }: {
   eyebrow: string;
@@ -257,6 +255,7 @@ function Frame({
   intro?: string;
   actions?: ReactNode;
   theme: PageTheme;
+  serviceId?: string;
   children: ReactNode;
 }) {
   return (
@@ -277,8 +276,8 @@ function Frame({
               <div className="aa-v10-hero-actions">
                 {actions ?? (
                   <>
-                    <CTA />
                     <Call />
+                    <Directions />
                   </>
                 )}
               </div>
@@ -292,7 +291,7 @@ function Frame({
       </section>
       <div id="page-content" className="creative-body aa-v10-body">
         {children}
-        <ServiceConnections theme={theme} />
+        {serviceId && <ServiceConnections id={serviceId} />}
       </div>
     </main>
   );
@@ -382,203 +381,280 @@ function PageCTA({
   );
 }
 
+type QA = [string, string];
+
+/** FAQ block: existing motion accordion + FAQPage JSON-LD for the visible questions. */
+function Faqs({ eyebrow = "QUESTIONS", title, items }: { eyebrow?: string; title: string; items: QA[] }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
+  };
+  return (
+    <section className="aa-v10-section aa-v10-paper">
+      <div className="wrap aa-v10-faq-layout">
+        <div className="aa-v10-faq-aside">
+          <CircleHelp size={28} />
+          <span>{eyebrow}</span>
+          <h2>{title}</h2>
+          <p>Can’t see your question? Call the workshop with your car’s make, model and year.</p>
+          <Call />
+        </div>
+        <MotionFaq items={items.map(([question, answer]) => ({ question, answer }))} />
+      </div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+    </section>
+  );
+}
+
+function StackList({ items }: { items: [string, string, string][] }) {
+  return (
+    <div className="aa-v10-stack-list">
+      {items.map(([no, title, copy]) => (
+        <div key={no}>
+          <span>{no}</span>
+          <div><b>{title}</b><p>{copy}</p></div>
+          <ChevronRight size={17} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+const explain = businessFacts.processConfirmed;
+
+/* ------------------------------------------------------------------ About */
+
 function About() {
   return (
     <Frame
       theme="about"
-      eyebrow="About / Asian Automobiles"
-      title="Built around cars. Built around Irinjalakuda."
-      intro="Asian Automobiles combines multi-brand vehicle service, wheel care and spare-parts support from Kattoor Road."
-      actions={<><CTA label="Book a service" /><Directions /></>}
+      eyebrow="About us"
+      title="About Asian Automobiles"
+      intro="An independent, multi-brand car service centre on Kattoor Road, Irinjalakuda."
+      actions={<><Call /><Directions /></>}
     >
       <section className="aa-v10-section aa-v10-paper">
         <div className="wrap aa-v10-story-grid">
           <div className="aa-v10-year-card">
-            <span>ESTABLISHED</span>
-            <strong>{businessFacts.establishedYear}</strong>
+            <span>{businessFacts.establishedConfirmed ? "ESTABLISHED" : "INDEPENDENT"}</span>
+            <strong>{businessFacts.establishedConfirmed ? businessFacts.establishedYear : "MULTI-BRAND"}</strong>
             <small>IRINJALAKUDA / KERALA</small>
           </div>
           <ScrollRevealSection>
             <SectionHead
-              eyebrow="THREE DECADES / ONE LOCAL BUSINESS"
-              title="Cars changed. The job stayed simple: understand the problem and do the work properly."
-              copy="Since 1996, the business has grown alongside the vehicles driven in and around Irinjalakuda. Today, service, mechanical repair, precision wheel care and parts support come together at one location."
+              eyebrow="A LOCAL WORKSHOP"
+              title="A local workshop for the car you already drive."
+              copy="Asian Automobiles is an independent automobile service centre in Irinjalakuda. We service, maintain and repair passenger cars of many makes, and we help customers source the spare parts their cars need. We are not a car dealership, a used-car showroom or a rental company."
             />
-            <div className="aa-v10-inline-actions">
-              <CTA label="Visit the workshop" href="/contact/" tone="dark" />
-              <Call />
-            </div>
+            <p className="aa-v10-reference-note">
+              {businessFacts.establishedConfirmed
+                ? `Asian Automobiles has been looking after cars in Irinjalakuda since ${businessFacts.establishedYear}. Cars have changed a great deal, but the basics have not: listen to the customer, find the real problem and fix it properly.`
+                : "A familiar workshop on Kattoor Road, serving local car owners through workshop visits, direct enquiries and spare-parts requests. Our aim has stayed simple: listen to the customer, find the real problem and fix it properly."}
+            </p>
           </ScrollRevealSection>
-        </div>
-      </section>
-
-      <section className="aa-v10-section aa-v10-soft">
-        <div className="wrap">
-          <SectionHead
-            eyebrow="WHAT DEFINES THE WORKSHOP"
-            title="Useful experience, without the showroom theatre."
-            copy="The website should make the business easy to understand: independent multi-brand support, practical diagnosis, local access and parts knowledge."
-          />
-          <div className="aa-v10-feature-grid">
-            <FeatureCard no="01" eyebrow="EXPERIENCE" title="Decades around vehicles" copy="Practical exposure to common automotive problems, maintenance needs and replacement components." icon={<Gauge size={19} />} />
-            <FeatureCard no="02" eyebrow="MULTI-BRAND" title="Different cars. Same clear process." copy="Tell the workshop your make, model and problem. Vehicle-specific availability can be confirmed before you visit." icon={<CarFront size={19} />} />
-            <FeatureCard no="03" eyebrow="DIAGNOSIS" title="Start with the actual problem" copy="Good service begins by understanding the complaint before jumping straight to replacement parts." icon={<Search size={19} />} />
-            <FeatureCard no="04" eyebrow="PARTS + SERVICE" title="Two sides of the same job" copy="Workshop support is connected to an established automotive spare-parts operation." icon={<PackageSearch size={19} />} />
-          </div>
         </div>
       </section>
 
       <section className="aa-v10-section aa-v10-soft aa-v13-about-section">
         <div className="wrap">
-          <SectionHead eyebrow="1996 → NOW / INTERACTIVE TIMELINE" title="A local automotive business, explained as a living system." copy="Move through the timeline to see how service, wheel care, parts support and a lower-friction customer journey fit together." />
+          <SectionHead eyebrow="WHAT WE CAN HELP WITH" title="The everyday needs of passenger cars." copy="Not sure whether we handle a particular job? Call us and ask." />
           <AboutTimeline />
         </div>
       </section>
 
       <section className="aa-v10-section aa-v10-dark">
         <div className="wrap">
-          <SectionHead
-            light
-            eyebrow="OUR APPROACH"
-            title="Inspect carefully. Explain clearly. Keep the next step obvious."
-            copy="A premium experience should reduce uncertainty, not add more jargon."
-          />
+          <SectionHead light eyebrow="HOW WE WORK" title="Good car care starts with understanding the problem, not guessing at it." />
           <HoverStatRail
             items={[
-              { no: "01", label: "Understand", text: "Start with the symptom, service need or part requirement in plain language." },
-              { no: "02", label: "Inspect", text: "Check the relevant vehicle area before deciding what the repair should be." },
-              { no: "03", label: "Explain", text: "Keep the customer clear on what needs attention and what happens next." },
-              { no: "04", label: "Proceed", text: "Move ahead with the agreed service, repair or parts enquiry." },
+              { no: "01", label: "Listen", text: "Tell us what you’ve noticed — a noise, a warning light, weak AC, a car that pulls to one side." },
+              ...(explain ? [{ no: "02", label: "Inspect and explain", text: "We check the car and explain what we find, what needs attention now and what can wait." }] : []),
+              { no: explain ? "03" : "02", label: "Repair and return", text: "We carry out the agreed work and hand the car back with a clear explanation of what was done." },
             ]}
           />
         </div>
       </section>
 
-      <PageCTA
-        eyebrow="READY WHEN YOU ARE"
-        title="Need us to look at the car?"
-        copy="Tell us the model and what you are noticing. You do not need to diagnose it yourself."
-      >
-        <CTA label="Book a service" />
-        <WhatsAppAction label="Message the workshop" />
+      <section className="aa-v10-section aa-v10-soft">
+        <div className="wrap">
+          <SectionHead eyebrow="WHAT YOU CAN EXPECT" title="Behaviours, not promises." />
+          <div className="aa-v10-feature-grid">
+            <FeatureCard no="01" eyebrow="COMMUNICATION" title="Clear communication" copy="We explain things in plain language and answer your questions." icon={<MessageCircle size={19} />} />
+            {explain && <FeatureCard no="02" eyebrow="APPROVAL" title="Your approval first" copy="We discuss the work with you before we start." icon={<ClipboardCheck size={19} />} />}
+            <FeatureCard no={explain ? "03" : "02"} eyebrow="ADVICE" title="Honest advice" copy="We tell you what needs attention now and what can safely wait." icon={<Search size={19} />} />
+            <FeatureCard no={explain ? "04" : "03"} eyebrow="TIME" title="Respect for your time" copy="Call ahead and we’ll plan for your car." icon={<Clock3 size={19} />} />
+          </div>
+        </div>
+      </section>
+
+      <PageCTA eyebrow="BASED IN IRINJALAKUDA" title="Talk to the workshop." copy="You’ll find us on Kattoor Road, near the Government Rest House and Canara Bank. Tell us about your car and what you need.">
+        <Call />
+        <WhatsAppAction label="WhatsApp us" />
       </PageCTA>
     </Frame>
   );
 }
+
+/* ------------------------------------------------------------------ Services hub */
 
 function Services() {
   return (
     <Frame
       theme="services"
-      eyebrow="Services / start with what you notice"
-      title="You do not need to know the workshop vocabulary."
-      intro="Choose the closest problem. We’ll guide you to the right service from there."
-      actions={<><WhatsAppAction label="Tell us the problem" /><Call /></>}
+      eyebrow="Services"
+      title="Our car services"
+      intro="Servicing, repairs and maintenance for passenger cars of many makes, at our workshop in Irinjalakuda."
+      actions={<><Call /><WhatsAppAction label="Ask on WhatsApp" /></>}
     >
       <section className="aa-v10-section aa-v10-paper">
         <div className="wrap">
-          <SectionHead eyebrow="QUICK START" title="What brought you here today?" copy="One tap should get you close to the right next step." />
+          <SectionHead eyebrow="START HERE" title="Choose a service, or tell us what you’re noticing." copy="Whether your car is due for a routine service or showing a problem you can’t explain, pick the closest match — or call us and we’ll point you in the right direction." />
           <ServiceDecisionBoard />
         </div>
       </section>
 
-      <section className="aa-v10-section aa-v10-dark">
+      <section className="aa-v10-section aa-v10-soft">
         <div className="wrap">
-          <SectionHead light eyebrow="A SIMPLE SERVICE JOURNEY" title="Tell us. Inspect. Explain. Service. Check." />
-          <BlueprintTimeline
-            items={[
-              { no: "01", label: "TELL US", title: "Start with the complaint", text: "Share the vehicle model, the symptom or the service you already know you need." },
-              { no: "02", label: "INSPECT", title: "Look at the relevant system", text: "The useful next step is inspection, not guesswork." },
-              { no: "03", label: "EXPLAIN", title: "Make the work clear", text: "Keep the repair requirement understandable before the job moves ahead." },
-              { no: "04", label: "SERVICE", title: "Carry out the agreed work", text: "Proceed with the maintenance or repair scope that applies to the vehicle." },
-              { no: "05", label: "CHECK", title: "Verify the affected area", text: "Finish by checking the area that was serviced before handover." },
-            ]}
-          />
+          <div className="aa-v10-feature-grid aa-v10-feature-grid-wide">
+            <FeatureCard no="01" eyebrow="SERVICING" title="Car service & maintenance" copy="Engine oil change · oil and air filters · fluid checks · general inspection." icon={<Wrench size={19} />} href="/services/car-service-maintenance/" />
+            <FeatureCard no="02" eyebrow="REPAIRS" title="Mechanical repairs" copy="Brakes · clutch · suspension and steering · engine troubleshooting." icon={<Settings2 size={19} />} href="/services/mechanical-repairs/" />
+            <FeatureCard no="03" eyebrow="AIR CONDITIONING" title="Car AC services" copy="Performance check · fault diagnosis · gas recharge · compressor-related repairs." icon={<Wind size={19} />} href="/services/car-ac-service/" />
+            <FeatureCard no="04" eyebrow="WHEELS" title="Wheel alignment & balancing" copy="Wheel alignment · balancing · steering checks · tyre wear assessment." icon={<Gauge size={19} />} href="/services/wheel-alignment-balancing/" />
+            <FeatureCard no="05" eyebrow="TYRES" title="Tyre care" copy="Tyre inspection · pressure checks · wear assessment · tyre-related advice." icon={<Disc3 size={19} />} href="/services/tyre-care/" />
+            <FeatureCard no="06" eyebrow="PARTS" title="Spare parts enquiry" copy="Genuine (OEM) and aftermarket parts for your car — tell us the make, model, year and part." icon={<PackageSearch size={19} />} href="/spare-parts/" />
+          </div>
         </div>
       </section>
 
-      <PageCTA
-        eyebrow="STILL NOT SURE?"
-        title="Just tell us what the car is doing."
-        copy="No mechanic-speak required. A short WhatsApp message is enough to start."
-      >
+      <PageCTA eyebrow="NOT SURE?" title="Not sure which service you need?" copy="Describe the problem on the phone. We’ll tell you what to do next and whether you should bring the car in.">
+        <Call />
         <WhatsAppAction label="Describe the problem" />
-        <CTA label="Book service" />
       </PageCTA>
     </Frame>
   );
 }
 
+/* ------------------------------------------------------------------ Service pages */
+
 function CarService() {
   return (
     <Frame
       theme="service"
-      eyebrow="General car service & mechanical repair"
-      title="Maintenance when it is due. Diagnosis when something feels wrong."
-      intro="Routine servicing and common mechanical concerns, without making you choose the exact repair before the car is inspected."
-      actions={<><CTA label="Book general service" href={bookingHref("car-service")} /><WhatsAppAction label="Ask about a symptom" /></>}
+      serviceId="car-service-maintenance"
+      eyebrow="Car service & maintenance"
+      title="Car service and maintenance in Irinjalakuda"
+      intro="Periodic servicing, oil and filter changes and thorough checks for cars of many makes — to keep your car reliable between journeys."
+      actions={<><Call label="Call to book a service" /><WhatsAppAction label="WhatsApp us" message="Hello, I'd like to book a service. Car: [make/model/year]. Kilometres: [ ]" /></>}
+    >
+      <section className="aa-v10-section aa-v10-soft">
+        <div className="wrap aa-v10-two-col">
+          <SectionHead
+            eyebrow="WHAT A PERIODIC SERVICE IS"
+            title="Planned maintenance at regular intervals."
+            copy="A periodic service replaces parts that wear out with normal use, such as engine oil and filters, and checks the systems that keep you safe. Your owner’s manual lists the interval — bring it and we’ll use it as a guide."
+          />
+          <StackList
+            items={[
+              ["01", "Engine oil & filters", "Engine oil and oil filter replacement; air filter inspection or replacement."],
+              ["02", "Checks", "Fluid levels, brake condition, tyre condition and pressure, battery and lights."],
+              ["03", "Inspection", "General vehicle inspection and basic checks for leaks, noises and wear."],
+              ["04", "Preventive care", "Maintenance as recommended for your car, its age and its schedule."],
+            ]}
+          />
+        </div>
+      </section>
+
+      <section className="aa-v10-section aa-v10-dark">
+        <div className="wrap">
+          <SectionHead light eyebrow="HOW A SERVICE WORKS WITH US" title="Call. Bring it in. Inspect. Service. Handover." />
+          <BlueprintTimeline
+            items={[
+              { no: "01", label: "CALL", title: "Call or message us", text: "Tell us your car’s make, model, year and approximate kilometres. We’ll suggest a convenient time." },
+              { no: "02", label: "VISIT", title: "Bring your car in", text: "Mention anything you’ve noticed, however small." },
+              { no: "03", label: "INSPECT", title: explain ? "Inspect and explain" : "Inspection", text: explain ? "We check the car and agree the recommended work with you." : "We check the car against its service needs." },
+              { no: "04", label: "SERVICE", title: "Service", text: "We carry out the agreed work." },
+              { no: "05", label: "HANDOVER", title: "Handover", text: "We return the car and explain what was done." },
+            ]}
+          />
+        </div>
+      </section>
+
+      <Faqs
+        title="Car service questions"
+        items={[
+          ["How often should my car be serviced?", "Follow the interval in your owner’s manual, usually based on kilometres or months, whichever comes first. Heavy traffic, short trips and dusty roads can mean more frequent checks."],
+          ["Can you service my car if it’s still under warranty?", "Warranty terms differ between manufacturers. Check your warranty booklet or ask your dealer whether servicing elsewhere affects your cover before booking."],
+          ["How long does a service take?", "It depends on the car and the work needed. Call us and we’ll give you an idea when you book."],
+          ["How much does a service cost?", "Cost depends on the car’s make, model, condition and the parts needed. Call with your vehicle details to discuss."],
+        ]}
+      />
+
+      <PageCTA eyebrow="SERVICE DUE?" title="Is your car due for a service?" copy="Call us with your car’s make, model and kilometres and we’ll arrange a time.">
+        <Call label="Call to book a service" />
+        <Directions />
+      </PageCTA>
+    </Frame>
+  );
+}
+
+function Mechanical() {
+  return (
+    <Frame
+      theme="mechanical"
+      serviceId="mechanical-repairs"
+      eyebrow="Mechanical repairs"
+      title="Mechanical repairs for your car"
+      intro="Brake, clutch, suspension, steering and engine problems diagnosed and repaired at our Irinjalakuda workshop."
+      actions={<><Call label="Describe the problem" /><WhatsAppAction label="Send a video on WhatsApp" message="Hello, my car has a problem. Car: [make/model/year]. What I'm noticing: [ ]" /></>}
     >
       <section className="aa-v10-section aa-v10-paper aa-v11-service-intake">
         <div className="wrap">
-          <SectionHead eyebrow="SERVICE INTAKE / INTERACTIVE" title="Start with the way the car feels, not a repair name." copy="Move across the intake states and choose the closest starting point." />
+          <SectionHead eyebrow="SYMPTOMS WE CAN LOOK INTO" title="Start with what you notice — when braking, turning, starting or at speed." copy="These are a guide, not a diagnosis." />
           <ServiceScanner />
         </div>
       </section>
 
       <section className="aa-v10-section aa-v10-soft">
         <div className="wrap aa-v10-two-col">
-          <SectionHead
-            eyebrow="SERVICE SCOPE"
-            title="Routine care and common mechanical support."
-            copy="The supplied content system groups maintenance, braking, suspension, steering and general mechanical troubleshooting under the workshop offer."
-          />
-          <div className="aa-v10-stack-list">
-            {[
-              ["01", "Periodic maintenance", "Oil, filters, fluids and preventive vehicle checks."],
-              ["02", "Mechanical concerns", "Noise, vibration, cooling, clutch and general troubleshooting."],
-              ["03", "Brakes", "Wear, noise and braking-component inspection or repair where required."],
-              ["04", "Suspension & steering", "Ride, handling, worn components and stability-related complaints."],
-            ].map(([no, title, copy]) => (
-              <div key={no}>
-                <span>{no}</span>
-                <div><b>{title}</b><p>{copy}</p></div>
-                <ChevronRight size={17} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="aa-v10-section aa-v10-dark">
-        <div className="wrap">
-          <SectionHead light eyebrow="NO-GUESSWORK PROCESS" title="The vehicle decides the repair. Not the other way around." />
-          <BlueprintTimeline
+          <SectionHead eyebrow="REPAIR WORK WE HANDLE" title="Find the cause before fixing it." copy={explain ? "A noise or vibration can have several causes, so we inspect the car — and test-drive it where needed — then explain what needs repairing before going ahead." : "A noise or vibration can have several causes, so we inspect the car and, where needed, test-drive it to reproduce the problem."} />
+          <StackList
             items={[
-              { no: "01", label: "DETAILS", title: "Tell us what you notice", text: "Vehicle model, symptoms and the service history you know are enough to begin." },
-              { no: "02", label: "INSPECTION", title: "Check the relevant area", text: "The affected components and systems are inspected before a repair path is agreed." },
-              { no: "03", label: "RECOMMENDATION", title: "Explain the useful work", text: "The repair or maintenance need should be clear before unnecessary parts are replaced." },
-              { no: "04", label: "SERVICE", title: "Complete and verify", text: "Carry out the agreed work and check the affected system before handover." },
+              ["01", "Brake system", "Pads, discs and related components when braking performance or noise changes."],
+              ["02", "Clutch", "Slipping, judder or heavy operation, and clutch-related repairs."],
+              ["03", "Suspension & steering", "Shock absorbers, springs, bushes and links; play, heaviness or vibration in the steering."],
+              ["04", "Engine troubleshooting", "Warning lights, rough running, overheating and loss of power."],
             ]}
           />
         </div>
       </section>
 
       <section className="aa-v10-section aa-v10-paper">
-        <div className="wrap aa-v10-photo-split">
-          <div className="aa-v10-photo-frame">
-            <Image src={img.detail} alt="Automotive service reference visual" fill sizes="(max-width: 900px) 100vw, 54vw" />
+        <div className="wrap aa-v10-insurance-bridge">
+          <div className="aa-v10-icon-disc"><CircleAlert size={24} /></div>
+          <div role="note">
+            <span className="eyebrow">SAFETY FIRST</span>
+            <h2>If it doesn’t feel safe, don’t drive it.</h2>
+            <p>If your brakes feel unsafe, the steering is unusual or a red warning light is on, avoid driving the car. Call us first and we’ll advise on the next step.</p>
           </div>
-          <div className="aa-v10-photo-copy">
-            <span className="eyebrow">EASY START</span>
-            <h2>You do not need to know the diagnosis.</h2>
-            <p>“There is a sound when I turn”, “the steering vibrates”, or “service is due” is enough to begin the conversation.</p>
-            <div className="aa-v10-inline-actions">
-              <CTA label="Book a service" tone="dark" href={bookingHref("car-service")} />
-              <WhatsAppAction label="Send the symptom" />
-            </div>
-          </div>
+          <Call />
         </div>
       </section>
+
+      <Faqs
+        title="Repair questions"
+        items={[
+          ["Can you tell me what’s wrong over the phone?", "We can often suggest likely causes from your description, but a proper diagnosis needs the car to be inspected."],
+          ["Is it safe to drive my car to the workshop?", "If the brakes, steering or a red warning light are involved, it may not be. Call us first and describe the problem."],
+          ["Do you repair all makes of car?", "We work on passenger cars of many makes. Call with your make, model and year to confirm."],
+          ["How long will the repair take?", "It depends on the problem and parts availability. We’ll give you an idea once we’ve inspected the car."],
+        ]}
+      />
+
+      <PageCTA eyebrow="NOTICED A PROBLEM?" title="Noticed a problem with your car?" copy="Call and tell us what’s happening.">
+        <Call />
+        <WhatsAppAction label="Send a video on WhatsApp" />
+      </PageCTA>
     </Frame>
   );
 }
@@ -587,178 +663,46 @@ function AC() {
   return (
     <Frame
       theme="ac"
-      eyebrow="Car AC service / Irinjalakuda"
-      title="AC not cooling properly? Start with what you can feel."
-      intro="Weak cooling, inconsistent airflow and unusual AC-system behaviour are enough to start an enquiry."
-      actions={<><WhatsAppAction label="Request AC service" message="Hello Asian Automobiles, I would like help with my car AC." /><Call /></>}
+      serviceId="car-ac-service"
+      eyebrow="Car AC services"
+      title="Car AC service and repair"
+      intro="When your car’s AC stops cooling the way it should, we find out why — and fix the cause, not just the symptom."
+      actions={<><Call label="Call about your AC" /><WhatsAppAction label="WhatsApp us" message="Hello, my car AC isn't working properly. Car: [make/model/year]. Problem: [ ]" /></>}
     >
       <section className="aa-v10-section aa-v10-paper aa-v11-ac-console-section">
         <div className="wrap">
-          <SectionHead eyebrow="CABIN CLIMATE / INTERACTIVE" title="What is the AC doing inside the car?" copy="This climate-control style interface makes the symptoms easy to compare without pretending to diagnose the vehicle online." />
+          <SectionHead eyebrow="COMMON AC PROBLEMS" title="What is the AC doing inside the car?" copy="A gas top-up can restore cooling for a while, but if the system is leaking the problem returns. That is why we check the system first and explain what we find." />
           <ClimateConsole />
         </div>
       </section>
 
       <section className="aa-v10-section aa-v10-soft">
         <div className="wrap aa-v10-two-col">
-          <SectionHead
-            eyebrow="AC SERVICE SCOPE"
-            title="Cooling, airflow and component checks - explained without overcomplicating it."
-            copy="Exact refrigerants, machine models and procedures should be confirmed for the vehicle rather than advertised as one-size-fits-all."
-          />
-          <div className="aa-v10-stack-list">
-            <div><span>01</span><div><b>Cooling diagnosis</b><p>Start with the temperature complaint and system performance.</p></div><ChevronRight size={17} /></div>
-            <div><span>02</span><div><b>Airflow checks</b><p>Look at weak or inconsistent cabin airflow and filter-related concerns.</p></div><ChevronRight size={17} /></div>
-            <div><span>03</span><div><b>Component inspection</b><p>Check relevant AC components when the symptom points beyond normal operation.</p></div><ChevronRight size={17} /></div>
-          </div>
-        </div>
-      </section>
-
-      <PageCTA
-        eyebrow="AC SERVICE"
-        title="Tell us what the cabin feels like."
-        copy="That is enough to start. The workshop can confirm the next step for your vehicle."
-      >
-        <WhatsAppAction label="Message AC issue" message="Hello Asian Automobiles, I need help with my car AC. The issue is: " />
-        <Call />
-      </PageCTA>
-    </Frame>
-  );
-}
-
-function Accident() {
-  return (
-    <Frame
-      theme="accident"
-      eyebrow="Accident & body repair / start here"
-      title="Had an accident? Start with the damage, not the paperwork."
-      intro="Send a few clear photos and a short description. We’ll help you work out the useful next step."
-      actions={<><WhatsAppAction label="Send damage details" message="Hello Asian Automobiles, I need help with accident / body damage. I can send photos." /><Call label="Call for accident help" /></>}
-    >
-      <section className="aa-v10-section aa-v10-paper aa-v11-accident-intake-section">
-        <div className="wrap">
-          <AccidentIntakeStrip />
-        </div>
-        <div className="wrap aa-v10-accident-start">
-          <div>
-            <SectionHead
-              eyebrow="FIRST 3 THINGS"
-              title="Keep the first message simple."
-              copy="You do not need an estimate, insurance jargon or a perfect damage list before contacting the workshop."
-            />
-            <div className="aa-v10-inline-actions">
-              <WhatsAppAction label="Open WhatsApp" message="Hello Asian Automobiles, I need help with accident / body damage. Vehicle: " />
-              <CTA label="Request a quote" href={bookingHref("accident-repair", "quote")} tone="dark" />
-            </div>
-          </div>
-          <div className="aa-v10-accident-steps">
-            <div><span>01</span><Camera size={19} /><b>Take clear photos</b><p>Wide view + closer damage photos are useful.</p></div>
-            <div><span>02</span><CarFront size={19} /><b>Tell us the vehicle</b><p>Make, model and what happened in a sentence or two.</p></div>
-            <div><span>03</span><MessageCircle size={19} /><b>Send it over</b><p>The workshop can tell you what information is needed next.</p></div>
-          </div>
-        </div>
-      </section>
-
-      <section className="aa-v10-section aa-v10-soft">
-        <div className="wrap">
-          <SectionHead
-            eyebrow="BODY DAMAGE"
-            title="From everyday dents to accident-related bodywork."
-            copy="The supplied content covers dent, panel, scratch, paint, bumper and accident-restoration enquiries."
-          />
-          <div className="aa-v10-feature-grid aa-v10-feature-grid-wide">
-            <FeatureCard no="01" eyebrow="DENTS" title="Dent & panel damage" copy="Start with visible dents, creases or damaged body panels." icon={<CarFront size={19} />} />
-            <FeatureCard no="02" eyebrow="PAINT" title="Scratches & paint damage" copy="Show the affected area clearly so the workshop can understand the scope." icon={<Palette size={19} />} />
-            <FeatureCard no="03" eyebrow="BUMPER" title="Bumper / trim damage" copy="Share close-ups plus one wider photo showing the full affected area." icon={<Camera size={19} />} />
-            <FeatureCard no="04" eyebrow="ACCIDENT" title="Accident restoration enquiry" copy="Body damage can be assessed together with any repair or documentation needs that apply." icon={<ShieldCheck size={19} />} />
-          </div>
-        </div>
-      </section>
-
-      <section className="aa-v10-section aa-v10-dark">
-        <div className="wrap">
-          <SectionHead
-            light
-            eyebrow="A CALMER REPAIR PATH"
-            title="Assessment to final check, one clear step at a time."
-            copy="This is an explanatory customer journey. Exact repair and insurance steps can vary by vehicle and case."
-          />
-          <BlueprintTimeline
+          <SectionHead eyebrow="WHAT OUR AC SERVICE CAN INCLUDE" title="Check first. Then fix the cause." copy="Call as soon as you notice cooling getting weaker — and before the hottest months or a long family trip." />
+          <StackList
             items={[
-              { no: "01", label: "ASSESS", title: "Look at the visible damage", text: "Start with the damaged areas and identify what needs closer inspection." },
-              { no: "02", label: "DOCUMENT", title: "Prepare useful photos and details", text: "Relevant photographs and repair details can be gathered where the case requires them." },
-              { no: "03", label: "ESTIMATE", title: "Make the work understandable", text: "Clarify the repair scope and components involved before approved work begins." },
-              { no: "04", label: "REPAIR", title: "Carry out the agreed bodywork", text: "Proceed with the approved repair scope for the vehicle." },
-              { no: "05", label: "CHECK", title: "Inspect the repaired area", text: "The repaired areas are checked before the vehicle is handed back." },
+              ["01", "Performance check & diagnosis", "How well the system cools, and why it isn’t cooling properly."],
+              ["02", "Leak checks", "Checking for signs of leaks before a recharge."],
+              ["03", "Gas recharge", "AC gas recharge where required."],
+              ["04", "Compressor-related repairs", "And general AC system maintenance."],
             ]}
           />
         </div>
       </section>
 
-      <section className="aa-v10-section aa-v10-paper">
-        <div className="wrap aa-v10-insurance-bridge">
-          <div className="aa-v10-icon-disc"><ShieldCheck size={24} /></div>
-          <div>
-            <span className="eyebrow">INSURANCE CASE?</span>
-            <h2>We keep insurer-specific claims out of the guesswork.</h2>
-            <p>Insurance assistance, insurer participation and approval steps can differ by case. Ask the workshop what currently applies before repair work begins.</p>
-          </div>
-          <CTA label="See insurance assistance" href="/insurance/" tone="dark" />
-        </div>
-      </section>
+      <Faqs
+        title="Car AC questions"
+        items={[
+          ["Does my car AC need regular gas refilling?", "A car AC is a sealed system, so it shouldn’t need frequent top-ups. If cooling drops again soon after a recharge, there is probably a leak that needs finding."],
+          ["Why does my AC smell?", "Moisture in the system can let mould and bacteria grow, especially in humid weather. A dirty cabin filter can make it worse."],
+          ["Can you repair the AC compressor?", "We handle compressor-related repairs. The right fix depends on what has failed, which we confirm after inspection."],
+          ["How much does AC repair cost?", "It depends on the cause. Gas recharge, a leak and a compressor fault are very different jobs. Call us to discuss."],
+        ]}
+      />
 
-      <PageCTA eyebrow="CONTINUE YOUR ENQUIRY" title="Share the vehicle details once." copy="Your selected service carries into the enquiry and WhatsApp message.">
-        <CTA label="Continue enquiry" href={bookingHref("accident-repair")} />
-      </PageCTA>
-    </Frame>
-  );
-}
-
-function Denting() {
-  return (
-    <Frame
-      theme="paint"
-      eyebrow="Denting & painting"
-      title="Bodywork is easier to discuss when we can see it."
-      intro="A clean photo-led path for dents, scratches, panel damage and paint-related enquiries."
-      actions={<><WhatsAppAction label="Send body damage photos" message="Hello Asian Automobiles, I have dent / paint damage. I can send photos." /><CTA label="Request a quote" href={bookingHref("denting-painting", "quote")} /></>}
-    >
-      <section className="aa-v10-section aa-v10-paper">
-        <div className="wrap">
-          <SectionHead eyebrow="SHOW THE MARK" title="Start with photos. The workshop can ask for the rest." copy="Use the interactive damage guide first, then compare the wide-view and detail-view photography pattern below." />
-          <BodyworkDamageGuide />
-          <div className="aa-v10-before-after aa-v13-body-photo-pair">
-            <figure>
-              <Image src={img.car} alt="Reference visual for vehicle body damage" fill sizes="(max-width: 900px) 100vw, 50vw" />
-              <figcaption><span>01 / DAMAGE VIEW</span><b>Wide view + close-up</b></figcaption>
-            </figure>
-            <figure>
-              <Image src={img.detail} alt="Reference visual for automotive finish detail" fill sizes="(max-width: 900px) 100vw, 50vw" />
-              <figcaption><span>02 / DETAIL VIEW</span><b>Show the panel clearly</b></figcaption>
-            </figure>
-          </div>
-          <p className="aa-v10-reference-note">Reference visuals only. Final site photography should use approved Asian Automobiles workshop and repair images.</p>
-        </div>
-      </section>
-
-      <section className="aa-v10-section aa-v10-soft">
-        <div className="wrap">
-          <div className="aa-v10-feature-grid">
-            <FeatureCard no="01" eyebrow="DENT" title="Dents & creases" copy="Show the affected panel and the damage from more than one angle." />
-            <FeatureCard no="02" eyebrow="SCRATCH" title="Scratch / paint damage" copy="A close photo helps start the paint-related enquiry." />
-            <FeatureCard no="03" eyebrow="PANEL" title="Panel / bumper damage" copy="Include one wider shot so the workshop can understand the full area." />
-            <FeatureCard no="04" eyebrow="ACCIDENT" title="Accident-related bodywork" copy="Use the accident page when damage is part of a larger repair or insurance case." href="/services/accident-repair/" />
-          </div>
-        </div>
-      </section>
-
-      <PageCTA
-        eyebrow="PHOTO-LED ENQUIRY"
-        title="Show us the damage. We’ll start there."
-        copy="No need to write an essay. Vehicle + photos + one short note is enough."
-      >
-        <WhatsAppAction label="Send damage photos" message="Hello Asian Automobiles, I have body damage and can send photos. Vehicle: " />
-        <CTA label="Request quote" href={bookingHref("denting-painting", "quote")} />
+      <PageCTA eyebrow="AC SERVICE" title="AC not cooling like it used to?" copy="Tell us your car’s make, model and what the AC is doing. We’ll advise on the next step.">
+        <Call label="Call about your AC" />
+        <WhatsAppAction label="WhatsApp us" />
       </PageCTA>
     </Frame>
   );
@@ -768,14 +712,15 @@ function Wheel() {
   return (
     <Frame
       theme="wheel"
+      serviceId="wheel-alignment-balancing"
       eyebrow="Wheel alignment & balancing"
-      title="Pulling, vibration or uneven tyre wear? Start with the wheels."
-      intro="Computerized alignment is a key workshop capability, with balancing and tyre care around it."
-      actions={<><CTA label="Book wheel service" href={bookingHref("wheel-alignment")} /><WhatsAppAction label="Describe the wheel issue" message="Hello Asian Automobiles, I need help with wheel alignment / balancing. The symptom is: " /></>}
+      title="Wheel alignment and balancing"
+      intro="Keep your car driving straight, your steering smooth and your tyres wearing evenly."
+      actions={<><Call label="Call to check alignment" /><WhatsAppAction label="WhatsApp us" message="Hello, I'd like a wheel alignment/balancing check. Car: [make/model/year]. Problem: [ ]" /></>}
     >
       <section className="aa-v10-section aa-v10-paper aa-v11-wheel-lab-section">
         <div className="wrap">
-          <SectionHead eyebrow="WHEEL GEOMETRY / INTERACTIVE" title="See the symptoms through an alignment-style view." copy="Switch between pulling, off-centre steering and uneven tyre wear to understand why wheel geometry matters." />
+          <SectionHead eyebrow="SMALL ANGLES, BIG DIFFERENCE" title="Signs your wheels need attention." copy="Potholes, speed breakers and kerbs gradually knock a car’s wheels out of their correct angles and balance — affecting steering, tyre life and comfort." />
           <WheelGeometryLab />
         </div>
       </section>
@@ -788,35 +733,33 @@ function Wheel() {
               <Image className="aa-production-compare-photo" src={img.wheel} alt="" fill quality={74} sizes="(max-width: 640px) 100vw, 50vw" />
               <span>ALIGNMENT / 01</span>
               <h3>Where the wheels point.</h3>
-              <p>Wheel geometry affects straight-line stability, steering position and tyre wear.</p>
-              <small>Pulling / off-centre steering / uneven wear</small>
+              <p>Corrects the angles at which the wheels meet the road. Often needed after a pothole or kerb impact, or suspension and steering work.</p>
+              <small>Car pulls / off-centre steering / uneven tyre wear</small>
             </div>
             <div>
               <Image className="aa-production-compare-photo" src={img.car} alt="" fill quality={74} sizes="(max-width: 640px) 100vw, 50vw" />
               <span>BALANCING / 02</span>
               <h3>How the wheel rotates.</h3>
-              <p>Correct balancing helps reduce unwanted vibration and supports smoother vehicle behaviour.</p>
-              <small>Steering vibration / wheel imbalance / smoothness</small>
+              <p>Spreads the weight of each wheel and tyre evenly using small weights. Often needed after new tyres, a tyre repair or wheel removal.</p>
+              <small>Vibration at higher speeds</small>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="aa-v10-section aa-v10-soft">
-        <div className="wrap">
-          <SectionHead eyebrow="WHEEL CARE" title="Alignment, balancing, tyre checks and rim-related enquiries." />
-          <div className="aa-v10-feature-grid">
-            <FeatureCard no="01" eyebrow="ALIGNMENT" title="Computerized wheel alignment" copy="Check and correct wheel geometry where required." />
-            <FeatureCard no="02" eyebrow="BALANCING" title="Wheel balancing" copy="Address wheel imbalance and vibration-related complaints." />
-            <FeatureCard no="03" eyebrow="TYRES" title="Tyre condition & wear" copy="Look at tyre wear patterns, condition and rotation needs." href="/services/tyre-services/" />
-            <FeatureCard no="04" eyebrow="RIMS" title="Rim-related enquiry" copy="Start with a visible issue or vibration and let the workshop confirm the next step." href="/services/tyre-services/" />
-          </div>
-        </div>
-      </section>
+      <Faqs
+        title="Alignment and balancing questions"
+        items={[
+          ["What’s the difference between alignment and balancing?", "Alignment corrects the angles of the wheels; balancing corrects how weight is spread around each wheel. Pulling suggests alignment; vibration at speed usually suggests balancing."],
+          ["Do I need alignment when I buy new tyres?", "It’s a good idea. New tyres are usually balanced when fitted, and checking alignment protects them from uneven wear."],
+          ["Can bad alignment damage my tyres?", "Yes. Misalignment is one of the most common causes of uneven and early tyre wear."],
+          ["How long does alignment take?", "It depends on the car and what adjustment is needed. Call us to plan your visit."],
+        ]}
+      />
 
-      <PageCTA eyebrow="WHEEL SERVICE" title="If it does not feel straight or smooth, get it checked." copy="Tell us the symptom and when you notice it most.">
-        <CTA label="Book wheel service" href={bookingHref("wheel-alignment")} />
-        <WhatsAppAction label="Message the symptom" />
+      <PageCTA eyebrow="WHEEL SERVICE" title="Car pulling or steering shaking?" copy="Call us and describe what you’re feeling. We’ll check whether it’s alignment, balancing or something else.">
+        <Call label="Call to check alignment" />
+        <CTA label="Tyre care" href="/services/tyre-care/" tone="ghost" />
       </PageCTA>
     </Frame>
   );
@@ -826,252 +769,123 @@ function Tyres() {
   return (
     <Frame
       theme="tyre"
-      eyebrow="Tyre & wheel care"
-      title="Tyres tell you a lot about what the car is doing."
-      intro="Tyre condition, balancing, wear patterns and rim concerns can all point to useful next checks."
-      actions={<><WhatsAppAction label="Ask about tyre / wheel care" /><CTA label="Book wheel service" href={bookingHref("tyre-services")} /></>}
+      serviceId="tyre-care"
+      eyebrow="Tyre care"
+      title="Tyre care for safer driving"
+      intro="Tyre inspections, pressure checks and practical advice to keep your car gripping the road — in the dry and through the monsoon."
+      actions={<><Call label="Call about your tyres" /><WhatsAppAction label="WhatsApp a photo of your tyre" message="Hello, I'd like advice on my tyres. Car: [make/model/year]. Tyre size: [ ]. Issue: [ ]" /></>}
     >
       <section className="aa-v10-section aa-v10-paper aa-v11-tyre-lab-section">
         <div className="wrap">
-          <SectionHead eyebrow="TYRE CONDITION / INTERACTIVE" title="Read the tyre before guessing the repair." copy="Use the tread-style interface to compare broad wear patterns, then send a real tyre photo if something looks wrong." />
+          <SectionHead eyebrow="YOUR CAR’S ONLY CONTACT WITH THE ROAD" title="Read the tyre before guessing the repair." copy="The wear pattern tells us a lot: edges worn suggest alignment or pressure; patchy wear suggests balancing or suspension." />
           <TyreTreadLab />
-        </div>
-      </section>
-
-      <section className="aa-v10-section aa-v10-dark">
-        <div className="wrap aa-v10-tyre-stage">
-          <div className="aa-v10-tyre-graphic" aria-hidden="true">
-            <div className="aa-v10-tread-lines"><span /><span /><span /><span /><span /><span /></div>
-            <b>WHEEL / TYRE</b>
-          </div>
-          <div>
-            <SectionHead light eyebrow="WHEEL CARE SYSTEM" title="Keep the tyre, wheel and alignment story together." copy="The most useful diagnosis often comes from looking at how the tyre is wearing and how the vehicle behaves on the road." />
-            <div className="aa-v10-inline-actions">
-              <CTA label="Wheel alignment" href="/services/wheel-alignment/" />
-              <WhatsAppAction label="Send a tyre photo" />
-            </div>
-          </div>
         </div>
       </section>
 
       <section className="aa-v10-section aa-v10-soft">
         <div className="wrap">
+          <SectionHead eyebrow="WHAT WE LOOK AT" title="Tread, pressure, sidewalls and age." copy="Monsoon tip: before the rains, check tread and pressure on all four tyres and the spare." />
           <div className="aa-v10-feature-grid">
-            <FeatureCard no="01" eyebrow="BALANCE" title="Wheel balancing" copy="For imbalance and vibration-related complaints." />
-            <FeatureCard no="02" eyebrow="TYRE" title="Tyre inspection" copy="Condition, wear and service-related tyre checks." />
-            <FeatureCard no="03" eyebrow="PUNCTURE" title="Puncture support" copy="Start a tyre repair enquiry with the workshop." />
-            <FeatureCard no="04" eyebrow="RIM" title="Rim inspection / repair enquiry" copy="Share the visible issue or driving symptom first." />
+            <FeatureCard no="01" eyebrow="TREAD" title="Tread depth" copy="When the tread is level with the wear indicators in the grooves, it’s time to replace the tyre." />
+            <FeatureCard no="02" eyebrow="PRESSURE" title="Pressure" copy="The correct pressure is usually on a sticker inside the driver’s door." />
+            <FeatureCard no="03" eyebrow="SIDEWALL" title="Sidewall damage" copy="Cuts, cracks or bulges can mean internal damage — get them checked promptly." />
+            <FeatureCard no="04" eyebrow="ALIGNMENT" title="Uneven wear?" copy="Edge wear often points to alignment. See wheel alignment and balancing." href="/services/wheel-alignment-balancing/" />
           </div>
         </div>
       </section>
+
+      <Faqs
+        title="Tyre questions"
+        items={[
+          ["How often should I check my tyre pressure?", "At least once a month and before long trips, when the tyres are cold."],
+          ["How do I know when my tyres need replacing?", "When the tread is level with the wear indicators, or if there are cuts, bulges or cracks. We can check them for you."],
+          ["Why are my tyres wearing unevenly?", "Usually alignment, incorrect pressure, balancing or worn suspension. The wear pattern tells us which."],
+          ["Should I replace all four tyres at once?", "Not always. At least replace them in pairs on the same axle so grip stays even."],
+        ]}
+      />
+
+      <PageCTA eyebrow="TYRE CARE" title="Worried about your tyres?" copy="Call us with your tyre size (printed on the sidewall, for example 185/65 R15) and we’ll tell you whether it needs attention.">
+        <Call label="Call about your tyres" />
+        <WhatsAppAction label="WhatsApp a photo" />
+      </PageCTA>
     </Frame>
   );
 }
+
+/* ------------------------------------------------------------------ Spare parts */
 
 function Parts() {
   return (
     <Frame
       theme="parts"
-      eyebrow="Automobile spare parts"
-      title="The right part starts with the right vehicle details."
-      intro="Model, variant, year and part information reduce fitment guesswork before you travel."
-      actions={<><WhatsAppAction label="Check part availability" message="Hello Asian Automobiles, I would like to check a spare part. Vehicle: " /><Call label="Call parts counter" /></>}
+      serviceId="spare-parts"
+      eyebrow="Spare parts"
+      title="Spare parts enquiry"
+      intro="Tell us your car and the part you need. We’ll check genuine (OEM) and aftermarket options and get back to you about availability."
+      actions={<><Call label="Call us" /><WhatsAppAction label="Ask on WhatsApp" message="Hello, I'm looking for a spare part. Car: [make/model/year]. Part: [ ]. I'll attach a photo." /></>}
     >
       <section className="aa-v10-section aa-v10-paper aa-v11-parts-finder-section">
         <div className="wrap">
-          <SectionHead eyebrow="PARTS FINDER / CATEGORY INDEX" title="Browse by system. Confirm by vehicle." copy="This is intentionally enquiry-first. It feels like a parts catalogue without pretending there is live inventory." />
+          <SectionHead eyebrow="FINDING THE RIGHT PART" title="The same part can differ between years, engines and variants." copy="Availability varies by part and model. We don’t hold every part in stock, but we’ll tell you what we can source." />
           <PartsFinder />
         </div>
       </section>
 
       <section className="aa-v10-section aa-v10-dark">
         <div className="wrap aa-v10-two-col">
-          <SectionHead
-            light
-            eyebrow="FITMENT CHECKLIST"
-            title="Five details can save a lot of back-and-forth."
-            copy="Send what you know. A photo of the old part can help when available."
-          />
+          <SectionHead light eyebrow="DETAILS THAT HELP" title="A few details get the right part first time." copy="Genuine (OEM) parts are made to the original specification; aftermarket parts are often lower cost and quality varies by brand. We’ll explain the options for your part." />
           <HoverStatRail
             items={[
-              { no: "01", label: "Vehicle", text: "Manufacturer + model." },
-              { no: "02", label: "Variant", text: "Engine / trim if known." },
-              { no: "03", label: "Year", text: "Registration or model year." },
-              { no: "04", label: "Part", text: "Name, description or part number if known." },
-              { no: "05", label: "Photo", text: "Existing component or packaging if available." },
+              { no: "01", label: "Make & model", text: "Plus variant — petrol or diesel, manual or automatic." },
+              { no: "02", label: "Year", text: "Shown on your registration certificate (RC)." },
+              { no: "03", label: "Chassis no.", text: "Optional — the most reliable way to match parts." },
+              { no: "04", label: "Part number", text: "If it’s printed on the old part." },
+              { no: "05", label: "Photo", text: "Especially helpful for clips, hoses, brackets and sensors." },
             ]}
           />
         </div>
       </section>
 
-      <PageCTA eyebrow="CONTINUE YOUR ENQUIRY" title="Share the vehicle details once." copy="Your selected service carries into the enquiry and WhatsApp message.">
-        <CTA label="Continue enquiry" href={bookingHref("spare-parts")} />
-      </PageCTA>
-    </Frame>
-  );
-}
+      <Faqs
+        title="Spare parts questions"
+        items={[
+          ["Do you have the part in stock?", "It depends on the part and the model. Send an enquiry and we’ll check availability and options for you."],
+          ["Can you fit the part for me?", "If the part is for a job our workshop handles, we can discuss fitting it. Call us to plan."],
+          ["Can you find parts for older cars?", "We’ll try. Parts for older or less common models can take longer to find or may have limited options."],
+          ["What details do you need?", "At minimum your car’s make, model, year and the part name. The chassis number or a photo of the old part makes matching more accurate."],
+        ]}
+      />
 
-function Insurance() {
-  return (
-    <Frame
-      theme="insurance"
-      eyebrow="Insurance / accident repair assistance"
-      title="Repair first. Insurance details where they actually apply."
-      intro="Accident cases can involve repair assessment, documentation and insurer-specific approval steps. We keep those details case-by-case."
-      actions={<><WhatsAppAction label="Ask about your case" message="Hello Asian Automobiles, I have an accident / insurance repair enquiry. Vehicle: " /><Call /></>}
-    >
-      <section className="aa-v10-section aa-v10-dark aa-v11-insurance-deck-section">
-        <div className="wrap">
-          <SectionHead light eyebrow="CLAIM / REPAIR DECK" title="One case. Five possible stages." copy="Move through the document-stack interface. It keeps the journey visual while making it clear that insurer-specific steps vary." />
-          <ClaimDeck />
-        </div>
-      </section>
-
-      <section className="aa-v10-section aa-v10-paper">
-        <div className="wrap aa-v10-insurance-grid">
-          <div>
-            <ShieldCheck size={28} />
-            <span className="eyebrow">WHAT WE WILL NOT GUESS</span>
-            <h2>No blanket claim-approval promises.</h2>
-            <p>Current insurer participation, cashless eligibility and approval steps need to be confirmed for the actual case.</p>
-          </div>
-          <div className="aa-v10-stack-list">
-            <div><span>01</span><div><b>Damage assessment</b><p>Start with the vehicle and visible damage.</p></div><ChevronRight size={17} /></div>
-            <div><span>02</span><div><b>Documentation support</b><p>Prepare useful photos and repair information where applicable.</p></div><ChevronRight size={17} /></div>
-            <div><span>03</span><div><b>Eligibility check</b><p>Confirm what insurer-specific route currently applies.</p></div><ChevronRight size={17} /></div>
-          </div>
-        </div>
-      </section>
-
-      <PageCTA eyebrow="CONTINUE YOUR ENQUIRY" title="Share the vehicle details once." copy="Your selected service carries into the enquiry and WhatsApp message.">
-        <CTA label="Continue enquiry" href={bookingHref("accident-repair")} />
-      </PageCTA>
-    </Frame>
-  );
-}
-
-function Facilities() {
-  return (
-    <Frame
-      theme="facilities"
-      eyebrow="Our facilities"
-      title="Tools matter. Experience matters more."
-      intro="A visual look at the workshop areas that support maintenance, wheel care, mechanical work and spare-parts enquiries."
-      actions={<><CTA label="View gallery" href="/gallery/" /><Directions /></>}
-    >
-      <section className="aa-v10-section aa-v10-paper">
-        <div className="wrap">
-          <SectionHead eyebrow="WORKSHOP EXPLORER" title="Read the workshop like a capability map." copy="The floor-plan interaction explains what each zone supports without inventing equipment counts or unsupported specifications." />
-          <WorkshopFloorExplorer />
-        </div>
-      </section>
-
-      <PageCTA eyebrow="VISIT THE WORKSHOP" title="Want to talk through a vehicle issue in person?" copy="Call before travelling if you need to confirm timing or a specific service.">
+      <PageCTA eyebrow="PREFER TO TALK?" title="Describe the part and we’ll check for you." copy="Or bring the old part to our workshop on Kattoor Road.">
+        <Call label="Call us" />
         <Directions />
-        <Call />
       </PageCTA>
     </Frame>
   );
 }
 
-function Gallery() {
-  const items = [
-    [img.workshop, "Workshop floor", "WORKSHOP", "/facilities/"],
-    [img.repair, "Vehicle service", "SERVICE", "/services/car-service/"],
-    [img.road, "Wheel alignment", "WHEELS", "/services/wheel-alignment/"],
-    [img.wheel, "Wheel balancing", "BALANCING", "/services/tyre-services/"],
-    [img.detail, "Mechanical detail", "REPAIRS", "/services/car-service/"],
-    [img.car, "Body repair", "BODY", "/services/denting-painting/"],
-  ];
+/* ------------------------------------------------------------------ Contact */
 
-  return (
-    <Frame
-      theme="gallery"
-      eyebrow="Gallery / workshop life"
-      title="The work should speak for itself."
-      intro="The final gallery is designed around real workshop, equipment, repair and vehicle photography."
-      actions={<><CTA label="View facilities" href="/facilities/" /><CTA label="Book service" /></>}
-    >
-      <section className="aa-v10-section aa-v10-paper aa-v11-gallery-wall-section">
-        <div className="wrap">
-          <SectionHead eyebrow="VISUAL PROOF / CONTACT SHEET" title="Explore the work. Find the relevant service." />
-          <div className="aa-v11-gallery-wall">
-            {items.map(([image, label, eyebrow, href], index) => (
-              <figure key={label} className={"aa-v11-gallery-tile tile-" + (index + 1)}>
-                <Link href={href} aria-label={"Explore " + label.toLowerCase()}>
-                  <Image src={image} alt={"Automotive reference visual for " + label.toLowerCase()} fill sizes="(max-width: 820px) 100vw, 50vw" />
-                </Link>
-                <figcaption><span>{String(index + 1).padStart(2, "0")} / {eyebrow}</span><b>{label} <ArrowUpRight size={17} /></b></figcaption>
-              </figure>
-            ))}
-          </div>
-          <p className="aa-v10-reference-note">Reference visuals only. Replace with approved Asian Automobiles photography for production authenticity.</p>
-        </div>
-      </section>
-
-    </Frame>
-  );
-}
-
-function Reviews() {
-  return (
-    <Frame
-      theme="reviews"
-      eyebrow="Reviews & customer stories"
-      title="Trust is earned one vehicle at a time."
-      intro="This page is deliberately built around genuine customer feedback only - no invented quotes, no fake stars."
-      actions={<><Call label="Talk to the workshop" /><CTA label="Book a service" /></>}
-    >
-      <section className="aa-v10-section aa-v10-paper">
-        <div className="wrap aa-v10-review-intro">
-          <div>
-            <SectionHead
-              eyebrow="REAL FEEDBACK ONLY"
-              title="Source, context and attribution matter."
-              copy="Verified public reviews or customer-approved stories can be added without changing their meaning."
-            />
-          </div>
-          <ReviewProofBoard />
-        </div>
-      </section>
-
-      <section className="aa-v10-section aa-v10-dark">
-        <div className="wrap">
-          <SectionHead light eyebrow="REVIEW CATEGORIES" title="The useful themes are practical, not theatrical." />
-          <div className="aa-v10-feature-grid aa-v10-feature-grid-dark">
-            {[
-              ["01", "General servicing"],
-              ["02", "Wheel alignment"],
-              ["03", "Mechanical repair"],
-              ["04", "Spare-parts availability"],
-              ["05", "Customer service"],
-              ["06", "Repeat customers"],
-            ].map(([no, title]) => (
-              <FeatureCard key={no} no={no} eyebrow="CUSTOMER FEEDBACK" title={title} copy="Only publish genuine, attributable feedback in this category." />
-            ))}
-          </div>
-        </div>
-      </section>
-    </Frame>
-  );
-}
-
-function Contact() {
+function Contact({ selectedService }: { selectedService?: string }) {
   return (
     <Frame
       theme="contact"
-      eyebrow="Contact / Kattoor Road"
-      title="Let’s get your vehicle sorted."
-      intro="Call, WhatsApp or get directions to Asian Automobiles in Irinjalakuda."
-      actions={<><WhatsAppAction label="WhatsApp workshop" /><Call /></>}
+      eyebrow="Contact"
+      title="Contact and location"
+      intro="Call, message or visit our workshop on Kattoor Road, Irinjalakuda."
+      actions={<><Call /><Directions /></>}
     >
       <section className="aa-v10-section aa-v10-paper">
         <div className="wrap">
-          <SectionHead eyebrow="FASTEST ROUTE" title="Pick the action you need." />
+          <SectionHead eyebrow="FASTEST ROUTE" title="The quickest way to reach us is a call." />
           <div className="aa-v10-contact-actions">
             <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={21} /><span>CALL</span><b>{businessFacts.phones.primaryDisplay}</b><ArrowUpRight size={18} /></a>
-            <a href={whatsAppHref("Hello Asian Automobiles, I would like help with my vehicle.")} target="_blank" rel="noreferrer"><MessageCircle size={21} /><span>WHATSAPP</span><b>{businessFacts.phones.whatsappDisplay}</b><ArrowUpRight size={18} /></a>
-            <a href={directionsHref} target="_blank" rel="noreferrer"><MapPin size={21} /><span>DIRECTIONS</span><b>Kattoor Road, Irinjalakuda</b><ArrowUpRight size={18} /></a>
+            <a href={"tel:" + businessFacts.phones.landlineHref}><Phone size={21} /><span>LANDLINE</span><b>{businessFacts.phones.landlineDisplay}</b><ArrowUpRight size={18} /></a>
+            {whatsappEnabled ? (
+              <a href={whatsappLink("Hello Asian Automobiles, ")!} target="_blank" rel="noreferrer"><MessageCircle size={21} /><span>WHATSAPP</span><b>{businessFacts.phones.whatsappDisplay}</b><ArrowUpRight size={18} /></a>
+            ) : (
+              <a href={"mailto:" + businessFacts.email + "?subject=" + encodeURIComponent("Enquiry from website")}><MessageCircle size={21} /><span>EMAIL · NON-URGENT</span><b>{businessFacts.email}</b><ArrowUpRight size={18} /></a>
+            )}
           </div>
         </div>
       </section>
@@ -1084,181 +898,122 @@ function Contact() {
             <span className="aa-v10-map-road">KATTOOR ROAD</span>
           </div>
           <div className="aa-v10-address-card">
-            <span className="eyebrow">WORKSHOP</span>
+            <span className="eyebrow">OUR ADDRESS</span>
             <h2>Near Government Rest House, Irinjalakuda.</h2>
-            <p>{businessFacts.address.full}.</p>
+            <address style={{ fontStyle: "normal" }}><p>Asian Automobiles, {businessFacts.address.full}.</p></address>
             <div className="aa-v10-address-lines">
-              <div><MapPin size={16} /><span><small>LANDMARK</small><b>Near Government Rest House</b></span></div>
-              <div><Phone size={16} /><span><small>PRIMARY PHONE</small><b>{businessFacts.phones.primaryDisplay}</b></span></div>
-              <div><Clock3 size={16} /><span><small>OPENING HOURS</small><b>Call to confirm before travelling</b></span></div>
+              <div><MapPin size={16} /><span><small>LANDMARK</small><b>{businessFacts.address.landmark}</b></span></div>
+              <div><Phone size={16} /><span><small>PHONE</small><b>{businessFacts.phones.primaryDisplay}</b></span></div>
+              <div><Clock3 size={16} /><span><small>WORKING HOURS</small><b>{businessFacts.hours} · Please call ahead on public holidays</b></span></div>
             </div>
+            <p className="aa-v10-reference-note">Coming from nearby? We welcome customers from across the Irinjalakuda area, including {businessFacts.serviceArea.join(", ")}.</p>
             <Directions />
           </div>
         </div>
       </section>
 
-      <PageCTA eyebrow="SERVICE OR PARTS REQUEST" title="Ready to share your vehicle details?" copy="Use one enquiry form for service, repairs, quotes or parts.">
-        <CTA label="Start an enquiry" href={bookingHref()} />
-        <CTA label="Explore services" href="/services/" tone="ghost" />
-      </PageCTA>
+      <section id="enquiry" className="aa-v10-section aa-v10-paper">
+        <div className="wrap">
+          {whatsappEnabled ? (
+            <WhatsAppLeadForm mode={findService(selectedService)?.mode ?? "service"} selectedService={selectedService} />
+          ) : (
+            <div className="aa-v10-insurance-bridge">
+              <div className="aa-v10-icon-disc"><Phone size={24} /></div>
+              <div>
+                <span className="eyebrow">SEND US A MESSAGE</span>
+                <h2>For service, repairs or parts, call the workshop.</h2>
+                <p>Have your car’s make, model and year ready, and tell us what you need. For non-urgent questions, email {businessFacts.email}.</p>
+              </div>
+              <Call />
+            </div>
+          )}
+        </div>
+      </section>
     </Frame>
   );
 }
 
-function FAQ() {
-  const qs = [
-    ["What services are available?", "Asian Automobiles covers multi-brand vehicle maintenance, mechanical repair, wheel alignment and balancing, tyre and wheel care, car AC enquiries, body / accident repair enquiries and automobile spare parts."],
-    ["I do not know what is wrong with my car. Can I still contact you?", "Yes. Tell the workshop the vehicle model and describe the noise, vibration, warning sign, cooling issue or change in behaviour in your own words."],
-    ["Do you service every car brand?", "The business is positioned as an independent multi-brand workshop. For a specific make, model or job, contact the workshop first so current service availability can be confirmed."],
-    ["Can I send accident or body-damage photos?", "Yes. WhatsApp is the easiest route for a photo-led body or accident enquiry. Send the vehicle details, a short description and clear photos."],
-    ["Do you provide insurance assistance?", "Accident-repair and insurance-assistance enquiries are supported as a case-by-case route. Current insurer participation, eligibility and approval steps should be confirmed with the workshop."],
-    ["How do I check a spare part?", "Send the vehicle manufacturer, model, variant, model year and the required part. A photo or part number is useful when available."],
-    ["What are the opening hours?", "The supplied sources contain conflicting hours. Please call the workshop before travelling until the business confirms the final published schedule."],
-    ["Where is Asian Automobiles?", "Kattoor Road, near Government Rest House, Irinjalakuda, Thrissur, Kerala - 680121."],
+/* ------------------------------------------------------------------ Privacy */
+
+function Privacy() {
+  const sections: QA[] = [
+    ["Who we are", `Asian Automobiles, ${businessFacts.address.full}. For any privacy question, email ${businessFacts.email} or call ${businessFacts.phones.primaryDisplay}.`],
+    ["What information we collect", "Only what you choose to share when you contact us: your name and phone number, optional email, your car’s make, model, year and variant, the part or service you’re asking about, your message, and any photo you send. We do not ask for payment details or identity documents on this website."],
+    ["How we use it", "Only to respond to your enquiry and arrange the service or part you asked about. No marketing messages unless you separately agree."],
+    ["Consent", "Enquiries are sent only with your consent. You can withdraw consent at any time by contacting us."],
+    ["WhatsApp and third-party services", "If you contact us on WhatsApp, WhatsApp’s own terms apply. Google Maps opens only when you choose directions. Our hosting provider keeps short technical logs for security."],
+    ["How long we keep it", "Only as long as needed to respond to you and handle any follow-up work. Part photos are deleted once the enquiry is closed."],
+    ["Who we share it with", "We never sell your information. We share it only with providers needed to run this website, with a parts supplier (vehicle and part details only) where needed to source a part, or where the law requires it."],
+    ["Your rights", "You can ask for a summary of your information, ask us to correct or erase it, withdraw consent or raise a grievance by contacting us using the details above."],
+    ["Children and cookies", "This website is intended for adults. It does not set advertising or tracking cookies."],
+    ["Changes", "If we change this policy, we will update the date on this page. Last updated: 7 November 2026."],
   ];
-
   return (
-    <Frame
-      theme="faq"
-      eyebrow="FAQ / quick answers"
-      title="The questions people ask before they drive over."
-      intro="Short answers, clear next steps and no made-up workshop promises."
-      actions={<><WhatsAppAction label="Ask a question" /><Call /></>}
-    >
-      <section className="aa-v10-section aa-v10-soft aa-v13-faq-route-section">
-        <div className="wrap">
-          <SectionHead eyebrow="QUESTION ROUTES" title="Start with the kind of question, not a wall of text." copy="These four routes keep the FAQ scannable before you open the detailed answers." />
-          <FaqRouteCards />
-        </div>
-      </section>
-
+    <Frame theme="privacy" eyebrow="Legal" title="Privacy Policy" intro="How Asian Automobiles collects, uses and protects the information you share through this website." actions={<Call />}>
       <section className="aa-v10-section aa-v10-paper">
-        <div className="wrap aa-v10-faq-layout">
-          <div className="aa-v10-faq-aside">
-            <CircleHelp size={28} />
-            <span>NO GUESSWORK</span>
-            <h2>Can’t find your question?</h2>
-            <p>Send the vehicle and the question directly. That is usually faster than searching through more copy.</p>
-            <WhatsAppAction label="Ask on WhatsApp" />
-          </div>
-          <MotionFaq items={qs.map(([question, answer]) => ({ question, answer }))} />
+        <div className="wrap">
+          <MotionFaq items={sections.map(([question, answer]) => ({ question, answer }))} />
         </div>
       </section>
     </Frame>
   );
 }
 
-function Booking({ mode = "service", selectedService, detail = "", quote = false }: { mode?: LeadMode; selectedService?: string; detail?: string; quote?: boolean }) {
-  return (
-    <Frame
-      theme="booking"
-      eyebrow="Service / repair / parts enquiry"
-      title="One request. The right next step."
-      intro="Share your vehicle details, send the prepared WhatsApp message and confirm availability with the workshop."
-      actions={<Call />}
-    >
-      <section className="aa-v10-section aa-v10-paper">
-        <div className="wrap">
-          <WhatsAppLeadForm key={[mode, selectedService, detail, quote].join(":")} quote={quote} mode={mode} selectedService={selectedService} detail={detail} />
-        </div>
-      </section>
-    </Frame>
-  );
-}
+/* ------------------------------------------------------------------ Routing & metadata */
 
 const routeMeta: Record<string, { title: string; description: string }> = {
   about: {
-    title: "About Asian Automobiles Irinjalakuda | Established 1996",
-    description: "Learn about Asian Automobiles, a multi-brand automotive service, wheel-care and spare-parts business in Irinjalakuda.",
+    title: "About Asian Automobiles – Independent Car Workshop, Irinjalakuda",
+    description: "Asian Automobiles is an independent multi-brand car service centre on Kattoor Road, Irinjalakuda, for servicing, repairs and spare-parts help.",
   },
   services: {
-    title: "Car Service & Repairs in Irinjalakuda | Asian Automobiles",
-    description: "Explore multi-brand car servicing, mechanical repair, wheel alignment, balancing, AC service and spare-parts support in Irinjalakuda.",
+    title: "Car Services in Irinjalakuda – Servicing, Repairs, AC, Alignment – Asian Automobiles",
+    description: "Car servicing, mechanical repairs, AC service, wheel alignment and balancing, tyre care and spare-parts enquiries at Asian Automobiles, Irinjalakuda.",
   },
-  "services/car-service": {
-    title: "General Car Service & Repair | Asian Automobiles Irinjalakuda",
-    description: "Routine vehicle maintenance and common mechanical repair enquiries in Irinjalakuda, Kerala.",
+  "services/car-service-maintenance": {
+    title: "Car Service and Maintenance in Irinjalakuda – Asian Automobiles",
+    description: "Periodic car servicing, oil and filter changes and vehicle inspections for cars of many makes at Asian Automobiles, Kattoor Road, Irinjalakuda. Call to book.",
   },
-  "services/car-ac-repair": {
-    title: "Car AC Service & Repair | Asian Automobiles Irinjalakuda",
-    description: "Car AC cooling, airflow and repair enquiries in Irinjalakuda, Kerala.",
+  "services/mechanical-repairs": {
+    title: "Car Mechanical Repairs in Irinjalakuda – Brakes, Clutch, Suspension – Asian Automobiles",
+    description: "Diagnosis and repair of car brake, clutch, suspension, steering and engine problems at Asian Automobiles, Irinjalakuda. Describe the symptom and call the workshop.",
   },
-  "services/accident-repair": {
-    title: "Accident Repair in Irinjalakuda | Asian Automobiles",
-    description: "Start an accident, body-repair or damage-photo enquiry with Asian Automobiles in Irinjalakuda.",
+  "services/car-ac-service": {
+    title: "Car AC Service and Repair in Irinjalakuda – Asian Automobiles",
+    description: "Car AC not cooling? Asian Automobiles in Irinjalakuda checks AC performance, finds faults and handles gas recharge and compressor-related repairs.",
   },
-  "services/denting-painting": {
-    title: "Car Denting & Painting | Asian Automobiles Irinjalakuda",
-    description: "Start a photo-led denting, painting and body-repair enquiry in Irinjalakuda.",
+  "services/wheel-alignment-balancing": {
+    title: "Wheel Alignment and Balancing in Irinjalakuda – Asian Automobiles",
+    description: "Car pulling to one side or steering wheel shaking? Asian Automobiles in Irinjalakuda offers wheel alignment, wheel balancing and tyre wear checks.",
   },
-  "services/wheel-alignment": {
-    title: "Wheel Alignment & Balancing | Asian Automobiles Irinjalakuda",
-    description: "Computerized wheel alignment, wheel balancing and wheel-care enquiries in Irinjalakuda.",
-  },
-  "services/tyre-services": {
-    title: "Tyre & Wheel Care | Asian Automobiles Irinjalakuda",
-    description: "Tyre-condition, balancing, rim and related wheel-care enquiries in Irinjalakuda.",
+  "services/tyre-care": {
+    title: "Car Tyre Care and Checks in Irinjalakuda – Asian Automobiles",
+    description: "Tyre inspection, pressure checks and wear assessment at Asian Automobiles, Irinjalakuda. Keep your car safe on Kerala roads, in every season.",
   },
   "spare-parts": {
-    title: "Automobile Spare Parts in Irinjalakuda | Asian Automobiles",
-    description: "Check automobile spare-parts availability for maintenance, braking, suspension, electrical and service components.",
-  },
-  insurance: {
-    title: "Accident Repair & Insurance Assistance | Asian Automobiles",
-    description: "Start an accident-repair and case-specific insurance-assistance enquiry with Asian Automobiles in Irinjalakuda.",
-  },
-  facilities: {
-    title: "Automotive Workshop Facilities | Asian Automobiles Irinjalakuda",
-    description: "Explore the workshop, wheel-care and service areas at Asian Automobiles on Kattoor Road, Irinjalakuda.",
-  },
-  gallery: {
-    title: "Asian Automobiles Workshop Gallery | Irinjalakuda",
-    description: "Explore the visual structure for workshop, wheel-care, repairs, parts and service photography.",
-  },
-  reviews: {
-    title: "Asian Automobiles Reviews | Car Service in Irinjalakuda",
-    description: "Customer feedback at Asian Automobiles is presented only from genuine, attributable review sources.",
+    title: "Car Spare Parts Enquiry in Irinjalakuda – OEM and Aftermarket – Asian Automobiles",
+    description: "Looking for a car part? Send Asian Automobiles your car’s make, model, year and the part you need. We’ll check genuine (OEM) and aftermarket options.",
   },
   contact: {
-    title: "Contact Asian Automobiles Irinjalakuda | Car Service & Spare Parts",
-    description: "Call, WhatsApp or get directions to Asian Automobiles on Kattoor Road, Irinjalakuda.",
+    title: "Contact Asian Automobiles – Kattoor Road, Irinjalakuda",
+    description: "Call or visit Asian Automobiles on Kattoor Road, near Government Rest House, Irinjalakuda. Address, directions and working hours.",
   },
-  faq: {
-    title: "FAQ | Asian Automobiles Irinjalakuda",
-    description: "Answers about services, accident repair, insurance assistance, parts, booking and workshop contact.",
-  },
-  "book-service": {
-    title: "Book a Service | Asian Automobiles Irinjalakuda",
-    description: "Prepare a simple service request and continue directly with Asian Automobiles on WhatsApp.",
-  },
-  "request-quote": {
-    title: "Request a Repair or Parts Quote | Asian Automobiles",
-    description: "Prepare a repair or parts quote request and continue directly with Asian Automobiles on WhatsApp.",
+  "privacy-policy": {
+    title: "Privacy Policy – Asian Automobiles",
+    description: "How Asian Automobiles collects, uses and protects the information you share through this website.",
   },
 };
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug?: string[] }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug?: string[] }> }): Promise<Metadata> {
   const { slug = [] } = await params;
-  const rawKey = slug.join("/");
-  const key = serviceRouteAliases[rawKey]?.replace(/^\/|\/$/g, "") ?? rawKey;
+  const key = slug.join("/");
   const meta = routeMeta[key];
-  if (!meta) {
-    return { robots: { index: false, follow: false } };
-  }
-  const canonicalKey = key === "services/spare-parts" ? "spare-parts" : key;
+  if (!meta) return { robots: { index: false, follow: false } };
   return {
     title: meta.title,
     description: meta.description,
-    alternates: { canonical: "/" + canonicalKey + "/" },
-    openGraph: {
-      title: meta.title,
-      description: meta.description,
-      type: "website",
-    },
+    alternates: { canonical: "/" + key + "/" },
+    openGraph: { title: meta.title, description: meta.description, type: "website", locale: "en_IN", siteName: "Asian Automobiles" },
   };
 }
 
@@ -1268,20 +1023,19 @@ export default async function Page({ params, searchParams }: {
 }) {
   const [{ slug = [] }, query] = await Promise.all([params, searchParams]);
   const key = slug.join("/");
-  const first = (value: string | string[] | undefined) => Array.isArray(value) ? value[0] : value;
   if (serviceRouteAliases[key]) permanentRedirect(serviceRouteAliases[key]);
-  if (key === "request-quote") permanentRedirect(bookingHref(first(query.service), "quote", first(query.detail)));
-  const service = findService(first(query.service));
-  const mode: LeadMode = service?.mode === "parts" || service?.mode === "accident"
-    ? service.mode : first(query.intent) === "quote" ? "quote" : service?.mode ?? "service";
+  const selected = Array.isArray(query.service) ? query.service[0] : query.service;
   const map: Record<string, () => ReactNode> = {
-    about: About, services: Services,
-    "services/car-service": CarService, "services/car-ac-repair": AC,
-    "services/accident-repair": Accident, "services/denting-painting": Denting,
-    "services/wheel-alignment": Wheel, "services/tyre-services": Tyres,
-    "spare-parts": Parts, insurance: Insurance, facilities: Facilities,
-    gallery: Gallery, reviews: Reviews, contact: Contact, faq: FAQ,
-    "book-service": () => <Booking mode={mode} quote={first(query.intent) === "quote"} selectedService={service?.id} detail={first(query.detail)?.slice(0, 160)} />,
+    about: About,
+    services: Services,
+    "services/car-service-maintenance": CarService,
+    "services/mechanical-repairs": Mechanical,
+    "services/car-ac-service": AC,
+    "services/wheel-alignment-balancing": Wheel,
+    "services/tyre-care": Tyres,
+    "spare-parts": Parts,
+    contact: () => <Contact selectedService={selected} />,
+    "privacy-policy": Privacy,
   };
   const PageView = map[key];
   if (!PageView) notFound();

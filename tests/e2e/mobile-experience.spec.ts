@@ -19,12 +19,12 @@ for (const screen of screens) {
     const brand = page.getByRole("link", { name: "Asian Automobiles home" });
     await brand.focus();
     await page.keyboard.press("Shift+Tab");
-    await expect(panel.getByRole("link", { name: "Speak to the workshop" })).toBeFocused();
+    await expect(panel.getByRole("link", { name: "Get directions" })).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(brand).toBeFocused();
     await panel.evaluate((element) => { element.scrollTop = 0; });
     if (screen.height >= 568) {
-      const booking = await panel.getByRole("link", { name: "Book a service" }).boundingBox();
+      const booking = await panel.getByRole("link", { name: "Call the workshop" }).boundingBox();
       expect(booking!.y + booking!.height, "The collapsed menu keeps booking fully visible").toBeLessThanOrEqual(screen.height);
     }
     await page.screenshot({ path: testInfo.outputPath("menu-collapsed.png") });
@@ -32,9 +32,9 @@ for (const screen of screens) {
     await expect(services).toHaveAttribute("aria-expanded", "true");
     await expect(panel.locator("#aa-menu-services-links a").first()).toBeVisible();
     await page.screenshot({ path: testInfo.outputPath("menu-expanded.png") });
-    await expect(panel.locator("#aa-menu-services-links a")).toHaveCount(7);
+    await expect(panel.locator("#aa-menu-services-links a")).toHaveCount(6);
     await expect(panel.locator("#aa-menu-services-links a span").first()).toHaveCSS("font-size", "15px");
-    await expect(panel.getByRole("link", { name: "Book a service" })).toHaveCSS("color", "rgb(11, 12, 11)");
+    await expect(panel.getByRole("link", { name: "Call the workshop" })).toHaveCSS("color", "rgb(11, 12, 11)");
     for (const link of await panel.locator("#aa-menu-services-links a").all()) {
       await link.scrollIntoViewIfNeeded();
       await expect(link).toBeInViewport();
@@ -58,7 +58,7 @@ for (const screen of screens) {
     await expect(cards.first()).toHaveCSS("position", "sticky");
     // Pin each successive card and check that the previous card remains
     // behind it. The hit test proves actual overlap, rather than just CSS.
-    for (let index = 1; index < 7; index++) {
+    for (let index = 1; index < 6; index++) {
       const target = cards.nth(index);
       await target.evaluate((card) => {
         const pin = parseFloat(getComputedStyle(card).top);
@@ -79,8 +79,8 @@ for (const screen of screens) {
       if (index === 3) await page.screenshot({ path: testInfo.outputPath("stack-middle.png") });
     }
     await page.screenshot({ path: testInfo.outputPath("stacked-services.png") });
-    await page.locator(".aa-home-workshop-grid").scrollIntoViewIfNeeded();
-    await expect(page.getByRole("link", { name: "Our story" })).toBeInViewport();
+    // The workshop section is trimmed on phones by design; the link must still exist.
+    await expect(page.locator('a[href="/about/"]', { hasText: "More about us" })).toHaveCount(1);
     await page.emulateMedia({ reducedMotion: "reduce" });
     await expect(cards.first()).toHaveCSS("position", "relative");
   });

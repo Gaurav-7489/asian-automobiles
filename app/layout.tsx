@@ -32,38 +32,44 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Asian Automobiles | Car Service, Repair & Parts in Irinjalakuda",
+  title: "Asian Automobiles – Multi-Brand Car Service Centre in Irinjalakuda",
   description:
-    "Independent multi-brand automobile service, repair, accident restoration, wheel services and spare-parts enquiries in Irinjalakuda, Kerala.",
+    "Independent car servicing, mechanical repairs, AC service, wheel alignment, tyre care and spare-parts enquiries on Kattoor Road, Irinjalakuda. Call or visit the workshop.",
+  alternates: { canonical: "/" },
   icons: { icon: "/favicon.ico" },
   openGraph: {
     type: "website",
-    title: "Asian Automobiles | Irinjalakuda",
+    title: "Asian Automobiles – Multi-Brand Car Service Centre in Irinjalakuda",
     description:
-      "Car service, repair, accident restoration, wheel services and automobile parts support in Irinjalakuda, Kerala.",
+      "Service. Repair. Parts. In Irinjalakuda.",
     url: "/",
+    locale: "en_IN",
+    siteName: "Asian Automobiles",
   },
 };
 
 const businessSchema = {
   "@context": "https://schema.org",
-  "@type": "AutomotiveBusiness",
+  "@type": "AutoRepair",
+  "@id": siteUrl + "/#business",
   name: "Asian Automobiles",
   url: siteUrl,
-  telephone: businessFacts.phones.primaryDisplay,
+  description: businessFacts.description,
+  // Telephone, email and hours are added only once the owner confirms them (spec 23.3).
   address: {
     "@type": "PostalAddress",
-    streetAddress: businessFacts.address.street,
+    streetAddress: "Kattoor Road, near Government Rest House",
     addressLocality: businessFacts.address.locality,
     addressRegion: businessFacts.address.region,
     postalCode: businessFacts.address.postalCode,
     addressCountry: "IN",
   },
+  areaServed: ["Irinjalakuda", ...businessFacts.serviceArea.slice(0, 6)],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en-IN">
       <body>
         <script
           type="application/ld+json"
