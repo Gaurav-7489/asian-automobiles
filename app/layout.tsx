@@ -1,55 +1,79 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
-import localFont from "next/font/local";
+import "lenis/dist/lenis.css";
 import "./globals.css";
-import { addressOneLine, hoursText } from "@/content/business";
-import { services } from "@/content/services";
-import { displayPhone, mapsHref, telHref, waHref } from "@/lib/links";
-import { businessJsonLd, siteUrl } from "@/lib/seo";
-import { seo } from "@/content/pages";
-import { SiteHeader } from "@/components/layout/site-header";
-import { SiteFooter } from "@/components/layout/site-footer";
-import { MobileContactBar } from "@/components/layout/mobile-contact-bar";
-import { AnalyticsListener } from "@/components/layout/analytics-listener";
-import { JsonLd } from "@/components/seo/json-ld";
+import "./pro-upgrade.css";
+import "./design-v8.css";
+import "./inner-pages-v9.css";
+import "./responsive-fixes.css";
+import "./inner-pages-v10.css";
+import "./inner-pages-v11.css";
+import "./responsive-contrast-v12.css";
+import "./inner-pages-v13.css";
+import "./contrast-v14.css";
+import "./production.css";
+import "./connected-flow.css";
+import "./responsive-layout.css";
+import "./mobile-attraction.css";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+import { InteractiveLayer } from "@/components/interactive";
+import { SmoothScroll } from "@/components/immersive/smooth-scroll";
+import { businessFacts } from "@/lib/business-facts";
 
-// Self-hosted Latin variable fonts (OFL, from Fontsource) – no network call at build time.
-const manrope = localFont({ src: "./fonts/manrope-latin-wght-normal.woff2", weight: "200 800", display: "swap", variable: "--font-manrope" });
-const inter = localFont({ src: "./fonts/inter-latin-wght-normal.woff2", weight: "100 900", display: "swap", variable: "--font-inter" });
+// Production deployment trigger — responsive baseline.
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://asian-automobiles.vercel.app";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#070707",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: { default: seo.home.title, template: "%s" },
-  description: seo.home.description,
-  robots: process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "production" ? { index: false, follow: false } : { index: true, follow: true },
-  openGraph: { siteName: "Asian Automobiles", locale: "en_IN", type: "website" },
-  icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }] },
+  title: "Asian Automobiles | Car Service, Repair & Parts in Irinjalakuda",
+  description:
+    "Independent multi-brand automobile service, repair, accident restoration, wheel services and spare-parts enquiries in Irinjalakuda, Kerala.",
+  icons: { icon: "/favicon.ico" },
+  openGraph: {
+    type: "website",
+    title: "Asian Automobiles | Irinjalakuda",
+    description:
+      "Car service, repair, accident restoration, wheel services and automobile parts support in Irinjalakuda, Kerala.",
+    url: "/",
+  },
 };
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover", themeColor: "#111820" };
+const businessSchema = {
+  "@context": "https://schema.org",
+  "@type": "AutomotiveBusiness",
+  name: "Asian Automobiles",
+  url: siteUrl,
+  telephone: businessFacts.phones.primaryDisplay,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: businessFacts.address.street,
+    addressLocality: businessFacts.address.locality,
+    addressRegion: businessFacts.address.region,
+    postalCode: businessFacts.address.postalCode,
+    addressCountry: "IN",
+  },
+};
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className={`${manrope.variable} ${inter.variable}`}>
+    <html lang="en">
       <body>
-        <SiteHeader
-          services={services.map(({ slug, name, cardText, icon }) => ({ slug, name, cardText, icon }))}
-          tel={telHref()}
-          phone={displayPhone()}
-          wa={waHref("general")}
-          maps={mapsHref()}
-          address={addressOneLine}
-          hours={hoursText()}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema) }}
         />
-        <main id="main" tabIndex={-1} className="pt-[60px] outline-none lg:pt-[72px]">{children}</main>
+        <SmoothScroll />
+        <InteractiveLayer />
+        <SiteHeader />
+        {children}
         <SiteFooter />
-        <MobileContactBar tel={telHref()} wa={waHref("general")} maps={mapsHref()} />
-        <AnalyticsListener />
-        <JsonLd data={businessJsonLd()} />
-        {/* Cookieless analytics (spec 21.7) – loads only when a domain is configured. */}
-        {process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN && (
-          <Script defer data-domain={process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN} src="https://plausible.io/js/script.js" strategy="afterInteractive" />
-        )}
       </body>
     </html>
   );

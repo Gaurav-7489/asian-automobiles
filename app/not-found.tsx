@@ -1,22 +1,25 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { CallButton } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
-export const metadata = { title: "Page not found – Asian Automobiles", robots: { index: false } };
+export const metadata: Metadata = {
+  title: "Page Not Found | Asian Automobiles",
+  description: "The requested page could not be found.",
+  robots: { index: false, follow: false },
+};
 
 export default function NotFound() {
   return (
-    <section className="section">
-      <div className="container-x max-w-[720px]">
-        <p className="eyebrow mb-3">404</p>
-        <h1 className="h1">Page not found</h1>
-        <p className="lead muted mt-5">The page you’re looking for isn’t here. It may have moved.</p>
-        <ul className="mt-8 flex flex-wrap gap-6 font-semibold text-amber-700">
-          <li><Link href="/" className="underline-offset-4 hover:underline">Home</Link></li>
-          <li><Link href="/services" className="underline-offset-4 hover:underline">Services</Link></li>
-          <li><Link href="/contact" className="underline-offset-4 hover:underline">Contact</Link></li>
-        </ul>
-        <div className="mt-8"><CallButton position="not_found" /></div>
+    <main className="aa-production-404">
+      <div>
+        <span className="eyebrow">404 / WRONG TURN</span>
+        <h1>Looks like we took the scenic route.</h1>
+        <p>This page is not in the workshop. Head back to Asian Automobiles and choose the service you need.</p>
+        <Link href="/">
+          <ArrowLeft size={15} />
+          <span>Back to the workshop</span>
+        </Link>
       </div>
-    </section>
+    </main>
   );
 }

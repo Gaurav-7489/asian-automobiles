@@ -1,6 +1,12 @@
 import type { MetadataRoute } from "next";
-import { siteUrl } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
-  return { rules: { userAgent: "*", allow: "/", disallow: ["/api/", "/dev/"] }, sitemap: `${siteUrl}/sitemap.xml` };
+  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://asian-automobiles.vercel.app";
+  return {
+    rules: {
+      userAgent: "*",
+      allow: "/",
+    },
+    sitemap: new URL("/sitemap.xml", base).toString(),
+  };
 }

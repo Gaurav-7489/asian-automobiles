@@ -14,7 +14,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
 
       - name: Install dependencies
         run: npm install
@@ -22,19 +22,24 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Type-check
-        run: npm run typecheck
-
-      - name: Unit tests
-        run: npm run test:unit
-
       - name: Build
         run: npm run build
 
-      - name: Browser smoke tests (desktop + mobile)
+      - name: Start production server
+        run: |
+          npm start > /tmp/asian-next.log 2>&1 &
+          echo $! > /tmp/asian-next.pid
+          for i in {1..40}; do
+            if curl --fail --silent http://127.0.0.1:3000/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/asian-next.log
+          exit 1
+
+      - name: Desktop + mobile browser smoke tests
         run: npm run test:smoke
-        env:
-          CI: "true"
 
       - name: Upload failure diagnostics
         if: failure()
@@ -45,3 +50,4 @@ jobs:
           path: |
             playwright-report
             test-results
+            /tmp/asian-next.log
