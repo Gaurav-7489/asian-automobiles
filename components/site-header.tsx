@@ -223,18 +223,21 @@ export function SiteHeader() {
                           <ArrowUpRight size={16} />
                         </Link>
                       ))}
-                      <a
+                      <Link
                         data-magnetic
-                        href={"tel:" + businessFacts.phones.primaryHref}
+                        href="/contact/#enquiry"
+                        prefetch={false}
+                        onPointerEnter={() => warm("/contact/")}
+                        onFocus={() => warm("/contact/")}
                         className="aa-mega-book"
                       >
-                        <Phone size={19} />
+                        <CalendarDays size={19} />
                         <div>
-                          <span>NOT SURE WHAT YOU NEED?</span>
-                          <b>Call the workshop</b>
+                          <span>READY TO START?</span>
+                          <b>Book a service</b>
                         </div>
                         <ArrowRight size={18} />
-                      </a>
+                      </Link>
                     </div>
 
                     <figure className="aa-mega-preview" aria-hidden="true">
@@ -274,18 +277,20 @@ export function SiteHeader() {
             </nav>
 
             <div className="aa-header-actions">
-              <a data-magnetic href={directionsHref} target="_blank" rel="noreferrer" className="aa-header-phone">
-                <MapPin size={14} />
-                <span>Get directions</span>
+              <a data-magnetic href={"tel:" + businessFacts.phones.primaryHref} className="aa-header-phone">
+                <Phone size={14} />
+                <span>Call workshop</span>
               </a>
-              <a
+              <Link
                 data-magnetic
-                href={"tel:" + businessFacts.phones.primaryHref}
+                href="/contact/#enquiry"
+                prefetch={false}
+                onPointerEnter={() => warm("/contact/")}
+                onFocus={() => warm("/contact/")}
                 className="aa-header-cta"
-                aria-label={"Call the workshop on " + businessFacts.phones.primaryDisplay}
               >
-                <span>Call workshop</span> <Phone size={15} />
-              </a>
+                <span>Book service</span> <ArrowUpRight size={15} />
+              </Link>
               <button
                 data-magnetic
                 ref={menuButtonRef}
@@ -354,8 +359,8 @@ export function SiteHeader() {
             </div>
             <div className="aa-menu-booking">
               <span>LET’S GET YOU BACK ON THE ROAD</span>
-              <a href={"tel:" + businessFacts.phones.primaryHref}>Call the workshop <ArrowUpRight size={22} /></a>
-              <a href={directionsHref} target="_blank" rel="noreferrer"><MapPin size={15} /> Get directions</a>
+              <Link href="/contact/#enquiry" prefetch={false}>Book a service <ArrowUpRight size={22} /></Link>
+              <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={15} /> Speak to the workshop</a>
             </div>
           </div>
         </nav>
@@ -378,7 +383,7 @@ export function SiteHeader() {
         <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={15} /><span>Call</span></a>
         {whatsappEnabled && whatsappHref
           ? <a href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle size={15} /><span>WhatsApp</span></a>
-          : <Link href="/contact/" prefetch={false}><CalendarDays size={15} /><span>Contact</span></Link>}
+          : <Link href="/contact/#enquiry" prefetch={false}><CalendarDays size={15} /><span>Book</span></Link>}
         <a href={directionsHref} target="_blank" rel="noreferrer"><MapPin size={15} /><span>Directions</span></a>
       </nav>
     </>

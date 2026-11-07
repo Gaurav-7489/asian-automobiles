@@ -11,7 +11,7 @@ import { serviceCatalog } from "@/lib/service-catalog";
  * Transactional pages keep their original forms and interactive functionality.
  */
 const summaries: Record<string, { label: string; title: string; copy: string; action: string; href: string }> = {
-  "/": { label: "YOUR LOCAL WORKSHOP", title: "Reliable care for every journey.", copy: "Servicing, repairs, AC, wheel alignment, tyre care and spare parts for cars of many makes in Irinjalakuda.", action: "Explore services", href: "/services/" },
+  "/": { label: "YOUR LOCAL WORKSHOP", title: "Precision for every drive.", copy: "Servicing, repairs, AC, wheel alignment, tyre care and spare parts for cars of many makes in Irinjalakuda.", action: "Explore services", href: "/services/" },
   "/about": { label: "ABOUT THE WORKSHOP", title: "Asian Automobiles.", copy: "An independent, multi-brand car service centre on Kattoor Road, Irinjalakuda. Not a dealership.", action: "Visit the workshop", href: "/contact/" },
   "/spare-parts": { label: "SPARE PARTS", title: "Looking for a part?", copy: "Tell us your car’s make, model and year and the part you need. We’ll check genuine (OEM) and aftermarket options.", action: "Call us", href: "tel:" + businessFacts.phones.primaryHref },
   "/services": { label: "SERVICES", title: "What does your car need?", copy: "Choose a service below, or call us and describe what you’re noticing.", action: "Call the workshop", href: "tel:" + businessFacts.phones.primaryHref },

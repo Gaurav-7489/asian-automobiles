@@ -109,7 +109,7 @@ export function ImmersiveHero() {
             <h1>
               <span className="aa-hero2-line">
                 <motion.i initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 0.72, ease }}>
-                  Reliable care
+                  Precision
                 </motion.i>
               </span>
               <span className="aa-hero2-line">
@@ -119,7 +119,7 @@ export function ImmersiveHero() {
               </span>
               <span className="aa-hero2-line aa-hero2-line-outline">
                 <motion.i initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 0.72, delay: 0.09, ease }}>
-                  journey.
+                  drive.
                 </motion.i>
               </span>
             </h1>
@@ -131,12 +131,12 @@ export function ImmersiveHero() {
               </p>
 
               <div className="aa-hero2-actions">
-                <a data-magnetic href={"tel:" + businessFacts.phones.primaryHref} className="aa-hero2-primary" aria-label={"Call the workshop on " + businessFacts.phones.primaryDisplay}>
-                  Call the workshop <ArrowUpRight size={15} />
-                </a>
-                <Link data-magnetic href="/services/" prefetch={false} className="aa-hero2-circle" aria-label="Explore our services">
-                  <ArrowDownRight size={19} />
+                <Link data-magnetic href="/contact/#enquiry" prefetch={false} className="aa-hero2-primary">
+                  Book service <ArrowUpRight size={15} />
                 </Link>
+                <a data-magnetic href={"tel:" + businessFacts.phones.primaryHref} className="aa-hero2-circle" aria-label="Call Asian Automobiles">
+                  <ArrowDownRight size={19} />
+                </a>
               </div>
             </div>
           </motion.div>

@@ -19,12 +19,12 @@ for (const screen of screens) {
     const brand = page.getByRole("link", { name: "Asian Automobiles home" });
     await brand.focus();
     await page.keyboard.press("Shift+Tab");
-    await expect(panel.getByRole("link", { name: "Get directions" })).toBeFocused();
+    await expect(panel.getByRole("link", { name: "Speak to the workshop" })).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(brand).toBeFocused();
     await panel.evaluate((element) => { element.scrollTop = 0; });
     if (screen.height >= 568) {
-      const booking = await panel.getByRole("link", { name: "Call the workshop" }).boundingBox();
+      const booking = await panel.getByRole("link", { name: "Book a service" }).boundingBox();
       expect(booking!.y + booking!.height, "The collapsed menu keeps booking fully visible").toBeLessThanOrEqual(screen.height);
     }
     await page.screenshot({ path: testInfo.outputPath("menu-collapsed.png") });
@@ -34,7 +34,7 @@ for (const screen of screens) {
     await page.screenshot({ path: testInfo.outputPath("menu-expanded.png") });
     await expect(panel.locator("#aa-menu-services-links a")).toHaveCount(6);
     await expect(panel.locator("#aa-menu-services-links a span").first()).toHaveCSS("font-size", "15px");
-    await expect(panel.getByRole("link", { name: "Call the workshop" })).toHaveCSS("color", "rgb(11, 12, 11)");
+    await expect(panel.getByRole("link", { name: "Book a service" })).toHaveCSS("color", "rgb(11, 12, 11)");
     for (const link of await panel.locator("#aa-menu-services-links a").all()) {
       await link.scrollIntoViewIfNeeded();
       await expect(link).toBeInViewport();
