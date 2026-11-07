@@ -1,30 +1,9 @@
 import type { MetadataRoute } from "next";
+import { services } from "@/content/services";
+import { absolute } from "@/lib/seo";
 
-const routes = [
-  "",
-  "/about/",
-  "/services/",
-  "/services/car-service/",
-  "/services/car-ac-repair/",
-  "/services/accident-repair/",
-  "/services/denting-painting/",
-  "/services/wheel-alignment/",
-  "/services/tyre-services/",
-  "/spare-parts/",
-  "/insurance/",
-  "/facilities/",
-  "/gallery/",
-  "/reviews/",
-  "/book-service/",
-  "/contact/",
-  "/faq/",
-];
-
+/** Static routes plus published services only – conditional pages appear once switched on. */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://asian-automobiles.vercel.app";
-  return routes.map((route) => ({
-    url: new URL(route, base).toString(),
-    changeFrequency: route === "" ? "weekly" : "monthly",
-    priority: route === "" ? 1 : route.startsWith("/services") ? 0.9 : 0.7,
-  }));
+  const routes = ["/", "/about", "/services", ...services.map((s) => `/services/${s.slug}`), "/spare-parts", "/contact", "/privacy-policy"];
+  return routes.map((r) => ({ url: absolute(r), changeFrequency: r === "/" ? "weekly" : "monthly", priority: r === "/" ? 1 : r.startsWith("/services") ? 0.9 : 0.6 }));
 }
