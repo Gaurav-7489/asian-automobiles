@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Inter, Manrope } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { addressOneLine, hoursText } from "@/content/business";
 import { services } from "@/content/services";
@@ -13,8 +13,9 @@ import { MobileContactBar } from "@/components/layout/mobile-contact-bar";
 import { AnalyticsListener } from "@/components/layout/analytics-listener";
 import { JsonLd } from "@/components/seo/json-ld";
 
-const manrope = Manrope({ subsets: ["latin"], weight: ["600", "700", "800"], display: "swap", variable: "--font-manrope" });
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600"], display: "swap", variable: "--font-inter" });
+// Self-hosted Latin variable fonts (OFL, from Fontsource) – no network call at build time.
+const manrope = localFont({ src: "./fonts/manrope-latin-wght-normal.woff2", weight: "200 800", display: "swap", variable: "--font-manrope" });
+const inter = localFont({ src: "./fonts/inter-latin-wght-normal.woff2", weight: "100 900", display: "swap", variable: "--font-inter" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
