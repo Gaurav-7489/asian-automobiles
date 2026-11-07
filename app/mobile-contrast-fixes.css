@@ -1,0 +1,166 @@
+/*
+ * Mobile readability + WCAG AA contrast fixes.
+ * Selectors start with :root:not(#_) to outrank the older layered rules. Loaded last; refines the existing design without changing its look.
+ * Ratios target ≥ 4.5:1 for normal text and ≥ 3:1 for large text, in default and hover states.
+ */
+
+/* ---------- Small numbers and labels (were 1.6–4.4:1) ---------- */
+
+/* Service stack cards: meta row was opacity .42 at 8px */
+:root:not(#_) .aa-skip-card-meta { opacity: 1 !important; font-size: 10px !important; }
+:root:not(#_) .aa-skip-card-meta span { color: #55544f !important; }
+:root:not(#_) .aa-skip-card:nth-child(even) .aa-skip-card-meta span { color: #b9bab4 !important; }
+:root:not(#_) .aa-skip-card:nth-child(even) p { color: #c9cac4 !important; }
+
+/* Home section heading accent and count */
+:root:not(#_) .aa-section-head h2 em { color: #66635c !important; }
+:root:not(#_) .aa-count { color: #55534f !important; }
+
+/* Numbered stack lists on light sections */
+:root:not(#_) .aa-v10-stack-list > div > span { color: #55544e !important; }
+
+/* Contact action labels follow their card colour (light card, dark card and dark hover) */
+:root:not(#_) .aa-v10-contact-actions a > span { color: inherit !important; opacity: 0.85 !important; }
+
+/* Map pin label sat white on lime */
+:root:not(#_) .aa-v10-map-pin b { color: #0b0c0b !important; }
+
+/* Interactive lab menus (symptom scanner, AC modes, parts index, wheel/tyre tabs) on dark */
+:root:not(#_) .aa-v11-scanner-menu button > span,
+:root:not(#_) .aa-v11-scanner-menu button small,
+:root:not(#_) .aa-v11-climate-modes button > span,
+:root:not(#_) .aa-v11-parts-index button > span,
+:root:not(#_) .aa-v22-tabs button > span,
+:root:not(#_) .aa-v22-tabs button small { color: #a9ada8 !important; opacity: 1 !important; }
+
+/* Same labels on the lime active state */
+:root:not(#_) .aa-v11-scanner-menu button.is-active > span,
+:root:not(#_) .aa-v11-scanner-menu button.is-active small,
+:root:not(#_) .aa-v11-climate-modes button.is-active > span,
+:root:not(#_) .aa-v11-parts-index button.is-active > span,
+:root:not(#_) .aa-v22-tabs button.is-active :is(span, small) { color: #34400c !important; opacity: 1 !important; }
+
+/* Lab buttons turn lime/cyan on hover: keep their text dark there */
+:root:not(#_) .aa-v11-scanner-menu button:hover :is(b, span, small, svg),
+:root:not(#_) .aa-v11-climate-modes button:hover :is(b, span, svg),
+:root:not(#_) .aa-v11-parts-index button:hover :is(b, span, svg) { color: #0b0c0b !important; }
+:root:not(#_) .aa-v22-tabs button.is-active, :root:not(#_) .aa-v22-tabs button.is-active b { color: #0b0c0b !important; }
+
+/* ---------- Footer ---------- */
+
+/* "AA" mark was white on the white disc */
+:root:not(#_) .aa-footer .aa-brand-mark { color: #0b0b0b !important; }
+:root:not(#_) .aa-footer p, :root:not(#_) .aa-footer a { color: #d4d6d0; }
+:root:not(#_) .aa-footer a:hover { color: #ffffff; }
+
+/* ---------- Mobile menu ---------- */
+
+@media (max-width: 1100px) {
+  /* Direct one-tap links under the Services card */
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 64px;
+    padding: 18px 20px;
+    border: 1px solid #ffffff24;
+    border-radius: 16px;
+    background: #ffffff05;
+    color: #f3f2eb !important;
+    font-size: 18px;
+    font-weight: 550;
+    letter-spacing: -0.02em;
+  }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct a svg { flex-shrink: 0; color: #c5f166 !important; }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct a:is(:hover, [aria-current="page"]) {
+    border-color: #c5f16699;
+    color: #c5f166 !important;
+  }
+
+  /* Services links: one readable column, larger type */
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-group-links a { font-size: 16px !important; color: #f3f2eb !important; }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-group-links a span { font-size: 16px !important; }
+
+  /* Secondary actions under Book a service: call and directions */
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-booking > a:not(:first-of-type) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 48px;
+    color: #f3f2eb !important;
+    font-size: 15px;
+    border-bottom: 1px solid #ffffff1a;
+  }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-booking > a:not(:first-of-type) svg { color: #c5f166 !important; }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-booking > span { font-size: 11px !important; color: #c9ccc5 !important; }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-meta {
+    margin: 16px 0 0;
+    color: #c9ccc5 !important;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-intro .aa-mobile-label { font-size: 11px !important; }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-group small { font-size: 13px !important; color: #c9ccc5 !important; }
+}
+
+/* Small phones: keep two compact columns so "Book a service" stays on screen */
+@media (max-width: 420px) {
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct { gap: 8px; }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct a { min-height: 50px; padding: 12px 14px; border-radius: 12px; }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct a span { font-size: 16px !important; }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-groups { gap: 8px; }
+}
+@media (max-width: 420px) and (max-height: 700px) {
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-mobile-panel-inner { padding-top: 16px !important; }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-intro { margin-bottom: 14px; }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-intro p { font-size: 22px !important; margin-top: 6px; }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-group > button { padding: 14px 16px !important; }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-group small { display: none !important; }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-booking { padding-top: 16px !important; }
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-booking > span { display: none !important; }
+}
+
+/* ---------- Mobile bottom action bar ---------- */
+
+/* Labels were 8px; the lime highlight sat on Directions instead of the main action */
+:root:not(#_) .aa-mobile-actions a { font-size: 11px !important; letter-spacing: 0.06em !important; color: #f3f2eb !important; }
+:root:not(#_) .aa-mobile-actions a :is(span, svg) { color: #f3f2eb !important; }
+:root:not(#_) .aa-mobile-actions a:last-child,
+:root:not(#_) .aa-mobile-actions a:last-child:is(:hover, :active, :focus-visible) { background: transparent !important; }
+:root:not(#_) .aa-mobile-actions a:is(:first-child, :last-child):is(:hover, :active) :is(span, svg) { color: #f3f2eb !important; }
+:root:not(#_) .aa-mobile-actions a:nth-child(2),
+:root:not(#_) .aa-mobile-actions a:nth-child(2):is(:hover, :active) { background: #d8ff3e !important; color: #0b0c0b !important; }
+:root:not(#_) .aa-mobile-actions a:nth-child(2) :is(span, svg) { color: #0b0c0b !important; }
+
+/* ---------- General mobile readability ---------- */
+
+@media (max-width: 720px) {
+  /* Tiny uppercase eyebrows were 8–9px */
+  :root:not(#_) .eyebrow, :root:not(#_) .aa-kicker { font-size: 11px !important; }
+  :root:not(#_) .aa-v10-section-head p, :root:not(#_) .aa-v10-stack-list p, :root:not(#_) .aa-v10-feature-card p { font-size: 15px !important; line-height: 1.6 !important; }
+  /* Keep the footer clear of the fixed action bar (dark, so no light strip shows) */
+  :root:not(#_) .aa-footer { padding-bottom: calc(96px + env(safe-area-inset-bottom)) !important; }
+  :root:not(#_) body { padding-bottom: 0 !important; }
+}
+
+/* ---------- Desktop services dropdown ---------- */
+
+/* "View all services" turned white on the cream panel when hovered */
+:root:not(#_) .aa-mega-top > a { color: #3f3e3a !important; }
+:root:not(#_) .aa-mega-top > a:is(:hover, :focus-visible) { color: #0b0c0b !important; text-decoration: underline; text-underline-offset: 4px; }
+:root:not(#_) .aa-mega-top small { color: #55544f !important; }
+
+/* Mobile menu direct links: older rules sized the inner text at ~9px */
+@media (max-width: 1100px) {
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct a span { font-size: 18px !important; color: inherit !important; letter-spacing: -0.02em; }
+}
+@media (max-width: 340px) {
+  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct a span { font-size: 15px !important; white-space: nowrap; }
+}

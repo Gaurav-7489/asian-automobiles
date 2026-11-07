@@ -29,7 +29,7 @@ export function SiteFooter() {
             <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={14} /> {businessFacts.phones.primaryDisplay}</a>
             <a href={"tel:" + businessFacts.phones.landlineHref}><Phone size={14} /> {businessFacts.phones.landlineDisplay}</a>
             <a href={"mailto:" + businessFacts.email}>{businessFacts.email}</a>
-            <p><MapPin size={14} /> {businessFacts.address.street}, {businessFacts.address.landmark.toLowerCase()}, {businessFacts.address.locality}</p>
+            <p><MapPin size={14} /> {businessFacts.address.street}, {businessFacts.address.landmark.replace("Near", "near")}, {businessFacts.address.locality}</p>
             <p>{businessFacts.hours}</p>
             <a href={directionsHref} target="_blank" rel="noreferrer">Get directions <ArrowUpRight size={13} /></a>
           </div>

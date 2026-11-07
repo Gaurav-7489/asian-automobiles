@@ -11,15 +11,17 @@ for (const screen of screens) {
     await page.evaluate(() => document.fonts.ready);
     await page.getByRole("button", { name: "Open menu" }).click();
     const panel = page.getByRole("navigation", { name: "Expanded navigation" });
-    const services = panel.getByRole("button", { name: /Services & repairs/ });
-    const workshop = panel.getByRole("button", { name: /Inside the workshop/ });
+    const services = panel.getByRole("button", { name: /^Services/ });
     await expect(services).toHaveAttribute("aria-expanded", "false");
-    await expect(workshop).toHaveAttribute("aria-expanded", "false");
+    // Main pages are one tap away without opening a group.
+    for (const name of ["Home", "About", "Spare Parts", "Contact"]) {
+      await expect(panel.locator(".aa-menu-direct").getByRole("link", { name, exact: true })).toBeVisible();
+    }
     await expect(panel.locator("#aa-menu-services-links a").first()).toBeHidden();
     const brand = page.getByRole("link", { name: "Asian Automobiles home" });
     await brand.focus();
     await page.keyboard.press("Shift+Tab");
-    await expect(panel.getByRole("link", { name: "Speak to the workshop" })).toBeFocused();
+    await expect(panel.getByRole("link", { name: "Get directions" })).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(brand).toBeFocused();
     await panel.evaluate((element) => { element.scrollTop = 0; });
@@ -32,8 +34,8 @@ for (const screen of screens) {
     await expect(services).toHaveAttribute("aria-expanded", "true");
     await expect(panel.locator("#aa-menu-services-links a").first()).toBeVisible();
     await page.screenshot({ path: testInfo.outputPath("menu-expanded.png") });
-    await expect(panel.locator("#aa-menu-services-links a")).toHaveCount(6);
-    await expect(panel.locator("#aa-menu-services-links a span").first()).toHaveCSS("font-size", "15px");
+    await expect(panel.locator("#aa-menu-services-links a")).toHaveCount(7);
+    await expect(panel.locator("#aa-menu-services-links a span").first()).toHaveCSS("font-size", "16px");
     await expect(panel.getByRole("link", { name: "Book a service" })).toHaveCSS("color", "rgb(11, 12, 11)");
     for (const link of await panel.locator("#aa-menu-services-links a").all()) {
       await link.scrollIntoViewIfNeeded();
@@ -42,10 +44,9 @@ for (const screen of screens) {
       expect(box!.x).toBeGreaterThanOrEqual(0);
       expect(box!.x + box!.width).toBeLessThanOrEqual(screen.width);
     }
-    await workshop.click();
-    await expect(workshop).toHaveAttribute("aria-expanded", "true");
+    await services.click();
     await expect(services).toHaveAttribute("aria-expanded", "false");
-    await panel.getByRole("link", { name: "About", exact: true }).click();
+    await panel.locator(".aa-menu-direct").getByRole("link", { name: "About", exact: true }).click();
     await expect(page).toHaveURL(/\/about\//);
     await expect(page.locator(".aa-header")).not.toHaveClass(/is-open/);
     await page.getByRole("button", { name: "Open menu" }).click();

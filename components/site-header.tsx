@@ -30,7 +30,7 @@ const navLinks = [
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [mobileGroup, setMobileGroup] = useState<"services" | "workshop" | null>(null);
+  const [mobileGroup, setMobileGroup] = useState<"services" | null>(null);
   const headerRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLElement>(null);
@@ -327,40 +327,47 @@ export function SiteHeader() {
               <p>Where shall we start?</p>
             </div>
             <div className="aa-menu-groups">
-              {(["services", "workshop"] as const).map((group) => {
-                const expanded = mobileGroup === group;
-                return (
-                  <div className={`aa-menu-group ${expanded ? "is-expanded" : ""}`} key={group}>
-                    <button
-                      type="button"
-                      id={`aa-menu-${group}-toggle`}
-                      aria-expanded={expanded}
-                      aria-controls={`aa-menu-${group}-links`}
-                      onClick={() => setMobileGroup(expanded ? null : group)}
-                    >
-                      <span className="aa-menu-group-icon">{group === "services" ? <CalendarDays size={20} /> : <MapPin size={20} />}</span>
-                      <span><b>{group === "services" ? "Services & repairs" : "Inside the workshop"}</b><small>{group === "services" ? "Find the right care for your car" : "Our story, spaces & customer experiences"}</small></span>
-                      <ChevronDown size={20} />
-                    </button>
-                    <div className="aa-menu-group-reveal" inert={!expanded}>
-                      <div>
-                        <div className="aa-menu-group-links" id={`aa-menu-${group}-links`} aria-labelledby={`aa-menu-${group}-toggle`}>
-                          {(group === "services" ? serviceLinks : navLinks).map(([label, href]) => (
-                            <Link href={href} key={href} prefetch={false} aria-current={pathname === href ? "page" : undefined}>
-                              <span>{label}</span><ArrowUpRight size={16} />
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
+              <div className={`aa-menu-group ${mobileGroup === "services" ? "is-expanded" : ""}`}>
+                <button
+                  type="button"
+                  id="aa-menu-services-toggle"
+                  aria-expanded={mobileGroup === "services"}
+                  aria-controls="aa-menu-services-links"
+                  onClick={() => setMobileGroup(mobileGroup === "services" ? null : "services")}
+                >
+                  <span className="aa-menu-group-icon"><CalendarDays size={20} /></span>
+                  <span><b>Services</b><small>Servicing, repairs, AC, wheels, tyres & parts</small></span>
+                  <ChevronDown size={20} />
+                </button>
+                <div className="aa-menu-group-reveal" inert={mobileGroup !== "services"}>
+                  <div>
+                    <div className="aa-menu-group-links" id="aa-menu-services-links" aria-labelledby="aa-menu-services-toggle">
+                      {serviceLinks.map(([label, href]) => (
+                        <Link href={href} key={href} prefetch={false} aria-current={pathname === href ? "page" : undefined}>
+                          <span>{label}</span><ArrowUpRight size={16} />
+                        </Link>
+                      ))}
+                      <Link href="/services/" prefetch={false} aria-current={pathname === "/services/" ? "page" : undefined}>
+                        <span>All services</span><ArrowUpRight size={16} />
+                      </Link>
                     </div>
                   </div>
-                );
-              })}
+                </div>
+              </div>
+              <div className="aa-menu-direct">
+                {[["Home", "/"], ...navLinks].map(([label, href]) => (
+                  <Link href={href} key={href} prefetch={false} aria-current={pathname === href ? "page" : undefined}>
+                    <span>{label}</span><ArrowUpRight size={18} />
+                  </Link>
+                ))}
+              </div>
             </div>
             <div className="aa-menu-booking">
               <span>LET’S GET YOU BACK ON THE ROAD</span>
               <Link href="/contact/#enquiry" prefetch={false}>Book a service <ArrowUpRight size={22} /></Link>
-              <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={15} /> Speak to the workshop</a>
+              <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={15} /> Speak to the workshop · {businessFacts.phones.primaryDisplay}</a>
+              <a href={directionsHref} target="_blank" rel="noreferrer"><MapPin size={15} /> Get directions</a>
+              <p className="aa-menu-meta">{businessFacts.address.street}, {businessFacts.address.locality} · {businessFacts.hours}</p>
             </div>
           </div>
         </nav>

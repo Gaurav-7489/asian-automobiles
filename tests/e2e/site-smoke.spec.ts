@@ -63,7 +63,7 @@ test("mobile navigation opens, is usable, and closes", async ({ page }, testInfo
 
   const panel = page.locator(".aa-mobile-panel");
   await expect(panel).toBeVisible();
-  await panel.getByRole("button", { name: /Services & repairs/ }).click();
+  await panel.getByRole("button", { name: /^Services/ }).click();
   await expect(panel.getByRole("link", { name: /Car service & maintenance/i })).toBeVisible();
 
   await page.getByRole("button", { name: "Close menu" }).click();
