@@ -13,6 +13,7 @@ export const flags = {
   tyreReplacement: false, // M15 – tyre sales / replacement offered?
   insuranceSupport: false, // O10 – never mention until confirmed
   majorAccidentRepair: false, // M13
+  detailingListsConfirmed: false, // M14 – owner confirms each exterior/interior item
 };
 
 export type IconName =
@@ -24,7 +25,7 @@ export interface Faq { q: string; a: string; when?: boolean }
 type Cell = string | { text: string; href: string };
 
 export type Section =
-  | { type: "prose"; heading: string; paragraphs: string[]; link?: { label: string; href: string } }
+  | { type: "prose"; heading: string; paragraphs: string[]; link?: { label: string; href: string }; /** show link only when this service slug is published */ linkWhen?: string }
   | { type: "cards"; heading: string; intro?: string; items: Item[]; note?: string; tone?: "warm" }
   | { type: "checklist"; heading: string; intro?: string; items: { text: string; href?: string }[]; footnote?: string; columns?: 1 | 2 }
   | { type: "list"; heading: string; intro?: string; items: string[]; link?: { label: string; href: string } }
@@ -46,7 +47,7 @@ export interface Service {
   typicalWork: string[];
   published: boolean;
   seo: { title: string; description: string; primaryKeyword: string };
-  hero: { eyebrow: string; h1: string; sub: string; image: ImageRef; primaryLabel: string; secondaryLabel: string; whatsappKey: WhatsappKey; whatsappFirst?: boolean };
+  hero: { eyebrow: string; h1: string; sub: string; image: ImageRef; primaryLabel: string; primaryLabelMobile?: string; secondaryLabel: string; whatsappKey: WhatsappKey; whatsappFirst?: boolean };
   sections: (Section & { when?: boolean })[];
   faqHeading?: string;
   faqs: Faq[];
@@ -192,6 +193,7 @@ const mechanical: Service = {
     sub: "Brake, clutch, suspension, steering and engine problems diagnosed and repaired at our Irinjalakuda workshop.",
     image: images.mechanical,
     primaryLabel: "Describe the Problem",
+    primaryLabelMobile: "Call & Describe the Problem",
     secondaryLabel: "Send a Video on WhatsApp",
     whatsappKey: "mechanical-repairs",
   },
@@ -621,12 +623,18 @@ const denting: Service = {
       items: ["Parking dents", "Door dings", "Bumper scrapes", "Surface scratches", "Deeper scratches through the paint", "Faded or damaged paint on a panel"],
     },
     {
+      type: "callout",
+      variant: "info",
+      text: "For major accident damage, call us to discuss before visiting.",
+      when: flags.majorAccidentRepair,
+    },
+    {
       type: "cards",
       heading: "How we repair it",
       items: [
-        { icon: "wrench", title: "Dent repair", text: "Dents are assessed by size, depth and location. Smaller dents can often be worked back into shape; creased or deeper dents may need filling, smoothing and repainting." },
-        { icon: "paintbrush", title: "Panel painting", text: "The damaged area is cleaned, repaired and smoothed before primer and paint, and the finish is blended to sit naturally with the surrounding paint." },
-        { icon: "sparkles", title: "Scratch repair", text: "Light scratches can sometimes be polished out. If your fingernail catches on the scratch, it likely needs touch-up or repainting." },
+        { icon: "wrench", title: "Dent repair", text: "Dents are assessed by size, depth and location. Smaller dents can often be worked back into shape, while creased or deeper dents may need filling, smoothing and repainting. We’ll explain the approach after seeing the damage." },
+        { icon: "paintbrush", title: "Panel painting", text: "Good paintwork depends on preparation. The damaged area is cleaned, repaired and smoothed before primer and paint are applied, and the finish is blended to sit as naturally as possible with the surrounding paint." },
+        { icon: "sparkles", title: "Scratch repair", text: "Light scratches in the top layer can sometimes be polished out. Scratches that go through to the primer or metal need touch-up or repainting. Run a fingernail across the scratch: if it catches, it is likely deeper than the surface layer." },
       ],
     },
     {
@@ -646,6 +654,7 @@ const denting: Service = {
     { q: "Can you tell me the cost from a photo?", a: "Photos help us give initial advice. A final assessment needs us to see the car." },
     { q: "Will the new paint match the rest of my car?", a: "We aim for a close, natural match. Older or sun-faded paint can make an exact match harder, and we’ll explain this before starting." },
     { q: "How long will my car be at the workshop?", a: "Paint needs time to prepare and cure, so it depends on the size of the repair. We’ll give you an idea after assessment." },
+    { q: "Do you handle insurance claims?", a: "Call us to discuss how we can help with an insurance claim for your car.", when: flags.insuranceSupport },
   ],
   cta: { heading: "Dent or scratch spoiling your car?", text: "Send photos on WhatsApp or call us to talk it through." },
   related: ["car-detailing", "car-service-maintenance"],
@@ -686,13 +695,23 @@ const detailing: Service = {
       link: { label: "Book it with your car service", href: "/services/car-service-maintenance" },
     },
     {
-      type: "cards",
-      heading: "Inside and out",
-      items: [
-        { icon: "droplets", title: "Exterior cleaning", text: "Washing removes dirt, road film and grime from the body, wheels and glass, and makes scratches and chips easier to spot." },
-        { icon: "wind", title: "Interior cleaning", text: "Dust and spills collect in carpets, seats and vents. An interior clean leaves the cabin fresher for long drives with family." },
-        { icon: "sparkles", title: "Polishing and paint care", text: "Polishing can restore some gloss and reduce very light surface marks. Deeper scratches need repair rather than polish." },
-      ],
+      type: "prose",
+      heading: "Exterior cleaning",
+      paragraphs: ["Washing removes dirt, road film and grime from the body, wheels and glass. Done carefully, it keeps the paint looking its best and makes scratches and chips easier to spot."],
+    },
+    { type: "list", heading: "Exterior cleaning includes", items: ["Body wash", "Wheel and tyre cleaning", "Glass cleaning", "Drying"], when: flags.detailingListsConfirmed },
+    {
+      type: "prose",
+      heading: "Interior cleaning",
+      paragraphs: ["Inside the car, dust and spills collect in carpets, seats and vents. An interior clean leaves the cabin fresher and more comfortable, which helps on long drives with family."],
+    },
+    { type: "list", heading: "Interior cleaning includes", items: ["Vacuuming of seats and carpets", "Dashboard and panel cleaning", "Mat cleaning", "Inside glass cleaning"], when: flags.detailingListsConfirmed },
+    {
+      type: "prose",
+      heading: "Polishing and paint care",
+      paragraphs: ["Over time, paint can look dull from sun, rain and washing. Polishing can restore some of its gloss and reduce the appearance of very light surface marks. Deeper scratches need repair rather than polish."],
+      link: { label: "For deeper scratches, see denting and painting", href: "/services/denting-painting" },
+      linkWhen: "denting-painting",
     },
     { type: "treatments", heading: "What’s available" },
   ],

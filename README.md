@@ -56,13 +56,22 @@ The parts and contact forms share one engine (`components/forms`, `lib/validatio
 - **Neither configured (current state):** the forms are hidden and replaced by a call prompt,
   so no form ever silently goes nowhere.
 
+## Other
+
+- **Analytics:** set `NEXT_PUBLIC_ANALYTICS_DOMAIN` to load cookieless Plausible. Every CTA
+  carries `data-analytics-*` attributes (contact_click, directions_click, map_load, form_*,
+  faq_open, service_card_click); no personal data is sent.
+- **Social previews and icons:** generated per page (`opengraph-image.tsx`, `icon.tsx`,
+  `apple-icon.tsx`). Swap for real photos when available.
+- **Component preview:** `/dev/components`, only with `ENABLE_DEV_ROUTES=1` (404 otherwise).
+
 ## Commands
 
 ```sh
 npm install
 npm run build
 npm run test:unit
-npm run test:smoke      # Playwright, starts the production server
+npm run test:smoke      # Playwright + axe accessibility checks, starts the production server
 npm run check:launch    # launch gate: fails while facts are provisional or banned wording appears
 ```
 

@@ -112,3 +112,10 @@ test("no horizontal scroll at 320px", async ({ browser }) => {
   }
   await ctx.close();
 });
+
+test("favicons, manifest and social images are served", async ({ request }) => {
+  for (const p of ["/icon/32", "/icon/192", "/icon/512", "/apple-icon", "/favicon.svg", "/manifest.webmanifest", "/opengraph-image", "/services/tyre-care/opengraph-image"]) {
+    expect((await request.get(p)).status(), p).toBe(200);
+  }
+  expect((await request.get("/dev/components")).status()).toBe(404);
+});

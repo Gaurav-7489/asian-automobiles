@@ -29,12 +29,14 @@ export function MobileContactBar({ tel, wa, maps }: { tel: string | null; wa: st
   }, [pathname]);
 
   const contactPage = pathname === "/contact";
+  // On the bodywork page WhatsApp (photos) takes the primary slot when a number exists (spec 15 H).
+  const waFirst = pathname === "/services/denting-painting" && Boolean(wa);
   const btn = "flex min-h-12 flex-1 items-center justify-center gap-2 rounded-sm text-[15px] font-semibold";
   return (
     <div aria-label="Quick contact" role="region" className={`fixed inset-x-0 bottom-0 z-40 border-t border-charcoal-800 bg-graphite-900 px-3 pt-2 transition-transform duration-200 lg:hidden ${hide ? "translate-y-full" : ""}`} style={{ paddingBottom: "calc(0.5rem + env(safe-area-inset-bottom))" }}>
       <div className="flex gap-2">
-        {tel && <a href={tel} data-analytics="contact_click" data-analytics-channel="phone" data-analytics-position="mobile_bar" className={`${btn} flex-[1.6] bg-amber-500 text-graphite-900`}><Phone className="size-5" aria-hidden="true" /> Call</a>}
-        {!contactPage && wa && <a href={wa} target="_blank" rel="noopener" data-analytics="contact_click" data-analytics-channel="whatsapp" data-analytics-position="mobile_bar" className={`${btn} border border-white/70 text-white`}><MessageCircle className="size-5" aria-hidden="true" /> WhatsApp</a>}
+        {tel && <a href={tel} data-analytics="contact_click" data-analytics-channel="phone" data-analytics-position="mobile_bar" className={`${btn} ${waFirst ? "border border-white/70 text-white" : "flex-[1.6] bg-amber-500 text-graphite-900"}`}><Phone className="size-5" aria-hidden="true" /> Call</a>}
+        {!contactPage && wa && <a href={wa} target="_blank" rel="noopener" data-analytics="contact_click" data-analytics-channel="whatsapp" data-analytics-position="mobile_bar" className={`${btn} ${waFirst ? "order-first flex-[1.6] bg-amber-500 text-graphite-900" : "border border-white/70 text-white"}`}><MessageCircle className="size-5" aria-hidden="true" /> WhatsApp</a>}
         {!contactPage && <a href={maps} target="_blank" rel="noopener" data-analytics="directions_click" data-analytics-position="mobile_bar" className={`${btn} border border-charcoal-800 text-white`}><Navigation className="size-5" aria-hidden="true" /> Directions</a>}
       </div>
     </div>

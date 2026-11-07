@@ -61,12 +61,12 @@ export function ButtonLink({ href, children, variant = "primary", size = "md", i
 
 /* Channel buttons derive from business data; a missing channel renders nothing. */
 
-export function CallButton({ label = "Call the Workshop", position, variant = "primary", size = "lg", className }: { label?: string; position: string; variant?: Variant; size?: "md" | "lg"; className?: string }) {
+export function CallButton({ label = "Call the Workshop", mobileLabel, position, variant = "primary", size = "lg", className }: { label?: string; mobileLabel?: string; position: string; variant?: Variant; size?: "md" | "lg"; className?: string }) {
   const href = telHref();
   if (!href) return null;
   return (
     <ButtonLink href={href} variant={variant} size={size} className={className} icon={<Phone className="size-[18px]" strokeWidth={1.75} aria-hidden="true" />} ariaLabel={`${label} on ${displayPhone()}`} analytics={{ event: "contact_click", channel: "phone", position }}>
-      {label}
+      {mobileLabel ? <><span className="sm:hidden">{mobileLabel}</span><span className="hidden sm:inline">{label}</span></> : label}
     </ButtonLink>
   );
 }

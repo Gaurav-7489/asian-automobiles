@@ -1,4 +1,4 @@
-import type { Section, Service } from "@/content/services";
+import { getService, type Section, type Service } from "@/content/services";
 import { Icon } from "@/components/ui/icon";
 import { Checklist, DotList } from "@/components/ui/checklist";
 import { DataTable } from "@/components/ui/data-table";
@@ -23,7 +23,7 @@ export function ServiceSection({ s, service }: { s: Section; service: Service })
         <Wrap narrow>
           <h2 className="h2">{s.heading}</h2>
           <div className="lead muted mt-5 space-y-4">{s.paragraphs.map((p) => <p key={p}>{p}</p>)}</div>
-          {s.link && <div className="mt-5"><ButtonLink href={s.link.href} variant="text">{s.link.label}</ButtonLink></div>}
+          {s.link && (!s.linkWhen || getService(s.linkWhen)) && <div className="mt-5"><ButtonLink href={s.link.href} variant="text">{s.link.label}</ButtonLink></div>}
         </Wrap>
       );
     case "cards":

@@ -24,7 +24,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const s = getService((await params).slug);
   if (!s) notFound();
   const waFirst = s.hero.whatsappFirst && hasWhatsapp();
-  const call = <CallButton key="c" label={s.hero.primaryLabel} position="hero" variant={waFirst ? "secondary" : "primary"} />;
+  const call = <CallButton key="c" label={s.hero.primaryLabel} mobileLabel={s.hero.primaryLabelMobile} position="hero" variant={waFirst ? "secondary" : "primary"} />;
   const wa = <WhatsappButton key="w" label={s.hero.secondaryLabel} messageKey={s.hero.whatsappKey} position="hero" variant={waFirst ? "primary" : "secondary"} />;
   const sections = s.sections.filter((x) => x.when !== false);
   const callout = sections.find((x) => x.type === "callout" && x.variant === "caution");

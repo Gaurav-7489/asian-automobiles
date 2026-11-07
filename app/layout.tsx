@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import { addressOneLine, hoursText } from "@/content/business";
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
   description: seo.home.description,
   robots: process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "production" ? { index: false, follow: false } : { index: true, follow: true },
   openGraph: { siteName: "Asian Automobiles", locale: "en_IN", type: "website" },
-  icons: { icon: "/icon.svg" },
+  icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }] },
 };
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover", themeColor: "#111820" };
@@ -44,6 +45,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MobileContactBar tel={telHref()} wa={waHref("general")} maps={mapsHref()} />
         <AnalyticsListener />
         <JsonLd data={businessJsonLd()} />
+        {/* Cookieless analytics (spec 21.7) – loads only when a domain is configured. */}
+        {process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN && (
+          <Script defer data-domain={process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN} src="https://plausible.io/js/script.js" strategy="afterInteractive" />
+        )}
       </body>
     </html>
   );
