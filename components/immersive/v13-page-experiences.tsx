@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { bookingHref, serviceCatalog } from "@/lib/service-catalog";
+import { bookingHref, serviceCatalog, serviceImage } from "@/lib/service-catalog";
 import { useState } from "react";
 import {
   ArrowUpRight,
@@ -49,6 +49,7 @@ export function ServiceDecisionBoard(){
   const Icon=item.icon;
   return <div className="aa-v13-service-board">
     <div className="aa-v13-service-stage">
+      <Image key={item.id} className="aa-v13-service-stage-img" src={serviceImage(item, 1400)} alt="" fill sizes="(max-width: 900px) 100vw, 60vw" />
       <div className="aa-v13-service-grid" aria-hidden="true" />
       <span className="aa-v13-kicker">CHOOSE A SERVICE / {item.no}</span>
       <div className="aa-v13-service-stage-copy">
