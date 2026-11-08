@@ -456,7 +456,7 @@ function About() {
         <div className="wrap aa-v10-story-grid">
           <div className="aa-v10-year-card">
             <span>{businessFacts.establishedConfirmed ? "ESTABLISHED" : "INDEPENDENT"}</span>
-            <strong>{businessFacts.establishedConfirmed ? businessFacts.establishedYear : "MULTI-BRAND"}</strong>
+            <strong>{businessFacts.establishedConfirmed ? businessFacts.establishedYear : <>MULTI<br />BRAND</>}</strong>
             <small>IRINJALAKUDA / KERALA</small>
           </div>
           <ScrollRevealSection>

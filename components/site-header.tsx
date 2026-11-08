@@ -8,10 +8,8 @@ import {
   CalendarDays,
   ChevronDown,
   MapPin,
-  Menu,
   MessageCircle,
   Phone,
-  X,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
@@ -301,7 +299,7 @@ export function SiteHeader() {
                 aria-controls="aa-mobile-navigation"
                 onClick={() => setMenuOpen((value) => !value)}
               >
-                {menuOpen ? <X size={19} /> : <Menu size={19} />}
+                <span className="aa-menu-icon" aria-hidden="true"><i /><i /></span>
               </button>
             </div>
           </div>
@@ -310,7 +308,7 @@ export function SiteHeader() {
         <nav
           ref={panelRef}
           id="aa-mobile-navigation"
-          className="aa-mobile-panel aa-expandable-menu"
+          className="aa-mnav"
           aria-label="Expanded navigation"
           inert={!menuOpen}
           onClick={(event) => {
@@ -320,53 +318,60 @@ export function SiteHeader() {
             }
           }}
         >
-          <div className="aa-mobile-panel-inner">
-            <div className="aa-menu-intro">
-              <span className="aa-mobile-label">YOUR WORKSHOP, ONE TAP AWAY</span>
-              <p>Where shall we start?</p>
-            </div>
-            <div className="aa-menu-groups">
-              <div className={`aa-menu-group ${mobileGroup === "services" ? "is-expanded" : ""}`}>
+          <div className="aa-mnav-inner">
+            <ol className="aa-mnav-list">
+              <li style={{ "--i": 0 } as React.CSSProperties}>
+                <Link href="/" prefetch={false} className="aa-mnav-link" aria-current={pathname === "/" ? "page" : undefined}>
+                  <i>01</i><span>Home</span><ArrowUpRight size={20} />
+                </Link>
+              </li>
+              <li style={{ "--i": 1 } as React.CSSProperties} className={`aa-mnav-group ${mobileGroup === "services" ? "is-expanded" : ""}`}>
                 <button
                   type="button"
+                  className="aa-mnav-link"
                   id="aa-menu-services-toggle"
                   aria-expanded={mobileGroup === "services"}
                   aria-controls="aa-menu-services-links"
                   onClick={() => setMobileGroup(mobileGroup === "services" ? null : "services")}
                 >
-                  <span className="aa-menu-group-icon"><CalendarDays size={20} /></span>
-                  <span><b>Services</b><small>Servicing, repairs, AC, wheels, tyres & parts</small></span>
-                  <ChevronDown size={20} />
+                  <i>02</i><span>Services</span><ChevronDown size={20} />
                 </button>
-                <div className="aa-menu-group-reveal" inert={mobileGroup !== "services"}>
+                <div className="aa-mnav-sub" inert={mobileGroup !== "services"}>
                   <div>
-                    <div className="aa-menu-group-links" id="aa-menu-services-links" aria-labelledby="aa-menu-services-toggle">
-                      {serviceLinks.map(([label, href]) => (
-                        <Link href={href} key={href} prefetch={false} aria-current={pathname === href ? "page" : undefined}>
-                          <span>{label}</span><ArrowUpRight size={16} />
-                        </Link>
+                    <ul id="aa-menu-services-links" aria-labelledby="aa-menu-services-toggle">
+                      {serviceLinks.map(([label, href], n) => (
+                        <li key={href}>
+                          <Link href={href} prefetch={false} aria-current={pathname === href ? "page" : undefined}>
+                            <i>{String(n + 1).padStart(2, "0")}</i><span>{label}</span>
+                          </Link>
+                        </li>
                       ))}
-                      <Link href="/services/" prefetch={false} aria-current={pathname === "/services/" ? "page" : undefined}>
-                        <span>All services</span><ArrowUpRight size={16} />
-                      </Link>
-                    </div>
+                      <li>
+                        <Link href="/services/" prefetch={false} aria-current={pathname === "/services/" ? "page" : undefined}>
+                          <i>—</i><span>All services</span>
+                        </Link>
+                      </li>
+                    </ul>
                   </div>
                 </div>
-              </div>
-              <div className="aa-menu-direct">
-                {[["Home", "/"], ...navLinks].map(([label, href]) => (
-                  <Link href={href} key={href} prefetch={false} aria-current={pathname === href ? "page" : undefined}>
-                    <span>{label}</span><ArrowUpRight size={18} />
+              </li>
+              {navLinks.map(([label, href], n) => (
+                <li key={href} style={{ "--i": n + 2 } as React.CSSProperties}>
+                  <Link href={href} prefetch={false} className="aa-mnav-link" aria-current={pathname === href ? "page" : undefined}>
+                    <i>{String(n + 3).padStart(2, "0")}</i><span>{label}</span><ArrowUpRight size={20} />
                   </Link>
-                ))}
+                </li>
+              ))}
+            </ol>
+            <div className="aa-mnav-foot">
+              <Link href="/contact/#enquiry" prefetch={false} className="aa-mnav-book">
+                <span>Book a service</span><ArrowUpRight size={20} />
+              </Link>
+              <div className="aa-mnav-quick">
+                <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={16} /><span>Call</span></a>
+                <a href={directionsHref} target="_blank" rel="noreferrer"><MapPin size={16} /><span>Directions</span></a>
               </div>
-            </div>
-            <div className="aa-menu-booking">
-              <span>LET’S GET YOU BACK ON THE ROAD</span>
-              <Link href="/contact/#enquiry" prefetch={false}>Book a service <ArrowUpRight size={22} /></Link>
-              <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={15} /> Speak to the workshop · {businessFacts.phones.primaryDisplay}</a>
-              <a href={directionsHref} target="_blank" rel="noreferrer"><MapPin size={15} /> Get directions</a>
-              <p className="aa-menu-meta">{businessFacts.address.street}, {businessFacts.address.locality} · {businessFacts.hours}</p>
+              <p className="aa-mnav-meta">{businessFacts.hours} · {businessFacts.address.locality}</p>
             </div>
           </div>
         </nav>
