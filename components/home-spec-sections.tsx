@@ -115,7 +115,7 @@ export function HomeSpecSections({ part }: { part: "middle" | "end" }) {
       <section className="aa-v10-section aa-v10-soft" aria-labelledby="parts-heading">
         <div className="wrap aa-v10-photo-split">
           <div className="aa-v10-photo-frame">
-            <Image src="https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1600&q=76" alt="" fill sizes="(max-width: 900px) 100vw, 54vw" />
+            <Image src="/images/placeholders/inspection.svg" alt="" fill sizes="(max-width: 900px) 100vw, 54vw" />
           </div>
           <div className="aa-v10-photo-copy">
             <span className="eyebrow">SPARE PARTS</span>
@@ -131,17 +131,23 @@ export function HomeSpecSections({ part }: { part: "middle" | "end" }) {
 
       {/* F11 Service area */}
       <section className="aa-v10-section aa-v10-paper aa-home-area" aria-labelledby="area-heading">
-        <div className="wrap">
-          <div className="aa-v10-section-head">
-            <span className="eyebrow">SERVICE AREA</span>
-            <h2 id="area-heading">Serving Irinjalakuda and nearby areas.</h2>
-            <p>
-              Our workshop is in Irinjalakuda town, and we welcome car owners from {businessFacts.serviceArea.slice(0, -1).join(", ")} and {businessFacts.serviceArea.at(-1)}, and across the Mukundapuram area.
-            </p>
+        <div className="wrap aa-home-area-grid">
+          <div className="aa-home-area-copy">
+            <div className="aa-v10-section-head">
+              <span className="eyebrow">SERVICE AREA</span>
+              <h2 id="area-heading">Serving Irinjalakuda and nearby areas.</h2>
+              <p>
+                Our workshop is in Irinjalakuda town, and we welcome car owners from {businessFacts.serviceArea.slice(0, -1).join(", ")} and {businessFacts.serviceArea.at(-1)}, and across the Mukundapuram area.
+              </p>
+            </div>
+            <div className="aa-v10-inline-actions">
+              <Btn href={directionsHref} external tone="ghost" icon={<Navigation size={15} />}>Get directions</Btn>
+            </div>
           </div>
-          <div className="aa-v10-inline-actions">
-            <Btn href={directionsHref} external tone="ghost" icon={<Navigation size={15} />}>Get directions</Btn>
-          </div>
+          {/* Temporary illustration — swap for a real map or workshop photo. */}
+          <figure className="aa-home-area-visual">
+            <Image src="/images/placeholders/service-area.svg" alt="" fill sizes="(max-width: 900px) 100vw, 40vw" />
+          </figure>
         </div>
       </section>
 

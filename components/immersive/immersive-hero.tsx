@@ -74,8 +74,8 @@ export function ImmersiveHero() {
           
         >
           <Image
-            src="https://images.unsplash.com/photo-1632823469850-1b7b1e8b7e3d?auto=format&fit=crop&w=2200&q=82"
-            alt="Mechanic working on a car in a workshop"
+            src="/images/placeholders/hero-workshop.svg"
+            alt=""
             fill
             priority
             fetchPriority="high"

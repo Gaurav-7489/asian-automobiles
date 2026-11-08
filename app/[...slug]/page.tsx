@@ -55,11 +55,11 @@ import { AboutTimeline, ServiceDecisionBoard } from "@/components/immersive/v13-
 const img = {
   workshop: "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1800&q=76",
   repair: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1800&q=76",
-  car: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1800&q=76",
-  road: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1800&q=76",
-  detail: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1600&q=76",
-  interior: "https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1600&q=76",
-  wheel: "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1600&q=76",
+  car: "/images/placeholders/car-profile.svg",
+  road: "/images/placeholders/tyre-care.svg",
+  detail: "/images/placeholders/spare-parts.svg",
+  interior: "/images/placeholders/inspection.svg",
+  wheel: "/images/placeholders/wheel-alignment.svg",
 };
 
 const phone = businessFacts.phones.primaryHref;

@@ -21,7 +21,19 @@ export type Service = (typeof allServices)[number];
 export function findService(id?: string) {
   return serviceCatalog.find((service) => service.id === id);
 }
+/**
+ * Temporary local illustrations stand in for photos that were broken or did not match the
+ * service (supercar stock shots). Replace the files in /public/images/placeholders/ — or
+ * point a service at a real workshop photo — once the owner supplies photography.
+ */
+const placeholderByPhoto: Record<string, string> = {
+  "photo-1503736334956-4c8f8e92946d": "/images/placeholders/wheel-alignment.svg",
+  "photo-1492144534655-ae79c964c9d7": "/images/placeholders/tyre-care.svg",
+  "photo-1511919884226-fd3cad34687c": "/images/placeholders/spare-parts.svg",
+};
 export function serviceImage(service: Service, width = 1000) {
+  const placeholder = placeholderByPhoto[service.image];
+  if (placeholder) return placeholder;
   return `https://images.unsplash.com/${service.image}?auto=format&fit=crop&w=${width}&q=72`;
 }
 /** There is no booking system: every "book" action leads to the contact page enquiry. */

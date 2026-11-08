@@ -1,0 +1,65 @@
+/*
+ * UI audit fixes (Nov 2026). Loaded last, after spec-design-system.css.
+ * The `:root:not(#_)` prefix matches the specificity trick used in spec-design-system.css
+ * so these rules win over the earlier layered stylesheets.
+ */
+
+/* ---------- 1. A failed image must never leave a void or leak its alt text ---------- */
+:root:not(#_) :is(.aa-hero2-media, .aa-home-workshop-photo, .aa-v10-photo-frame, .aa-skip-card-media, .aa-skip-card figure) {
+  background-color: #151d25;
+}
+:root:not(#_) img { color: transparent; }
+
+/* ---------- 2. Hero: CTA sits beside the intro copy and clear of the meta row ---------- */
+:root:not(#_) .aa-hero2-bottom {
+  grid-template-columns: minmax(0, 520px) auto !important;
+  column-gap: clamp(28px, 4vw, 64px) !important;
+  align-items: end !important;
+  justify-content: start !important;
+  margin-bottom: clamp(28px, 4vh, 44px) !important;
+}
+:root:not(#_) .aa-hero2-media img { opacity: 1 !important; }
+@media (max-width: 720px) {
+  :root:not(#_) .aa-hero2-bottom { grid-template-columns: 1fr !important; row-gap: 22px !important; }
+}
+
+/* ---------- 3. Homepage sections had zero vertical padding (content touched neighbours) ---------- */
+:root:not(#_) .aa-home .aa-v10-section:not(.aa-home-strip):not(.aa-home-band):not(.aa-v10-endcap) {
+  padding-top: clamp(64px, 8vw, 112px) !important;
+  padding-bottom: clamp(64px, 8vw, 112px) !important;
+}
+
+/* ---------- 4. Labels were 5.6–9px: raise to a readable floor ---------- */
+:root:not(#_) :is(
+  .aa-hero2-top span, .aa-hero2-eyebrow span, .aa-hero2-scroll span,
+  .aa-kicker, .aa-count,
+  .aa-v10-section-head > .eyebrow, .aa-v10-photo-copy .eyebrow,
+  .aa-v10-feature-meta span, .aa-v10-contact-actions a > span:first-child,
+  .aa-v10-button span
+) { font-size: 11px !important; }
+:root:not(#_) :is(.aa-hero-v8-meta span, .aa-v10-feature-meta small, .aa-skip-card-meta, .aa-skip-card-meta span) { font-size: 10.5px !important; }
+:root:not(#_) .aa-brand-name small { font-size: 9.5px !important; }
+:root:not(#_) .aa-desktop-nav :is(a, button), :root:not(#_) .aa-header-phone span { font-size: 11.5px !important; }
+:root:not(#_) .aa-mega-link span:first-child { font-size: 10px !important; }
+:root:not(#_) .aa-mega-link small { font-size: 10.5px !important; }
+
+/* ---------- 5. Service area: copy + visual instead of an empty right half ---------- */
+:root:not(#_) .aa-home-area .aa-home-area-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+:root:not(#_) .aa-home-area-visual {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 5 / 4;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #151d25;
+}
+:root:not(#_) .aa-home-area-visual img { object-fit: cover; }
+@media (max-width: 900px) {
+  :root:not(#_) .aa-home-area .aa-home-area-grid { grid-template-columns: 1fr; }
+  :root:not(#_) .aa-home-area-visual { aspect-ratio: 4 / 3; }
+}
