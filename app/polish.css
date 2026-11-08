@@ -91,6 +91,7 @@
   }
   .aa-mnav-link > span { flex: 1; min-width: 0; }
   .aa-mnav-link > svg { flex: none; color: #87919a; transition: transform 0.4s var(--aa-ease), color 0.3s ease; }
+  .aa-mnav-link:focus-visible { outline: none; }
   .aa-mnav-link:is(:hover, :focus-visible) { color: #d58a3a; padding-left: 6px; }
   .aa-mnav-link:is(:hover, :focus-visible) > i,
   .aa-mnav-link:is(:hover, :focus-visible) > svg { color: #d58a3a; }
@@ -257,4 +258,45 @@
 
 @media (prefers-reduced-motion: reduce) {
   .aa-mnav, .aa-mnav * , .aa-menu-icon i { transition-duration: 0.01ms !important; transition-delay: 0s !important; }
+}
+
+/* =====================================================================
+   6. Visual rail (image tiles under the page hero) — replaces dead space with imagery
+   ===================================================================== */
+:root:not(#_) .aa-visual-rail-section { padding: clamp(28px, 4vw, 56px) 0 0; background: transparent; }
+.aa-visual-rail { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 1.6vw, 20px); }
+.aa-visual-rail figure { position: relative; margin: 0; aspect-ratio: 4 / 5; border-radius: 8px; overflow: hidden; background: #151d25; isolation: isolate; }
+.aa-visual-rail img { object-fit: cover; transition: transform 1.2s var(--aa-ease); }
+.aa-visual-rail figure::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(17, 24, 32, 0.85), rgba(17, 24, 32, 0) 55%); pointer-events: none; }
+.aa-visual-rail figcaption { position: absolute; z-index: 2; left: 18px; right: 18px; bottom: 16px; display: flex; align-items: baseline; gap: 12px; color: #f5f5f2; }
+.aa-visual-rail figcaption i { font-style: normal; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: #d58a3a; }
+.aa-visual-rail figcaption span { font-family: var(--font-manrope), Arial, sans-serif; font-size: clamp(17px, 1.7vw, 22px); font-weight: 600; letter-spacing: -0.02em; }
+@media (hover: hover) { .aa-visual-rail li:hover img { transform: scale(1.05); } }
+@media (max-width: 900px) {
+  .aa-visual-rail { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; padding-bottom: 6px; scrollbar-width: none; margin-inline: -4px; padding-inline: 4px; }
+  .aa-visual-rail::-webkit-scrollbar { display: none; }
+  .aa-visual-rail li { flex: 0 0 74%; scroll-snap-align: start; }
+  .aa-visual-rail figure { aspect-ratio: 4 / 4.6; }
+}
+
+/* About: the year card gets a faint illustration behind the type */
+:root:not(#_) .aa-v10-year-card { position: relative; overflow: hidden; isolation: isolate; background-image: linear-gradient(rgba(245, 245, 242, 0.9), rgba(245, 245, 242, 0.82)), url("/images/placeholders/car-profile.svg"); background-size: cover; background-position: center; }
+
+/* Inner-page rhythm: less dead space between sections */
+:root:not(#_) .aa-inner-v10 .aa-v10-section:not(.aa-v10-endcap) {
+  padding-top: clamp(52px, 7vw, 96px) !important;
+  padding-bottom: clamp(52px, 7vw, 96px) !important;
+}
+
+/* Gentle scroll reveal (progressive enhancement, no layout shift) */
+@supports (animation-timeline: view()) {
+  @keyframes aa-rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+  :root:not(#_) .aa-inner-v10 :is(.aa-visual-rail li, .aa-v10-feature-card, .aa-v10-photo-frame, .aa-v10-section-head) {
+    animation: aa-rise linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 55%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root:not(#_) .aa-inner-v10 :is(.aa-visual-rail li, .aa-v10-feature-card, .aa-v10-photo-frame, .aa-v10-section-head) { animation: none !important; }
 }
