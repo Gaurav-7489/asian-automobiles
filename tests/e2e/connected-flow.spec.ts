@@ -68,3 +68,11 @@ test("conditional service stays hidden until confirmed", async ({ request }) => 
   expect(xml).not.toContain("denting-painting");
   expect(xml).toContain("/services/tyre-care/");
 });
+
+test("contact map loads Google only after the visitor asks", async ({ page }) => {
+  await page.goto("/contact/", { waitUntil: "networkidle" });
+  await expect(page.locator('iframe[src*="google.com/maps"]')).toHaveCount(0);
+  await expect(page.locator("main")).toContainText("V/526, Irinjalakuda Kattoor Rd, Irinjalakuda, Kerala 680121");
+  await page.getByRole("button", { name: /Show map/ }).click();
+  await expect(page.locator('iframe[title="Map showing Asian Automobiles location"]')).toHaveAttribute("src", /google\.com\/maps\?q=.*output=embed/);
+});

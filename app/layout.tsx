@@ -17,7 +17,7 @@ import "./mobile-attraction.css";
 import "./spec-design-system.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { businessFacts } from "@/lib/business-facts";
+import { businessFacts, directionsHref } from "@/lib/business-facts";
 
 // Production deployment trigger — responsive baseline.
 // Spec 5.3: Manrope for headings, Inter for body. Self-hosted Latin variable fonts (OFL, Fontsource).
@@ -58,10 +58,13 @@ const businessSchema = {
   name: "Asian Automobiles",
   url: siteUrl,
   description: businessFacts.description,
-  // Telephone, email and hours are added only once the owner confirms them (spec 23.3).
+  // Name, address and phone match the verified Google Business Profile (spec 23.3 / 23.6).
+  // Closing time is still unconfirmed, so opening hours are not published as structured data yet.
+  telephone: businessFacts.phones.primaryHref,
+  hasMap: directionsHref,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Kattoor Road, near Government Rest House",
+    streetAddress: businessFacts.address.street,
     addressLocality: businessFacts.address.locality,
     addressRegion: businessFacts.address.region,
     postalCode: businessFacts.address.postalCode,

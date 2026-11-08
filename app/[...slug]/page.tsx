@@ -33,7 +33,8 @@ import Image from "next/image";
 import { ServiceConnections } from "@/components/service-connections";
 import { bookingHref, findService, serviceRouteAliases } from "@/lib/service-catalog";
 import { notFound, permanentRedirect } from "next/navigation";
-import { businessFacts, directionsHref, whatsappEnabled, whatsappLink } from "@/lib/business-facts";
+import { businessFacts, directionsHref, mapsEmbedSrc, whatsappEnabled, whatsappLink } from "@/lib/business-facts";
+import { MapReveal } from "@/components/map-reveal";
 import {
   BlueprintTimeline,
   HoverStatRail,
@@ -909,19 +910,19 @@ function Contact({ selectedService }: { selectedService?: string }) {
 
       <section className="aa-v10-section aa-v10-soft">
         <div className="wrap aa-v10-location-grid">
-          <div className="aa-v10-map-card">
+          <MapReveal src={mapsEmbedSrc}>
             <div className="aa-v10-map-grid" aria-hidden="true" />
             <div className="aa-v10-map-pin"><MapPin size={26} /><b>ASIAN<br />AUTOMOBILES</b></div>
             <span className="aa-v10-map-road">KATTOOR ROAD</span>
-          </div>
+          </MapReveal>
           <div className="aa-v10-address-card">
             <span className="eyebrow">OUR ADDRESS</span>
-            <h2>Near Government Rest House, Irinjalakuda.</h2>
+            <h2>V/526, Kattoor Road, Irinjalakuda.</h2>
             <address style={{ fontStyle: "normal" }}><p>Asian Automobiles, {businessFacts.address.full}.</p></address>
             <div className="aa-v10-address-lines">
               <div><MapPin size={16} /><span><small>LANDMARK</small><b>{businessFacts.address.landmark}</b></span></div>
               <div><Phone size={16} /><span><small>PHONE</small><b>{businessFacts.phones.primaryDisplay}</b></span></div>
-              <div><Clock3 size={16} /><span><small>WORKING HOURS</small><b>{businessFacts.hours} · Please call ahead on public holidays</b></span></div>
+              <div><Clock3 size={16} /><span><small>WORKING HOURS</small><b>{businessFacts.hours}{businessFacts.sundayClosed ? " · Sunday closed" : ""} · Please call ahead on public holidays</b></span></div>
             </div>
             <p className="aa-v10-reference-note">Coming from nearby? We welcome customers from across the Irinjalakuda area, including {businessFacts.serviceArea.join(", ")}.</p>
             <Directions />
@@ -1013,7 +1014,7 @@ const routeMeta: Record<string, { title: string; description: string }> = {
   },
   contact: {
     title: "Contact Asian Automobiles – Kattoor Road, Irinjalakuda",
-    description: "Call or visit Asian Automobiles on Kattoor Road, near Government Rest House, Irinjalakuda. Address, directions and working hours.",
+    description: "Call or visit Asian Automobiles at V/526, Irinjalakuda Kattoor Rd, near Government Rest House, Irinjalakuda. Address, directions and working hours.",
   },
   "privacy-policy": {
     title: "Privacy Policy – Asian Automobiles",

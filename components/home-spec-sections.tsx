@@ -37,7 +37,7 @@ export function HomeContactStrip() {
             {whatsappEnabled && wa && (
               <a href={wa} target="_blank" rel="noreferrer"><MessageCircle size={21} /><span>WHATSAPP · SEND A PHOTO OF THE PROBLEM</span><b>Message us</b><ArrowUpRight size={18} /></a>
             )}
-            <a href={directionsHref} target="_blank" rel="noreferrer"><MapPin size={21} /><span>VISIT · GET DIRECTIONS</span><b>Kattoor Road, Irinjalakuda</b><ArrowUpRight size={18} /></a>
+            <a href={directionsHref} target="_blank" rel="noreferrer"><MapPin size={21} /><span>VISIT · GET DIRECTIONS</span><b>V/526, Kattoor Rd, Irinjalakuda</b><ArrowUpRight size={18} /></a>
           </div>
         </div>
       </section>
@@ -81,7 +81,7 @@ export function HomeSpecSections({ part }: { part: "middle" | "end" }) {
     ["Do I need to call before I visit?", "We recommend it. A quick call lets us understand the problem and plan time for your car, so your visit is not wasted."],
     ["How much will my service or repair cost?", "It depends on your car, its condition and the parts needed. Call us with your vehicle details to discuss your requirements."],
     ["Can you help me find a spare part?", "Yes. Send a parts enquiry with your car details and the part you need, and we’ll check the options available."],
-    ["What are your working hours?", `We are open ${businessFacts.hours}. Please call ahead on public holidays.`],
+    ["What are your working hours?", `We are open ${businessFacts.hours}${businessFacts.sundayClosed ? " and closed on Sundays" : ""}. Please call ahead on public holidays.`],
   ];
   const faqLd = {
     "@context": "https://schema.org",
