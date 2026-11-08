@@ -16,6 +16,7 @@ import "./responsive-layout.css";
 import "./mobile-attraction.css";
 import "./spec-design-system.css";
 import "./audit-fixes.css";
+import "./polish.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { businessFacts, directionsHref } from "@/lib/business-facts";

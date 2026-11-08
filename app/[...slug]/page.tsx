@@ -259,6 +259,37 @@ function HeroArt({ theme }: { theme: PageTheme }) {
   );
 }
 
+/** Temporary image rail (placeholder illustrations) — swap the src values for real workshop photos. */
+const ph = (name: string) => "/images/placeholders/" + name + ".svg";
+const railByTheme: Partial<Record<PageTheme, [string, string][]>> = {
+  about: [[ph("inspection"), "Servicing"], [ph("car-profile"), "Repairs"], [ph("spare-parts"), "Spare parts"]],
+  service: [[ph("inspection"), "Oil & filters"], [ph("car-profile"), "Checks"], [ph("hero-workshop"), "Inspection"]],
+  mechanical: [[ph("wheel-alignment"), "Brakes"], [ph("inspection"), "Suspension"], [ph("car-profile"), "Steering"]],
+  ac: [[ph("inspection"), "Inspection"], [ph("car-profile"), "Fault-finding"], [ph("spare-parts"), "Gas recharge"]],
+  wheel: [[ph("wheel-alignment"), "Alignment"], [ph("tyre-care"), "Balancing"], [ph("car-profile"), "Tyre wear"]],
+  tyre: [[ph("tyre-care"), "Tread"], [ph("wheel-alignment"), "Pressure"], [ph("car-profile"), "Wear"]],
+  parts: [[ph("spare-parts"), "Genuine (OEM)"], [ph("inspection"), "Aftermarket"], [ph("car-profile"), "Fitment"]],
+};
+
+function VisualRail({ items }: { items: [string, string][] }) {
+  return (
+    <section className="aa-visual-rail-section" aria-label="At a glance">
+      <div className="wrap">
+        <ul className="aa-visual-rail">
+          {items.map(([src, label], i) => (
+            <li key={label}>
+              <figure>
+                <Image src={src} alt="" fill sizes="(max-width: 900px) 78vw, 30vw" />
+                <figcaption><i>{String(i + 1).padStart(2, "0")}</i><span>{label}</span></figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 function Frame({
   eyebrow,
   title,
@@ -308,6 +339,7 @@ function Frame({
         </div>
       </section>
       <div id="page-content" className="creative-body aa-v10-body">
+        {railByTheme[theme] && <VisualRail items={railByTheme[theme]!} />}
         {children}
         {serviceId && <ServiceConnections id={serviceId} />}
       </div>
@@ -456,7 +488,7 @@ function About() {
         <div className="wrap aa-v10-story-grid">
           <div className="aa-v10-year-card">
             <span>{businessFacts.establishedConfirmed ? "ESTABLISHED" : "INDEPENDENT"}</span>
-            <strong>{businessFacts.establishedConfirmed ? businessFacts.establishedYear : "MULTI-BRAND"}</strong>
+            <strong>{businessFacts.establishedConfirmed ? businessFacts.establishedYear : <>MULTI<br />BRAND</>}</strong>
             <small>IRINJALAKUDA / KERALA</small>
           </div>
           <ScrollRevealSection>

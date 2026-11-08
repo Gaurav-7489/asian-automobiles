@@ -1,0 +1,338 @@
+/*
+ * Polish layer (Nov 2026) — loaded last.
+ * Same template, same palette (graphite #111820, charcoal #202A32, warm white #F5F5F2,
+ * amber #D58A3A, grey #87919A / slate #5C6670). Only layout, rhythm, motion and legibility change.
+ * `:root:not(#_)` matches the specificity trick used in spec-design-system.css.
+ */
+
+:root { --aa-ease: cubic-bezier(0.16, 1, 0.3, 1); }
+
+/* =====================================================================
+   1. Mobile menu
+   ===================================================================== */
+.aa-mnav { display: none; }
+
+/* Toggle: two lines that morph into a cross */
+:root:not(#_) .aa-header .aa-menu-button {
+  width: 46px !important;
+  height: 46px !important;
+  border-radius: 4px !important;
+  border: 1px solid rgba(245, 245, 242, 0.2) !important;
+  background: transparent !important;
+  color: #f5f5f2 !important;
+  display: none;
+  place-items: center;
+  transition: background-color 0.3s var(--aa-ease), border-color 0.3s var(--aa-ease);
+}
+:root:not(#_) .aa-header.is-open .aa-menu-button { border-color: #d58a3a !important; }
+.aa-menu-icon { position: relative; display: block; width: 20px; height: 12px; }
+.aa-menu-icon i {
+  position: absolute; left: 0; right: 0; height: 2px; border-radius: 2px; background: #f5f5f2;
+  transition: transform 0.5s var(--aa-ease), top 0.35s var(--aa-ease), width 0.35s var(--aa-ease);
+}
+.aa-menu-icon i:first-child { top: 0; }
+.aa-menu-icon i:last-child { top: 10px; width: 14px; left: auto; right: 0; }
+.aa-header.is-open .aa-menu-icon i:first-child { top: 5px; transform: rotate(45deg); }
+.aa-header.is-open .aa-menu-icon i:last-child { top: 5px; width: 20px; transform: rotate(-45deg); }
+
+@media (max-width: 1100px) {
+  :root:not(#_) .aa-header .aa-menu-button { display: grid !important; }
+
+  :root:not(#_) .aa-header .aa-nav-main { position: relative; z-index: 3; }
+  :root:not(#_) .aa-header.is-open .aa-nav-main { background: #111820 !important; border-color: transparent !important; box-shadow: none !important; }
+
+  :root:not(#_) .aa-header .aa-mnav {
+    display: block !important;
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: #111820;
+    visibility: hidden;
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 0.6s var(--aa-ease), opacity 0.25s ease, visibility 0s linear 0.6s;
+  }
+  :root:not(#_) .aa-header.is-open .aa-mnav {
+    visibility: visible;
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transition-delay: 0s;
+  }
+
+  .aa-mnav-inner {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 96px 24px calc(28px + env(safe-area-inset-bottom));
+  }
+
+  .aa-mnav-list { list-style: none; margin: 0; padding: 0; flex: 1; }
+  .aa-mnav-list > li { border-bottom: 1px solid rgba(245, 245, 242, 0.12); }
+  .aa-mnav-list > li:first-child { border-top: 1px solid rgba(245, 245, 242, 0.12); }
+
+  .aa-mnav-link {
+    display: flex; align-items: center; gap: 16px; width: 100%;
+    padding: 20px 0; margin: 0;
+    background: none; border: 0; cursor: pointer; text-align: left;
+    color: #f5f5f2;
+    font-family: var(--font-manrope), Arial, sans-serif;
+    font-size: clamp(30px, 8.4vw, 44px); font-weight: 600; line-height: 1.05; letter-spacing: -0.03em;
+    transition: color 0.3s ease, padding 0.4s var(--aa-ease);
+  }
+  .aa-mnav-link > i, .aa-mnav-sub i {
+    flex: none; width: 26px;
+    font-style: normal; font-family: var(--font-inter), Arial, sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: #87919a;
+    transition: color 0.3s ease;
+  }
+  .aa-mnav-link > span { flex: 1; min-width: 0; }
+  .aa-mnav-link > svg { flex: none; color: #87919a; transition: transform 0.4s var(--aa-ease), color 0.3s ease; }
+  .aa-mnav-link:focus-visible { outline: none; }
+  .aa-mnav-link:is(:hover, :focus-visible) { color: #d58a3a; padding-left: 6px; }
+  .aa-mnav-link:is(:hover, :focus-visible) > i,
+  .aa-mnav-link:is(:hover, :focus-visible) > svg { color: #d58a3a; }
+  .aa-mnav-link[aria-current="page"] { color: #d58a3a; }
+  .aa-mnav-link[aria-current="page"] > i { color: #d58a3a; }
+  .aa-mnav-group.is-expanded > .aa-mnav-link > svg { transform: rotate(180deg); color: #d58a3a; }
+
+  /* Services accordion */
+  .aa-mnav-sub { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.5s var(--aa-ease); }
+  .aa-mnav-group.is-expanded .aa-mnav-sub { grid-template-rows: 1fr; }
+  .aa-mnav-sub > div { overflow: hidden; min-height: 0; }
+  .aa-mnav-sub ul { list-style: none; margin: 0; padding: 0 0 14px 42px; display: grid; gap: 2px; }
+  .aa-mnav-sub a {
+    display: flex; align-items: baseline; gap: 14px; padding: 11px 0;
+    color: rgba(245, 245, 242, 0.88); font-size: 17px; font-weight: 500; letter-spacing: -0.01em;
+    transition: color 0.25s ease, transform 0.35s var(--aa-ease);
+  }
+  .aa-mnav-sub a i { width: 22px; }
+  .aa-mnav-sub a:is(:hover, :focus-visible) { color: #d58a3a; transform: translateX(4px); }
+  .aa-mnav-sub a[aria-current="page"] { color: #d58a3a; }
+
+  /* Staggered entrance */
+  .aa-mnav-list > li { opacity: 0; transform: translateY(18px); }
+  .aa-header.is-open .aa-mnav-list > li {
+    opacity: 1; transform: none;
+    transition: opacity 0.6s ease, transform 0.7s var(--aa-ease);
+    transition-delay: calc(var(--i, 0) * 60ms + 160ms);
+  }
+  .aa-mnav-foot { opacity: 0; transform: translateY(18px); }
+  .aa-header.is-open .aa-mnav-foot {
+    opacity: 1; transform: none;
+    transition: opacity 0.6s ease 0.5s, transform 0.7s var(--aa-ease) 0.5s;
+  }
+
+  /* Footer actions */
+  .aa-mnav-foot { display: grid; gap: 12px; margin-top: 28px; }
+  .aa-mnav-book {
+    display: flex; align-items: center; justify-content: space-between;
+    min-height: 62px; padding: 0 22px; border-radius: 4px;
+    background: #d58a3a; color: #111820;
+    font-size: 16px; font-weight: 700; letter-spacing: 0.01em;
+    transition: transform 0.35s var(--aa-ease), filter 0.3s ease;
+  }
+  .aa-mnav-book:is(:hover, :focus-visible) { filter: brightness(1.06); transform: translateY(-1px); }
+  .aa-mnav-book:active { transform: scale(0.985); }
+  .aa-mnav-quick { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .aa-mnav-quick a {
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    min-height: 54px; border: 1px solid rgba(245, 245, 242, 0.2); border-radius: 4px;
+    color: #f5f5f2; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: border-color 0.3s ease, color 0.3s ease;
+  }
+  .aa-mnav-quick a svg { color: #d58a3a; }
+  .aa-mnav-quick a:is(:hover, :focus-visible) { border-color: #d58a3a; color: #d58a3a; }
+  .aa-mnav-meta { margin: 6px 0 0; text-align: center; color: #87919a; font-size: 12px; letter-spacing: 0.04em; }
+
+  /* The floating quick bar and WhatsApp button must not sit on top of the open menu */
+  .aa-header.is-open ~ .aa-mobile-actions,
+  .aa-header.is-open ~ .aa-v10-whatsapp-float { display: none !important; }
+}
+
+/* =====================================================================
+   2. Floating quick-action bar (mobile)
+   ===================================================================== */
+:root:not(#_) .aa-mobile-actions {
+  border-radius: 14px !important;
+  background: rgba(17, 24, 32, 0.86) !important;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(245, 245, 242, 0.12) !important;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4) !important;
+}
+:root:not(#_) .aa-mobile-actions a { transition: transform 0.3s var(--aa-ease), background-color 0.3s ease; }
+:root:not(#_) .aa-mobile-actions a:active { transform: scale(0.96); }
+
+/* =====================================================================
+   3. About: the "MULTI-BRAND" card no longer breaks mid-word
+   ===================================================================== */
+:root:not(#_) .aa-v10-year-card strong {
+  font-size: clamp(54px, 13.5vw, 132px) !important;
+  line-height: 0.88 !important;
+  letter-spacing: -0.045em !important;
+  overflow-wrap: normal !important;
+  word-break: keep-all !important;
+  hyphens: none !important;
+}
+
+/* =====================================================================
+   4. Long values (email, address) wrap cleanly instead of splitting a letter onto a new line
+   ===================================================================== */
+:root:not(#_) main a[href^="mailto:"] :is(b, strong, span:last-child),
+:root:not(#_) main a[href^="mailto:"] {
+  overflow-wrap: anywhere;
+}
+:root:not(#_) main a[href^="mailto:"] :is(b, strong) { font-size: clamp(16px, 4.2vw, 26px) !important; }
+
+/* =====================================================================
+   5. Inner pages + homepage sections: minimal, readable, consistent rhythm
+   ===================================================================== */
+
+/* Quieter hero chrome */
+:root:not(#_) .aa-inner-v10 :is(.creative-compass, .aa-v15-photo-index, .aa-v10-reference-note) { display: none !important; }
+
+/* Section headings: one clear size, short measure */
+:root:not(#_) .aa-inner-v10 .aa-v10-section-head h2 {
+  font-size: clamp(28px, 4.4vw, 54px) !important;
+  line-height: 1.06 !important;
+  letter-spacing: -0.035em !important;
+  max-width: 20ch;
+  text-wrap: balance;
+}
+:root:not(#_) .aa-inner-v10 .aa-v10-section-head p {
+  max-width: 50ch;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+/* Hero heading and intro */
+:root:not(#_) .aa-inner-v10 .creative-heading h1 { text-wrap: balance; }
+:root:not(#_) .aa-inner-v10 .creative-heading p { max-width: 46ch; line-height: 1.6; }
+
+/* Feature cards: compact, no dead space, gentle lift */
+:root:not(#_) .aa-inner-v10 .aa-v10-feature-card {
+  min-height: 0 !important;
+  padding: 24px !important;
+  border-radius: 8px;
+  transition: transform 0.5s var(--aa-ease), border-color 0.35s ease, background-color 0.35s ease;
+}
+:root:not(#_) .aa-inner-v10 .aa-v10-feature-card :is(p, small) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+@media (hover: hover) {
+  :root:not(#_) .aa-inner-v10 .aa-v10-feature-card:hover { transform: translateY(-3px); border-color: rgba(213, 138, 58, 0.55) !important; }
+}
+
+/* Photos: slow, quiet zoom on hover */
+:root:not(#_) .aa-inner-v10 :is(.aa-v10-photo-frame, .aa-v15-hero-photo-main) img,
+:root:not(#_) .aa-home :is(.aa-home-workshop-photo, .aa-skip-card-media) img { transition: transform 1.2s var(--aa-ease); }
+@media (hover: hover) {
+  :root:not(#_) .aa-inner-v10 :is(.aa-v10-photo-frame, .aa-v15-hero-photo-main):hover img,
+  :root:not(#_) .aa-home :is(.aa-home-workshop-photo, .aa-skip-card-media):hover img { transform: scale(1.04); }
+}
+
+/* Buttons: consistent height, tactile feedback */
+:root:not(#_) .aa-v10-button, :root:not(#_) .aa-hero2-primary, :root:not(#_) .aa-light-button {
+  min-height: 48px;
+  transition: transform 0.35s var(--aa-ease), filter 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+:root:not(#_) .aa-v10-button:active, :root:not(#_) .aa-hero2-primary:active { transform: scale(0.98); }
+
+/* FAQ: comfortable tap targets and readable answers */
+:root:not(#_) .aa-motion-faq button { min-height: 64px; }
+:root:not(#_) .aa-motion-faq-answer p { font-size: 15px !important; line-height: 1.65 !important; max-width: 56ch; }
+
+/* Keyboard focus is always visible */
+:root:not(#_) :is(a, button, summary, [tabindex]):focus-visible { outline: 2px solid #d58a3a; outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .aa-mnav, .aa-mnav * , .aa-menu-icon i { transition-duration: 0.01ms !important; transition-delay: 0s !important; }
+}
+
+/* =====================================================================
+   6. Visual rail (image tiles under the page hero) — replaces dead space with imagery
+   ===================================================================== */
+:root:not(#_) .aa-visual-rail-section { padding: clamp(28px, 4vw, 56px) 0 0; background: transparent; }
+.aa-visual-rail { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 1.6vw, 20px); }
+.aa-visual-rail figure { position: relative; margin: 0; aspect-ratio: 4 / 5; border-radius: 8px; overflow: hidden; background: #151d25; isolation: isolate; }
+.aa-visual-rail img { object-fit: cover; transition: transform 1.2s var(--aa-ease); }
+.aa-visual-rail figure::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(17, 24, 32, 0.85), rgba(17, 24, 32, 0) 55%); pointer-events: none; }
+.aa-visual-rail figcaption { position: absolute; z-index: 2; left: 18px; right: 18px; bottom: 16px; display: flex; align-items: baseline; gap: 12px; color: #f5f5f2; }
+.aa-visual-rail figcaption i { font-style: normal; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: #d58a3a; }
+.aa-visual-rail figcaption span { font-family: var(--font-manrope), Arial, sans-serif; font-size: clamp(17px, 1.7vw, 22px); font-weight: 600; letter-spacing: -0.02em; }
+@media (hover: hover) { .aa-visual-rail li:hover img { transform: scale(1.05); } }
+@media (max-width: 900px) {
+  .aa-visual-rail { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; padding-bottom: 6px; scrollbar-width: none; margin-inline: -4px; padding-inline: 4px; }
+  .aa-visual-rail::-webkit-scrollbar { display: none; }
+  .aa-visual-rail li { flex: 0 0 80%; scroll-snap-align: start; }
+  .aa-visual-rail figure { aspect-ratio: 4 / 3.3; }
+}
+
+/* About: the year card gets a faint illustration behind the type */
+:root:not(#_) .aa-v10-year-card { position: relative; overflow: hidden; isolation: isolate; background-image: linear-gradient(rgba(245, 245, 242, 0.9), rgba(245, 245, 242, 0.82)), url("/images/placeholders/car-profile.svg"); background-size: cover; background-position: center; }
+
+/* Inner-page rhythm: less dead space between sections */
+:root:not(#_) .aa-inner-v10 .aa-v10-section:not(.aa-v10-endcap) {
+  padding-top: clamp(52px, 7vw, 96px) !important;
+  padding-bottom: clamp(52px, 7vw, 96px) !important;
+}
+
+/* Gentle scroll reveal (progressive enhancement, no layout shift) */
+@supports (animation-timeline: view()) {
+  @keyframes aa-rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+  :root:not(#_) .aa-inner-v10 :is(.aa-visual-rail li, .aa-v10-feature-card, .aa-v10-photo-frame, .aa-v10-section-head) {
+    animation: aa-rise linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 55%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root:not(#_) .aa-inner-v10 :is(.aa-visual-rail li, .aa-v10-feature-card, .aa-v10-photo-frame, .aa-v10-section-head) { animation: none !important; }
+}
+
+/* =====================================================================
+   7. Contact cards: compact, values never split mid-word
+   ===================================================================== */
+:root:not(#_) .aa-v10-contact-actions > a {
+  min-height: 0 !important;
+  padding: 22px 24px !important;
+  gap: 14px 12px !important;
+  align-content: space-between;
+  transition: transform 0.45s var(--aa-ease), border-color 0.3s ease;
+}
+:root:not(#_) .aa-v10-contact-actions > a > span { font-size: 11px !important; letter-spacing: 0.12em; }
+:root:not(#_) .aa-v10-contact-actions > a > b {
+  max-width: none !important;
+  font-size: clamp(20px, 5vw, 30px) !important;
+  line-height: 1.15 !important;
+  overflow-wrap: anywhere;
+}
+@media (hover: hover) {
+  :root:not(#_) .aa-v10-contact-actions > a:hover { transform: translateY(-2px); }
+}
+@media (min-width: 901px) {
+  :root:not(#_) .aa-v10-contact-actions { gap: 14px; }
+}
+
+/* =====================================================================
+   8. Service chooser: the stage shows the selected service instead of an empty panel
+   ===================================================================== */
+:root:not(#_) .aa-v13-service-stage { position: relative; isolation: isolate; overflow: hidden; }
+.aa-v13-service-stage-img { object-fit: cover; z-index: -2; opacity: 0.5; animation: aa-stage-in 0.9s var(--aa-ease) both; }
+:root:not(#_) .aa-v13-service-stage::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(to top, rgba(17, 24, 32, 0.95) 8%, rgba(17, 24, 32, 0.55) 55%, rgba(17, 24, 32, 0.25));
+}
+@keyframes aa-stage-in { from { opacity: 0; transform: scale(1.06); } to { opacity: 0.5; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .aa-v13-service-stage-img { animation: none; } }
