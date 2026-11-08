@@ -4,13 +4,13 @@
    ========================================================= */
 
 :root{
-  --aa-v8-black:#070707;
-  --aa-v8-carbon:#111;
-  --aa-v8-paper:#f0eee8;
-  --aa-v8-paper-2:#e5e2da;
-  --aa-v8-ink:#090909;
-  --aa-v8-accent:#d8ff3e;
-  --aa-v8-line:rgba(8,8,8,.15);
+  --aa-v8-black:#111820;
+  --aa-v8-carbon:#111820;
+  --aa-v8-paper:#f5f5f2;
+  --aa-v8-paper-2:#f5f5f2;
+  --aa-v8-ink:#111820;
+  --aa-v8-accent:#d58a3a;
+  --aa-v8-line:rgba(17,24,32,.15);
   --aa-v8-line-light:rgba(255,255,255,.15);
   --aa-v8-fast:180ms;
   --aa-v8-ui:280ms;
@@ -52,7 +52,7 @@
 .aa-hero-v8{
   height:126svh!important;
   min-height:760px;
-  background:#050505;
+  background:#111820;
 }
 
 .aa-hero-v8 .aa-hero2-sticky{
@@ -85,7 +85,7 @@
     linear-gradient(rgba(255,255,255,.18) 1px,transparent 1px),
     linear-gradient(90deg,rgba(255,255,255,.18) 1px,transparent 1px);
   background-size:10vw 10vw;
-  mask-image:linear-gradient(to bottom,transparent 7%,#000 45%,transparent 95%);
+  mask-image:linear-gradient(to bottom,transparent 7%,#000000 45%,transparent 95%);
 }
 
 .aa-hero-v8 .aa-hero2-shell{
@@ -144,7 +144,7 @@
   width:360px!important;
   height:360px!important;
   opacity:.44!important;
-  background:radial-gradient(circle,rgba(216,255,62,.13),rgba(216,255,62,.035) 34%,transparent 70%)!important;
+  background:linear-gradient(transparent,transparent)!important;
 }
 
 .aa-hero-v8-meta{
@@ -242,7 +242,7 @@
 }
 
 .aa-home-v8 .aa-skip-card:nth-child(even){
-  background:#0b0b0b;
+  background:#111820;
 }
 
 .aa-home-v8 .aa-skip-card-copy{
@@ -298,8 +298,8 @@
 /* NEED EXPLORER */
 .aa-needs{
   position:relative;
-  background:#080808;
-  color:#f4f3ef;
+  background:#111820;
+  color:#f5f5f2;
   overflow:hidden;
 }
 
@@ -313,7 +313,7 @@
     linear-gradient(rgba(255,255,255,.18) 1px,transparent 1px),
     linear-gradient(90deg,rgba(255,255,255,.18) 1px,transparent 1px);
   background-size:9vw 9vw;
-  mask-image:linear-gradient(to bottom,transparent,#000 18%,#000 80%,transparent);
+  mask-image:linear-gradient(to bottom,transparent,#000000 18%,#000000 80%,transparent);
 }
 
 .aa-needs .aa-shell{
@@ -354,7 +354,7 @@
   gap:18px;
   min-height:96px;
   border-bottom:1px solid var(--aa-v8-line-light);
-  color:#f6f5f1;
+  color:#f5f5f2;
   transition:
     padding var(--aa-v8-premium) var(--aa-v8-ease),
     background var(--aa-v8-ui) ease,
@@ -374,7 +374,7 @@
 
 .aa-need-row:hover,
 .aa-need-row:focus-visible{
-  color:#080808;
+  color:#111820;
   padding-inline:16px;
 }
 
@@ -419,7 +419,7 @@
   margin:0;
   overflow:hidden;
   pointer-events:none;
-  background:#111;
+  background:#111820;
   box-shadow:0 26px 70px rgba(0,0,0,.34);
 }
 
@@ -439,7 +439,7 @@
   z-index:2;
   left:13px;
   bottom:11px;
-  color:#fff;
+  color:#ffffff;
   font-size:7px;
   font-weight:800;
   letter-spacing:.16em;
@@ -448,7 +448,7 @@
 /* WORKSHOP STORY */
 .aa-workshop-story{
   padding-top:0!important;
-  background:#080808;
+  background:#111820;
 }
 
 .aa-workshop-story .aa-proof-v3-head{
@@ -511,7 +511,7 @@
   height:min(68vw,760px);
   min-height:460px;
   overflow:hidden;
-  background:#111;
+  background:#111820;
   border:1px solid rgba(0,0,0,.14);
   cursor:ew-resize;
   touch-action:none;
@@ -551,8 +551,8 @@
   z-index:3;
   top:18px;
   padding:8px 10px;
-  background:rgba(6,6,6,.76);
-  color:#fff;
+  background:rgba(17,24,32,.76);
+  color:#ffffff;
   font-size:7px;
   font-weight:800;
   letter-spacing:.16em;
@@ -576,15 +576,15 @@
   gap:4px;
   border:1px solid rgba(0,0,0,.18);
   background:var(--aa-v8-accent);
-  color:#080808;
+  color:#111820;
   cursor:ew-resize;
   box-shadow:0 12px 30px rgba(0,0,0,.2);
 }
 
 /* FACILITIES */
 .aa-facilities{
-  background:#090909;
-  color:#f4f3ee;
+  background:#111820;
+  color:#f5f5f2;
 }
 
 .aa-facilities-head{
@@ -625,7 +625,7 @@
   border:0;
   border-bottom:1px solid var(--aa-v8-line-light);
   background:transparent;
-  color:#fff;
+  color:#ffffff;
   text-align:left;
   cursor:pointer;
   transition:
@@ -642,7 +642,7 @@
 .aa-facility-menu button.is-active{
   padding-left:16px;
   background:var(--aa-v8-accent);
-  color:#070707;
+  color:#111820;
 }
 
 .aa-facility-menu button>span{
@@ -667,7 +667,7 @@
   position:relative;
   min-height:650px;
   overflow:hidden;
-  background:#111;
+  background:#111820;
 }
 
 .aa-facility-image{
@@ -699,7 +699,7 @@
   grid-template-columns:120px minmax(0,1fr);
   align-items:end;
   gap:24px;
-  color:#fff;
+  color:#ffffff;
 }
 
 .aa-facility-caption>span{
@@ -745,7 +745,7 @@
 
 /* INSURANCE */
 .aa-insurance-stage{
-  background:#070707;
+  background:#111820;
 }
 
 .aa-insurance-stage .aa-split-media-grid{
@@ -763,7 +763,7 @@
   left:18px;
   padding:8px 10px;
   background:rgba(0,0,0,.58);
-  color:#fff;
+  color:#ffffff;
   font-size:7px;
   font-weight:800;
   letter-spacing:.16em;
@@ -812,8 +812,8 @@
 }
 
 .aa-review-card:hover{
-  background:#0b0b0b;
-  color:#fff;
+  background:#111820;
+  color:#ffffff;
 }
 
 .aa-review-card>span,
@@ -847,7 +847,7 @@
 
 /* LOCATION */
 .aa-location{
-  background:#080808;
+  background:#111820;
 }
 
 .aa-location-grid{
@@ -901,7 +901,7 @@
   min-height:640px;
   margin:0;
   overflow:hidden;
-  background:#111;
+  background:#111820;
 }
 
 .aa-location-media img{
@@ -928,7 +928,7 @@
   display:flex;
   align-items:center;
   gap:8px;
-  color:#fff;
+  color:#ffffff;
   font-size:7px;
   font-weight:800;
   letter-spacing:.16em;
@@ -941,7 +941,7 @@
   display:flex;
   align-items:center;
   overflow:hidden;
-  background:#050505;
+  background:#111820;
 }
 
 .aa-final-v8:before{
@@ -991,7 +991,7 @@
 
 .aa-footer-nav a:hover,
 .aa-footer-contact a:hover{
-  color:#fff;
+  color:#ffffff;
   transform:translateX(3px);
 }
 
@@ -1358,7 +1358,7 @@
     margin:0;
     overflow:hidden;
     border-left:1px solid rgba(255,255,255,.1);
-    background:#111;
+    background:#111820;
   }
 
   .aa-header-v5 .aa-mega-preview img{
@@ -1384,7 +1384,7 @@
     grid-template-columns:30px minmax(0,1fr);
     gap:10px;
     align-items:end;
-    color:#fff;
+    color:#ffffff;
   }
 
   .aa-header-v5 .aa-mega-preview figcaption span{

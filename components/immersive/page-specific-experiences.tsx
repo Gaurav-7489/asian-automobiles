@@ -187,18 +187,18 @@ function FrontTyreGraphic({
     >
       <defs>
         <linearGradient id="aa-v22-rubber" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#25282a" />
-          <stop offset=".46" stopColor="#111315" />
-          <stop offset="1" stopColor="#080a0c" />
+          <stop offset="0" stopColor="#202a32" />
+          <stop offset=".46" stopColor="#111820" />
+          <stop offset="1" stopColor="#111820" />
         </linearGradient>
         <linearGradient id="aa-v22-shoulder" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#08090b" />
-          <stop offset=".18" stopColor="#1e2123" />
-          <stop offset=".82" stopColor="#1e2123" />
-          <stop offset="1" stopColor="#08090b" />
+          <stop offset="0" stopColor="#111820" />
+          <stop offset=".18" stopColor="#202a32" />
+          <stop offset=".82" stopColor="#202a32" />
+          <stop offset="1" stopColor="#111820" />
         </linearGradient>
         <filter id="aa-v22-shadow" x="-30%" y="-20%" width="160%" height="170%">
-          <feDropShadow dx="0" dy="20" stdDeviation="18" floodColor="#000" floodOpacity=".2" />
+          <feDropShadow dx="0" dy="20" stdDeviation="18" floodColor="#000000" floodOpacity=".2" />
         </filter>
         <clipPath id="aa-v22-clip">
           <rect x="202" y="58" width="296" height="474" rx="122" />

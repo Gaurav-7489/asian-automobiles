@@ -36,7 +36,7 @@ for (const screen of screens) {
     await page.screenshot({ path: testInfo.outputPath("menu-expanded.png") });
     await expect(panel.locator("#aa-menu-services-links a")).toHaveCount(7);
     await expect(panel.locator("#aa-menu-services-links a span").first()).toHaveCSS("font-size", "16px");
-    await expect(panel.getByRole("link", { name: "Book a service" })).toHaveCSS("color", "rgb(11, 12, 11)");
+    await expect(panel.getByRole("link", { name: "Book a service" })).toHaveCSS("color", "rgb(17, 24, 32)");
     for (const link of await panel.locator("#aa-menu-services-links a").all()) {
       await link.scrollIntoViewIfNeeded();
       await expect(link).toBeInViewport();

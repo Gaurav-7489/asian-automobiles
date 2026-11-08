@@ -70,8 +70,8 @@ body {
     inset: 84px 0 0 !important;
     width: 100% !important;
     max-width: 100% !important;
-    background: #070707;
-    color: #fff;
+    background: #111820;
+    color: #ffffff;
     opacity: 0;
     visibility: hidden;
     transform: translate3d(0, -10px, 0);
@@ -115,7 +115,7 @@ body {
   .aa-header-v5 .aa-nav-main,
   .aa-header-v5.is-scrolled .aa-nav-main {
     height: 70px !important;
-    background: rgba(6, 6, 6, .975) !important;
+    background: rgba(17,24,32, .975) !important;
   }
 
   .aa-header-v5 .aa-mobile-panel,

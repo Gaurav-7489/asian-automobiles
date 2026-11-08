@@ -313,7 +313,6 @@ export function SiteHeader() {
           className="aa-mobile-panel aa-expandable-menu"
           aria-label="Expanded navigation"
           inert={!menuOpen}
-          data-lenis-prevent
           onClick={(event) => {
             if ((event.target as HTMLElement).closest("a")) {
               setMenuOpen(false);

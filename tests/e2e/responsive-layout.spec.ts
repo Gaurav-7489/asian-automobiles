@@ -40,6 +40,7 @@ test.describe("responsive content geometry", () => {
             const box = el.getBoundingClientRect();
             const style = getComputedStyle(el);
             if (!box.width || !box.height || style.visibility === "hidden" || style.display === "none") continue;
+            if (el.closest(".aa-sr-only")) continue; // visually hidden headings for screen readers
             const label = `${el.tagName} ${el.textContent?.trim().slice(0, 65)}`;
             if (box.left < -2 || box.right > innerWidth + 2) found.push(`Outside viewport: ${label}`);
             if (el.scrollWidth > el.clientWidth + 3) found.push(`Text overflow: ${label}`);
@@ -94,7 +95,7 @@ test("tyre guide keeps its heading readable on the dark panel", async ({ page })
   await page.goto("/services/tyre-care/", { waitUntil: "networkidle" });
   const heading = page.locator(".aa-v22-copy-panel h3");
   await expect(heading).toHaveCSS("color", "rgb(255, 255, 255)");
-  await expect(page.locator(".aa-v22-copy-panel p").first()).toHaveCSS("color", "rgb(199, 204, 197)");
+  await expect(page.locator(".aa-v22-copy-panel p").first()).toHaveCSS("color", "rgb(226, 228, 225)");
 });
 
 test("navigation stays inside the viewport at desktop and tablet breakpoints", async ({ page }, testInfo) => {

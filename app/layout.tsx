@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import "lenis/dist/lenis.css";
+import localFont from "next/font/local";
 import "./globals.css";
 import "./pro-upgrade.css";
 import "./design-v8.css";
@@ -14,21 +14,23 @@ import "./production.css";
 import "./connected-flow.css";
 import "./responsive-layout.css";
 import "./mobile-attraction.css";
-import "./mobile-contrast-fixes.css";
+import "./spec-design-system.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { InteractiveLayer } from "@/components/interactive";
-import { SmoothScroll } from "@/components/immersive/smooth-scroll";
 import { businessFacts } from "@/lib/business-facts";
 
 // Production deployment trigger — responsive baseline.
+// Spec 5.3: Manrope for headings, Inter for body. Self-hosted Latin variable fonts (OFL, Fontsource).
+const manrope = localFont({ src: "./fonts/manrope-latin-wght-normal.woff2", weight: "200 800", display: "swap", variable: "--font-manrope" });
+const inter = localFont({ src: "./fonts/inter-latin-wght-normal.woff2", weight: "100 900", display: "swap", variable: "--font-inter" });
+
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://asian-automobiles.vercel.app";
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#070707",
+  themeColor: "#111820",
 };
 
 export const metadata: Metadata = {
@@ -70,14 +72,13 @@ const businessSchema = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN">
+    <html lang="en-IN" className={`${manrope.variable} ${inter.variable}`}>
       <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema) }}
         />
-        <SmoothScroll />
-        <InteractiveLayer />
+        <a href="#main" className="aa-skip-link">Skip to main content</a>
         <SiteHeader />
         {children}
         <SiteFooter />

@@ -75,7 +75,7 @@ function CTA({
 }) {
   return (
     <Link
-      data-magnetic
+     
       prefetch={false}
       className={"aa-v10-button aa-v10-button-" + tone}
       href={href}
@@ -98,7 +98,7 @@ function WhatsAppAction({
   if (!href) return <Directions />;
   return (
     <a
-      data-magnetic
+     
       className="aa-v10-button aa-v10-button-whatsapp"
       href={href}
       target="_blank"
@@ -113,7 +113,8 @@ function WhatsAppAction({
 
 function Call({ label = "Call workshop" }: { label?: string }) {
   return (
-    <a data-magnetic className="aa-v10-button aa-v10-button-ghost" href={"tel:" + phone}>
+    // Spec 5.1.5: Call is always the amber primary action.
+    <a className="aa-v10-button aa-v10-button-primary" href={"tel:" + phone}>
       <Phone size={15} />
       <span>{label}</span>
     </a>
@@ -123,7 +124,7 @@ function Call({ label = "Call workshop" }: { label?: string }) {
 function Directions() {
   return (
     <a
-      data-magnetic
+     
       className="aa-v10-button aa-v10-button-ghost"
       href={directionsHref}
       target="_blank"
@@ -135,12 +136,28 @@ function Directions() {
   );
 }
 
-function Back() {
+/** Breadcrumbs (spec 6.2 / 20.3.7) in the template's back-link style, with BreadcrumbList JSON-LD. */
+function Back({ trail }: { trail: { name: string; href?: string }[] }) {
+  const site = process.env.NEXT_PUBLIC_SITE_URL ?? "https://asian-automobiles.vercel.app";
+  const all = [{ name: "Home", href: "/" }, ...trail];
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: all.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, ...(c.href ? { item: site + c.href } : {}) })),
+  };
   return (
-    <Link data-magnetic prefetch={false} className="back" href="/">
+    <nav aria-label="Breadcrumb" className="back">
       <ArrowLeft size={15} />
-      Asian Automobiles / Home
-    </Link>
+      <ol style={{ display: "inline-flex", flexWrap: "wrap", gap: "0 8px", listStyle: "none", margin: 0, padding: 0 }}>
+        {all.map((c, i) => (
+          <li key={c.name} style={{ display: "inline-flex", gap: 8 }}>
+            {i > 0 && <span aria-hidden="true">›</span>}
+            {c.href && i < all.length - 1 ? <Link prefetch={false} href={c.href}>{c.name}</Link> : <span aria-current="page">{c.name}</span>}
+          </li>
+        ))}
+      </ol>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+    </nav>
   );
 }
 
@@ -259,12 +276,12 @@ function Frame({
   children: ReactNode;
 }) {
   return (
-    <main className={"creative-page immersive-page immersive-page-v9 aa-inner-v10 aa-v11-page theme-" + theme}>
+    <main id="main" tabIndex={-1} className={"creative-page immersive-page immersive-page-v9 aa-inner-v10 aa-v11-page theme-" + theme}>
       <PageProgressRail />
       <section className="creative-head aa-v10-head">
         <div className="creative-head-grid" aria-hidden="true" />
         <div className="wrap creative-wrap aa-v10-hero-wrap">
-          <Back />
+          <Back trail={serviceId && serviceId !== "spare-parts" ? [{ name: "Services", href: "/services/" }, { name: title.length < 40 ? eyebrow : eyebrow }] : [{ name: eyebrow === "Legal" ? "Privacy Policy" : eyebrow }]} />
           <div className="aa-v10-hero-layout">
             <div className="creative-heading aa-view-reveal">
               <span className="eyebrow">{eyebrow}</span>
@@ -283,7 +300,7 @@ function Frame({
               </div>
             </div>
           </div>
-          <a data-magnetic href="#page-content" className="creative-compass">
+          <a href="#page-content" className="creative-compass">
             <span>SCROLL / SEE WHAT MATTERS</span>
             <ArrowRight size={16} />
           </a>

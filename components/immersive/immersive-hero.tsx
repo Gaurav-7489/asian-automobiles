@@ -71,11 +71,11 @@ export function ImmersiveHero() {
       <div className="aa-hero2-sticky">
         <motion.div
           className="aa-hero2-media"
-          style={reduceMotion ? undefined : { scale: mediaScale, y: mediaY }}
+          
         >
           <Image
-            src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2200&q=82"
-            alt="Performance car on an open road"
+            src="https://images.unsplash.com/photo-1632823469850-1b7b1e8b7e3d?auto=format&fit=crop&w=2200&q=82"
+            alt="Mechanic working on a car in a workshop"
             fill
             priority
             fetchPriority="high"
@@ -85,7 +85,7 @@ export function ImmersiveHero() {
           <motion.div
             className="aa-hero2-orb"
             aria-hidden="true"
-            style={reduceMotion ? undefined : { x: orbX, y: orbY }}
+            
           />
           <div className="aa-hero2-shade" />
           <div className="aa-hero-v8-grid" aria-hidden="true" />
@@ -99,7 +99,7 @@ export function ImmersiveHero() {
 
           <motion.div
             className="aa-hero2-copy"
-            style={reduceMotion ? undefined : { y: copyY, opacity: copyOpacity }}
+            
           >
             <div className="aa-hero2-eyebrow">
               <span>01</span>
