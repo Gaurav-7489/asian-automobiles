@@ -63,3 +63,4 @@
   :root:not(#_) .aa-home-area .aa-home-area-grid { grid-template-columns: 1fr; }
   :root:not(#_) .aa-home-area-visual { aspect-ratio: 4 / 3; }
 }
+:root:not(#_) .aa-home-area-visual img { object-position: 50% 45%; }

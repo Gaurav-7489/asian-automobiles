@@ -261,10 +261,11 @@ function HeroArt({ theme }: { theme: PageTheme }) {
 
 /** Temporary image rail (placeholder illustrations) — swap the src values for real workshop photos. */
 const ph = (name: string) => "/images/placeholders/" + name + ".svg";
+const shop = (name: string) => "/images/shop/" + name + ".jpg";
 const railByTheme: Partial<Record<PageTheme, [string, string][]>> = {
-  about: [[ph("inspection"), "Servicing"], [ph("car-profile"), "Repairs"], [ph("spare-parts"), "Spare parts"]],
+  about: [[shop("storefront"), "The shop"], [shop("signboard"), "Irinjalakkuda"], [shop("suspension-repair"), "Repairs"]],
   service: [[ph("inspection"), "Oil & filters"], [ph("car-profile"), "Checks"], [ph("hero-workshop"), "Inspection"]],
-  mechanical: [[ph("wheel-alignment"), "Brakes"], [ph("inspection"), "Suspension"], [ph("car-profile"), "Steering"]],
+  mechanical: [[ph("wheel-alignment"), "Brakes"], [shop("suspension-repair"), "Suspension"], [ph("car-profile"), "Steering"]],
   ac: [[ph("inspection"), "Inspection"], [ph("car-profile"), "Fault-finding"], [ph("spare-parts"), "Gas recharge"]],
   wheel: [[ph("wheel-alignment"), "Alignment"], [ph("tyre-care"), "Balancing"], [ph("car-profile"), "Tyre wear"]],
   tyre: [[ph("tyre-care"), "Tread"], [ph("wheel-alignment"), "Pressure"], [ph("car-profile"), "Wear"]],

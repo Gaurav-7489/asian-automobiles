@@ -146,7 +146,7 @@ export function HomeSpecSections({ part }: { part: "middle" | "end" }) {
           </div>
           {/* Temporary illustration — swap for a real map or workshop photo. */}
           <figure className="aa-home-area-visual">
-            <Image src="/images/placeholders/service-area.svg" alt="" fill sizes="(max-width: 900px) 100vw, 40vw" />
+            <Image src="/images/shop/storefront.jpg" alt="Asian Automobiles workshop front on the road in Irinjalakkuda" fill sizes="(max-width: 900px) 100vw, 40vw" />
           </figure>
         </div>
       </section>
