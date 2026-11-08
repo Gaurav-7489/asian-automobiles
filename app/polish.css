@@ -300,3 +300,27 @@
 @media (prefers-reduced-motion: reduce) {
   :root:not(#_) .aa-inner-v10 :is(.aa-visual-rail li, .aa-v10-feature-card, .aa-v10-photo-frame, .aa-v10-section-head) { animation: none !important; }
 }
+
+/* =====================================================================
+   7. Contact cards: compact, values never split mid-word
+   ===================================================================== */
+:root:not(#_) .aa-v10-contact-actions > a {
+  min-height: 0 !important;
+  padding: 22px 24px !important;
+  gap: 14px 12px !important;
+  align-content: space-between;
+  transition: transform 0.45s var(--aa-ease), border-color 0.3s ease;
+}
+:root:not(#_) .aa-v10-contact-actions > a > span { font-size: 11px !important; letter-spacing: 0.12em; }
+:root:not(#_) .aa-v10-contact-actions > a > b {
+  max-width: none !important;
+  font-size: clamp(20px, 5vw, 30px) !important;
+  line-height: 1.15 !important;
+  overflow-wrap: anywhere;
+}
+@media (hover: hover) {
+  :root:not(#_) .aa-v10-contact-actions > a:hover { transform: translateY(-2px); }
+}
+@media (min-width: 901px) {
+  :root:not(#_) .aa-v10-contact-actions { gap: 14px; }
+}
