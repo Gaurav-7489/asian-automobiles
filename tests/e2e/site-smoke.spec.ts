@@ -61,11 +61,12 @@ test("mobile navigation opens, is usable, and closes", async ({ page }, testInfo
   await expect(toggle).toBeVisible();
   await toggle.click();
 
-  const panel = page.locator(".aa-mobile-panel");
+  const panel = page.getByRole("navigation", { name: "Expanded navigation" });
   await expect(panel).toBeVisible();
   await panel.getByRole("button", { name: /^Services/ }).click();
   await expect(panel.getByRole("link", { name: /Car service & maintenance/i })).toBeVisible();
 
   await page.getByRole("button", { name: "Close menu" }).click();
   await expect(page.locator(".aa-header-v5")).not.toHaveClass(/is-open/);
+  await expect(page.getByRole("button", { name: "Open menu" })).toBeVisible();
 });

@@ -136,7 +136,7 @@ export function SiteHeader() {
       >
         <div className="aa-nav-main">
           <div className="aa-shell aa-header-inner">
-            <Link data-magnetic href="/" prefetch={false} className="aa-brand" aria-label="Asian Automobiles home">
+            <Link data-magnetic href="/" className="aa-brand" aria-label="Asian Automobiles home">
               <span className="aa-brand-mark">AA</span>
               <span className="aa-brand-name">
                 <b>ASIAN AUTOMOBILES</b>
@@ -188,7 +188,7 @@ export function SiteHeader() {
                     <Link
                       data-magnetic
                       href="/services/"
-                      prefetch={false}
+                     
                       onPointerEnter={() => warm("/services/")}
                       onFocus={() => warm("/services/")}
                     >
@@ -202,7 +202,7 @@ export function SiteHeader() {
                         <Link
                           href={href}
                           key={href}
-                          prefetch={false}
+                         
                           onPointerEnter={() => {
                             setServicePreview(index);
                             warm(href);
@@ -224,7 +224,7 @@ export function SiteHeader() {
                       <Link
                         data-magnetic
                         href="/contact/#enquiry"
-                        prefetch={false}
+                       
                         onPointerEnter={() => warm("/contact/")}
                         onFocus={() => warm("/contact/")}
                         className="aa-mega-book"
@@ -263,7 +263,7 @@ export function SiteHeader() {
                     data-magnetic
                     key={href}
                     href={href}
-                    prefetch={false}
+                   
                     onPointerEnter={() => warm(href)}
                     onFocus={() => warm(href)}
                     className={active ? "is-active" : ""}
@@ -282,7 +282,7 @@ export function SiteHeader() {
               <Link
                 data-magnetic
                 href="/contact/#enquiry"
-                prefetch={false}
+               
                 onPointerEnter={() => warm("/contact/")}
                 onFocus={() => warm("/contact/")}
                 className="aa-header-cta"
@@ -321,8 +321,8 @@ export function SiteHeader() {
           <div className="aa-mnav-inner">
             <ol className="aa-mnav-list">
               <li style={{ "--i": 0 } as React.CSSProperties}>
-                <Link href="/" prefetch={false} className="aa-mnav-link" aria-current={pathname === "/" ? "page" : undefined}>
-                  <i>01</i><span>Home</span><ArrowUpRight size={20} />
+                <Link href="/" className="aa-mnav-link" aria-current={pathname === "/" ? "page" : undefined}>
+                  <i aria-hidden="true">01</i><span>Home</span><ArrowUpRight size={20} />
                 </Link>
               </li>
               <li style={{ "--i": 1 } as React.CSSProperties} className={`aa-mnav-group ${mobileGroup === "services" ? "is-expanded" : ""}`}>
@@ -334,21 +334,21 @@ export function SiteHeader() {
                   aria-controls="aa-menu-services-links"
                   onClick={() => setMobileGroup(mobileGroup === "services" ? null : "services")}
                 >
-                  <i>02</i><span>Services</span><ChevronDown size={20} />
+                  <i aria-hidden="true">02</i><span>Services</span><ChevronDown size={20} />
                 </button>
                 <div className="aa-mnav-sub" inert={mobileGroup !== "services"}>
                   <div>
                     <ul id="aa-menu-services-links" aria-labelledby="aa-menu-services-toggle">
                       {serviceLinks.map(([label, href], n) => (
                         <li key={href}>
-                          <Link href={href} prefetch={false} aria-current={pathname === href ? "page" : undefined}>
-                            <i>{String(n + 1).padStart(2, "0")}</i><span>{label}</span>
+                          <Link href={href} aria-current={pathname === href ? "page" : undefined}>
+                            <i aria-hidden="true">{String(n + 1).padStart(2, "0")}</i><span>{label}</span>
                           </Link>
                         </li>
                       ))}
                       <li>
-                        <Link href="/services/" prefetch={false} aria-current={pathname === "/services/" ? "page" : undefined}>
-                          <i>—</i><span>All services</span>
+                        <Link href="/services/" aria-current={pathname === "/services/" ? "page" : undefined}>
+                          <i aria-hidden="true">—</i><span>All services</span>
                         </Link>
                       </li>
                     </ul>
@@ -357,14 +357,14 @@ export function SiteHeader() {
               </li>
               {navLinks.map(([label, href], n) => (
                 <li key={href} style={{ "--i": n + 2 } as React.CSSProperties}>
-                  <Link href={href} prefetch={false} className="aa-mnav-link" aria-current={pathname === href ? "page" : undefined}>
-                    <i>{String(n + 3).padStart(2, "0")}</i><span>{label}</span><ArrowUpRight size={20} />
+                  <Link href={href} className="aa-mnav-link" aria-current={pathname === href ? "page" : undefined}>
+                    <i aria-hidden="true">{String(n + 3).padStart(2, "0")}</i><span>{label}</span><ArrowUpRight size={20} />
                   </Link>
                 </li>
               ))}
             </ol>
             <div className="aa-mnav-foot">
-              <Link href="/contact/#enquiry" prefetch={false} className="aa-mnav-book">
+              <Link href="/contact/#enquiry" className="aa-mnav-book">
                 <span>Book a service</span><ArrowUpRight size={20} />
               </Link>
               <div className="aa-mnav-quick">
@@ -394,7 +394,7 @@ export function SiteHeader() {
         <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={15} /><span>Call</span></a>
         {whatsappEnabled && whatsappHref
           ? <a href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle size={15} /><span>WhatsApp</span></a>
-          : <Link href="/contact/#enquiry" prefetch={false}><CalendarDays size={15} /><span>Book</span></Link>}
+          : <Link href="/contact/#enquiry"><CalendarDays size={15} /><span>Book</span></Link>}
         <a href={directionsHref} target="_blank" rel="noreferrer"><MapPin size={15} /><span>Directions</span></a>
       </nav>
     </>

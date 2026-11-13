@@ -24,21 +24,21 @@ const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 const aaModuleImages = {
   service: [
-    "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1600&q=78",
-    "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1600&q=78",
-    "/images/placeholders/spare-parts.svg",
-    "/images/placeholders/car-profile.svg",
+    "/images/photos/car-service.jpg",
+    "/images/photos/mechanic.jpg",
+    "/images/photos/spare-parts.jpg",
+    "/images/photos/car-profile.jpg",
   ],
-  wheel: "/images/placeholders/wheel-alignment.svg",
-  tyre: "/images/placeholders/tyre-care.svg",
+  wheel: "/images/photos/wheel-alignment.jpg",
+  tyre: "/images/photos/tyre-care.jpg",
   parts: [
-    "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1600&q=78",
-    "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1600&q=78",
-    "/images/placeholders/spare-parts.svg",
-    "/images/placeholders/wheel-alignment.svg",
-    "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1600&q=78",
+    "/images/photos/engine-detail.jpg",
+    "/images/photos/car-service.jpg",
+    "/images/photos/spare-parts.jpg",
+    "/images/photos/wheel-alignment.jpg",
+    "/images/photos/mechanic.jpg",
   ],
-  accident: "https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=1500&q=78",
+  accident: "/images/photos/mechanical-repairs.jpg",
 };
 
 export function ServiceScanner() {

@@ -22,8 +22,8 @@ export function EditorialHome() {
         <div className="aa-shell aa-home-workshop-grid">
           <figure className="aa-home-workshop-photo">
             <Image
-              src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1800&q=76"
-              alt="Car in a workshop"
+              src="/images/photos/engine-detail.jpg"
+              alt="Close-up of an engine bay during a service"
               fill quality={72} sizes="(max-width: 800px) 94vw, 55vw"
             />
             <figcaption>Not a dealership. Cars of many makes.</figcaption>
@@ -32,8 +32,8 @@ export function EditorialHome() {
             <span className="aa-kicker aa-kicker-light">ABOUT THE WORKSHOP</span>
             <h2>An independent service centre.<br /><em>For cars of every make.</em></h2>
             <p>We look after the routine servicing, repairs and maintenance that keep everyday cars running well, and help customers find the spare parts they need. We don’t sell cars — we look after the one you already drive.</p>
-            <Link prefetch={false} href="/about/" className="aa-light-button">More about us <ArrowUpRight size={15} /></Link>
-            <Link prefetch={false} href="/spare-parts/" className="aa-text-link">Looking for a part? <ArrowUpRight size={15} /></Link>
+            <Link href="/about/" className="aa-light-button">More about us <ArrowUpRight size={15} /></Link>
+            <Link href="/spare-parts/" className="aa-text-link">Looking for a part? <ArrowUpRight size={15} /></Link>
           </div>
         </div>
       </section>
@@ -76,7 +76,7 @@ export function EditorialHome() {
             <span className="aa-kicker aa-kicker-light">BEFORE YOU SET OFF</span>
             <h3>Near Government Rest House / Canara Bank.</h3>
             <p><Clock3 size={17} /> {businessFacts.hours}. A quick call before you visit helps us plan time for your car.</p>
-            <Link prefetch={false} href="/contact/" className="aa-text-link">Contact the workshop <ArrowUpRight size={15} /></Link>
+            <Link href="/contact/" className="aa-text-link">Contact the workshop <ArrowUpRight size={15} /></Link>
           </div>
         </div>
       </section>

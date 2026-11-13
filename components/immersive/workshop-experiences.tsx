@@ -62,7 +62,7 @@ export function NeedExplorer({ items }: { items: NeedItem[] }) {
       {items.map((item, index) => (
         <Link
           href={item.href}
-          prefetch={false}
+         
           className="aa-need-row"
           key={item.no}
           onPointerEnter={() => setActive(index)}

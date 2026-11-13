@@ -74,7 +74,7 @@ export function ImmersiveHero() {
           
         >
           <Image
-            src="/images/placeholders/hero-workshop.svg"
+            src="/images/photos/hero-workshop.jpg"
             alt=""
             fill
             priority
@@ -131,7 +131,7 @@ export function ImmersiveHero() {
               </p>
 
               <div className="aa-hero2-actions">
-                <Link data-magnetic href="/contact/#enquiry" prefetch={false} className="aa-hero2-primary">
+                <Link data-magnetic href="/contact/#enquiry" className="aa-hero2-primary">
                   Book service <ArrowUpRight size={15} />
                 </Link>
                 <a data-magnetic href={"tel:" + businessFacts.phones.primaryHref} className="aa-hero2-circle" aria-label="Call Asian Automobiles">

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { jsonLd } from "@/lib/json-ld";
 import Link from "next/link";
 import {
   ArrowUpRight, CarFront, CircleHelp, Clock3, MapPin, MessageCircle, Navigation, PackageSearch, Phone, ShieldCheck,
@@ -19,7 +20,7 @@ function Btn({ href, children, tone = "primary", external, icon }: { href: strin
   const cls = "aa-v10-button aa-v10-button-" + tone;
   const inner = <>{icon}<span>{children}</span>{!icon && <ArrowUpRight size={15} />}</>;
   return href.startsWith("/") ? (
-    <Link prefetch={false} className={cls} href={href}>{inner}</Link>
+    <Link className={cls} href={href}>{inner}</Link>
   ) : (
     <a className={cls} href={href} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}>{inner}</a>
   );
@@ -115,7 +116,7 @@ export function HomeSpecSections({ part }: { part: "middle" | "end" }) {
       <section className="aa-v10-section aa-v10-soft" aria-labelledby="parts-heading">
         <div className="wrap aa-v10-photo-split">
           <div className="aa-v10-photo-frame">
-            <Image src="/images/placeholders/inspection.svg" alt="" fill sizes="(max-width: 900px) 100vw, 54vw" />
+            <Image src="/images/photos/inspection.jpg" alt="" fill sizes="(max-width: 900px) 100vw, 54vw" />
           </div>
           <div className="aa-v10-photo-copy">
             <span className="eyebrow">SPARE PARTS</span>
@@ -146,7 +147,7 @@ export function HomeSpecSections({ part }: { part: "middle" | "end" }) {
           </div>
           {/* Temporary illustration — swap for a real map or workshop photo. */}
           <figure className="aa-home-area-visual">
-            <Image src="/images/placeholders/service-area.svg" alt="" fill sizes="(max-width: 900px) 100vw, 40vw" />
+            <Image src="/images/photos/service-area.jpg" alt="" fill sizes="(max-width: 900px) 100vw, 40vw" />
           </figure>
         </div>
       </section>
@@ -170,7 +171,7 @@ function HomeSpecEnd({ faqs, faqLd }: { faqs: [string, string][]; faqLd: object 
           </div>
           <MotionFaq items={faqs.map(([question, answer]) => ({ question, answer }))} />
         </div>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqLd) }} />
       </section>
 
       {/* F14 Final CTA */}

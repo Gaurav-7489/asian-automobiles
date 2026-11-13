@@ -33,6 +33,26 @@ canonical pages. `/request-quote/` redirects to `/book-service/?intent=quote`,
 preserving a valid selected service and optional detail. The sitemap lists only
 canonical pages.
 
+## Security
+
+- Security headers on every response (`next.config.mjs`): Content-Security-Policy (self-only
+  scripts, styles, images, fonts; Google Maps is the only allowed frame; `frame-ancestors 'none'`),
+  HSTS, `X-Frame-Options: DENY`, `nosniff`, strict Referrer-Policy, Permissions-Policy, COOP.
+- No backend, database, login or form submission to our server: there is nothing to inject into.
+  The enquiry flow hands off to WhatsApp / phone / email only.
+- Structured data is serialised with `lib/json-ld.ts`, which escapes `<`, `>` and `&`.
+- All images and fonts are self-hosted; no third-party scripts or trackers.
+- `npm audit` is clean (PostCSS is pinned to a patched version via `overrides`).
+- Tested in `tests/e2e/security-and-feel.spec.ts`.
+
+## Performance and feel
+
+- Every page is pre-rendered at build time (`generateStaticParams`), so navigation is served
+  from the CDN and links are prefetched.
+- A progress bar (`components/nav-feedback.tsx`) starts the moment a link is tapped; buttons
+  and links have press states (`app/interaction.css`).
+- Photos live in `public/images/photos/` (see `CREDITS.md`) and are served as resized WebP.
+
 ## Verification
 
 ```sh

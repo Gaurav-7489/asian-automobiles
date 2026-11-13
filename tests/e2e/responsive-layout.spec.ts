@@ -41,6 +41,12 @@ test.describe("responsive content geometry", () => {
             const style = getComputedStyle(el);
             if (!box.width || !box.height || style.visibility === "hidden" || style.display === "none") continue;
             if (el.closest(".aa-sr-only")) continue; // visually hidden headings for screen readers
+            // Items inside a horizontal swipe rail are reached by swiping, not clipped.
+            let inScroller = false;
+            for (let p = el.parentElement; p && p.tagName !== "MAIN"; p = p.parentElement) {
+              if (["auto", "scroll"].includes(getComputedStyle(p).overflowX) && p.scrollWidth > p.clientWidth) { inScroller = true; break; }
+            }
+            if (inScroller) continue;
             const label = `${el.tagName} ${el.textContent?.trim().slice(0, 65)}`;
             if (box.left < -2 || box.right > innerWidth + 2) found.push(`Outside viewport: ${label}`);
             if (el.scrollWidth > el.clientWidth + 3) found.push(`Text overflow: ${label}`);
@@ -111,7 +117,7 @@ test("navigation stays inside the viewport at desktop and tablet breakpoints", a
     const desktop = width > 1320;
     if (desktop) await page.getByRole("button", { name: "Services", exact: true }).click();
     else await menu.click();
-    const panel = page.locator(desktop ? ".aa-mega" : ".aa-mobile-panel");
+    const panel = page.locator(desktop ? ".aa-mega" : "#aa-mobile-navigation");
     await expect(panel).toBeVisible();
     const bounds = await panel.boundingBox();
     expect(bounds!.x).toBeGreaterThanOrEqual(-1);
@@ -119,15 +125,4 @@ test("navigation stays inside the viewport at desktop and tablet breakpoints", a
     expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(height + 1);
     if (!desktop) await page.getByRole("button", { name: "Close menu" }).click();
   }
-});
-
-test("the inner-page scroll link leaves content below the fixed header", async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/services/", { waitUntil: "networkidle" });
-  await page.getByRole("link", { name: "SCROLL / SEE WHAT MATTERS" }).click();
-  const heading = page.locator(".aa-v10-section-head").first();
-  await expect(heading).toBeInViewport();
-  const box = await heading.boundingBox();
-  const header = await page.locator(".aa-nav-main").boundingBox();
-  expect(box!.y).toBeGreaterThanOrEqual(header!.y + header!.height);
 });

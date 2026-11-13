@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowUpRight, Check, MessageCircle, Phone } from "lucide-react";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { businessFacts } from "@/lib/business-facts";
 
 import { findService, serviceCatalog, type LeadMode } from "@/lib/service-catalog";
@@ -29,6 +29,12 @@ const modeCopy: Record<LeadMode, { eyebrow: string; title: string; helper: strin
 
 export function WhatsAppLeadForm({ mode: initialMode = "service", selectedService, detail = "", quote = false }: { mode?: LeadMode; selectedService?: string; detail?: string; quote?: boolean }) {
   const [serviceId, setServiceId] = useState(selectedService ?? "");
+  // Pages are static, so a "?service=" preselection is read in the browser and validated against the catalog.
+  useEffect(() => {
+    if (selectedService) return;
+    const fromUrl = new URLSearchParams(window.location.search).get("service");
+    if (fromUrl && findService(fromUrl)) setServiceId(fromUrl);
+  }, [selectedService]);
   const [intent, setIntent] = useState(quote || initialMode === "quote" ? "quote" : "service");
   const service = findService(serviceId);
   const mode: LeadMode = service?.mode === "parts"

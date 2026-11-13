@@ -15,11 +15,11 @@ import { useRef, useState } from "react";
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 const aaTimelineImages = [
-  "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1700&q=78",
-  "/images/placeholders/spare-parts.svg",
-  "/images/placeholders/wheel-alignment.svg",
-  "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1700&q=78",
-  "/images/placeholders/car-profile.svg",
+  "/images/photos/car-service.jpg",
+  "/images/photos/spare-parts.jpg",
+  "/images/photos/wheel-alignment.jpg",
+  "/images/photos/mechanic.jpg",
+  "/images/photos/car-profile.jpg",
 ];
 
 export function PageProgressRail() {

@@ -1,6 +1,6 @@
+import { jsonLd } from "@/lib/json-ld";
 import {
   ArrowLeft,
-  ArrowRight,
   ArrowUpRight,
   CircleHelp,
   Clock3,
@@ -31,7 +31,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { ServiceConnections } from "@/components/service-connections";
-import { bookingHref, findService, serviceRouteAliases } from "@/lib/service-catalog";
+import { bookingHref, serviceRouteAliases } from "@/lib/service-catalog";
 import { notFound, permanentRedirect } from "next/navigation";
 import { businessFacts, directionsHref, mapsEmbedSrc, whatsappEnabled, whatsappLink } from "@/lib/business-facts";
 import { MapReveal } from "@/components/map-reveal";
@@ -53,13 +53,13 @@ import {
 import { AboutTimeline, ServiceDecisionBoard } from "@/components/immersive/v13-page-experiences";
 
 const img = {
-  workshop: "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1800&q=76",
-  repair: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1800&q=76",
-  car: "/images/placeholders/car-profile.svg",
-  road: "/images/placeholders/tyre-care.svg",
-  detail: "/images/placeholders/spare-parts.svg",
-  interior: "/images/placeholders/inspection.svg",
-  wheel: "/images/placeholders/wheel-alignment.svg",
+  workshop: "/images/photos/mechanic.jpg",
+  repair: "/images/photos/car-service.jpg",
+  car: "/images/photos/car-profile.jpg",
+  road: "/images/photos/tyre-care.jpg",
+  detail: "/images/photos/spare-parts.jpg",
+  interior: "/images/photos/inspection.jpg",
+  wheel: "/images/photos/wheel-alignment.jpg",
 };
 
 const phone = businessFacts.phones.primaryHref;
@@ -77,7 +77,7 @@ function CTA({
   return (
     <Link
      
-      prefetch={false}
+     
       className={"aa-v10-button aa-v10-button-" + tone}
       href={href}
     >
@@ -153,11 +153,11 @@ function Back({ trail }: { trail: { name: string; href?: string }[] }) {
         {all.map((c, i) => (
           <li key={c.name} style={{ display: "inline-flex", gap: 8 }}>
             {i > 0 && <span aria-hidden="true">›</span>}
-            {c.href && i < all.length - 1 ? <Link prefetch={false} href={c.href}>{c.name}</Link> : <span aria-current="page">{c.name}</span>}
+            {c.href && i < all.length - 1 ? <Link href={c.href}>{c.name}</Link> : <span aria-current="page">{c.name}</span>}
           </li>
         ))}
       </ol>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(ld) }} />
     </nav>
   );
 }
@@ -260,15 +260,15 @@ function HeroArt({ theme }: { theme: PageTheme }) {
 }
 
 /** Temporary image rail (placeholder illustrations) — swap the src values for real workshop photos. */
-const ph = (name: string) => "/images/placeholders/" + name + ".svg";
+const ph = (name: string) => "/images/photos/" + name + ".jpg";
 const railByTheme: Partial<Record<PageTheme, [string, string][]>> = {
-  about: [[ph("inspection"), "Servicing"], [ph("car-profile"), "Repairs"], [ph("spare-parts"), "Spare parts"]],
-  service: [[ph("inspection"), "Oil & filters"], [ph("car-profile"), "Checks"], [ph("hero-workshop"), "Inspection"]],
-  mechanical: [[ph("wheel-alignment"), "Brakes"], [ph("inspection"), "Suspension"], [ph("car-profile"), "Steering"]],
-  ac: [[ph("inspection"), "Inspection"], [ph("car-profile"), "Fault-finding"], [ph("spare-parts"), "Gas recharge"]],
+  about: [[ph("car-service"), "Servicing"], [ph("mechanical-repairs"), "Repairs"], [ph("spare-parts"), "Spare parts"]],
+  service: [[ph("car-service"), "Oil & filters"], [ph("inspection"), "Checks"], [ph("under-car"), "Inspection"]],
+  mechanical: [[ph("wheel-alignment"), "Brakes"], [ph("under-car"), "Suspension"], [ph("wrench"), "Steering"]],
+  ac: [[ph("inspection"), "Inspection"], [ph("ac-service"), "Fault-finding"], [ph("engine-detail"), "Gas recharge"]],
   wheel: [[ph("wheel-alignment"), "Alignment"], [ph("tyre-care"), "Balancing"], [ph("car-profile"), "Tyre wear"]],
   tyre: [[ph("tyre-care"), "Tread"], [ph("wheel-alignment"), "Pressure"], [ph("car-profile"), "Wear"]],
-  parts: [[ph("spare-parts"), "Genuine (OEM)"], [ph("inspection"), "Aftermarket"], [ph("car-profile"), "Fitment"]],
+  parts: [[ph("spare-parts"), "Genuine (OEM)"], [ph("engine-detail"), "Aftermarket"], [ph("wrench"), "Fitment"]],
 };
 
 function VisualRail({ items }: { items: [string, string][] }) {
@@ -332,10 +332,6 @@ function Frame({
               </div>
             </div>
           </div>
-          <a href="#page-content" className="creative-compass">
-            <span>SCROLL / SEE WHAT MATTERS</span>
-            <ArrowRight size={16} />
-          </a>
         </div>
       </section>
       <div id="page-content" className="creative-body aa-v10-body">
@@ -396,7 +392,7 @@ function FeatureCard({
   );
 
   return href ? (
-    <Link href={href} prefetch={false} className="aa-v10-feature-card">
+    <Link href={href} className="aa-v10-feature-card">
       {body}
     </Link>
   ) : (
@@ -435,7 +431,7 @@ type QA = [string, string];
 
 /** FAQ block: existing motion accordion + FAQPage JSON-LD for the visible questions. */
 function Faqs({ eyebrow = "QUESTIONS", title, items }: { eyebrow?: string; title: string; items: QA[] }) {
-  const jsonLd = {
+  const serviceLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: items.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
@@ -452,7 +448,7 @@ function Faqs({ eyebrow = "QUESTIONS", title, items }: { eyebrow?: string; title
         </div>
         <MotionFaq items={items.map(([question, answer]) => ({ question, answer }))} />
       </div>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(serviceLd) }} />
     </section>
   );
 }
@@ -916,7 +912,7 @@ function Parts() {
 
 /* ------------------------------------------------------------------ Contact */
 
-function Contact({ selectedService }: { selectedService?: string }) {
+function Contact() {
   return (
     <Frame
       theme="contact"
@@ -965,7 +961,7 @@ function Contact({ selectedService }: { selectedService?: string }) {
       <section id="enquiry" className="aa-v10-section aa-v10-paper">
         <div className="wrap">
           {whatsappEnabled ? (
-            <WhatsAppLeadForm mode={findService(selectedService)?.mode ?? "service"} selectedService={selectedService} />
+            <WhatsAppLeadForm />
           ) : (
             <div className="aa-v10-insurance-bridge">
               <div className="aa-v10-icon-disc"><Phone size={24} /></div>
@@ -1067,14 +1063,22 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
   };
 }
 
-export default async function Page({ params, searchParams }: {
-  params: Promise<{ slug?: string[] }>;
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const [{ slug = [] }, query] = await Promise.all([params, searchParams]);
+const pageKeys = [
+  "about", "services", "services/car-service-maintenance", "services/mechanical-repairs",
+  "services/car-ac-service", "services/wheel-alignment-balancing", "services/tyre-care",
+  "spare-parts", "contact", "privacy-policy",
+] as const;
+
+// Every page is pre-rendered at build time, so taps navigate instantly from the CDN.
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return pageKeys.map((key) => ({ slug: key.split("/") }));
+}
+
+export default async function Page({ params }: { params: Promise<{ slug?: string[] }> }) {
+  const { slug = [] } = await params;
   const key = slug.join("/");
   if (serviceRouteAliases[key]) permanentRedirect(serviceRouteAliases[key]);
-  const selected = Array.isArray(query.service) ? query.service[0] : query.service;
   const map: Record<string, () => ReactNode> = {
     about: About,
     services: Services,
@@ -1084,7 +1088,7 @@ export default async function Page({ params, searchParams }: {
     "services/wheel-alignment-balancing": Wheel,
     "services/tyre-care": Tyres,
     "spare-parts": Parts,
-    contact: () => <Contact selectedService={selected} />,
+    contact: Contact,
     "privacy-policy": Privacy,
   };
   const PageView = map[key];

@@ -1,0 +1,103 @@
+/*
+ * Interaction layer (loaded last).
+ * Goal: every tap gets an immediate visual response, and scrolling stays smooth on phones.
+ */
+
+/* No 300ms double-tap delay, no grey flash: our own press state replaces it. */
+html { -webkit-tap-highlight-color: transparent; }
+a, button, summary, label, [role="button"], input[type="submit"], select {
+  touch-action: manipulation;
+}
+
+/* Press feedback: a quick, subtle "push" on every link-button and button.
+   Applied with :active so it shows on touch-down, before navigation starts. */
+:root:not(#_) :is(
+  .aa-v10-button, .aa-light-button, .aa-text-link, .aa-menu-button, .aa-hero2-primary,
+  .aa-mnav-link, .aa-mnav-book, .aa-v10-feature-card, .aa-v10-contact-actions a,
+  .aa-brand, button, [role="button"], summary
+) {
+  transition-property: transform, background-color, color, border-color, box-shadow, opacity;
+  transition-duration: .18s;
+  transition-timing-function: cubic-bezier(.2, .8, .2, 1);
+}
+:root:not(#_) :is(
+  .aa-v10-button, .aa-light-button, .aa-menu-button, .aa-hero2-primary,
+  .aa-mnav-book, button, [role="button"]
+):active {
+  transform: scale(.97);
+  transition-duration: .06s;
+}
+:root:not(#_) :is(.aa-text-link, .aa-mnav-link, .aa-v10-contact-actions a, .aa-v10-feature-card, summary):active {
+  opacity: .72;
+  transition-duration: .06s;
+}
+:root:not(#_) :is(a, button):disabled,
+:root:not(#_) [aria-disabled="true"] { cursor: not-allowed; }
+
+/* Clear, consistent keyboard focus ring (accessibility + "something happened"). */
+:root:not(#_) :is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 2px solid #D58A3A;
+  outline-offset: 3px;
+}
+
+/* Navigation progress bar: starts on tap, completes when the next page is shown. */
+.aa-nav-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  z-index: 2147483000;
+  pointer-events: none;
+  background: linear-gradient(90deg, #D58A3A, #F0B36E);
+  box-shadow: 0 0 10px rgba(213, 138, 58, .55);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  opacity: 0;
+}
+.aa-nav-progress[data-state="loading"] {
+  opacity: 1;
+  animation: aa-nav-progress 6s cubic-bezier(.08, .7, .2, 1) forwards;
+}
+.aa-nav-progress[data-state="done"] {
+  opacity: 0;
+  transform: scaleX(1);
+  transition: transform .18s ease-out, opacity .25s ease .12s;
+}
+@keyframes aa-nav-progress {
+  0% { transform: scaleX(0); }
+  10% { transform: scaleX(.35); }
+  100% { transform: scaleX(.92); }
+}
+
+/* While an image is still decoding, show a calm surface instead of an empty hole. */
+:root:not(#_) img { background-color: rgba(135, 145, 154, .12); }
+:root:not(#_) img[src$=".svg"] { background-color: transparent; }
+
+/* Smoothness on phones: large live blurs are the most expensive thing to repaint while scrolling. */
+@media (hover: none) and (pointer: coarse) {
+  :root:not(#_) *:not(.aa-header):not(.aa-header *) {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
+/* Respect users who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  :root:not(#_) *, :root:not(#_) *::before, :root:not(#_) *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .aa-nav-progress[data-state="loading"] { animation: none; transform: scaleX(.7); }
+}
+
+/* Bug fix: the header is pointer-events:none (so the transparent bar never blocks the page),
+   and the full-screen mobile menu inherited it, so taps on the open menu fell through to the
+   page behind. The open menu must always receive taps. */
+:root:not(#_) .aa-header.is-open .aa-mnav,
+:root:not(#_) .aa-header.is-open .aa-mnav * { pointer-events: auto; }
+:root:not(#_) .aa-header:not(.is-open) .aa-mnav { pointer-events: none; }
+
+/* Collapsed sub-menu: hidden from taps and screen readers once the close animation ends. */
+:root:not(#_) .aa-mnav-group:not(.is-expanded) .aa-mnav-sub > div { visibility: hidden; transition: visibility 0s linear .5s; }
+:root:not(#_) .aa-mnav-group.is-expanded .aa-mnav-sub > div { visibility: visible; transition: visibility 0s; }

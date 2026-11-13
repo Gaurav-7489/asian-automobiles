@@ -35,7 +35,7 @@
 .aa-header.is-open .aa-menu-icon i:first-child { top: 5px; transform: rotate(45deg); }
 .aa-header.is-open .aa-menu-icon i:last-child { top: 5px; width: 20px; transform: rotate(-45deg); }
 
-@media (max-width: 1100px) {
+@media (max-width: 1320px) { /* matches the header: menu button shows up to 1320px */
   :root:not(#_) .aa-header .aa-menu-button { display: grid !important; }
 
   :root:not(#_) .aa-header .aa-nav-main { position: relative; z-index: 3; }
@@ -280,7 +280,7 @@
 }
 
 /* About: the year card gets a faint illustration behind the type */
-:root:not(#_) .aa-v10-year-card { position: relative; overflow: hidden; isolation: isolate; background-image: linear-gradient(rgba(245, 245, 242, 0.9), rgba(245, 245, 242, 0.82)), url("/images/placeholders/car-profile.svg"); background-size: cover; background-position: center; }
+:root:not(#_) .aa-v10-year-card { position: relative; overflow: hidden; isolation: isolate; background-image: linear-gradient(rgba(245, 245, 242, 0.9), rgba(245, 245, 242, 0.82)), url("/images/photos/car-profile.jpg"); background-size: cover; background-position: center; }
 
 /* Inner-page rhythm: less dead space between sections */
 :root:not(#_) .aa-inner-v10 .aa-v10-section:not(.aa-v10-endcap) {

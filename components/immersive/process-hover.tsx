@@ -97,7 +97,7 @@ export function ProcessHover({ items }: { items: ProcessHoverItem[] }) {
           ) : (
             <Link
               data-magnetic
-              prefetch={false}
+             
               className="aa-process-row aa-view-reveal"
               key={item.no}
               href={item.href}

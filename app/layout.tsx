@@ -17,11 +17,13 @@ import "./mobile-attraction.css";
 import "./spec-design-system.css";
 import "./audit-fixes.css";
 import "./polish.css";
+import "./interaction.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { NavFeedback } from "@/components/nav-feedback";
 import { businessFacts, directionsHref } from "@/lib/business-facts";
+import { jsonLd } from "@/lib/json-ld";
 
-// Production deployment trigger — responsive baseline.
 // Spec 5.3: Manrope for headings, Inter for body. Self-hosted Latin variable fonts (OFL, Fontsource).
 const manrope = localFont({ src: "./fonts/manrope-latin-wght-normal.woff2", weight: "200 800", display: "swap", variable: "--font-manrope" });
 const inter = localFont({ src: "./fonts/inter-latin-wght-normal.woff2", weight: "100 900", display: "swap", variable: "--font-inter" });
@@ -41,7 +43,6 @@ export const metadata: Metadata = {
   description:
     "Independent car servicing, mechanical repairs, AC service, wheel alignment, tyre care and spare-parts enquiries on Kattoor Road, Irinjalakuda. Call or visit the workshop.",
   alternates: { canonical: "/" },
-  icons: { icon: "/favicon.ico" },
   openGraph: {
     type: "website",
     title: "Asian Automobiles – Multi-Brand Car Service Centre in Irinjalakuda",
@@ -81,8 +82,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema) }}
+          dangerouslySetInnerHTML={{ __html: jsonLd(businessSchema) }}
         />
+        <NavFeedback />
         <a href="#main" className="aa-skip-link">Skip to main content</a>
         <SiteHeader />
         {children}

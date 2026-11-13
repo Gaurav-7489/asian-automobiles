@@ -11,7 +11,7 @@ test("homepage presents unique services and images with working destinations", a
   expect(new Set(services).size).toBe(services.length);
   const images = await main.locator("img").evaluateAll((elements) => elements.map((element) => {
     const source = new URL((element as HTMLImageElement).src);
-    return new URL(source.searchParams.get("url") ?? source.href).pathname;
+    return new URL(source.searchParams.get("url") ?? source.href, location.origin).pathname;
   }));
   expect(new Set(images).size, "Homepage reuses an image in another section").toBe(images.length);
   // Some home sections are trimmed on phones by design, so check the links exist rather than visibility.

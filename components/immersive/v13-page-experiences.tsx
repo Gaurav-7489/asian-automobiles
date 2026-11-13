@@ -23,17 +23,17 @@ import {
 
 const aaV13Visuals = {
   about: [
-    "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1600&q=78",
-    "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1600&q=78",
-    "/images/placeholders/wheel-alignment.svg",
-    "/images/placeholders/spare-parts.svg",
-    "/images/placeholders/car-profile.svg",
+    "/images/photos/mechanic.jpg",
+    "/images/photos/car-service.jpg",
+    "/images/photos/wheel-alignment.jpg",
+    "/images/photos/spare-parts.jpg",
+    "/images/photos/car-profile.jpg",
   ],
   damage: [
-    "/images/placeholders/car-profile.svg",
-    "/images/placeholders/spare-parts.svg",
-    "https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=1600&q=78",
-    "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1600&q=78",
+    "/images/photos/car-profile.jpg",
+    "/images/photos/spare-parts.jpg",
+    "/images/photos/mechanical-repairs.jpg",
+    "/images/photos/car-service.jpg",
   ],
 };
 
