@@ -22,7 +22,7 @@ export function EditorialHome() {
         <div className="aa-shell aa-home-workshop-grid">
           <figure className="aa-home-workshop-photo">
             <Image
-              src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1800&q=76"
+              src="/images/photos/engine-detail.jpg"
               alt="Car in a workshop"
               fill quality={72} sizes="(max-width: 800px) 94vw, 55vw"
             />

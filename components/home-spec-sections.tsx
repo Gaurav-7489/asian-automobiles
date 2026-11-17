@@ -115,7 +115,7 @@ export function HomeSpecSections({ part }: { part: "middle" | "end" }) {
       <section className="aa-v10-section aa-v10-soft" aria-labelledby="parts-heading">
         <div className="wrap aa-v10-photo-split">
           <div className="aa-v10-photo-frame">
-            <Image src="/images/placeholders/inspection.svg" alt="" fill sizes="(max-width: 900px) 100vw, 54vw" />
+            <Image src="/images/photos/spare-parts.jpg" alt="" fill sizes="(max-width: 900px) 100vw, 54vw" />
           </div>
           <div className="aa-v10-photo-copy">
             <span className="eyebrow">SPARE PARTS</span>
@@ -146,7 +146,7 @@ export function HomeSpecSections({ part }: { part: "middle" | "end" }) {
           </div>
           {/* Temporary illustration — swap for a real map or workshop photo. */}
           <figure className="aa-home-area-visual">
-            <Image src="/images/placeholders/service-area.svg" alt="" fill sizes="(max-width: 900px) 100vw, 40vw" />
+            <Image src="/images/photos/service-area.jpg" alt="" fill sizes="(max-width: 900px) 100vw, 40vw" />
           </figure>
         </div>
       </section>

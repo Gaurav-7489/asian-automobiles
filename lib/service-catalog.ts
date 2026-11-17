@@ -21,20 +21,18 @@ export type Service = (typeof allServices)[number];
 export function findService(id?: string) {
   return serviceCatalog.find((service) => service.id === id);
 }
-/**
- * Temporary local illustrations stand in for photos that were broken or did not match the
- * service (supercar stock shots). Replace the files in /public/images/placeholders/ — or
- * point a service at a real workshop photo — once the owner supplies photography.
- */
-const placeholderByPhoto: Record<string, string> = {
-  "photo-1503736334956-4c8f8e92946d": "/images/placeholders/wheel-alignment.svg",
-  "photo-1492144534655-ae79c964c9d7": "/images/placeholders/tyre-care.svg",
-  "photo-1511919884226-fd3cad34687c": "/images/placeholders/spare-parts.svg",
+/** Local, colour-graded photos per service (stock for now — swap files in /public/images/photos/). */
+const photoByService: Record<string, string> = {
+  "car-service-maintenance": "oil-service",
+  "mechanical-repairs": "mechanical-repair",
+  "car-ac-service": "engine-bay",
+  "wheel-alignment-balancing": "wheel-alignment",
+  "tyre-care": "tyre-care",
+  "denting-painting": "body-care",
+  "spare-parts": "spare-parts",
 };
-export function serviceImage(service: Service, width = 1000) {
-  const placeholder = placeholderByPhoto[service.image];
-  if (placeholder) return placeholder;
-  return `https://images.unsplash.com/${service.image}?auto=format&fit=crop&w=${width}&q=72`;
+export function serviceImage(service: Service, _width = 1000) {
+  return `/images/photos/${photoByService[service.id] ?? "hero-workshop"}.jpg`;
 }
 /** There is no booking system: every "book" action leads to the contact page enquiry. */
 export function bookingHref(id?: string, _intent?: string, _detail?: string) {

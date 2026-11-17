@@ -53,13 +53,13 @@ import {
 import { AboutTimeline, ServiceDecisionBoard } from "@/components/immersive/v13-page-experiences";
 
 const img = {
-  workshop: "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1800&q=76",
-  repair: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1800&q=76",
-  car: "/images/placeholders/car-profile.svg",
-  road: "/images/placeholders/tyre-care.svg",
-  detail: "/images/placeholders/spare-parts.svg",
-  interior: "/images/placeholders/inspection.svg",
-  wheel: "/images/placeholders/wheel-alignment.svg",
+  workshop: "/images/photos/hero-workshop.jpg",
+  repair: "/images/photos/oil-service.jpg",
+  car: "/images/photos/car-profile.jpg",
+  road: "/images/photos/tyre-care.jpg",
+  detail: "/images/photos/spare-parts.jpg",
+  interior: "/images/photos/spare-parts.jpg",
+  wheel: "/images/photos/wheel-alignment.jpg",
 };
 
 const phone = businessFacts.phones.primaryHref;
@@ -259,16 +259,16 @@ function HeroArt({ theme }: { theme: PageTheme }) {
   );
 }
 
-/** Temporary image rail (placeholder illustrations) — swap the src values for real workshop photos. */
-const ph = (name: string) => "/images/placeholders/" + name + ".svg";
+/** Image rail — stock photos colour-graded to the site palette; swap for real workshop photos. */
+const ph = (name: string) => "/images/photos/" + name + ".jpg";
 const railByTheme: Partial<Record<PageTheme, [string, string][]>> = {
-  about: [[ph("inspection"), "Servicing"], [ph("car-profile"), "Repairs"], [ph("spare-parts"), "Spare parts"]],
-  service: [[ph("inspection"), "Oil & filters"], [ph("car-profile"), "Checks"], [ph("hero-workshop"), "Inspection"]],
-  mechanical: [[ph("wheel-alignment"), "Brakes"], [ph("inspection"), "Suspension"], [ph("car-profile"), "Steering"]],
-  ac: [[ph("inspection"), "Inspection"], [ph("car-profile"), "Fault-finding"], [ph("spare-parts"), "Gas recharge"]],
+  about: [[ph("oil-service"), "Servicing"], [ph("mechanical-repair"), "Repairs"], [ph("spare-parts"), "Spare parts"]],
+  service: [[ph("oil-service"), "Oil & filters"], [ph("engine-detail"), "Checks"], [ph("mechanic-inspection"), "Inspection"]],
+  mechanical: [[ph("wheel-alignment"), "Brakes"], [ph("mechanical-repair"), "Suspension"], [ph("engine-bay"), "Steering"]],
+  ac: [[ph("mechanic-inspection"), "Inspection"], [ph("engine-bay"), "Fault-finding"], [ph("engine-detail"), "Gas recharge"]],
   wheel: [[ph("wheel-alignment"), "Alignment"], [ph("tyre-care"), "Balancing"], [ph("car-profile"), "Tyre wear"]],
   tyre: [[ph("tyre-care"), "Tread"], [ph("wheel-alignment"), "Pressure"], [ph("car-profile"), "Wear"]],
-  parts: [[ph("spare-parts"), "Genuine (OEM)"], [ph("inspection"), "Aftermarket"], [ph("car-profile"), "Fitment"]],
+  parts: [[ph("spare-parts"), "Genuine (OEM)"], [ph("engine-detail"), "Aftermarket"], [ph("mechanical-repair"), "Fitment"]],
 };
 
 function VisualRail({ items }: { items: [string, string][] }) {

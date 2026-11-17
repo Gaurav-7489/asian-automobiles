@@ -74,7 +74,7 @@ export function ImmersiveHero() {
           
         >
           <Image
-            src="/images/placeholders/hero-workshop.svg"
+            src="/images/photos/hero-workshop.jpg"
             alt=""
             fill
             priority
