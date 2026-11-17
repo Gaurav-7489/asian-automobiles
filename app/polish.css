@@ -279,8 +279,10 @@
   .aa-visual-rail figure { aspect-ratio: 4 / 3.3; }
 }
 
-/* About: the year card gets a faint illustration behind the type */
-:root:not(#_) .aa-v10-year-card { position: relative; overflow: hidden; isolation: isolate; background-image: linear-gradient(rgba(245, 245, 242, 0.9), rgba(245, 245, 242, 0.82)), url("/images/placeholders/car-profile.svg"); background-size: cover; background-position: center; }
+/* About: the year card sits on a workshop photo under a dark brand overlay */
+:root:not(#_) .aa-v10-year-card { position: relative; overflow: hidden; isolation: isolate; background-color: #111820; background-image: linear-gradient(180deg, rgba(17, 24, 32, 0.55) 0%, rgba(17, 24, 32, 0.35) 45%, rgba(17, 24, 32, 0.85) 100%), url("/images/photos/service-area.jpg"); background-size: cover; background-position: center; border-color: transparent; }
+:root:not(#_) .aa-v10-year-card strong { color: #ffffff !important; text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35); }
+:root:not(#_) .aa-v10-year-card :is(span, small) { color: #e8a25a !important; }
 
 /* Inner-page rhythm: less dead space between sections */
 :root:not(#_) .aa-inner-v10 .aa-v10-section:not(.aa-v10-endcap) {
