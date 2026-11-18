@@ -41,6 +41,12 @@ test.describe("responsive content geometry", () => {
             const style = getComputedStyle(el);
             if (!box.width || !box.height || style.visibility === "hidden" || style.display === "none") continue;
             if (el.closest(".aa-sr-only")) continue; // visually hidden headings for screen readers
+            // Swipeable rails (e.g. the photo rail on phones) intentionally extend past the edge.
+            let inScroller = false;
+            for (let parent = el.parentElement; parent && parent.tagName !== "MAIN"; parent = parent.parentElement) {
+              if (["auto", "scroll"].includes(getComputedStyle(parent).overflowX)) { inScroller = true; break; }
+            }
+            if (inScroller) continue;
             const label = `${el.tagName} ${el.textContent?.trim().slice(0, 65)}`;
             if (box.left < -2 || box.right > innerWidth + 2) found.push(`Outside viewport: ${label}`);
             if (el.scrollWidth > el.clientWidth + 3) found.push(`Text overflow: ${label}`);
@@ -111,7 +117,7 @@ test("navigation stays inside the viewport at desktop and tablet breakpoints", a
     const desktop = width > 1320;
     if (desktop) await page.getByRole("button", { name: "Services", exact: true }).click();
     else await menu.click();
-    const panel = page.locator(desktop ? ".aa-mega" : ".aa-mobile-panel");
+    const panel = page.locator(desktop ? ".aa-mega" : "#aa-mobile-navigation");
     await expect(panel).toBeVisible();
     const bounds = await panel.boundingBox();
     expect(bounds!.x).toBeGreaterThanOrEqual(-1);
@@ -121,13 +127,11 @@ test("navigation stays inside the viewport at desktop and tablet breakpoints", a
   }
 });
 
-test("the inner-page scroll link leaves content below the fixed header", async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: "reduce" });
+test("skip link moves keyboard focus past the header to the main content", async ({ page }) => {
   await page.goto("/services/", { waitUntil: "networkidle" });
-  await page.getByRole("link", { name: "SCROLL / SEE WHAT MATTERS" }).click();
-  const heading = page.locator(".aa-v10-section-head").first();
-  await expect(heading).toBeInViewport();
-  const box = await heading.boundingBox();
-  const header = await page.locator(".aa-nav-main").boundingBox();
-  expect(box!.y).toBeGreaterThanOrEqual(header!.y + header!.height);
+  await page.keyboard.press("Tab");
+  const skip = page.getByRole("link", { name: "Skip to main content" });
+  await expect(skip).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("main#main")).toBeFocused();
 });

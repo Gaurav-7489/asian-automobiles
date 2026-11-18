@@ -5,19 +5,29 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   production-check:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies (lockfile only)
+        run: npm ci
+
+      - name: Dependency audit (production)
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Type check
+        run: npm run typecheck
 
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
@@ -25,21 +35,10 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Start production server
-        run: |
-          npm start > /tmp/asian-next.log 2>&1 &
-          echo $! > /tmp/asian-next.pid
-          for i in {1..40}; do
-            if curl --fail --silent http://127.0.0.1:3000/ > /dev/null; then
-              exit 0
-            fi
-            sleep 1
-          done
-          cat /tmp/asian-next.log
-          exit 1
-
-      - name: Desktop + mobile browser smoke tests
-        run: npm run test:smoke
+      - name: Desktop + mobile browser tests
+        run: npm run test:smoke -- --trace off
+        env:
+          CI: "true"
 
       - name: Upload failure diagnostics
         if: failure()
@@ -50,4 +49,3 @@ jobs:
           path: |
             playwright-report
             test-results
-            /tmp/asian-next.log
