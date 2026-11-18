@@ -81,6 +81,9 @@ and every new-tab link has `noopener`.
 * HSTS `preload` is not set. Add it only after the custom domain and all its sub-domains serve HTTPS.
 * `next start` logs `NoFallbackError` for unknown URLs because of `dynamicParams = false` (the
   response is still a correct 404). On Vercel unknown paths are answered by the platform router.
+* CI serves placeholder images to the browser tests (`PLAYWRIGHT_MOCK_REMOTE_IMAGES=1`): `next start`’s
+  on-demand image optimiser intermittently stalls under parallel load on small runners. The real
+  optimiser is still tested directly; production uses Vercel’s image service.
 * Consider Vercel’s firewall/rate limiting if the image optimiser or 404s are ever abused; the
   site itself has no write endpoints to protect.
 
