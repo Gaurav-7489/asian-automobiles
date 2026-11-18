@@ -146,7 +146,7 @@
   .aa-v11-parts-index,
   .aa-v11-claim-controls
 ) button:is(.is-active,:hover){
-  color:#111820!important;
+  color:#111820;
 }
 
 .aa-inner-v10 :is(

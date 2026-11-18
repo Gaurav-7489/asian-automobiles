@@ -233,9 +233,9 @@
     .aa-v10-feature-card,
     .aa-review-card
   ):is(:hover,:focus-within){
-    background:#111820!important;
-    color:#ffffff!important;
-    border-color:rgba(255,255,255,.18)!important;
+    background:#111820;
+    color:#ffffff;
+    border-color:rgba(255,255,255,.18);
   }
 
   .aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(
@@ -282,9 +282,9 @@
   .aa-v13-damage-tabs,
   .aa-v13-review-tabs
 ) button:is(.is-active,[aria-pressed="true"]){
-  background:var(--aa-v15-accent)!important;
-  color:#111820!important;
-  border-color:var(--aa-v15-accent)!important;
+  background:var(--aa-v15-accent);
+  color:#111820;
+  border-color:var(--aa-v15-accent);
 }
 
 .aa-inner-v10 :is(
@@ -584,8 +584,8 @@
 .aa-v11-scanner-menu button{min-height:0;padding:22px 20px!important}
 .aa-v11-scanner-menu button:is(:hover,.is-active){
   padding-left:26px!important;
-  background:var(--aa-v16-accent)!important;
-  color:#111820!important;
+  background:var(--aa-v16-accent);
+  color:#111820;
 }
 
 /* BLUEPRINT TIMELINES — remove the giant empty dashboard feeling */
@@ -745,8 +745,8 @@
 .aa-v11-parts-details h3{font-size:clamp(3rem,5vw,5.8rem);margin-bottom:16px}
 .aa-v11-parts-details p{color:rgba(255,255,255,.78)}
 .aa-v11-parts-index button:is(:hover,.is-active){
-  background:var(--aa-v16-accent)!important;
-  color:#111820!important;
+  background:var(--aa-v16-accent);
+  color:#111820;
 }
 
 /* ABOUT TIMELINE */

@@ -89,7 +89,7 @@ textarea{
 }
 
 .aa-header-v5 .aa-mega-link:is(:hover,:focus-visible){
-  background:#202a32!important;
+  background:#202a32;
   color:#ffffff!important;
 }
 
@@ -435,7 +435,7 @@ textarea{
   .aa-v13-service-index,
   .aa-v13-review-tabs
 ) button:is(.is-active,:hover,:focus-visible){
-  color:#111820!important;
+  color:#111820;
 }
 
 .aa-inner-v10 :is(
@@ -525,7 +525,7 @@ textarea{
 
 .aa-inner-v10 .aa-v10-contact-actions>a:is(:hover,:focus-visible){
   background:#111820!important;
-  color:#ffffff!important;
+  color:#ffffff;
 }
 
 .aa-inner-v10 .aa-v10-contact-actions>a:is(:hover,:focus-visible) :is(b,strong,span,svg){
@@ -542,12 +542,12 @@ textarea{
 }
 
 .aa-inner-v10 .aa-v10-submit:is(:hover,:focus-visible){
-  background:var(--aa-v14-accent)!important;
-  color:#111820!important;
+  background:var(--aa-v14-accent);
+  color:#111820;
 }
 
 .aa-inner-v10 .aa-v10-submit:is(:hover,:focus-visible) :is(span,svg){
-  color:#111820!important;
+  color:#111820;
 }
 
 /* =========================================================

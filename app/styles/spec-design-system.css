@@ -124,7 +124,7 @@
 :root:not(#_) .aa-mobile-actions a :is(span, svg) { color: #f5f5f2; }
 :root:not(#_) .aa-mobile-actions a:last-child,
 :root:not(#_) .aa-mobile-actions a:last-child:is(:hover, :active, :focus-visible) { background: transparent; }
-:root:not(#_) .aa-mobile-actions a:is(:first-child, :last-child):is(:hover, :active) :is(span, svg) { color: #f5f5f2 !important; }
+:root:not(#_) .aa-mobile-actions a:is(:first-child, :last-child):is(:hover, :active) :is(span, svg) { color: #f5f5f2; }
 :root:not(#_) .aa-mobile-actions a:nth-child(2),
 :root:not(#_) .aa-mobile-actions a:nth-child(2):is(:hover, :active) { background: #d58a3a; color: #111820 !important; }
 :root:not(#_) .aa-mobile-actions a:nth-child(2) :is(span, svg) { color: #111820; }
