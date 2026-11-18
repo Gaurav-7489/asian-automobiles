@@ -25,6 +25,23 @@ content or behaviour**. Every number below was measured locally on production bu
 | F14 | Low | Logo link name did not contain its visible text (WCAG 2.5.3) | Lighthouse `label-content-name-mismatch`. | The link is named by its visible text. |
 | F15 | Low | Stale tests | 27 of 83 tests failed on the old build, mostly selectors from a previous menu (`.aa-menu-direct`, `.aa-mobile-panel`), a hidden scroll link, and a URL-parsing bug in a test. They masked F3/F4. | Updated to the current markup; new navigation and security suites. |
 
+### `!important` reduction (follow-up)
+
+865 of the 1,492 `!important` flags left after the purge were removed. Each was proven redundant by a
+static cascade analysis over the real DOM of every page (including the WhatsApp-enabled variant):
+selectors are relaxed so they match in every state (hover, focus, `is-*` classes, `aria-*`, `:not()`),
+and a flag is dropped only if, for every element and pseudo-element it reaches, its order against every
+co-applicable declaration of an overlapping longhand — and against inline styles — is unchanged
+(specificity, source order and media width ranges, iterated to a fixed point). Animated properties
+(`transform`, `opacity`, `filter`, `scale`) were not touched. Verified empirically: computed styles of
+every element at 27 viewport configurations (one inside every breakpoint band, plus short landscape)
+on all pages and in open-menu/scrolled states match the previous build (only the elements that also
+vary between two runs of the old build differ); the hover and keyboard-focus end states of 1,201
+links/buttons at 1440 px, 1200 px and phone size match exactly; full-page screenshots differ by at most
+2 pixels; all browser tests pass. The remaining 627 flags each decide a real cascade conflict
+(removing them would change the rendered site) or apply to properties held against animations or
+elements that are never rendered; removing those requires rewriting selectors, not just flags.
+
 Not changed on purpose: the design, copy, routes, redirects, structured data, business facts
 and every working interaction. The homepage shows `spare-parts.jpg` twice (parts service card
 and parts section); that is a content choice to revisit when real workshop photos arrive.
@@ -96,7 +113,7 @@ Local production builds, same machine. Lighthouse 12.8 (mobile = simulated Moto 
 |---|---|---|
 | Inner-page rendering | Dynamic (server render per request) | Static (prerendered, CDN-cacheable) |
 | CSS shipped per page | 7 files, 446.6 KB raw / 78.2 KB gzip | 2 files, ~231 KB raw / ~39 KB gzip |
-| Source CSS | 524 KB, 18,384 lines, 2,107 `!important` | ~290 KB, ~11,350 lines, ~1,490 `!important` |
+| Source CSS | 524 KB, 18,384 lines, 2,107 `!important` | ~290 KB, ~11,350 lines, 627 `!important` |
 | JS per page (gzip, incl. legacy polyfills) | home 207.6 KB · inner 218.8 KB | home ~200 KB · inner ~197 KB |
 | Next.js “First Load JS” | home 163 kB · inner 170 kB | home 143 kB · inner 151 kB |
 | HTML (About, gzip) | 13.2 KB | 12.3 KB |
