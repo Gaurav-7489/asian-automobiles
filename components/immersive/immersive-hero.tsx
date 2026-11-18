@@ -3,76 +3,31 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
-import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
+import { m, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { businessFacts } from "@/lib/business-facts";
-
-const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
+import { businessFacts, phoneTel } from "@/lib/business-facts";
 
 export function ImmersiveHero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const sectionRectRef = useRef<DOMRect | null>(null);
   const reduceMotion = useReducedMotion();
 
-  const orbTargetX = useMotionValue(0);
-  const orbTargetY = useMotionValue(0);
-  const orbX = useSpring(orbTargetX, { stiffness: 180, damping: 30, mass: 0.3 });
-  const orbY = useSpring(orbTargetY, { stiffness: 180, damping: 30, mass: 0.3 });
-
-  const measureHero = () => {
-    if (sectionRef.current) sectionRectRef.current = sectionRef.current.getBoundingClientRect();
-  };
-
-  function handlePointerMove(event: React.PointerEvent<HTMLElement>) {
-    if (reduceMotion || !matchMedia("(pointer:fine)").matches) return;
-    if (!sectionRectRef.current) measureHero();
-    const rect = sectionRectRef.current;
-    if (!rect) return;
-    orbTargetX.set(event.clientX - rect.left - 180);
-    orbTargetY.set(event.clientY - rect.top - 180);
-  }
-
+  // Only the scroll meter is scroll-linked. It is driven by a motion value, so
+  // scrolling never re-renders React and the work stays on the compositor.
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 150,
     damping: 38,
     mass: 0.24,
   });
-
-  const mediaScale = useTransform(smoothProgress, [0, 0.9], [1.035, 0.965]);
-  const mediaY = useTransform(smoothProgress, [0, 1], ["0%", "3%"]);
-  const copyY = useTransform(smoothProgress, [0, 0.78], ["0%", "-6%"]);
-  const copyOpacity = useTransform(smoothProgress, [0, 0.84], [1, 0.28]);
   const progressScale = useTransform(smoothProgress, [0, 0.86], [0.06, 1]);
 
   return (
-    <section
-      ref={sectionRef}
-      className="aa-hero2 aa-hero2-minimal aa-hero-v8"
-      onPointerEnter={measureHero}
-      onPointerMove={handlePointerMove}
-      onPointerLeave={() => {
-        orbTargetX.set(0);
-        orbTargetY.set(0);
-        sectionRectRef.current = null;
-      }}
-    >
+    <section ref={sectionRef} className="aa-hero2 aa-hero2-minimal aa-hero-v8">
       <div className="aa-hero2-sticky">
-        <motion.div
-          className="aa-hero2-media"
-          
-        >
+        <div className="aa-hero2-media">
           <Image
             src="/images/photos/hero-workshop.jpg"
             alt=""
@@ -82,14 +37,10 @@ export function ImmersiveHero() {
             quality={80}
             sizes="100vw"
           />
-          <motion.div
-            className="aa-hero2-orb"
-            aria-hidden="true"
-            
-          />
+          <div className="aa-hero2-orb" aria-hidden="true" />
           <div className="aa-hero2-shade" />
           <div className="aa-hero-v8-grid" aria-hidden="true" />
-        </motion.div>
+        </div>
 
         <div className="aa-shell aa-hero2-shell">
           <div className="aa-hero2-top aa-hero2-top-minimal">
@@ -97,10 +48,7 @@ export function ImmersiveHero() {
             <span className="aa-hero2-status"><i /> INDEPENDENT MULTI-BRAND SERVICE</span>
           </div>
 
-          <motion.div
-            className="aa-hero2-copy"
-            
-          >
+          <div className="aa-hero2-copy">
             <div className="aa-hero2-eyebrow">
               <span>01</span>
               <span>MULTI-BRAND CAR SERVICE CENTRE IN IRINJALAKUDA</span>
@@ -108,19 +56,13 @@ export function ImmersiveHero() {
 
             <h1>
               <span className="aa-hero2-line">
-                <motion.i initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 0.72, ease }}>
-                  Precision
-                </motion.i>
+                <i>Precision</i>
               </span>
               <span className="aa-hero2-line">
-                <motion.i initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 0.72, delay: 0.045, ease }}>
-                  for every
-                </motion.i>
+                <i>for every</i>
               </span>
               <span className="aa-hero2-line aa-hero2-line-outline">
-                <motion.i initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 0.72, delay: 0.09, ease }}>
-                  drive.
-                </motion.i>
+                <i>drive.</i>
               </span>
             </h1>
 
@@ -131,15 +73,15 @@ export function ImmersiveHero() {
               </p>
 
               <div className="aa-hero2-actions">
-                <Link data-magnetic href="/contact/#enquiry" prefetch={false} className="aa-hero2-primary">
+                <Link href="/contact/#enquiry" className="aa-hero2-primary">
                   Book service <ArrowUpRight size={15} />
                 </Link>
-                <a data-magnetic href={"tel:" + businessFacts.phones.primaryHref} className="aa-hero2-circle" aria-label="Call Asian Automobiles">
+                <a href={phoneTel} className="aa-hero2-circle" aria-label="Call Asian Automobiles">
                   <ArrowDownRight size={19} />
                 </a>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           <div className="aa-hero-v8-meta" aria-hidden="true">
             <span>{businessFacts.address.locality.toUpperCase()} / {businessFacts.address.district.toUpperCase()}</span>
@@ -149,7 +91,7 @@ export function ImmersiveHero() {
 
           <div className="aa-hero2-scroll aa-hero2-scroll-minimal">
             <span>SCROLL / ENTER THE WORKSHOP</span>
-            <i><motion.b style={reduceMotion ? { scaleX: 0.35 } : { scaleX: progressScale }} /></i>
+            <i><m.b style={reduceMotion ? { scaleX: 0.35 } : { scaleX: progressScale }} /></i>
           </div>
         </div>
       </div>

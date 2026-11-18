@@ -4,12 +4,12 @@ import { ArrowUpRight, Clock3, MapPin } from "lucide-react";
 import { ImmersiveHero } from "@/components/immersive/immersive-hero";
 import { SkiperServiceStack, type StackService } from "@/components/immersive/skiper-service-stack";
 import { serviceCatalog, serviceImage } from "@/lib/service-catalog";
-import { businessFacts, directionsHref } from "@/lib/business-facts";
-import { HomeContactStrip, HomeHelpBand, HomeSpecSections } from "@/components/home-spec-sections";
+import { businessFacts, directionsHref, landlineTel, phoneTel } from "@/lib/business-facts";
+import { HomeContactStrip, HomeEndSections, HomeHelpBand, HomeMiddleSections } from "@/components/home-spec-sections";
 
 const services: StackService[] = serviceCatalog.map((service, index) => ({
   no: String(index + 1).padStart(2, "0"), meta: service.meta, title: service.title,
-  text: service.description, href: service.href, image: serviceImage(service, 1800),
+  text: service.description, href: service.href, image: serviceImage(service),
 }));
 
 export function EditorialHome() {
@@ -32,8 +32,8 @@ export function EditorialHome() {
             <span className="aa-kicker aa-kicker-light">ABOUT THE WORKSHOP</span>
             <h2>An independent service centre.<br /><em>For cars of every make.</em></h2>
             <p>We look after the routine servicing, repairs and maintenance that keep everyday cars running well, and help customers find the spare parts they need. We don’t sell cars — we look after the one you already drive.</p>
-            <Link prefetch={false} href="/about/" className="aa-light-button">More about us <ArrowUpRight size={15} /></Link>
-            <Link prefetch={false} href="/spare-parts/" className="aa-text-link">Looking for a part? <ArrowUpRight size={15} /></Link>
+            <Link href="/about/" className="aa-light-button">More about us <ArrowUpRight size={15} /></Link>
+            <Link href="/spare-parts/" className="aa-text-link">Looking for a part? <ArrowUpRight size={15} /></Link>
           </div>
         </div>
       </section>
@@ -54,7 +54,7 @@ export function EditorialHome() {
       </section>
 
 
-      <HomeSpecSections part="middle" />
+      <HomeMiddleSections />
 
       <section className="aa-location aa-section-dark" aria-label="Workshop location">
         <div className="aa-shell aa-location-grid">
@@ -63,12 +63,12 @@ export function EditorialHome() {
             <h2>{businessFacts.address.locality}.<br /><em>Kattoor Road.</em></h2>
             <address style={{ fontStyle: "normal" }}><p>Asian Automobiles, {businessFacts.address.full}.</p></address>
             <p>
-              Phone <a href={"tel:" + businessFacts.phones.primaryHref}>{businessFacts.phones.primaryDisplay}</a>
-              {" · "}Landline <a href={"tel:" + businessFacts.phones.landlineHref}>{businessFacts.phones.landlineDisplay}</a>
+              Phone <a href={phoneTel}>{businessFacts.phones.primaryDisplay}</a>
+              {" · "}Landline <a href={landlineTel}>{businessFacts.phones.landlineDisplay}</a>
             </p>
             <div className="aa-location-actions">
-              <a href={directionsHref} target="_blank" rel="noreferrer" className="aa-light-button">Get directions <ArrowUpRight size={15} /></a>
-              <a href={"tel:" + businessFacts.phones.primaryHref} className="aa-text-link">Call the workshop <ArrowUpRight size={15} /></a>
+              <a href={directionsHref} target="_blank" rel="noopener noreferrer" className="aa-light-button">Get directions <ArrowUpRight size={15} /></a>
+              <a href={phoneTel} className="aa-text-link">Call the workshop <ArrowUpRight size={15} /></a>
             </div>
           </div>
           <div className="aa-home-arrival">
@@ -76,11 +76,11 @@ export function EditorialHome() {
             <span className="aa-kicker aa-kicker-light">BEFORE YOU SET OFF</span>
             <h3>Near Government Rest House / Canara Bank.</h3>
             <p><Clock3 size={17} /> {businessFacts.hours}. A quick call before you visit helps us plan time for your car.</p>
-            <Link prefetch={false} href="/contact/" className="aa-text-link">Contact the workshop <ArrowUpRight size={15} /></Link>
+            <Link href="/contact/" className="aa-text-link">Contact the workshop <ArrowUpRight size={15} /></Link>
           </div>
         </div>
       </section>
-      <HomeSpecSections part="end" />
+      <HomeEndSections />
     </main>
   );
 }

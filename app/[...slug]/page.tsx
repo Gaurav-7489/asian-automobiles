@@ -1,475 +1,33 @@
 import {
-  ArrowLeft,
-  ArrowRight,
   ArrowUpRight,
-  CircleHelp,
+  CircleAlert,
+  ClipboardCheck,
   Clock3,
+  Disc3,
   Gauge,
   MapPin,
-  Phone,
-  ShieldCheck,
-  Sparkles,
-  Wrench,
-  Wind,
-  CarFront,
-  Palette,
-  Disc3,
-  PackageSearch,
-  Camera,
   MessageCircle,
-  ChevronRight,
-  ClipboardCheck,
-  Navigation,
-  CircleAlert,
+  PackageSearch,
+  Phone,
   Search,
   Settings2,
-  Boxes,
-  CalendarDays,
+  Wind,
+  Wrench,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
-import { ServiceConnections } from "@/components/service-connections";
-import { bookingHref, findService, serviceRouteAliases } from "@/lib/service-catalog";
-import { notFound, permanentRedirect } from "next/navigation";
-import { businessFacts, directionsHref, mapsEmbedSrc, whatsappEnabled, whatsappLink } from "@/lib/business-facts";
+import { notFound } from "next/navigation";
+import { businessFacts, landlineTel, mapsEmbedSrc, phoneTel, whatsappEnabled, whatsappLink } from "@/lib/business-facts";
+import { pageMeta, type PageKey } from "@/lib/page-meta";
 import { MapReveal } from "@/components/map-reveal";
-import {
-  BlueprintTimeline,
-  HoverStatRail,
-  MotionFaq,
-  PageProgressRail,
-  ScrollRevealSection,
-} from "@/components/immersive/inner-page-experiences";
-import { WhatsAppLeadForm } from "@/components/immersive/whatsapp-lead-form";
-import {
-  ClimateConsole,
-  PartsFinder,
-  ServiceScanner,
-  TyreTreadLab,
-  WheelGeometryLab,
-} from "@/components/immersive/page-specific-experiences";
+import { Frame } from "@/components/inner/page-frame";
+import { FaqSection, FeatureCard, PageCTA, SectionHead, StackList, type QA } from "@/components/inner/sections";
+import { ActionLink, CallButton, DirectionsButton, WhatsAppButton } from "@/components/ui/action-link";
+import { BlueprintTimeline, HoverStatRail, MotionFaq, ScrollRevealSection } from "@/components/immersive/inner-page-experiences";
+import { ContactEnquiryForm } from "@/components/immersive/contact-enquiry-form";
+import { ClimateConsole, PartsFinder, ServiceScanner, TyreTreadLab, WheelGeometryLab } from "@/components/immersive/page-specific-experiences";
 import { AboutTimeline, ServiceDecisionBoard } from "@/components/immersive/v13-page-experiences";
-
-const img = {
-  workshop: "/images/photos/hero-workshop.jpg",
-  repair: "/images/photos/oil-service.jpg",
-  car: "/images/photos/car-profile.jpg",
-  road: "/images/photos/tyre-care.jpg",
-  detail: "/images/photos/spare-parts.jpg",
-  interior: "/images/photos/spare-parts.jpg",
-  wheel: "/images/photos/wheel-alignment.jpg",
-};
-
-const phone = businessFacts.phones.primaryHref;
-
-
-function CTA({
-  label = "Contact the workshop",
-  href = "/contact/",
-  tone = "primary",
-}: {
-  label?: string;
-  href?: string;
-  tone?: "primary" | "dark" | "ghost";
-}) {
-  return (
-    <Link
-     
-      prefetch={false}
-      className={"aa-v10-button aa-v10-button-" + tone}
-      href={href}
-    >
-      <span>{label}</span>
-      <ArrowUpRight size={15} />
-    </Link>
-  );
-}
-
-function WhatsAppAction({
-  label = "WhatsApp us",
-  message = "Hello Asian Automobiles, I would like help with my vehicle.",
-}: {
-  label?: string;
-  message?: string;
-}) {
-  const href = whatsappLink(message);
-  // WhatsApp number not confirmed yet (spec 2.4): offer directions beside the call button instead.
-  if (!href) return <Directions />;
-  return (
-    <a
-     
-      className="aa-v10-button aa-v10-button-whatsapp"
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-    >
-      <MessageCircle size={15} />
-      <span>{label}</span>
-      <ArrowUpRight size={14} />
-    </a>
-  );
-}
-
-function Call({ label = "Call workshop" }: { label?: string }) {
-  return (
-    // Spec 5.1.5: Call is always the amber primary action.
-    <a className="aa-v10-button aa-v10-button-primary" href={"tel:" + phone}>
-      <Phone size={15} />
-      <span>{label}</span>
-    </a>
-  );
-}
-
-function Directions() {
-  return (
-    <a
-     
-      className="aa-v10-button aa-v10-button-ghost"
-      href={directionsHref}
-      target="_blank"
-      rel="noreferrer"
-    >
-      <Navigation size={15} />
-      <span>Get directions</span>
-    </a>
-  );
-}
-
-/** Breadcrumbs (spec 6.2 / 20.3.7) in the template's back-link style, with BreadcrumbList JSON-LD. */
-function Back({ trail }: { trail: { name: string; href?: string }[] }) {
-  const site = process.env.NEXT_PUBLIC_SITE_URL ?? "https://asian-automobiles.vercel.app";
-  const all = [{ name: "Home", href: "/" }, ...trail];
-  const ld = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: all.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, ...(c.href ? { item: site + c.href } : {}) })),
-  };
-  return (
-    <nav aria-label="Breadcrumb" className="back">
-      <ArrowLeft size={15} />
-      <ol style={{ display: "inline-flex", flexWrap: "wrap", gap: "0 8px", listStyle: "none", margin: 0, padding: 0 }}>
-        {all.map((c, i) => (
-          <li key={c.name} style={{ display: "inline-flex", gap: 8 }}>
-            {i > 0 && <span aria-hidden="true">›</span>}
-            {c.href && i < all.length - 1 ? <Link prefetch={false} href={c.href}>{c.name}</Link> : <span aria-current="page">{c.name}</span>}
-          </li>
-        ))}
-      </ol>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
-    </nav>
-  );
-}
-
-type PageTheme =
-  | "about"
-  | "services"
-  | "service"
-  | "mechanical"
-  | "privacy"
-  | "ac"
-  | "accident"
-  | "paint"
-  | "wheel"
-  | "tyre"
-  | "parts"
-  | "insurance"
-  | "facilities"
-  | "gallery"
-  | "reviews"
-  | "contact"
-  | "faq"
-  | "booking"
-  | "quote";
-
-function HeroArt({ theme }: { theme: PageTheme }) {
-  const labels: Record<PageTheme, [string, string]> = {
-    about: ["KATTOOR ROAD", "INDEPENDENT / MULTI-BRAND"],
-    mechanical: ["DIAGNOSE", "BRAKES / CLUTCH / STEERING"],
-    privacy: ["PRIVACY", "YOUR INFORMATION"],
-    services: ["SERVICE MAP", "CHOOSE BY NEED"],
-    service: ["VEHICLE CHECK", "MAINTENANCE / DIAGNOSIS"],
-    ac: ["COOLING", "CABIN CLIMATE"],
-    accident: ["DAMAGE / 01", "PHOTOS FIRST"],
-    paint: ["PANEL / FINISH", "BODY & PAINT"],
-    wheel: ["0.00°", "WHEEL GEOMETRY"],
-    tyre: ["TREAD / WEAR", "TYRE CONDITION"],
-    parts: ["FITMENT", "MODEL / VARIANT / YEAR"],
-    insurance: ["CASE / 01", "ASSESS / DOCUMENT"],
-    facilities: ["WORKSHOP MAP", "SERVICE ZONES"],
-    gallery: ["CONTACT SHEET", "WORK / EQUIPMENT / PEOPLE"],
-    reviews: ["REAL FEEDBACK", "SOURCE / DATE / CONTEXT"],
-    contact: ["KATTOOR ROAD", "IRINJALAKUDA"],
-    faq: ["?", "ASK / FIND / GO"],
-    booking: ["ENQUIRY", "VEHICLE / NEED"],
-    quote: ["QUOTE", "VEHICLE / NEED / PHOTO"],
-  };
-
-  const photos: Record<PageTheme, [string, string, string]> = {
-    about: [img.workshop, img.detail, img.car],
-    mechanical: [img.repair, img.workshop, img.detail],
-    privacy: [img.detail, img.workshop, img.road],
-    services: [img.repair, img.workshop, img.wheel],
-    service: [img.repair, img.detail, img.workshop],
-    ac: [img.interior, img.detail, img.car],
-    accident: [img.repair, img.car, img.detail],
-    paint: [img.detail, img.car, img.repair],
-    wheel: [img.wheel, img.car, img.road],
-    tyre: [img.wheel, img.road, img.detail],
-    parts: [img.workshop, img.detail, img.repair],
-    insurance: [img.car, img.repair, img.road],
-    facilities: [img.workshop, img.repair, img.wheel],
-    gallery: [img.car, img.detail, img.workshop],
-    reviews: [img.detail, img.workshop, img.car],
-    contact: [img.road, img.workshop, img.car],
-    faq: [img.detail, img.repair, img.workshop],
-    booking: [img.car, img.workshop, img.detail],
-    quote: [img.repair, img.car, img.detail],
-  };
-
-  const [primary, secondary] = labels[theme];
-  const [mainPhoto, detailPhoto, contextPhoto] = photos[theme];
-
-  return (
-    <div className={"aa-v11-hero-art aa-v11-hero-" + theme + " aa-v15-photo-hero"} aria-hidden="true">
-      <div className="aa-v15-hero-photo-main">
-        <Image
-          src={mainPhoto}
-          alt=""
-          fill
-          quality={76}
-          sizes="(max-width: 720px) 92vw, (max-width: 1100px) 58vw, 520px"
-        />
-      </div>
-      <div className="aa-v15-hero-photo-stack">
-        <span className="aa-v15-hero-thumb">
-          <Image src={detailPhoto} alt="" fill quality={68} sizes="160px" />
-        </span>
-        <span className="aa-v15-hero-thumb">
-          <Image src={contextPhoto} alt="" fill quality={68} sizes="160px" />
-        </span>
-      </div>
-      <div className="aa-v15-hero-scrim" />
-      <div className="aa-v11-theme-core aa-v15-theme-core"><i /><i /><i /><i /></div>
-      <strong>{primary}</strong>
-      <small>{secondary}</small>
-      <span className="aa-v15-photo-index">PHOTO / {theme.toUpperCase()}</span>
-    </div>
-  );
-}
-
-/** Image rail — stock photos colour-graded to the site palette; swap for real workshop photos. */
-const ph = (name: string) => "/images/photos/" + name + ".jpg";
-const railByTheme: Partial<Record<PageTheme, [string, string][]>> = {
-  about: [[ph("oil-service"), "Servicing"], [ph("mechanical-repair"), "Repairs"], [ph("spare-parts"), "Spare parts"]],
-  service: [[ph("oil-service"), "Oil & filters"], [ph("engine-detail"), "Checks"], [ph("mechanic-inspection"), "Inspection"]],
-  mechanical: [[ph("wheel-alignment"), "Brakes"], [ph("mechanical-repair"), "Suspension"], [ph("engine-bay"), "Steering"]],
-  ac: [[ph("mechanic-inspection"), "Inspection"], [ph("engine-bay"), "Fault-finding"], [ph("engine-detail"), "Gas recharge"]],
-  wheel: [[ph("wheel-alignment"), "Alignment"], [ph("tyre-care"), "Balancing"], [ph("car-profile"), "Tyre wear"]],
-  tyre: [[ph("tyre-care"), "Tread"], [ph("wheel-alignment"), "Pressure"], [ph("car-profile"), "Wear"]],
-  parts: [[ph("spare-parts"), "Genuine (OEM)"], [ph("engine-detail"), "Aftermarket"], [ph("mechanical-repair"), "Fitment"]],
-};
-
-function VisualRail({ items }: { items: [string, string][] }) {
-  return (
-    <section className="aa-visual-rail-section" aria-label="At a glance">
-      <div className="wrap">
-        <ul className="aa-visual-rail">
-          {items.map(([src, label], i) => (
-            <li key={label}>
-              <figure>
-                <Image src={src} alt="" fill sizes="(max-width: 900px) 78vw, 30vw" />
-                <figcaption><i>{String(i + 1).padStart(2, "0")}</i><span>{label}</span></figcaption>
-              </figure>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-function Frame({
-  eyebrow,
-  title,
-  intro,
-  actions,
-  theme,
-  serviceId,
-  children,
-}: {
-  eyebrow: string;
-  title: string;
-  intro?: string;
-  actions?: ReactNode;
-  theme: PageTheme;
-  serviceId?: string;
-  children: ReactNode;
-}) {
-  return (
-    <main id="main" tabIndex={-1} className={"creative-page immersive-page immersive-page-v9 aa-inner-v10 aa-v11-page theme-" + theme}>
-      <PageProgressRail />
-      <section className="creative-head aa-v10-head">
-        <div className="creative-head-grid" aria-hidden="true" />
-        <div className="wrap creative-wrap aa-v10-hero-wrap">
-          <Back trail={serviceId && serviceId !== "spare-parts" ? [{ name: "Services", href: "/services/" }, { name: title.length < 40 ? eyebrow : eyebrow }] : [{ name: eyebrow === "Legal" ? "Privacy Policy" : eyebrow }]} />
-          <div className="aa-v10-hero-layout">
-            <div className="creative-heading aa-view-reveal">
-              <span className="eyebrow">{eyebrow}</span>
-              <h1>{title}</h1>
-              {intro && <p>{intro}</p>}
-            </div>
-            <div className="aa-v10-hero-side aa-v11-hero-side">
-              <HeroArt theme={theme} />
-              <div className="aa-v10-hero-actions">
-                {actions ?? (
-                  <>
-                    <Call />
-                    <Directions />
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-          <a href="#page-content" className="creative-compass">
-            <span>SCROLL / SEE WHAT MATTERS</span>
-            <ArrowRight size={16} />
-          </a>
-        </div>
-      </section>
-      <div id="page-content" className="creative-body aa-v10-body">
-        {railByTheme[theme] && <VisualRail items={railByTheme[theme]!} />}
-        {children}
-        {serviceId && <ServiceConnections id={serviceId} />}
-      </div>
-    </main>
-  );
-}
-
-function SectionHead({
-  eyebrow,
-  title,
-  copy,
-  light = false,
-}: {
-  eyebrow: string;
-  title: string;
-  copy?: string;
-  light?: boolean;
-}) {
-  return (
-    <div className={"aa-v10-section-head " + (light ? "is-light" : "")}>
-      <span className="eyebrow">{eyebrow}</span>
-      <h2>{title}</h2>
-      {copy && <p>{copy}</p>}
-    </div>
-  );
-}
-
-function FeatureCard({
-  no,
-  eyebrow,
-  title,
-  copy,
-  icon,
-  href,
-}: {
-  no: string;
-  eyebrow: string;
-  title: string;
-  copy: string;
-  icon?: ReactNode;
-  href?: string;
-}) {
-  const body = (
-    <>
-      <div className="aa-v10-feature-meta">
-        <span>{no}</span>
-        <small>{eyebrow}</small>
-        {icon}
-      </div>
-      <h3>{title}</h3>
-      <p>{copy}</p>
-      {href && <ArrowUpRight className="aa-v10-feature-arrow" size={18} />}
-    </>
-  );
-
-  return href ? (
-    <Link href={href} prefetch={false} className="aa-v10-feature-card">
-      {body}
-    </Link>
-  ) : (
-    <article className="aa-v10-feature-card">{body}</article>
-  );
-}
-
-function PageCTA({
-  eyebrow,
-  title,
-  copy,
-  children,
-}: {
-  eyebrow: string;
-  title: string;
-  copy: string;
-  children: ReactNode;
-}) {
-  return (
-    <section className="aa-v10-section aa-v10-endcap">
-      <div className="wrap aa-v10-endcap-grid">
-        <div>
-          <span className="eyebrow light">{eyebrow}</span>
-          <h2>{title}</h2>
-        </div>
-        <div>
-          <p>{copy}</p>
-          <div className="aa-v10-inline-actions">{children}</div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-type QA = [string, string];
-
-/** FAQ block: existing motion accordion + FAQPage JSON-LD for the visible questions. */
-function Faqs({ eyebrow = "QUESTIONS", title, items }: { eyebrow?: string; title: string; items: QA[] }) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: items.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
-  };
-  return (
-    <section className="aa-v10-section aa-v10-paper">
-      <div className="wrap aa-v10-faq-layout">
-        <div className="aa-v10-faq-aside">
-          <CircleHelp size={28} />
-          <span>{eyebrow}</span>
-          <h2>{title}</h2>
-          <p>Can’t see your question? Call the workshop with your car’s make, model and year.</p>
-          <Call />
-        </div>
-        <MotionFaq items={items.map(([question, answer]) => ({ question, answer }))} />
-      </div>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-    </section>
-  );
-}
-
-function StackList({ items }: { items: [string, string, string][] }) {
-  return (
-    <div className="aa-v10-stack-list">
-      {items.map(([no, title, copy]) => (
-        <div key={no}>
-          <span>{no}</span>
-          <div><b>{title}</b><p>{copy}</p></div>
-          <ChevronRight size={17} />
-        </div>
-      ))}
-    </div>
-  );
-}
 
 const explain = businessFacts.processConfirmed;
 
@@ -482,7 +40,7 @@ function About() {
       eyebrow="About us"
       title="About Asian Automobiles"
       intro="An independent, multi-brand car service centre on Kattoor Road, Irinjalakuda."
-      actions={<><Call /><Directions /></>}
+      actions={<><CallButton /><DirectionsButton /></>}
     >
       <section className="aa-v10-section aa-v10-paper">
         <div className="wrap aa-v10-story-grid">
@@ -539,8 +97,8 @@ function About() {
       </section>
 
       <PageCTA eyebrow="BASED IN IRINJALAKUDA" title="Talk to the workshop." copy="You’ll find us on Kattoor Road, near the Government Rest House and Canara Bank. Tell us about your car and what you need.">
-        <Call />
-        <WhatsAppAction label="WhatsApp us" />
+        <CallButton />
+        <WhatsAppButton label="WhatsApp us" />
       </PageCTA>
     </Frame>
   );
@@ -555,7 +113,7 @@ function Services() {
       eyebrow="Services"
       title="Our car services"
       intro="Servicing, repairs and maintenance for passenger cars of many makes, at our workshop in Irinjalakuda."
-      actions={<><Call /><WhatsAppAction label="Ask on WhatsApp" /></>}
+      actions={<><CallButton /><WhatsAppButton label="Ask on WhatsApp" /></>}
     >
       <section className="aa-v10-section aa-v10-paper">
         <div className="wrap">
@@ -578,8 +136,8 @@ function Services() {
       </section>
 
       <PageCTA eyebrow="NOT SURE?" title="Not sure which service you need?" copy="Describe the problem on the phone. We’ll tell you what to do next and whether you should bring the car in.">
-        <Call />
-        <WhatsAppAction label="Describe the problem" />
+        <CallButton />
+        <WhatsAppButton label="Describe the problem" />
       </PageCTA>
     </Frame>
   );
@@ -595,7 +153,7 @@ function CarService() {
       eyebrow="Car service & maintenance"
       title="Car service and maintenance in Irinjalakuda"
       intro="Periodic servicing, oil and filter changes and thorough checks for cars of many makes — to keep your car reliable between journeys."
-      actions={<><Call label="Call to book a service" /><WhatsAppAction label="WhatsApp us" message="Hello, I'd like to book a service. Car: [make/model/year]. Kilometres: [ ]" /></>}
+      actions={<><CallButton label="Call to book a service" /><WhatsAppButton label="WhatsApp us" message="Hello, I'd like to book a service. Car: [make/model/year]. Kilometres: [ ]" /></>}
     >
       <section className="aa-v10-section aa-v10-soft">
         <div className="wrap aa-v10-two-col">
@@ -630,7 +188,7 @@ function CarService() {
         </div>
       </section>
 
-      <Faqs
+      <FaqSection
         title="Car service questions"
         items={[
           ["How often should my car be serviced?", "Follow the interval in your owner’s manual, usually based on kilometres or months, whichever comes first. Heavy traffic, short trips and dusty roads can mean more frequent checks."],
@@ -641,8 +199,8 @@ function CarService() {
       />
 
       <PageCTA eyebrow="SERVICE DUE?" title="Is your car due for a service?" copy="Call us with your car’s make, model and kilometres and we’ll arrange a time.">
-        <Call label="Call to book a service" />
-        <Directions />
+        <CallButton label="Call to book a service" />
+        <DirectionsButton />
       </PageCTA>
     </Frame>
   );
@@ -656,7 +214,7 @@ function Mechanical() {
       eyebrow="Mechanical repairs"
       title="Mechanical repairs for your car"
       intro="Brake, clutch, suspension, steering and engine problems diagnosed and repaired at our Irinjalakuda workshop."
-      actions={<><Call label="Describe the problem" /><WhatsAppAction label="Send a video on WhatsApp" message="Hello, my car has a problem. Car: [make/model/year]. What I'm noticing: [ ]" /></>}
+      actions={<><CallButton label="Describe the problem" /><WhatsAppButton label="Send a video on WhatsApp" message="Hello, my car has a problem. Car: [make/model/year]. What I'm noticing: [ ]" /></>}
     >
       <section className="aa-v10-section aa-v10-paper aa-v11-service-intake">
         <div className="wrap">
@@ -687,11 +245,11 @@ function Mechanical() {
             <h2>If it doesn’t feel safe, don’t drive it.</h2>
             <p>If your brakes feel unsafe, the steering is unusual or a red warning light is on, avoid driving the car. Call us first and we’ll advise on the next step.</p>
           </div>
-          <Call />
+          <CallButton />
         </div>
       </section>
 
-      <Faqs
+      <FaqSection
         title="Repair questions"
         items={[
           ["Can you tell me what’s wrong over the phone?", "We can often suggest likely causes from your description, but a proper diagnosis needs the car to be inspected."],
@@ -702,8 +260,8 @@ function Mechanical() {
       />
 
       <PageCTA eyebrow="NOTICED A PROBLEM?" title="Noticed a problem with your car?" copy="Call and tell us what’s happening.">
-        <Call />
-        <WhatsAppAction label="Send a video on WhatsApp" />
+        <CallButton />
+        <WhatsAppButton label="Send a video on WhatsApp" />
       </PageCTA>
     </Frame>
   );
@@ -717,7 +275,7 @@ function AC() {
       eyebrow="Car AC services"
       title="Car AC service and repair"
       intro="When your car’s AC stops cooling the way it should, we find out why — and fix the cause, not just the symptom."
-      actions={<><Call label="Call about your AC" /><WhatsAppAction label="WhatsApp us" message="Hello, my car AC isn't working properly. Car: [make/model/year]. Problem: [ ]" /></>}
+      actions={<><CallButton label="Call about your AC" /><WhatsAppButton label="WhatsApp us" message="Hello, my car AC isn't working properly. Car: [make/model/year]. Problem: [ ]" /></>}
     >
       <section className="aa-v10-section aa-v10-paper aa-v11-ac-console-section">
         <div className="wrap">
@@ -740,7 +298,7 @@ function AC() {
         </div>
       </section>
 
-      <Faqs
+      <FaqSection
         title="Car AC questions"
         items={[
           ["Does my car AC need regular gas refilling?", "A car AC is a sealed system, so it shouldn’t need frequent top-ups. If cooling drops again soon after a recharge, there is probably a leak that needs finding."],
@@ -751,8 +309,8 @@ function AC() {
       />
 
       <PageCTA eyebrow="AC SERVICE" title="AC not cooling like it used to?" copy="Tell us your car’s make, model and what the AC is doing. We’ll advise on the next step.">
-        <Call label="Call about your AC" />
-        <WhatsAppAction label="WhatsApp us" />
+        <CallButton label="Call about your AC" />
+        <WhatsAppButton label="WhatsApp us" />
       </PageCTA>
     </Frame>
   );
@@ -766,7 +324,7 @@ function Wheel() {
       eyebrow="Wheel alignment & balancing"
       title="Wheel alignment and balancing"
       intro="Keep your car driving straight, your steering smooth and your tyres wearing evenly."
-      actions={<><Call label="Call to check alignment" /><WhatsAppAction label="WhatsApp us" message="Hello, I'd like a wheel alignment/balancing check. Car: [make/model/year]. Problem: [ ]" /></>}
+      actions={<><CallButton label="Call to check alignment" /><WhatsAppButton label="WhatsApp us" message="Hello, I'd like a wheel alignment/balancing check. Car: [make/model/year]. Problem: [ ]" /></>}
     >
       <section className="aa-v10-section aa-v10-paper aa-v11-wheel-lab-section">
         <div className="wrap">
@@ -780,14 +338,14 @@ function Wheel() {
           <SectionHead light eyebrow="ALIGNMENT VS BALANCING" title="Two different problems. Two different checks." />
           <div className="aa-v10-compare-grid">
             <div>
-              <Image className="aa-production-compare-photo" src={img.wheel} alt="" fill quality={74} sizes="(max-width: 640px) 100vw, 50vw" />
+              <Image className="aa-production-compare-photo" src="/images/photos/wheel-alignment.jpg" alt="" fill quality={74} sizes="(max-width: 640px) 100vw, 50vw" />
               <span>ALIGNMENT / 01</span>
               <h3>Where the wheels point.</h3>
               <p>Corrects the angles at which the wheels meet the road. Often needed after a pothole or kerb impact, or suspension and steering work.</p>
               <small>Car pulls / off-centre steering / uneven tyre wear</small>
             </div>
             <div>
-              <Image className="aa-production-compare-photo" src={img.car} alt="" fill quality={74} sizes="(max-width: 640px) 100vw, 50vw" />
+              <Image className="aa-production-compare-photo" src="/images/photos/car-profile.jpg" alt="" fill quality={74} sizes="(max-width: 640px) 100vw, 50vw" />
               <span>BALANCING / 02</span>
               <h3>How the wheel rotates.</h3>
               <p>Spreads the weight of each wheel and tyre evenly using small weights. Often needed after new tyres, a tyre repair or wheel removal.</p>
@@ -797,7 +355,7 @@ function Wheel() {
         </div>
       </section>
 
-      <Faqs
+      <FaqSection
         title="Alignment and balancing questions"
         items={[
           ["What’s the difference between alignment and balancing?", "Alignment corrects the angles of the wheels; balancing corrects how weight is spread around each wheel. Pulling suggests alignment; vibration at speed usually suggests balancing."],
@@ -808,8 +366,8 @@ function Wheel() {
       />
 
       <PageCTA eyebrow="WHEEL SERVICE" title="Car pulling or steering shaking?" copy="Call us and describe what you’re feeling. We’ll check whether it’s alignment, balancing or something else.">
-        <Call label="Call to check alignment" />
-        <CTA label="Tyre care" href="/services/tyre-care/" tone="ghost" />
+        <CallButton label="Call to check alignment" />
+        <ActionLink href="/services/tyre-care/" tone="ghost">Tyre care</ActionLink>
       </PageCTA>
     </Frame>
   );
@@ -823,7 +381,7 @@ function Tyres() {
       eyebrow="Tyre care"
       title="Tyre care for safer driving"
       intro="Tyre inspections, pressure checks and practical advice to keep your car gripping the road — in the dry and through the monsoon."
-      actions={<><Call label="Call about your tyres" /><WhatsAppAction label="WhatsApp a photo of your tyre" message="Hello, I'd like advice on my tyres. Car: [make/model/year]. Tyre size: [ ]. Issue: [ ]" /></>}
+      actions={<><CallButton label="Call about your tyres" /><WhatsAppButton label="WhatsApp a photo of your tyre" message="Hello, I'd like advice on my tyres. Car: [make/model/year]. Tyre size: [ ]. Issue: [ ]" /></>}
     >
       <section className="aa-v10-section aa-v10-paper aa-v11-tyre-lab-section">
         <div className="wrap">
@@ -844,7 +402,7 @@ function Tyres() {
         </div>
       </section>
 
-      <Faqs
+      <FaqSection
         title="Tyre questions"
         items={[
           ["How often should I check my tyre pressure?", "At least once a month and before long trips, when the tyres are cold."],
@@ -855,8 +413,8 @@ function Tyres() {
       />
 
       <PageCTA eyebrow="TYRE CARE" title="Worried about your tyres?" copy="Call us with your tyre size (printed on the sidewall, for example 185/65 R15) and we’ll tell you whether it needs attention.">
-        <Call label="Call about your tyres" />
-        <WhatsAppAction label="WhatsApp a photo" />
+        <CallButton label="Call about your tyres" />
+        <WhatsAppButton label="WhatsApp a photo" />
       </PageCTA>
     </Frame>
   );
@@ -872,7 +430,7 @@ function Parts() {
       eyebrow="Spare parts"
       title="Spare parts enquiry"
       intro="Tell us your car and the part you need. We’ll check genuine (OEM) and aftermarket options and get back to you about availability."
-      actions={<><Call label="Call us" /><WhatsAppAction label="Ask on WhatsApp" message="Hello, I'm looking for a spare part. Car: [make/model/year]. Part: [ ]. I'll attach a photo." /></>}
+      actions={<><CallButton label="Call us" /><WhatsAppButton label="Ask on WhatsApp" message="Hello, I'm looking for a spare part. Car: [make/model/year]. Part: [ ]. I'll attach a photo." /></>}
     >
       <section className="aa-v10-section aa-v10-paper aa-v11-parts-finder-section">
         <div className="wrap">
@@ -896,7 +454,7 @@ function Parts() {
         </div>
       </section>
 
-      <Faqs
+      <FaqSection
         title="Spare parts questions"
         items={[
           ["Do you have the part in stock?", "It depends on the part and the model. Send an enquiry and we’ll check availability and options for you."],
@@ -907,8 +465,8 @@ function Parts() {
       />
 
       <PageCTA eyebrow="PREFER TO TALK?" title="Describe the part and we’ll check for you." copy="Or bring the old part to our workshop on Kattoor Road.">
-        <Call label="Call us" />
-        <Directions />
+        <CallButton label="Call us" />
+        <DirectionsButton />
       </PageCTA>
     </Frame>
   );
@@ -916,23 +474,23 @@ function Parts() {
 
 /* ------------------------------------------------------------------ Contact */
 
-function Contact({ selectedService }: { selectedService?: string }) {
+function Contact() {
   return (
     <Frame
       theme="contact"
       eyebrow="Contact"
       title="Contact and location"
       intro="Call, message or visit our workshop on Kattoor Road, Irinjalakuda."
-      actions={<><Call /><Directions /></>}
+      actions={<><CallButton /><DirectionsButton /></>}
     >
       <section className="aa-v10-section aa-v10-paper">
         <div className="wrap">
           <SectionHead eyebrow="FASTEST ROUTE" title="The quickest way to reach us is a call." />
           <div className="aa-v10-contact-actions">
-            <a href={"tel:" + businessFacts.phones.primaryHref}><Phone size={21} /><span>CALL</span><b>{businessFacts.phones.primaryDisplay}</b><ArrowUpRight size={18} /></a>
-            <a href={"tel:" + businessFacts.phones.landlineHref}><Phone size={21} /><span>LANDLINE</span><b>{businessFacts.phones.landlineDisplay}</b><ArrowUpRight size={18} /></a>
+            <a href={phoneTel}><Phone size={21} /><span>CALL</span><b>{businessFacts.phones.primaryDisplay}</b><ArrowUpRight size={18} /></a>
+            <a href={landlineTel}><Phone size={21} /><span>LANDLINE</span><b>{businessFacts.phones.landlineDisplay}</b><ArrowUpRight size={18} /></a>
             {whatsappEnabled ? (
-              <a href={whatsappLink("Hello Asian Automobiles, ")!} target="_blank" rel="noreferrer"><MessageCircle size={21} /><span>WHATSAPP</span><b>{businessFacts.phones.whatsappDisplay}</b><ArrowUpRight size={18} /></a>
+              <a href={whatsappLink("Hello Asian Automobiles, ")!} target="_blank" rel="noopener noreferrer"><MessageCircle size={21} /><span>WHATSAPP</span><b>{businessFacts.phones.whatsappDisplay}</b><ArrowUpRight size={18} /></a>
             ) : (
               <a href={"mailto:" + businessFacts.email + "?subject=" + encodeURIComponent("Enquiry from website")}><MessageCircle size={21} /><span>EMAIL · NON-URGENT</span><b>{businessFacts.email}</b><ArrowUpRight size={18} /></a>
             )}
@@ -957,7 +515,7 @@ function Contact({ selectedService }: { selectedService?: string }) {
               <div><Clock3 size={16} /><span><small>WORKING HOURS</small><b>{businessFacts.hours}{businessFacts.sundayClosed ? " · Sunday closed" : ""} · Please call ahead on public holidays</b></span></div>
             </div>
             <p className="aa-v10-reference-note">Coming from nearby? We welcome customers from across the Irinjalakuda area, including {businessFacts.serviceArea.join(", ")}.</p>
-            <Directions />
+            <DirectionsButton />
           </div>
         </div>
       </section>
@@ -965,7 +523,7 @@ function Contact({ selectedService }: { selectedService?: string }) {
       <section id="enquiry" className="aa-v10-section aa-v10-paper">
         <div className="wrap">
           {whatsappEnabled ? (
-            <WhatsAppLeadForm mode={findService(selectedService)?.mode ?? "service"} selectedService={selectedService} />
+            <ContactEnquiryForm />
           ) : (
             <div className="aa-v10-insurance-bridge">
               <div className="aa-v10-icon-disc"><Phone size={24} /></div>
@@ -974,7 +532,7 @@ function Contact({ selectedService }: { selectedService?: string }) {
                 <h2>For service, repairs or parts, call the workshop.</h2>
                 <p>Have your car’s make, model and year ready, and tell us what you need. For non-urgent questions, email {businessFacts.email}.</p>
               </div>
-              <Call />
+              <CallButton />
             </div>
           )}
         </div>
@@ -999,7 +557,7 @@ function Privacy() {
     ["Changes", "If we change this policy, we will update the date on this page. Last updated: 7 November 2026."],
   ];
   return (
-    <Frame theme="privacy" eyebrow="Legal" title="Privacy Policy" intro="How Asian Automobiles collects, uses and protects the information you share through this website." actions={<Call />}>
+    <Frame theme="privacy" eyebrow="Legal" title="Privacy Policy" intro="How Asian Automobiles collects, uses and protects the information you share through this website." actions={<CallButton />}>
       <section className="aa-v10-section aa-v10-paper">
         <div className="wrap">
           <MotionFaq items={sections.map(([question, answer]) => ({ question, answer }))} />
@@ -1011,83 +569,49 @@ function Privacy() {
 
 /* ------------------------------------------------------------------ Routing & metadata */
 
-const routeMeta: Record<string, { title: string; description: string }> = {
-  about: {
-    title: "About Asian Automobiles – Independent Car Workshop, Irinjalakuda",
-    description: "Asian Automobiles is an independent multi-brand car service centre on Kattoor Road, Irinjalakuda, for servicing, repairs and spare-parts help.",
-  },
-  services: {
-    title: "Car Services in Irinjalakuda – Servicing, Repairs, AC, Alignment – Asian Automobiles",
-    description: "Car servicing, mechanical repairs, AC service, wheel alignment and balancing, tyre care and spare-parts enquiries at Asian Automobiles, Irinjalakuda.",
-  },
-  "services/car-service-maintenance": {
-    title: "Car Service and Maintenance in Irinjalakuda – Asian Automobiles",
-    description: "Periodic car servicing, oil and filter changes and vehicle inspections for cars of many makes at Asian Automobiles, Kattoor Road, Irinjalakuda. Call to book.",
-  },
-  "services/mechanical-repairs": {
-    title: "Car Mechanical Repairs in Irinjalakuda – Brakes, Clutch, Suspension – Asian Automobiles",
-    description: "Diagnosis and repair of car brake, clutch, suspension, steering and engine problems at Asian Automobiles, Irinjalakuda. Describe the symptom and call the workshop.",
-  },
-  "services/car-ac-service": {
-    title: "Car AC Service and Repair in Irinjalakuda – Asian Automobiles",
-    description: "Car AC not cooling? Asian Automobiles in Irinjalakuda checks AC performance, finds faults and handles gas recharge and compressor-related repairs.",
-  },
-  "services/wheel-alignment-balancing": {
-    title: "Wheel Alignment and Balancing in Irinjalakuda – Asian Automobiles",
-    description: "Car pulling to one side or steering wheel shaking? Asian Automobiles in Irinjalakuda offers wheel alignment, wheel balancing and tyre wear checks.",
-  },
-  "services/tyre-care": {
-    title: "Car Tyre Care and Checks in Irinjalakuda – Asian Automobiles",
-    description: "Tyre inspection, pressure checks and wear assessment at Asian Automobiles, Irinjalakuda. Keep your car safe on Kerala roads, in every season.",
-  },
-  "spare-parts": {
-    title: "Car Spare Parts Enquiry in Irinjalakuda – OEM and Aftermarket – Asian Automobiles",
-    description: "Looking for a car part? Send Asian Automobiles your car’s make, model, year and the part you need. We’ll check genuine (OEM) and aftermarket options.",
-  },
-  contact: {
-    title: "Contact Asian Automobiles – Kattoor Road, Irinjalakuda",
-    description: "Call or visit Asian Automobiles at V/526, Irinjalakuda Kattoor Rd, near Government Rest House, Irinjalakuda. Address, directions and working hours.",
-  },
-  "privacy-policy": {
-    title: "Privacy Policy – Asian Automobiles",
-    description: "How Asian Automobiles collects, uses and protects the information you share through this website.",
-  },
+const views: Record<PageKey, () => ReactNode> = {
+  about: About,
+  services: Services,
+  "services/car-service-maintenance": CarService,
+  "services/mechanical-repairs": Mechanical,
+  "services/car-ac-service": AC,
+  "services/wheel-alignment-balancing": Wheel,
+  "services/tyre-care": Tyres,
+  "spare-parts": Parts,
+  contact: Contact,
+  "privacy-policy": Privacy,
 };
 
-export async function generateMetadata({ params }: { params: Promise<{ slug?: string[] }> }): Promise<Metadata> {
-  const { slug = [] } = await params;
+/**
+ * Every page is prerendered at build time and served from the CDN. Unknown paths are a
+ * real 404 instead of an on-demand render; retired URLs are redirected in next.config.ts.
+ */
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return (Object.keys(views) as PageKey[]).map((key) => ({ slug: key.split("/") }));
+}
+
+function viewKey(slug: string[] = []): PageKey | undefined {
   const key = slug.join("/");
-  const meta = routeMeta[key];
-  if (!meta) return { robots: { index: false, follow: false } };
+  return Object.hasOwn(views, key) ? (key as PageKey) : undefined;
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> {
+  const key = viewKey((await params).slug);
+  if (!key) return { robots: { index: false, follow: false } };
+  const { title, description } = pageMeta[key];
   return {
-    title: meta.title,
-    description: meta.description,
+    title,
+    description,
     alternates: { canonical: "/" + key + "/" },
-    openGraph: { title: meta.title, description: meta.description, type: "website", locale: "en_IN", siteName: "Asian Automobiles" },
+    openGraph: { title, description, type: "website", locale: "en_IN", siteName: "Asian Automobiles" },
   };
 }
 
-export default async function Page({ params, searchParams }: {
-  params: Promise<{ slug?: string[] }>;
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const [{ slug = [] }, query] = await Promise.all([params, searchParams]);
-  const key = slug.join("/");
-  if (serviceRouteAliases[key]) permanentRedirect(serviceRouteAliases[key]);
-  const selected = Array.isArray(query.service) ? query.service[0] : query.service;
-  const map: Record<string, () => ReactNode> = {
-    about: About,
-    services: Services,
-    "services/car-service-maintenance": CarService,
-    "services/mechanical-repairs": Mechanical,
-    "services/car-ac-service": AC,
-    "services/wheel-alignment-balancing": Wheel,
-    "services/tyre-care": Tyres,
-    "spare-parts": Parts,
-    contact: () => <Contact selectedService={selected} />,
-    "privacy-policy": Privacy,
-  };
-  const PageView = map[key];
-  if (!PageView) notFound();
-  return PageView();
+export default async function Page({ params }: { params: Promise<{ slug: string[] }> }) {
+  const key = viewKey((await params).slug);
+  if (!key) notFound();
+  const View = views[key];
+  return <View />;
 }

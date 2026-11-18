@@ -53,7 +53,6 @@
   background:
     linear-gradient(transparent,transparent),
     linear-gradient(135deg,#111820 0%,#111820 58%,#111820 100%)!important;
-  color:#ffffff!important;
   isolation:isolate;
 }
 
@@ -72,9 +71,6 @@
 .aa-inner-v10 .aa-v10-hero-wrap{
   position:relative;
   z-index:2;
-  width:min(1320px,calc(100% - clamp(34px,5vw,84px)))!important;
-  padding-top:clamp(126px,15vh,176px)!important;
-  padding-bottom:36px!important;
 }
 
 .aa-inner-v10 .back{
@@ -100,15 +96,6 @@
 
 .aa-inner-v10 .aa-v10-hero-layout{
   display:grid;
-  grid-template-columns:minmax(0,1.55fr) minmax(280px,.45fr);
-  gap:clamp(44px,7vw,110px);
-  align-items:end;
-  margin-top:clamp(66px,9vh,118px);
-}
-
-.aa-inner-v10 .creative-heading{
-  max-width:100%!important;
-  margin:0!important;
 }
 
 .aa-inner-v10 .creative-heading>.eyebrow{
@@ -135,19 +122,13 @@
 }
 
 .aa-inner-v10 .creative-heading h1{
-  max-width:1040px!important;
-  margin:22px 0 0!important;
   font-size:clamp(4.4rem,7.8vw,9.1rem)!important;
-  line-height:.84!important;
   font-weight:560!important;
-  letter-spacing:-.075em!important;
-  text-wrap:balance;
 }
 
 .aa-inner-v10 .creative-heading>p{
   max-width:690px!important;
   margin:28px 0 0!important;
-  color:rgba(255,255,255,.7)!important;
   font-size:15px!important;
   line-height:1.72!important;
 }
@@ -158,54 +139,11 @@
   align-self:end;
 }
 
-.aa-inner-v10 .aa-v10-hero-proof{
-  display:grid;
-  gap:9px;
-  padding:22px;
-  border:1px solid rgba(255,255,255,.16);
-  background:rgba(0,0,0,.18);
-  backdrop-filter:blur(12px);
-}
-
-.aa-inner-v10 .aa-v10-hero-proof span,
-.aa-inner-v10 .aa-v10-hero-proof small{
-  font-size:7px;
-  font-weight:800;
-  letter-spacing:.16em;
-  color:rgba(255,255,255,.5);
-}
-
-.aa-inner-v10 .aa-v10-hero-proof b{
-  max-width:240px;
-  font-size:20px;
-  line-height:1.05;
-  font-weight:550;
-  letter-spacing:-.035em;
-}
-
 .aa-inner-v10 .aa-v10-hero-actions{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
 }
-
-.aa-inner-v10 .creative-compass{
-  display:flex!important;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  width:100%;
-  margin-top:52px!important;
-  padding:16px 0 0!important;
-  border-top:1px solid rgba(255,255,255,.17)!important;
-  color:rgba(255,255,255,.62)!important;
-  font-size:8px;
-  font-weight:800;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-}
-
-.aa-inner-v10 .creative-compass:hover{color:var(--v10-accent)!important}
 
 /* BUTTONS */
 .aa-v10-button{
@@ -239,14 +177,7 @@
   color:#111820;
 }
 
-.aa-v10-button-dark{
-  background:#111820;
-  color:#ffffff;
-}
-
 .aa-v10-button-ghost{
-  border-color:rgba(255,255,255,.22);
-  color:#ffffff;
   background:transparent;
 }
 
@@ -311,86 +242,6 @@
 .aa-v10-section-head.is-light p{color:rgba(255,255,255,.68)}
 
 /* GENERIC GRIDS */
-.aa-v10-signal-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:10px;
-}
-
-.aa-v10-signal-card{
-  position:relative;
-  min-height:280px;
-  display:flex;
-  flex-direction:column;
-  padding:24px;
-  border:1px solid var(--v10-line);
-  background:rgba(255,255,255,.28);
-  overflow:hidden;
-  color:var(--v10-ink);
-  transition:
-    transform .44s var(--v10-ease),
-    background .3s ease,
-    color .3s ease,
-    border-color .3s ease;
-}
-
-.aa-v10-signal-card:before{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  height:4px;
-  background:var(--v10-accent);
-  transform:scaleX(0);
-  transform-origin:left;
-  transition:transform .45s var(--v10-ease);
-}
-
-.aa-v10-signal-card:hover{
-  transform:translateY(-5px);
-  background:#111820;
-  color:#ffffff;
-  border-color:#111820;
-}
-
-.aa-v10-signal-card:hover:before{transform:scaleX(1)}
-
-.aa-v10-card-top{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:auto;
-  font-size:8px;
-  letter-spacing:.14em;
-  opacity:.62;
-}
-
-.aa-v10-signal-card h3{
-  margin:58px 0 12px;
-  max-width:280px;
-  font-size:clamp(1.7rem,2.5vw,2.8rem);
-  line-height:.96;
-  letter-spacing:-.052em;
-  font-weight:550;
-}
-
-.aa-v10-signal-card p{
-  margin:0;
-  color:var(--v10-muted);
-  font-size:12px;
-  line-height:1.62;
-  transition:color .3s ease;
-}
-
-.aa-v10-signal-card:hover p{color:rgba(255,255,255,.7)}
-
-.aa-v10-card-arrow{
-  position:absolute;
-  right:20px;
-  bottom:20px;
-}
 
 .aa-v10-feature-grid{
   display:grid;
@@ -459,8 +310,6 @@
   transition:color .3s ease;
 }
 
-.aa-v10-feature-card:hover p{color:rgba(255,255,255,.7)}
-
 .aa-v10-feature-arrow{
   position:absolute;
   right:22px;
@@ -472,26 +321,7 @@
 }
 
 .aa-v10-feature-grid-dark .aa-v10-feature-card{
-  color:#ffffff;
   border-color:var(--v10-line-light);
-}
-
-.aa-v10-feature-grid-dark .aa-v10-feature-card p{
-  color:rgba(255,255,255,.64);
-}
-
-.aa-v10-feature-grid-dark .aa-v10-feature-meta{
-  color:rgba(255,255,255,.46);
-}
-
-.aa-v10-feature-grid-dark .aa-v10-feature-card:hover{
-  background:var(--v10-accent);
-  color:#111820;
-}
-
-.aa-v10-feature-grid-dark .aa-v10-feature-card:hover p,
-.aa-v10-feature-grid-dark .aa-v10-feature-card:hover .aa-v10-feature-meta{
-  color:rgba(17,24,32,.68);
 }
 
 /* STORY */
@@ -692,48 +522,6 @@
 }
 
 /* ACCIDENT */
-.aa-v10-accident-start{
-  display:grid;
-  grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
-  gap:clamp(48px,7vw,100px);
-  align-items:start;
-}
-
-.aa-v10-accident-steps{
-  border-top:1px solid var(--v10-line);
-}
-
-.aa-v10-accident-steps>div{
-  display:grid;
-  grid-template-columns:40px 34px minmax(0,1fr);
-  gap:14px;
-  align-items:start;
-  min-height:150px;
-  padding:24px 0;
-  border-bottom:1px solid var(--v10-line);
-}
-
-.aa-v10-accident-steps span{
-  font-size:8px;
-  font-weight:850;
-  letter-spacing:.15em;
-  color:#6b6a63;
-}
-
-.aa-v10-accident-steps b{
-  font-size:24px;
-  line-height:1;
-  letter-spacing:-.04em;
-  font-weight:560;
-}
-
-.aa-v10-accident-steps p{
-  grid-column:3;
-  margin:0;
-  color:var(--v10-muted);
-  font-size:12px;
-  line-height:1.6;
-}
 
 .aa-v10-insurance-bridge{
   display:grid;
@@ -773,60 +561,6 @@
 }
 
 /* DENTING / VISUAL */
-.aa-v10-before-after{
-  display:grid;
-  grid-template-columns:1.12fr .88fr;
-  gap:10px;
-  min-height:640px;
-}
-
-.aa-v10-before-after figure{
-  position:relative;
-  min-height:640px;
-  margin:0;
-  overflow:hidden;
-  background:#111820;
-}
-
-.aa-v10-before-after img{
-  object-fit:cover;
-  transition:transform .8s var(--v10-ease)!important;
-}
-
-.aa-v10-before-after figure:hover img{transform:scale(1.035)}
-
-.aa-v10-before-after figure:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(0deg,rgba(0,0,0,.78),transparent 50%);
-}
-
-.aa-v10-before-after figcaption{
-  position:absolute;
-  z-index:2;
-  left:22px;
-  right:22px;
-  bottom:20px;
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:20px;
-  color:#ffffff;
-}
-
-.aa-v10-before-after figcaption span{
-  font-size:7px;
-  letter-spacing:.16em;
-  color:rgba(255,255,255,.6);
-}
-
-.aa-v10-before-after figcaption b{
-  max-width:220px;
-  font-size:18px;
-  font-weight:550;
-  text-align:right;
-}
 
 .aa-v10-reference-note{
   margin:16px 0 0;
@@ -848,7 +582,6 @@
 }
 
 .aa-v10-compare-grid>div{
-  min-height:420px;
   display:flex;
   flex-direction:column;
   justify-content:flex-end;
@@ -894,139 +627,10 @@
 .aa-v10-compare-grid>div:hover p{color:rgba(17,24,32,.72)}
 
 /* TYRES */
-.aa-v10-tyre-stage{
-  display:grid;
-  grid-template-columns:minmax(320px,.8fr) minmax(0,1.2fr);
-  gap:clamp(50px,8vw,120px);
-  align-items:center;
-}
-
-.aa-v10-tyre-graphic{
-  position:relative;
-  min-height:520px;
-  display:grid;
-  place-items:center;
-  overflow:hidden;
-  border:1px solid var(--v10-line-light);
-  background:
-    linear-gradient(transparent,transparent),
-    #111820;
-}
-
-.aa-v10-tyre-graphic:before,
-.aa-v10-tyre-graphic:after{
-  content:"";
-  position:absolute;
-  width:68%;
-  aspect-ratio:1;
-  border:1px solid rgba(255,255,255,.16);
-  border-radius:50%;
-}
-
-.aa-v10-tyre-graphic:after{
-  width:42%;
-  border-color:rgba(213,138,58,.4);
-}
-
-.aa-v10-tyre-graphic b{
-  position:relative;
-  z-index:3;
-  font-size:10px;
-  letter-spacing:.18em;
-}
-
-.aa-v10-tread-lines{
-  position:absolute;
-  inset:12%;
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:8px;
-  transform:rotate(-18deg);
-  opacity:.26;
-}
-
-.aa-v10-tread-lines span{
-  border:1px solid rgba(255,255,255,.22);
-  transform:skewY(-25deg);
-}
 
 /* GALLERY */
-.aa-inner-v10 .aa-expand-gallery{
-  min-height:600px;
-}
-
-.aa-inner-v10 .aa-expand-gallery-card{
-  min-height:600px;
-  border-radius:0;
-}
-
-.aa-v10-gallery-categories{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  border-top:1px solid var(--v10-line);
-  border-left:1px solid var(--v10-line);
-}
-
-.aa-v10-gallery-categories>div{
-  min-height:120px;
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:16px;
-  padding:18px;
-  border-right:1px solid var(--v10-line);
-  border-bottom:1px solid var(--v10-line);
-}
-
-.aa-v10-gallery-categories span{
-  font-size:7px;
-  color:#6a6963;
-  letter-spacing:.15em;
-}
-
-.aa-v10-gallery-categories b{
-  font-size:15px;
-  font-weight:560;
-}
 
 /* REVIEWS */
-.aa-v10-review-intro{
-  display:grid;
-  grid-template-columns:.85fr 1.15fr;
-  gap:clamp(50px,8vw,110px);
-  align-items:start;
-}
-
-.aa-v10-review-principles{
-  border-top:1px solid var(--v10-line);
-}
-
-.aa-v10-review-principles>div{
-  min-height:124px;
-  display:grid;
-  grid-template-columns:42px minmax(0,1fr) minmax(200px,.8fr);
-  gap:16px;
-  align-items:center;
-  border-bottom:1px solid var(--v10-line);
-}
-
-.aa-v10-review-principles span{
-  font-size:7px;
-  letter-spacing:.15em;
-  color:#6a6963;
-}
-
-.aa-v10-review-principles b{
-  font-size:20px;
-  font-weight:560;
-}
-
-.aa-v10-review-principles p{
-  margin:0;
-  color:var(--v10-muted);
-  font-size:12px;
-  line-height:1.58;
-}
 
 /* CONTACT */
 .aa-v10-contact-actions{
@@ -1248,10 +852,6 @@
   background:rgba(0,0,0,.04);
 }
 
-.aa-inner-v10 .aa-motion-faq-answer p{
-  color:var(--v10-muted);
-}
-
 /* WHATSAPP LEAD FORM */
 .aa-v10-lead-shell{
   display:grid;
@@ -1340,15 +940,10 @@
 }
 
 .aa-v10-lead-form :is(input,select,textarea){
-  width:100%;
-  min-height:52px;
-  border:0;
   border-bottom:1px solid rgba(0,0,0,.23);
   border-radius:0;
   outline:none;
   padding:12px 0;
-  background:transparent;
-  color:var(--v10-ink);
   font:inherit;
   font-size:14px;
   font-weight:450;
@@ -1359,20 +954,9 @@
 
 .aa-v10-lead-form select{cursor:pointer}
 
-.aa-v10-lead-form textarea{
-  min-height:132px;
-  resize:vertical;
-}
-
 .aa-v10-lead-form :is(input,select,textarea):focus{
-  border-color:#111820;
   padding-inline:10px;
   background:rgba(213,138,58,.08);
-}
-
-.aa-v10-lead-form :is(input,textarea)::placeholder{
-  color:#77766e;
-  opacity:1;
 }
 
 .aa-v10-form-wide{grid-column:1/-1}
@@ -1404,84 +988,14 @@
 
 .aa-v10-lead-form>small{
   grid-column:1/-1;
-  color:#77766f;
   font-size:8px;
   line-height:1.55;
   text-align:center;
 }
 
 /* INSURANCE */
-.aa-v10-insurance-grid{
-  display:grid;
-  grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
-  gap:clamp(50px,8vw,110px);
-  align-items:end;
-}
-
-.aa-v10-insurance-grid>div:first-child{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-}
-
-.aa-v10-insurance-grid h2{
-  margin:16px 0 20px;
-  max-width:620px;
-  font-size:clamp(3rem,5vw,5.9rem);
-  line-height:.88;
-  letter-spacing:-.064em;
-  font-weight:550;
-}
-
-.aa-v10-insurance-grid>div:first-child>p{
-  max-width:550px;
-  margin:0;
-  color:var(--v10-muted);
-  font-size:13px;
-  line-height:1.68;
-}
 
 /* BOOKING */
-.aa-v10-booking-help{
-  display:grid;
-  grid-template-columns:.75fr 1.25fr;
-  gap:clamp(50px,8vw,110px);
-}
-
-.aa-v10-booking-help .aa-v10-section-head{
-  margin-bottom:0;
-}
-
-.aa-v10-booking-steps{
-  border-top:1px solid var(--v10-line);
-}
-
-.aa-v10-booking-steps>div{
-  min-height:132px;
-  display:grid;
-  grid-template-columns:42px minmax(0,.55fr) minmax(0,1fr);
-  gap:16px;
-  align-items:center;
-  border-bottom:1px solid var(--v10-line);
-}
-
-.aa-v10-booking-steps span{
-  color:#6b6a63;
-  font-size:7px;
-  letter-spacing:.15em;
-}
-
-.aa-v10-booking-steps b{
-  font-size:20px;
-  font-weight:560;
-}
-
-.aa-v10-booking-steps p{
-  margin:0;
-  color:var(--v10-muted);
-  font-size:12px;
-  line-height:1.58;
-}
 
 /* ENDCAP */
 .aa-inner-v10 .aa-v10-endcap{
@@ -1538,27 +1052,19 @@
     gap:48px;
   }
 
-  .aa-v10-signal-grid,
   .aa-v10-feature-grid,
-  .aa-v10-feature-grid-wide{
+.aa-v10-feature-grid-wide{
     grid-template-columns:repeat(2,minmax(0,1fr));
   }
 
   .aa-v10-story-grid,
-  .aa-v10-two-col,
-  .aa-v10-review-intro,
-  .aa-v10-insurance-grid,
-  .aa-v10-booking-help{
+.aa-v10-two-col{
     gap:54px;
   }
 
   .aa-v10-two-col .aa-v10-section-head,
   .aa-v10-faq-aside{
     position:static;
-  }
-
-  .aa-v10-gallery-categories{
-    grid-template-columns:repeat(2,minmax(0,1fr));
   }
 }
 
@@ -1567,20 +1073,8 @@
     min-height:82svh!important;
   }
 
-  .aa-inner-v10 .aa-v10-hero-wrap{
-    padding-top:112px!important;
-    padding-bottom:26px!important;
-  }
-
-  .aa-inner-v10 .aa-v10-hero-layout{
-    grid-template-columns:minmax(0,1fr);
-    gap:36px;
-    margin-top:70px;
-  }
-
   .aa-inner-v10 .creative-heading h1{
     max-width:850px!important;
-    font-size:clamp(3.7rem,11vw,6.8rem)!important;
   }
 
   .aa-inner-v10 .aa-v10-hero-side{
@@ -1588,24 +1082,11 @@
     align-items:end;
   }
 
-  .aa-inner-v10 .aa-v10-hero-proof{
-    min-height:128px;
-  }
-
-  .aa-inner-v10 .aa-v10-body>section{
-    padding-block:82px!important;
-  }
-
   .aa-v10-story-grid,
-  .aa-v10-two-col,
-  .aa-v10-accident-start,
-  .aa-v10-tyre-stage,
-  .aa-v10-review-intro,
-  .aa-v10-faq-layout,
-  .aa-v10-lead-shell,
-  .aa-v10-insurance-grid,
-  .aa-v10-booking-help,
-  .aa-v10-endcap-grid{
+.aa-v10-two-col,
+.aa-v10-faq-layout,
+.aa-v10-lead-shell,
+.aa-v10-endcap-grid{
     grid-template-columns:minmax(0,1fr);
   }
 
@@ -1621,24 +1102,6 @@
   .aa-v10-photo-frame,
   .aa-v10-map-card{
     min-height:58vw;
-  }
-
-  .aa-v10-address-card{
-    border-left:1px solid var(--v10-line);
-    border-top:0;
-  }
-
-  .aa-v10-before-after{
-    grid-template-columns:minmax(0,1fr);
-    min-height:0;
-  }
-
-  .aa-v10-before-after figure{
-    min-height:56vw;
-  }
-
-  .aa-v10-compare-grid{
-    grid-template-columns:minmax(0,1fr);
   }
 
   .aa-v10-compare-grid>div{
@@ -1666,18 +1129,8 @@
     min-height:170px;
   }
 
-  .aa-v10-review-principles>div{
-    grid-template-columns:38px minmax(0,.55fr) minmax(0,1fr);
-  }
-
   .aa-v10-lead-copy{
     min-height:460px;
-    border-right:0;
-    border-bottom:1px solid var(--v10-line);
-  }
-
-  .aa-inner-v10 .aa-expand-gallery{
-    min-height:0;
   }
 }
 
@@ -1689,19 +1142,6 @@
 
   .aa-inner-v10 .aa-v10-head{
     min-height:78svh!important;
-  }
-
-  .aa-inner-v10 .aa-v10-hero-layout{
-    margin-top:56px;
-  }
-
-  .aa-inner-v10 .creative-heading h1{
-    font-size:clamp(3.1rem,14.2vw,4.9rem)!important;
-    line-height:.88!important;
-  }
-
-  .aa-inner-v10 .creative-heading>p{
-    font-size:12.5px!important;
   }
 
   .aa-inner-v10 .aa-v10-hero-side{
@@ -1719,35 +1159,9 @@
     width:100%;
   }
 
-  .aa-inner-v10 .creative-compass{
-    margin-top:34px!important;
-  }
-
-  .aa-inner-v10 .aa-v10-body>section{
-    padding-block:68px!important;
-  }
-
-  .aa-v10-section-head{
-    margin-bottom:36px;
-  }
-
-  .aa-v10-section-head h2{
-    font-size:clamp(2.7rem,12vw,4.2rem);
-  }
-
-  .aa-v10-signal-grid,
   .aa-v10-feature-grid,
-  .aa-v10-feature-grid-wide,
-  .aa-v10-gallery-categories{
+.aa-v10-feature-grid-wide{
     grid-template-columns:minmax(0,1fr);
-  }
-
-  .aa-v10-signal-card{
-    min-height:230px;
-  }
-
-  .aa-v10-feature-card{
-    min-height:245px;
   }
 
   .aa-v10-feature-card h3{
@@ -1760,11 +1174,6 @@
 
   .aa-v10-year-card strong{
     font-size:28vw;
-  }
-
-  .aa-v10-accident-steps>div{
-    grid-template-columns:32px 28px minmax(0,1fr);
-    min-height:132px;
   }
 
   .aa-v10-insurance-bridge{
@@ -1781,12 +1190,7 @@
     height:52px;
   }
 
-  .aa-v10-before-after figure{
-    min-height:76vw;
-  }
-
   .aa-v10-compare-grid>div{
-    min-height:300px;
     padding:24px;
   }
 
@@ -1794,57 +1198,13 @@
     font-size:clamp(2.6rem,12vw,4rem);
   }
 
-  .aa-v10-tyre-graphic{
-    min-height:84vw;
-  }
-
-  .aa-v10-review-principles>div{
-    grid-template-columns:30px minmax(0,1fr);
-    gap:8px 12px;
-    padding:18px 0;
-  }
-
-  .aa-v10-review-principles p{
-    grid-column:2;
-  }
-
-  .aa-v10-map-card{
-    min-height:82vw;
-  }
-
-  .aa-v10-map-pin{
-    width:126px;
-    height:126px;
-  }
-
   .aa-v10-lead-form{
-    grid-template-columns:minmax(0,1fr);
     padding:24px 18px;
-  }
-
-  .aa-v10-form-wide,
-  .aa-v10-submit,
-  .aa-v10-lead-form>small{
-    grid-column:auto;
   }
 
   .aa-v10-lead-copy{
     min-height:400px;
     padding:30px 22px;
-  }
-
-  .aa-v10-booking-steps>div{
-    grid-template-columns:30px minmax(0,1fr);
-    gap:8px 12px;
-    padding:18px 0;
-  }
-
-  .aa-v10-booking-steps p{
-    grid-column:2;
-  }
-
-  .aa-v10-endcap h2{
-    font-size:clamp(3.5rem,15vw,5rem);
   }
 }
 
@@ -1855,21 +1215,18 @@
     scroll-behavior:auto!important;
   }
 
-  .aa-v10-signal-card,
   .aa-v10-feature-card,
-  .aa-v10-button,
-  .aa-v10-contact-actions>a,
-  .aa-v10-submit,
-  .aa-v10-before-after img,
-  .aa-v10-photo-frame img{
+.aa-v10-button,
+.aa-v10-contact-actions>a,
+.aa-v10-submit,
+.aa-v10-photo-frame img{
     transition-duration:.01ms!important;
   }
 
-  .aa-v10-signal-card:hover,
   .aa-v10-feature-card:hover,
-  .aa-v10-button:hover,
-  .aa-v10-contact-actions>a:hover,
-  .aa-v10-submit:hover{
+.aa-v10-button:hover,
+.aa-v10-contact-actions>a:hover,
+.aa-v10-submit:hover{
     transform:none!important;
   }
 }
@@ -1910,10 +1267,3 @@
 
 
 /* Keep gallery photography clean and bright; interaction comes from layout, not dimming. */
-.aa-inner-v10 .aa-expand-gallery-card:not(.is-active){
-  filter:none!important;
-}
-
-.aa-inner-v10 .aa-expand-gallery-shade{
-  background:linear-gradient(0deg,rgba(0,0,0,.68),transparent 56%)!important;
-}

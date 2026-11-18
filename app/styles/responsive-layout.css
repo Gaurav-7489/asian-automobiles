@@ -105,11 +105,6 @@
   line-height: 1.7 !important;
 }
 
-.aa-inner-v10 .creative-compass {
-  margin-top: 40px !important;
-  line-height: 1.5;
-}
-
 .aa-inner-v10 .aa-v15-photo-hero {
   min-height: clamp(260px, 26vw, 360px) !important;
 }
@@ -345,16 +340,6 @@
   }
   .aa-inner-v10 .aa-v13-about-line button { min-height: 120px; }
   .aa-inner-v10 .aa-v13-about-readout { min-height: 360px !important; }
-  .aa-inner-v10 .aa-v11-gallery-wall {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: none;
-    grid-auto-rows: minmax(280px, auto);
-  }
-  .aa-inner-v10 .aa-v11-gallery-tile {
-    grid-column: auto !important;
-    grid-row: auto !important;
-    min-height: 280px;
-  }
 }
 
 @media (max-width: 800px) {
@@ -387,8 +372,6 @@
   .aa-inner-v10 .aa-v10-hero-actions { grid-template-columns: minmax(0, 1fr) !important; }
   .aa-inner-v10 .aa-v11-scanner-menu { grid-template-columns: minmax(0, 1fr) !important; }
   .aa-inner-v10 .aa-v13-about-line { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .aa-inner-v10 .aa-v11-gallery-wall { grid-template-columns: minmax(0, 1fr); }
-  .aa-inner-v10 .aa-v11-gallery-tile figcaption { gap: 12px; flex-wrap: wrap; }
   .aa-home .aa-hero-v8 { height: auto !important; }
   .aa-home .aa-hero2-shell { padding-block: 96px 100px !important; }
   .aa-home .aa-hero2-copy h1 { font-size: clamp(2.75rem, 13vw, 4.5rem) !important; }
@@ -409,63 +392,6 @@
 }
 
 /* Compact navigation unfolds by intent, rather than exposing a long directory. */
-@media (max-width: 1320px) {
-  .aa-header .aa-expandable-menu {
-    bottom: 0 !important;
-    border-radius: 0 !important;
-    padding-bottom: 0 !important;
-    max-height: none !important;
-    overscroll-behavior: contain;
-    scrollbar-gutter: stable;
-    background: linear-gradient(transparent,transparent), #111820 !important;
-  }
-  .aa-header .aa-expandable-menu .aa-mobile-panel-inner {
-    width: min(900px, calc(100% - 2 * var(--aa-page-gutter))) !important;
-    padding: clamp(24px, 4vw, 48px) 0 calc(100px + env(safe-area-inset-bottom)) !important;
-  }
-  .aa-header .aa-expandable-menu .aa-menu-intro { margin-bottom: 28px; }
-  .aa-header .aa-expandable-menu .aa-menu-intro .aa-mobile-label { color: #d58a3a !important; font-size: 10px; letter-spacing: .13em; }
-  .aa-header .aa-expandable-menu .aa-menu-intro p { margin: 12px 0 0; color: #f5f5f2 !important; font-size: clamp(26px, 4vw, 42px); line-height: 1.15; letter-spacing: -.04em; }
-  .aa-header .aa-expandable-menu .aa-menu-groups { display: grid; gap: 12px; }
-  .aa-header .aa-expandable-menu .aa-menu-group { border: 1px solid #ffffff24; border-radius: 8px; background: #ffffff03; overflow: hidden; }
-  .aa-header .aa-expandable-menu .aa-menu-group > button {
-    display: flex; align-items: center; gap: 16px; width: 100%; padding: 22px;
-    border: 0; background: transparent; color: #f5f5f2 !important; text-align: left; cursor: pointer;
-  }
-  .aa-header .aa-expandable-menu .aa-menu-group-icon { display: grid; place-items: center; width: 42px; height: 42px; flex-shrink: 0; border-radius: 8px; background: #d58a3a14; color: #d58a3a !important; }
-  .aa-header .aa-expandable-menu .aa-menu-group > button > span:nth-child(2) { flex: 1; min-width: 0; }
-  .aa-header .aa-expandable-menu .aa-menu-group b { display: block; font-size: clamp(18px, 2.4vw, 24px); font-weight: 550; line-height: 1.25; letter-spacing: -.025em; }
-  .aa-header .aa-expandable-menu .aa-menu-group small { display: block; margin-top: 6px; color: #b7bbb4 !important; font-size: 12px; line-height: 1.5; }
-  .aa-header .aa-expandable-menu .aa-menu-group > button > svg { flex-shrink: 0; transition: transform .3s ease; }
-  .aa-header .aa-expandable-menu .aa-menu-group.is-expanded { border-color: #d58a3a66; }
-  .aa-header .aa-expandable-menu .aa-menu-group.is-expanded > button > svg { transform: rotate(180deg); color: #d58a3a !important; }
-  .aa-header .aa-expandable-menu .aa-menu-group-reveal { display: grid; grid-template-rows: 0fr; visibility: hidden; transition: grid-template-rows .35s ease, visibility .35s; }
-  .aa-header .aa-expandable-menu .aa-menu-group.is-expanded .aa-menu-group-reveal { grid-template-rows: 1fr; visibility: visible; }
-  .aa-header .aa-expandable-menu .aa-menu-group-reveal > div { min-height: 0; overflow: hidden; }
-  .aa-header .aa-expandable-menu .aa-menu-group-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; padding: 0 22px 16px; }
-  .aa-header .aa-expandable-menu .aa-menu-group-links a {
-    display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px;
-    padding: 14px 0; border-bottom: 0; border-top: 1px solid #ffffff1a; color: #e2e4e1 !important; font-size: 15px; line-height: 1.4;
-  }
-  .aa-header .aa-expandable-menu .aa-menu-group-links a span { min-width: 0; font-size: inherit; color: inherit !important; }
-  .aa-header .aa-expandable-menu .aa-menu-group-links a svg { flex-shrink: 0; color: #d58a3a !important; }
-  .aa-header .aa-expandable-menu .aa-menu-group-links a:is(:hover, [aria-current="page"]) { color: #d58a3a !important; }
-  .aa-header .aa-expandable-menu .aa-menu-booking { padding: 28px 4px 0; }
-  .aa-header .aa-expandable-menu .aa-menu-booking > span { font-size: 9px; letter-spacing: .12em; color: #b7bbb4 !important; }
-  .aa-header .aa-expandable-menu .aa-menu-booking > a:first-of-type { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 64px; margin: 12px 0; padding: 18px 22px; border-radius: 8px; color: #111820 !important; background: #d58a3a; font-size: 20px; line-height: 1.3; font-weight: 600; border-bottom: 0; }
-  .aa-header .aa-expandable-menu .aa-menu-booking > a:last-of-type { display: flex; align-items: center; gap: 10px; width: fit-content; min-height: 44px; color: #e2e4e1 !important; font-size: 14px; }
-  .aa-expandable-menu :is(a, button):focus-visible { outline: 2px solid #d58a3a; outline-offset: -3px; border-radius: 8px; }
-}
-@media (max-width: 560px) {
-  .aa-header .aa-expandable-menu .aa-menu-group > button { padding: 18px 16px; gap: 12px; }
-  .aa-header .aa-expandable-menu .aa-menu-group-icon { width: 36px; height: 36px; }
-  .aa-header .aa-expandable-menu .aa-menu-group-links { grid-template-columns: minmax(0, 1fr); padding-inline: 16px; }
-}
-
-@media (max-width: 360px) {
-  .aa-header .aa-expandable-menu .aa-menu-booking { padding-top: 20px; }
-  .aa-header .aa-expandable-menu .aa-menu-booking > a:first-of-type { min-height: 56px; margin-block: 8px; padding-block: 14px; }
-}
 
 /* Native sticky cards stack on touch screens too. The measured pin point
    allows short viewports and enlarged text to scroll through the whole card. */
@@ -511,6 +437,5 @@
   @keyframes aa-responsive-stack { to { scale: .96; } }
 }
 @media (prefers-reduced-motion: reduce) {
-  .aa-home .aa-skip-card { position: relative !important; top: auto !important; animation: none !important; scale: 1 !important; }
-  .aa-menu-group-reveal, .aa-menu-group > button > svg { transition: none; }
+  .aa-home .aa-skip-card { position: relative !important; top: auto !important; scale: 1 !important; }
 }

@@ -2,9 +2,7 @@
 
 html,
 body {
-  width: 100%;
   max-width: 100%;
-  overflow-x: clip;
 }
 
 .aa-header-v5 .aa-header-inner,
@@ -62,52 +60,6 @@ body {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-
-  .aa-header-v5 .aa-mobile-panel {
-    display: block !important;
-    position: fixed !important;
-    z-index: -1;
-    inset: 84px 0 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    background: #111820;
-    color: #ffffff;
-    opacity: 0;
-    visibility: hidden;
-    transform: translate3d(0, -10px, 0);
-    overflow-y: auto;
-    overflow-x: hidden;
-    overscroll-behavior: contain;
-    pointer-events: none;
-    -webkit-overflow-scrolling: touch;
-    transition:
-      opacity var(--aa-motion-ui, 280ms) ease,
-      transform var(--aa-motion-premium, 420ms) var(--aa-motion-ease, cubic-bezier(.16,1,.3,1)),
-      visibility var(--aa-motion-ui, 280ms) !important;
-  }
-
-  .aa-header-v5.is-scrolled .aa-mobile-panel {
-    inset-block-start: 70px !important;
-  }
-
-  .aa-header-v5.is-open .aa-mobile-panel {
-    z-index: 1499;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    pointer-events: auto;
-  }
-
-  .aa-header-v5 .aa-mobile-panel-inner {
-    width: min(100% - 36px, 780px) !important;
-    margin-inline: auto !important;
-    padding: 30px 0 calc(104px + env(safe-area-inset-bottom)) !important;
-  }
-
-  .aa-mobile-service-list > a,
-  .aa-mobile-primary-links > a {
-    min-height: 58px;
-  }
 }
 
 /* Small laptops / tablets get the shorter production header. */
@@ -116,11 +68,6 @@ body {
   .aa-header-v5.is-scrolled .aa-nav-main {
     height: 70px !important;
     background: rgba(17,24,32, .975) !important;
-  }
-
-  .aa-header-v5 .aa-mobile-panel,
-  .aa-header-v5.is-scrolled .aa-mobile-panel {
-    inset-block-start: 70px !important;
   }
 }
 
@@ -141,22 +88,6 @@ body {
 
   .aa-header-v5 .aa-brand-name b {
     max-width: min(48vw, 180px);
-  }
-
-  .aa-header-v5 .aa-mobile-panel,
-  .aa-header-v5.is-scrolled .aa-mobile-panel {
-    inset-block-start: 68px !important;
-  }
-
-  .aa-mobile-service-list > a,
-  .aa-mobile-primary-links > a {
-    grid-template-columns: 30px minmax(0, 1fr) 18px !important;
-    gap: 8px !important;
-  }
-
-  .aa-mobile-service-list > a > b,
-  .aa-mobile-primary-links > a > b {
-    overflow-wrap: anywhere;
   }
 
   button,
@@ -187,10 +118,6 @@ body {
     flex-basis: 40px;
     width: 40px !important;
     height: 40px !important;
-  }
-
-  .aa-mobile-menu-actions {
-    grid-template-columns: minmax(0, 1fr) !important;
   }
 
   .aa-mobile-actions {
@@ -229,14 +156,10 @@ html, body {
   overflow-x: hidden;
 }
 
-*, *::before, *::after { min-width: 0; }
-
 .aa-shell,
 .aa-header-v5 .aa-header-inner {
   width: min(100% - 56px, 1380px);
 }
-
-.aa-header-v5 .aa-header-inner { max-width: 1380px; }
 
 .aa-hero-v8,
 .aa-hero-v8 .aa-hero2-sticky {
@@ -254,7 +177,6 @@ html, body {
   .aa-header-v5 .aa-mega {
     width: min(1040px, calc(100vw - 40px)) !important;
     max-width: calc(100vw - 40px) !important;
-    left: 50% !important;
     right: auto !important;
     transform: translateX(-50%) !important;
   }
@@ -301,12 +223,6 @@ html, body {
   .aa-hero-v8 .aa-hero2-bottom {
     grid-template-columns: minmax(0, 1fr) auto !important;
     max-width: 760px !important;
-  }
-
-  .aa-home-v8 .aa-process-row,
-  .aa-home-v8 .aa-service-row,
-  .aa-home-v8 .aa-facility-menu button {
-    min-width: 0;
   }
 }
 
@@ -411,10 +327,3 @@ html, body {
 }
 
 /* Remove desktop hover transforms that cause clipped previews on touch layouts. */
-@media (pointer: coarse) {
-  .aa-service-image,
-  .aa-need-preview { display: none !important; }
-  .aa-service-row:hover,
-  .aa-need-row:hover,
-  .aa-facility-menu button:hover { padding-left: 0 !important; padding-right: 0 !important; }
-}

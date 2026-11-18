@@ -18,7 +18,6 @@
   .aa-home .aa-skip-card-media { min-height: 140px !important; }
   .aa-home .aa-skip-card-copy { min-height: 0 !important; }
   /* Keep service-specific immersive visuals instead of replacing them with copy. */
-  .aa-inner-v10 .aa-v10-hero-wrap { padding-bottom: 38px !important; }
   .aa-inner-v10 .aa-v10-hero-layout { gap: 26px !important; }
   .aa-inner-v10 :is(.aa-v10-photo-hero, .aa-v15-photo-hero) {
     border-radius: 8px;

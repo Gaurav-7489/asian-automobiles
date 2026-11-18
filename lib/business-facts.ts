@@ -53,18 +53,25 @@ export const businessFacts = {
   ],
 } as const;
 
-/** WhatsApp buttons and the enquiry form render only once a number is confirmed. */
-export const whatsappEnabled = businessFacts.phones.whatsappHref.length > 0;
+/** `tel:` links for the call buttons, built once from the verified numbers. */
+export const phoneTel = "tel:" + businessFacts.phones.primaryHref;
+export const landlineTel = "tel:" + businessFacts.phones.landlineHref;
 
+/** WhatsApp buttons and the enquiry form render only once a number is confirmed. */
+export const whatsappEnabled = /^\d{8,15}$/.test(businessFacts.phones.whatsappHref);
+
+/** The single place a wa.me URL is built; the message is always URL-encoded. */
 export function whatsappLink(message: string): string | null {
   if (!whatsappEnabled) return null;
   return "https://wa.me/" + businessFacts.phones.whatsappHref + "?text=" + encodeURIComponent(message);
 }
 
-const mapsQuery = "Asian Automobiles, V/526, Irinjalakuda Kattoor Rd, Irinjalakuda, Kerala 680121";
+const mapsQuery = businessFacts.name + ", " + businessFacts.address.full;
 
 /** Opens the Business Profile location in Google Maps (app on mobile). */
 export const directionsHref = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(mapsQuery);
 
 /** Keyless embed of the same listing; loaded only after the visitor presses "Show map" (spec 21.3). */
 export const mapsEmbedSrc = "https://www.google.com/maps?q=" + encodeURIComponent(mapsQuery) + "&output=embed";
+
+export type LeadMode = "service" | "quote" | "parts";

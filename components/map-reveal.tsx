@@ -11,7 +11,7 @@ export function MapReveal({ src, children }: { src: string; children: ReactNode 
   if (open) {
     return (
       <div className="aa-v10-map-card aa-map-live">
-        <iframe src={src} title="Map showing Asian Automobiles location" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+        <iframe src={src} title="Map showing Asian Automobiles location" loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
       </div>
     );
   }

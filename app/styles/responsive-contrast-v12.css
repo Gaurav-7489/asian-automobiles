@@ -218,7 +218,6 @@ a{
 
 .aa-v10-button-dark{
   background:#111820;
-  color:#ffffff;
 }
 
 .aa-v10-button-ghost{
@@ -331,9 +330,6 @@ a{
 
 /* Mega menu: force readable contrast regardless of older theme rules. */
 .aa-header-v5 .aa-mega{
-  background:#f5f5f2!important;
-  color:#111820!important;
-  border-color:rgba(17,24,32,.14)!important;
   box-shadow:0 28px 90px rgba(0,0,0,.36);
 }
 
@@ -345,10 +341,6 @@ a{
   color:#575a55;
 }
 
-.aa-header-v5 .aa-mega-link{
-  color:#111820!important;
-}
-
 .aa-header-v5 .aa-mega-link:hover{
   background:#202a32!important;
   color:#ffffff!important;
@@ -358,31 +350,8 @@ a{
   color:#ffffff!important;
 }
 
-.aa-header-v5 .aa-mega-book{
-  background:#d58a3a!important;
-  color:#111820!important;
-}
-
 .aa-header-v5 .aa-mega-book :is(span,b,svg){
   color:#111820!important;
-}
-
-.aa-header-v5 .aa-mobile-panel{
-  background:#111820!important;
-  color:#ffffff;
-}
-
-.aa-header-v5 .aa-mobile-panel :is(a,b){
-  color:#ffffff;
-}
-
-.aa-header-v5 .aa-mobile-panel :is(.aa-mobile-label,small,span){
-  color:rgba(255,255,255,.64);
-}
-
-.aa-header-v5 .aa-mobile-service-list>a,
-.aa-header-v5 .aa-mobile-primary-links>a{
-  border-color:rgba(255,255,255,.14)!important;
 }
 
 /* ---------- MOBILE QUICK ACTIONS ---------- */
@@ -394,7 +363,6 @@ a{
 .aa-mobile-actions a{
   min-width:0;
   min-height:48px;
-  color:#ffffff!important;
   background:#111820;
 }
 
@@ -405,11 +373,6 @@ a{
 
 .aa-mobile-actions a:nth-child(2){
   background:#202a32;
-}
-
-.aa-mobile-actions a:last-child{
-  background:#d58a3a;
-  color:#111820!important;
 }
 
 .aa-mobile-actions a:last-child span,
@@ -464,7 +427,6 @@ a{
 
 .aa-inner-v10 .aa-v10-hero-layout{
   grid-template-columns:minmax(0,1.45fr) minmax(280px,.55fr)!important;
-  gap:clamp(32px,6vw,92px)!important;
 }
 
 .aa-inner-v10 .creative-heading h1{
@@ -489,40 +451,30 @@ a{
 
 /* ---------- INNER GENERIC GRIDS ---------- */
 
-.aa-v10-signal-grid,
 .aa-v10-feature-grid,
 .aa-v10-compare-grid,
-.aa-v10-before-after,
 .aa-v10-contact-actions,
-.aa-v10-gallery-categories,
 .aa-v10-endcap-grid,
 .aa-v10-photo-split,
 .aa-v10-two-col,
-.aa-v10-insurance-grid,
-.aa-v10-review-intro,
 .aa-v10-story-grid,
-.aa-v10-accident-start,
 .aa-v10-faq-layout,
 .aa-v10-lead-shell{
   max-width:100%;
 }
 
-.aa-v10-signal-card,
 .aa-v10-feature-card,
 .aa-v10-stack-list>div,
 .aa-motion-faq article,
-.aa-v10-contact-actions>a,
-.aa-v10-gallery-categories>div{
+.aa-v10-contact-actions>a{
   overflow:hidden;
 }
 
-.aa-v10-signal-card p,
 .aa-v10-feature-card p,
 .aa-v10-stack-list p{
   color:#555852;
 }
 
-.aa-v10-signal-card:hover p,
 .aa-v10-feature-card:hover p{
   color:rgba(255,255,255,.72);
 }
@@ -579,41 +531,24 @@ a{
 
 .aa-v11-scanner-menu button,
 .aa-v11-climate-modes button,
-.aa-v11-geometry-controls button,
-.aa-v11-parts-index button,
-.aa-v11-claim-controls button,
-.aa-v11-tread-tabs button{
+.aa-v11-parts-index button{
   min-width:0;
 }
 
 .aa-v11-scanner-menu button b,
 .aa-v11-climate-modes button b,
-.aa-v11-geometry-controls button,
-.aa-v11-parts-index button b,
-.aa-v11-claim-controls button b{
+.aa-v11-parts-index button b{
   overflow-wrap:anywhere;
 }
 
 .aa-v11-scanner-focus p,
 .aa-v11-climate-note p,
-.aa-v11-geometry-readout p,
-.aa-v11-tread-copy p,
-.aa-v11-parts-details p,
-.aa-v11-claim-stack article p{
+.aa-v11-parts-details p{
   color:rgba(255,255,255,.72)!important;
 }
 
 .aa-v11-parts-details>div span{
   color:#ffffff!important;
-}
-
-.aa-v11-accident-strip b{
-  color:#ffffff!important;
-}
-
-.aa-v11-accident-strip small,
-.aa-v11-accident-strip>div>span{
-  color:rgba(255,255,255,.68)!important;
 }
 
 /* ---------- HOMEPAGE HARDENING ---------- */
@@ -648,22 +583,6 @@ a{
   color:rgba(255,255,255,.65)!important;
 }
 
-.aa-home .aa-review-card{
-  min-width:0;
-}
-
-.aa-home .aa-review-card blockquote{
-  color:#111820;
-}
-
-.aa-home .aa-location-phone{
-  color:#ffffff;
-}
-
-.aa-home .aa-location-phone:hover{
-  color:var(--aa-v12-accent);
-}
-
 /* ---------- TABLET / SMALL LAPTOP ---------- */
 
 @media (max-width:1200px){
@@ -677,10 +596,6 @@ a{
     place-items:center;
   }
 
-  .aa-header-v5 .aa-mobile-panel{
-    display:block!important;
-  }
-
   .aa-inner-v10 .aa-v10-hero-layout{
     grid-template-columns:minmax(0,1.2fr) minmax(240px,.8fr)!important;
     gap:32px!important;
@@ -690,11 +605,7 @@ a{
     font-size:clamp(3.8rem,8.2vw,7rem)!important;
   }
 
-  .aa-v10-signal-grid,
-  .aa-v10-feature-grid,
-  .theme-paint .aa-v10-feature-grid,
-  .theme-accident .aa-v10-feature-grid,
-  .theme-facilities .aa-v10-feature-grid{
+  .aa-v10-feature-grid{
     grid-template-columns:repeat(2,minmax(0,1fr))!important;
   }
 
@@ -704,14 +615,6 @@ a{
 
   .aa-v10-contact-actions{
     grid-template-columns:repeat(2,minmax(0,1fr))!important;
-  }
-
-  .aa-home .aa-trust-rail-grid{
-    grid-template-columns:repeat(3,minmax(0,1fr))!important;
-  }
-
-  .aa-home :is(.aa-intro-grid,.aa-process-grid){
-    gap:clamp(34px,5vw,70px)!important;
   }
 }
 
@@ -774,24 +677,19 @@ a{
   }
 
   .aa-v10-two-col,
-  .aa-v10-photo-split,
-  .aa-v10-insurance-grid,
-  .aa-v10-review-intro,
-  .aa-v10-story-grid,
-  .aa-v10-accident-start,
-  .aa-v10-faq-layout,
-  .aa-v10-endcap-grid,
-  .aa-v10-lead-shell{
+.aa-v10-photo-split,
+.aa-v10-story-grid,
+.aa-v10-faq-layout,
+.aa-v10-endcap-grid,
+.aa-v10-lead-shell{
     grid-template-columns:minmax(0,1fr)!important;
   }
 
-  .aa-v10-before-after,
   .aa-v10-compare-grid{
     grid-template-columns:minmax(0,1fr)!important;
   }
 
-  .aa-v10-photo-frame,
-  .aa-v10-before-after figure{
+  .aa-v10-photo-frame{
     min-height:clamp(320px,60vw,540px)!important;
   }
 
@@ -801,122 +699,33 @@ a{
     border-bottom:1px solid rgba(255,255,255,.14);
   }
 
-  .theme-quote .aa-v10-lead-copy{
-    order:0!important;
-  }
-
-  .theme-quote .aa-v10-lead-form{
-    order:1!important;
-  }
-
   /* V11 experiences become vertical before they start feeling squeezed. */
   .aa-v11-service-scanner,
-  .aa-v11-climate-console,
-  .aa-v11-geometry-lab,
-  .aa-v11-tyre-lab,
-  .aa-v11-parts-finder,
-  .aa-v11-claim-deck{
+.aa-v11-climate-console,
+.aa-v11-geometry-lab,
+.aa-v11-parts-finder{
     grid-template-columns:minmax(0,1fr)!important;
     min-height:0!important;
   }
 
   .aa-v11-scanner-screen,
-  .aa-v11-climate-main,
-  .aa-v11-geometry-stage,
-  .aa-v11-tread-visual,
-  .aa-v11-parts-stage,
-  .aa-v11-claim-stack{
+.aa-v11-climate-main,
+.aa-v11-parts-stage{
     min-height:520px!important;
     border-right:0!important;
     border-bottom:1px solid rgba(255,255,255,.14)!important;
   }
 
   .aa-v11-scanner-menu,
-  .aa-v11-climate-modes,
-  .aa-v11-geometry-controls,
-  .aa-v11-claim-controls{
+.aa-v11-climate-modes{
     display:grid!important;
     grid-template-columns:repeat(2,minmax(0,1fr))!important;
-  }
-
-  .aa-v11-parts-index{
-    display:grid!important;
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-  }
-
-  .aa-v11-parts-index>span{
-    grid-column:1/-1;
-  }
-
-  .aa-v11-gallery-wall{
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    grid-template-rows:360px 300px 340px!important;
-  }
-
-  .aa-v11-gallery-tile.tile-1{
-    grid-row:span 2;
-  }
-
-  .aa-v11-gallery-tile.tile-2{
-    grid-column:auto;
-  }
-
-  .aa-v11-gallery-tile.tile-5{
-    grid-column:span 2;
   }
 
   /* Homepage */
-  .aa-home .aa-trust-rail-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-  }
 
-  .aa-home .aa-intro-grid,
-  .aa-home .aa-process-grid,
-  .aa-home .aa-split-media-grid,
-  .aa-home .aa-location-grid,
-  .aa-home .aa-final-grid{
+  .aa-home .aa-location-grid{
     grid-template-columns:minmax(0,1fr)!important;
-  }
-
-  .aa-home .aa-section-rail{
-    max-width:620px;
-  }
-
-  .aa-home .aa-reveal-wall{
-    min-height:auto!important;
-    display:grid!important;
-    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
-    gap:10px!important;
-  }
-
-  .aa-home .aa-reveal-shot,
-  .aa-home .aa-reveal-note{
-    position:relative!important;
-    inset:auto!important;
-    width:auto!important;
-    max-width:none!important;
-    transform:none!important;
-  }
-
-  .aa-home .aa-reveal-shot{
-    min-height:360px!important;
-  }
-
-  .aa-home .aa-reveal-note{
-    grid-column:1/-1;
-  }
-
-  .aa-home .aa-type-stage{
-    min-height:60svh!important;
-  }
-
-  .aa-home .aa-type-perspective{
-    max-width:100%;
-    overflow:hidden;
-  }
-
-  .aa-home .aa-type-perspective :is(span,strong){
-    font-size:clamp(3.4rem,11vw,7rem)!important;
   }
 
   .aa-footer-top{
@@ -984,37 +793,6 @@ a{
     width:42px!important;
     height:42px!important;
     flex:0 0 42px!important;
-  }
-
-  .aa-header-v5 .aa-mobile-panel,
-  .aa-header-v5.is-scrolled .aa-mobile-panel{
-    inset:66px 0 0!important;
-    height:calc(100dvh - 66px)!important;
-    max-height:calc(100dvh - 66px)!important;
-    padding-bottom:calc(72px + env(safe-area-inset-bottom))!important;
-  }
-
-  .aa-header-v5 .aa-mobile-panel-inner{
-    width:calc(100% - 28px)!important;
-    padding-top:20px!important;
-    padding-bottom:calc(96px + env(safe-area-inset-bottom))!important;
-  }
-
-  .aa-mobile-service-list>a,
-  .aa-mobile-primary-links>a{
-    min-height:54px!important;
-    grid-template-columns:28px minmax(0,1fr) 18px!important;
-    gap:8px!important;
-  }
-
-  .aa-mobile-service-list>a b,
-  .aa-mobile-primary-links>a b{
-    font-size:14px!important;
-    line-height:1.15!important;
-  }
-
-  .aa-mobile-menu-actions{
-    grid-template-columns:minmax(0,1fr)!important;
   }
 
   .aa-mobile-actions{
@@ -1113,15 +891,6 @@ a{
     text-align:center;
   }
 
-  .aa-inner-v10 .creative-compass{
-    margin-top:34px!important;
-  }
-
-  .aa-inner-v10 .creative-compass span{
-    font-size:7px;
-    letter-spacing:.12em;
-  }
-
   .aa-inner-v10 .aa-v10-body>section{
     padding-block:64px!important;
   }
@@ -1142,33 +911,22 @@ a{
     line-height:1.62!important;
   }
 
-  .aa-v10-signal-grid,
   .aa-v10-feature-grid,
-  .aa-v10-feature-grid-wide,
-  .theme-services .aa-v10-signal-grid,
-  .theme-services .aa-v10-feature-grid-wide,
-  .theme-paint .aa-v10-feature-grid,
-  .theme-accident .aa-v10-feature-grid,
-  .theme-facilities .aa-v10-feature-grid,
-  .theme-reviews .aa-v10-feature-grid-dark,
-  .aa-v10-contact-actions{
+.aa-v10-feature-grid-wide,
+.theme-services .aa-v10-feature-grid-wide,
+.aa-v10-contact-actions{
     grid-template-columns:minmax(0,1fr)!important;
   }
 
-  .aa-v10-signal-card,
-  .aa-v10-feature-card,
-  .theme-accident .aa-v10-feature-card:nth-child(1),
-  .theme-accident .aa-v10-feature-card:nth-child(4){
+  .aa-v10-feature-card{
     min-height:230px!important;
   }
 
-  .aa-v10-signal-card h3,
   .aa-v10-feature-card h3{
     font-size:clamp(1.8rem,8vw,2.6rem)!important;
   }
 
-  .aa-v10-photo-frame,
-  .aa-v10-before-after figure{
+  .aa-v10-photo-frame{
     min-height:72vw!important;
   }
 
@@ -1213,27 +971,20 @@ a{
 
   /* V11 interactive components */
   .aa-v11-scanner-screen,
-  .aa-v11-climate-main,
-  .aa-v11-geometry-stage,
-  .aa-v11-tread-visual,
-  .aa-v11-parts-stage,
-  .aa-v11-claim-stack{
+.aa-v11-climate-main,
+.aa-v11-parts-stage{
     min-height:430px!important;
   }
 
   .aa-v11-scanner-menu,
-  .aa-v11-climate-modes,
-  .aa-v11-geometry-controls,
-  .aa-v11-claim-controls,
-  .aa-v11-parts-index{
+.aa-v11-climate-modes,
+.aa-v11-parts-index{
     grid-template-columns:minmax(0,1fr)!important;
   }
 
   .aa-v11-scanner-menu button,
-  .aa-v11-climate-modes button,
-  .aa-v11-geometry-controls button,
-  .aa-v11-claim-controls button,
-  .aa-v11-parts-index button{
+.aa-v11-climate-modes button,
+.aa-v11-parts-index button{
     min-height:76px!important;
     padding:16px!important;
   }
@@ -1268,38 +1019,8 @@ a{
     display:none!important;
   }
 
-  .aa-v11-car-outline{
-    width:58%!important;
-    height:220px!important;
-  }
-
-  .aa-v11-geometry-readout{
-    left:20px!important;
-    right:20px!important;
-    bottom:20px!important;
-  }
-
-  .aa-v11-geometry-readout strong{
-    font-size:2.5rem!important;
-  }
-
-  .aa-v11-tread{
-    width:210px!important;
-    height:330px!important;
-  }
-
-  .aa-v11-tread-copy{
-    padding:28px 20px!important;
-  }
-
-  .aa-v11-tread-copy h3,
-  .aa-v11-parts-details h3,
-  .aa-v11-claim-stack article h3{
+  .aa-v11-parts-details h3{
     font-size:clamp(2.6rem,12vw,4rem)!important;
-  }
-
-  .aa-v11-tread-tabs{
-    grid-template-columns:minmax(0,1fr)!important;
   }
 
   .aa-v11-parts-orbit{
@@ -1313,63 +1034,13 @@ a{
     bottom:26px!important;
   }
 
-  .aa-v11-claim-stack article{
-    left:14px!important;
-    right:38px!important;
-    top:34px!important;
-    bottom:34px!important;
-    padding:22px!important;
-  }
-
-  .aa-v11-accident-strip{
-    grid-template-columns:minmax(0,1fr)!important;
-  }
-
-  .aa-v11-accident-alert{
-    grid-column:auto!important;
-  }
-
-  .aa-v11-gallery-wall{
-    display:grid!important;
-    grid-template-columns:minmax(0,1fr)!important;
-    grid-template-rows:none!important;
-    gap:8px!important;
-  }
-
-  .aa-v11-gallery-tile,
-  .aa-v11-gallery-tile.tile-1,
-  .aa-v11-gallery-tile.tile-2,
-  .aa-v11-gallery-tile.tile-5{
-    grid-column:auto!important;
-    grid-row:auto!important;
-    min-height:74vw!important;
-  }
-
-  .aa-v11-gallery-tile figcaption{
-    left:14px!important;
-    right:14px!important;
-    bottom:14px!important;
-  }
-
   /* Homepage */
   .aa-home .aa-section,
   .aa-home .aa-section-dark{
     padding-block:72px!important;
   }
 
-  .aa-home .aa-trust-rail-grid{
-    grid-template-columns:minmax(0,1fr)!important;
-  }
-
-  .aa-home .aa-trust-rail-grid>div{
-    min-height:88px!important;
-  }
-
-  .aa-home .aa-intro-grid,
-  .aa-home .aa-process-grid,
-  .aa-home .aa-split-media-grid,
-  .aa-home .aa-location-grid,
-  .aa-home .aa-final-grid{
+  .aa-home .aa-location-grid{
     gap:32px!important;
   }
 
@@ -1389,40 +1060,6 @@ a{
     font-size:clamp(2.8rem,13vw,4.6rem)!important;
     line-height:.9!important;
     letter-spacing:-.06em!important;
-  }
-
-  .aa-home .aa-reveal-wall{
-    grid-template-columns:minmax(0,1fr)!important;
-  }
-
-  .aa-home .aa-reveal-note{
-    grid-column:auto!important;
-  }
-
-  .aa-home .aa-reveal-shot{
-    min-height:72vw!important;
-  }
-
-  .aa-home .aa-split-image,
-  .aa-home .aa-location-media{
-    min-height:74vw!important;
-  }
-
-  .aa-home .aa-type-stage{
-    min-height:48svh!important;
-  }
-
-  .aa-home .aa-type-perspective :is(span,strong){
-    font-size:clamp(2.7rem,14vw,5rem)!important;
-  }
-
-  .aa-home .aa-review-rail{
-    display:grid!important;
-    grid-template-columns:minmax(0,1fr)!important;
-  }
-
-  .aa-home .aa-review-card{
-    min-height:230px!important;
   }
 
   .aa-home .aa-location-actions{
@@ -1532,11 +1169,6 @@ a{
     width:160px!important;
     height:160px!important;
   }
-
-  .aa-v11-tread{
-    width:190px!important;
-    height:300px!important;
-  }
 }
 
 /* ---------- LANDSCAPE PHONES / SHORT WEBVIEWS ---------- */
@@ -1548,12 +1180,6 @@ a{
 
   .aa-mobile-actions{
     display:none!important;
-  }
-
-  .aa-header-v5 .aa-mobile-panel,
-  .aa-header-v5.is-scrolled .aa-mobile-panel{
-    height:calc(100dvh - 60px)!important;
-    inset-block-start:60px!important;
   }
 
   .aa-inner-v10 .aa-v10-hero-wrap{
@@ -1576,36 +1202,28 @@ a{
 /* ---------- TOUCH / REDUCED MOTION ---------- */
 
 @media (pointer:coarse){
-  .aa-v10-signal-card:hover,
-  .aa-v10-feature-card:hover,
-  .aa-v11-gallery-tile:hover img{
+  .aa-v10-feature-card:hover{
     transform:none!important;
   }
 
-  .aa-v10-signal-card:hover,
   .aa-v10-feature-card:hover{
     background:inherit;
     color:inherit;
   }
 
-  .aa-v10-signal-card:hover p,
   .aa-v10-feature-card:hover p{
     color:#555852;
   }
 
   .aa-v11-scanner-menu button:hover,
-  .aa-v11-climate-modes button:hover,
-  .aa-v11-geometry-controls button:hover,
-  .aa-v11-parts-index button:hover,
-  .aa-v11-claim-controls button:hover{
+.aa-v11-climate-modes button:hover,
+.aa-v11-parts-index button:hover{
     padding-left:inherit!important;
   }
 
   .aa-v11-scanner-menu button.is-active,
-  .aa-v11-climate-modes button.is-active,
-  .aa-v11-geometry-controls button.is-active,
-  .aa-v11-parts-index button.is-active,
-  .aa-v11-claim-controls button.is-active{
+.aa-v11-climate-modes button.is-active,
+.aa-v11-parts-index button.is-active{
     color:#111820;
   }
 }
@@ -1628,13 +1246,6 @@ a{
 /* ---------- HIGH CONTRAST / SYSTEM FORCED COLORS ---------- */
 
 @media (forced-colors:active){
-  .aa-v10-button,
-  .aa-mobile-actions a,
-  .aa-header-cta,
-  .aa-light-button,
-  .aa-v10-submit{
-    border:1px solid ButtonText;
-  }
 
   :focus-visible{
     outline:2px solid Highlight;
@@ -1662,62 +1273,7 @@ a{
   background:var(--aa-v12-accent);
 }
 
-.aa-expand-gallery-copy,
-.aa-v11-gallery-tile figcaption{
-  text-shadow:0 1px 14px rgba(0,0,0,.8);
-}
-
-.aa-expand-gallery-copy :is(b,small,span,svg),
-.aa-v11-gallery-tile figcaption :is(b,span){
-  color:#ffffff!important;
-}
-
 /* 404 is part of the responsive surface too. */
-.creative-404{
-  min-height:100svh;
-  display:grid;
-  place-items:center;
-  padding:120px clamp(18px,5vw,72px) 80px;
-  background:#111820;
-  color:#ffffff;
-}
-
-.creative-404>div{
-  width:min(760px,100%);
-}
-
-.creative-404 span{
-  color:rgba(255,255,255,.62);
-  font-size:8px;
-  font-weight:850;
-  letter-spacing:.16em;
-}
-
-.creative-404 h1{
-  margin:18px 0;
-  color:#ffffff;
-  font-size:clamp(3rem,8vw,7rem);
-  line-height:.88;
-  letter-spacing:-.065em;
-}
-
-.creative-404 p{
-  margin:0 0 28px;
-  color:rgba(255,255,255,.72);
-  font-size:14px;
-  line-height:1.65;
-}
-
-@media(max-width:640px){
-  .creative-404{
-    padding:96px 14px 100px;
-    align-items:center;
-  }
-
-  .creative-404 h1{
-    font-size:clamp(2.7rem,14vw,4.5rem);
-  }
-}
 
 
 /* ---------- TARGETED CONTRAST + RESPONSIVE GAPS FOUND IN AUDIT ---------- */
@@ -1754,21 +1310,6 @@ a{
 }
 
 /* The services overview intentionally contains one dark tile. */
-.theme-services .aa-v10-signal-card:nth-child(3){
-  color:#ffffff!important;
-}
-
-.theme-services .aa-v10-signal-card:nth-child(3) :is(h3,b,strong,svg){
-  color:#ffffff!important;
-}
-
-.theme-services .aa-v10-signal-card:nth-child(3) p{
-  color:rgba(255,255,255,.72)!important;
-}
-
-.theme-services .aa-v10-signal-card:nth-child(3) .aa-v10-card-top{
-  color:rgba(255,255,255,.7)!important;
-}
 
 /* Contact map / address split stays readable and stacks before it gets cramped. */
 .aa-v10-map-pin :is(b,svg),
@@ -1785,8 +1326,7 @@ a{
 }
 
 @media(max-width:900px){
-  .aa-v10-location-grid,
-  .aa-v10-booking-help{
+  .aa-v10-location-grid{
     grid-template-columns:minmax(0,1fr)!important;
     min-height:0!important;
   }
@@ -1798,18 +1338,6 @@ a{
   .aa-v10-address-card{
     border-left:1px solid var(--aa-v12-line)!important;
     border-top:0!important;
-  }
-
-  .aa-v10-review-principles>div,
-  .aa-v10-booking-steps>div{
-    grid-template-columns:42px minmax(0,1fr)!important;
-    gap:12px 16px!important;
-    padding-block:18px!important;
-  }
-
-  .aa-v10-review-principles>div p,
-  .aa-v10-booking-steps>div p{
-    grid-column:2;
   }
 }
 
@@ -1830,40 +1358,9 @@ a{
   .aa-v10-address-card h2{
     font-size:clamp(2.6rem,12vw,4rem)!important;
   }
-
-  .aa-v10-review-principles>div,
-  .aa-v10-booking-steps>div{
-    min-height:0!important;
-    grid-template-columns:30px minmax(0,1fr)!important;
-    padding-block:20px!important;
-  }
-
-  .aa-v10-review-principles b,
-  .aa-v10-booking-steps b{
-    font-size:17px!important;
-    line-height:1.15!important;
-  }
-
-  .aa-v10-review-principles p,
-  .aa-v10-booking-steps p{
-    grid-column:1/-1!important;
-    padding-left:46px;
-  }
-
-  .aa-v10-gallery-categories{
-    grid-template-columns:minmax(0,1fr)!important;
-  }
 }
 
 @media(pointer:coarse){
-  .theme-services .aa-v10-signal-card:nth-child(3):hover{
-    background:#111820!important;
-    color:#ffffff!important;
-  }
-
-  .theme-services .aa-v10-signal-card:nth-child(3):hover p{
-    color:rgba(255,255,255,.72)!important;
-  }
 
   .aa-v10-feature-grid-dark .aa-v10-feature-card:hover{
     background:transparent!important;

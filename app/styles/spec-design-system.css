@@ -115,77 +115,7 @@
 
 /* ---------- Mobile menu ---------- */
 
-@media (max-width: 1100px) {
-  /* Direct one-tap links under the Services card */
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-  }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    min-height: 64px;
-    padding: 18px 20px;
-    border: 1px solid #ffffff24;
-    border-radius: 8px;
-    background: #ffffff05;
-    color: #f5f5f2 !important;
-    font-size: 18px;
-    font-weight: 550;
-    letter-spacing: -0.02em;
-  }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct a svg { flex-shrink: 0; color: #d58a3a !important; }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct a:is(:hover, [aria-current="page"]) {
-    border-color: #d58a3a99;
-    color: #d58a3a !important;
-  }
-
-  /* Services links: one readable column, larger type */
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-group-links a { font-size: 16px !important; color: #f5f5f2 !important; }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-group-links a span { font-size: 16px !important; }
-
-  /* Secondary actions under Book a service: call and directions */
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-booking > a:not(:first-of-type) {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    min-height: 48px;
-    color: #f5f5f2 !important;
-    font-size: 15px;
-    border-bottom: 1px solid #ffffff1a;
-  }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-booking > a:not(:first-of-type) svg { color: #d58a3a !important; }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-booking > span { font-size: 11px !important; color: #e2e4e1 !important; }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-meta {
-    margin: 16px 0 0;
-    color: #e2e4e1 !important;
-    font-size: 13px;
-    line-height: 1.6;
-  }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-intro .aa-mobile-label { font-size: 11px !important; }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-group small { font-size: 13px !important; color: #e2e4e1 !important; }
-}
-
 /* Small phones: keep two compact columns so "Book a service" stays on screen */
-@media (max-width: 420px) {
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct { gap: 8px; }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct a { min-height: 50px; padding: 12px 14px; border-radius: 8px; }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct a span { font-size: 16px !important; }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-groups { gap: 8px; }
-}
-@media (max-width: 420px) and (max-height: 700px) {
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-mobile-panel-inner { padding-top: 16px !important; }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-intro { margin-bottom: 14px; }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-intro p { font-size: 22px !important; margin-top: 6px; }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-group > button { padding: 14px 16px !important; }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-group small { display: none !important; }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-booking { padding-top: 16px !important; }
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-booking > span { display: none !important; }
-}
 
 /* ---------- Mobile bottom action bar ---------- */
 
@@ -218,12 +148,6 @@
 :root:not(#_) .aa-mega-top small { color: #55544f !important; }
 
 /* Mobile menu direct links: older rules sized the inner text at ~9px */
-@media (max-width: 1100px) {
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct a span { font-size: 18px !important; color: inherit !important; letter-spacing: -0.02em; }
-}
-@media (max-width: 340px) {
-  :root:not(#_) .aa-header .aa-expandable-menu .aa-menu-direct a span { font-size: 15px !important; white-space: nowrap; }
-}
 
 /* ---------- Homepage sections added from the specification ---------- */
 :root:not(#_) .aa-sr-only {

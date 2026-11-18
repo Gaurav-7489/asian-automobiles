@@ -1,0 +1,138 @@
+@import "tailwindcss";
+:root{--ink:#111820;--paper:#f5f5f2;--cream:#e2e4e1;--line:#0000001c;--muted:#00000082;--accent:#d58a3a;--scroll-progress:0%;--hero-progress:0}
+*{box-sizing:border-box}
+html{background:var(--paper)}
+body{background:var(--paper);font-family:var(--font-inter),Arial,sans-serif;-webkit-font-smoothing:antialiased}
+body,button,a{cursor:auto}a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{width:min(1240px,calc(100% - 48px));margin:auto}
+.progress{position:fixed;z-index:1200;left:0;top:0;width:var(--scroll-progress);height:2px;background:var(--accent);transform-origin:left;pointer-events:none}
+.header{position:fixed;z-index:1000;top:0;left:0;right:0;transition:padding .35s ease}
+.header:before{content:"";position:absolute;inset:14px 18px auto;height:58px;border:1px solid #ffffff00;border-radius:4px;background:transparent;backdrop-filter:blur(0);transition:.35s ease;z-index:-1}
+.brand{display:flex;align-items:center}.brand strong{display:grid;place-items:center}.brand span{line-height:1.05;font-weight:800}
+.header nav{display:flex}.header nav a{text-transform:uppercase;transition:color .25s}
+.menu{display:none}
+.hero{position:relative;min-height:100svh;background:#000000;color:#ffffff;overflow:hidden;isolation:isolate}
+.eyebrow{font-size:9px;font-weight:900;letter-spacing:.22em;text-transform:uppercase}
+.display{margin:0;font-weight:650;letter-spacing:-.09em;line-height:.83}.ghost{color:#ffffff22}
+.section{padding:150px 0;content-visibility:auto;contain-intrinsic-size:900px}.split{display:grid;grid-template-columns:.45fr 1.55fr;gap:65px}.display{font-size:clamp(4rem,8vw,8.6rem)}
+.services{background:var(--cream)}
+.dark{background:var(--ink);color:#ffffff}.light{color:#ffffff}.photo{position:relative;min-height:500px;overflow:hidden}.photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.6);transition:1s cubic-bezier(.16,1,.3,1)}.photo:hover img{transform:scale(1.045);filter:saturate(.95)}.photo:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#000000dd,transparent 55%)}.photo figcaption{position:absolute;z-index:2;left:24px;right:24px;bottom:22px;display:flex;justify-content:space-between;align-items:end}.photo figcaption span{font-size:8px;letter-spacing:.18em;color:#ffffff66}.photo figcaption b{font-size:15px;font-weight:500;text-align:right;max-width:230px}
+.technical{background:#f5f5f2}
+.insurance{background:#f5f5f2}
+.contact{background:var(--cream)}
+.final{position:relative;overflow:hidden;padding:150px 0;background:#111820;color:#ffffff}.final .display{margin-top:20px}
+.footer{background:#111820;color:#ffffff;border-top:1px solid #ffffff11;padding:75px 0 22px}.footer p{max-width:350px;color:#ffffff55;font-size:12px;line-height:1.7}.footer small{display:block;margin-top:10px;color:#ffffff44;font-size:10px}.back{display:inline-flex;align-items:center;gap:8px;margin-bottom:55px;font-size:9px;text-transform:uppercase;letter-spacing:.16em;color:#00000066}.form label{display:flex;flex-direction:column;gap:8px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;color:#00000066}.form input,.form textarea{outline:none;font-size:14px;text-transform:none;letter-spacing:0}.form button{margin-top:22px;border:0;display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.12em}.form>small{display:block;margin-top:10px;color:#00000055;font-size:9px}
+@media(max-width:980px){.header nav{display:none}.split{grid-template-columns:1fr}.photo{min-height:430px}}
+@media(max-width:650px){.wrap{width:calc(100% - 28px)}.section{padding:100px 0}.display{font-size:16vw}}
+@media(prefers-reduced-motion:reduce){.photo img{animation:none!important;transition:none!important}}
+
+
+/* ------------------------------------------------------------------
+   2026 refinement: quieter homepage + complete inner-page system
+   ------------------------------------------------------------------ */
+
+.inner-page{padding:0;background:var(--paper);min-height:100vh}
+.form{padding:32px;background:#ffffff;border:1px solid #00000011;box-shadow:0 25px 80px #0000000a}
+.form label{font-size:8px}
+.form input,.form textarea{border:1px solid #00000022;background:#f5f5f2;padding:15px 14px;min-height:48px;transition:border-color .2s,box-shadow .2s}
+.form input:focus,.form textarea:focus{border-color:#00000077;box-shadow:0 0 0 3px #00000008}
+.form textarea{min-height:130px}
+.form button{background:#111820;color:#ffffff;border-radius:4px;padding:14px 19px;transition:transform .25s,background .25s}
+.form button:hover{transform:translateY(-2px);background:#202a32}
+@media(max-width:650px){
+  .form{padding:20px}
+}
+
+/* Remove visual noise on the home hero while preserving the performance layer. */
+
+/* Better keyboard focus without changing the visual language. */
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--accent);outline-offset:4px;
+}
+
+
+/* ================================================================
+   UNIQUE PAGE LANGUAGES
+   Each route gets its own visual grammar; shared tokens only.
+   ================================================================ */
+.creative-page{min-height:100vh}
+.creative-wrap{max-width:1440px}
+.creative-heading{max-width:1080px}
+.creative-heading p{max-width:650px;font-size:17px;line-height:1.7;color:#00000088;margin:34px 0 0}
+.creative-page .wrap{max-width:1440px}
+.creative-page em{font-style:normal;color:#00000055}
+.creative-page .eyebrow{font-size:9px;font-weight:850;letter-spacing:.2em;text-transform:uppercase}
+.symptom{background:#f5f5f2;padding:20px;display:grid;grid-template-columns:30px 1fr 16px;align-items:center;gap:8px;min-height:95px}
+.symptom:hover{background:#ffffff}
+.symptom span{font-size:8px;color:#00000055}
+.symptom b{font-size:16px;letter-spacing:-.02em}
+
+.alignment{background:#f5f5f2;padding:50px 0 130px}
+.wheel{position:absolute;width:95px;height:180px;border:10px solid #111820;border-radius:8px;background:#99999933}.wheel.right{right:24%;top:30%}
+.tread{position:relative;overflow:hidden;background:#111820;display:flex;gap:15px;align-items:center;justify-content:center}
+.tread span{width:30px;height:120%;background:#ffffff;transform:rotate(28deg);box-shadow:0 0 0 1px #000000}
+.tread span:nth-child(2),.tread span:nth-child(4){height:115%;transform:rotate(-28deg)}
+
+@media(max-width:900px){
+  .creative-head{padding-top:120px}.creative-heading{margin-top:60px}.tread{min-height:320px}
+}
+@media(max-width:600px){
+  .creative-head{padding:105px 0 60px}.creative-heading{margin-top:50px}.creative-heading h1{font-size:17vw}.creative-heading p{font-size:15px}.wheel{width:65px;height:130px}
+}
+@media(prefers-reduced-motion:reduce){
+  .symptom{transition:none}
+}
+
+/* FINAL NAV THEME — black surface + white typography on every route */
+.header{color:#ffffff!important}
+.header .brand,
+.header .brand span,
+.header .brand strong{color:#ffffff}
+.header .brand strong{background:#ffffff;color:#000000}
+.header .menu{
+  color:#ffffff!important;
+  background:#ffffff0d!important;
+  border-color:#ffffff24!important;
+}
+
+/* FINAL PROFESSIONAL NAV — restrained black/white system */
+.header{padding:18px 0;pointer-events:none}
+.brand{flex:0 0 auto;gap:9px;padding-right:24px;border-right:1px solid #ffffff18}
+.brand strong{
+  width:38px;height:38px;
+  border-radius:7px!important;
+  background:#ffffff!important;color:#111820!important;
+  font-size:11px;letter-spacing:-.04em;
+}
+.brand span{color:#ffffff!important;font-size:8px;letter-spacing:.22em}
+.header nav{flex:1;justify-content:center;gap:2px}
+.header nav a{
+  color:#ffffffa8!important;
+  padding:9px 10px;
+  border-radius:6px;
+  font-size:8px;
+  letter-spacing:.16em;
+}
+.header nav a:hover{color:#ffffff!important;background:#ffffff00}
+.header nav a:before{
+  left:10px;right:10px;bottom:2px;height:1px;
+  background:#ffffff!important;
+}
+.menu{
+  width:40px;height:40px;
+  border-radius:7px!important;
+  background:#ffffff00!important;
+  color:#ffffff!important;
+  border:1px solid #ffffff20!important;
+}
+@media(max-width:1100px){
+ .header nav{gap:0}
+ .header nav a{padding:9px 7px;font-size:7px}
+}
+@media(max-width:980px){
+ .header{padding:12px 0}
+ .brand{border-right:0;padding-right:0}
+ .menu{display:grid;place-items:center}
+}
+@media(min-width:981px){.menu{display:none}}

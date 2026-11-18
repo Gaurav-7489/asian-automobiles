@@ -1,32 +1,17 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
-import "./pro-upgrade.css";
-import "./design-v8.css";
-import "./inner-pages-v9.css";
-import "./responsive-fixes.css";
-import "./inner-pages-v10.css";
-import "./inner-pages-v11.css";
-import "./responsive-contrast-v12.css";
-import "./inner-pages-v13.css";
-import "./contrast-v14.css";
-import "./production.css";
-import "./connected-flow.css";
-import "./responsive-layout.css";
-import "./mobile-attraction.css";
-import "./spec-design-system.css";
-import "./audit-fixes.css";
-import "./polish.css";
+import "./styles/index.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { NavigationFeedback } from "@/components/navigation-feedback";
+import { MotionProvider } from "@/components/motion-provider";
+import { JsonLd } from "@/components/ui/json-ld";
 import { businessFacts, directionsHref } from "@/lib/business-facts";
+import { siteUrl } from "@/lib/site";
 
-// Production deployment trigger — responsive baseline.
 // Spec 5.3: Manrope for headings, Inter for body. Self-hosted Latin variable fonts (OFL, Fontsource).
 const manrope = localFont({ src: "./fonts/manrope-latin-wght-normal.woff2", weight: "200 800", display: "swap", variable: "--font-manrope" });
 const inter = localFont({ src: "./fonts/inter-latin-wght-normal.woff2", weight: "100 900", display: "swap", variable: "--font-inter" });
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://asian-automobiles.vercel.app";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -41,7 +26,6 @@ export const metadata: Metadata = {
   description:
     "Independent car servicing, mechanical repairs, AC service, wheel alignment, tyre care and spare-parts enquiries on Kattoor Road, Irinjalakuda. Call or visit the workshop.",
   alternates: { canonical: "/" },
-  icons: { icon: "/favicon.ico" },
   openGraph: {
     type: "website",
     title: "Asian Automobiles – Multi-Brand Car Service Centre in Irinjalakuda",
@@ -79,14 +63,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en-IN" className={`${manrope.variable} ${inter.variable}`}>
       <body>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema) }}
-        />
+        <JsonLd data={businessSchema} />
         <a href="#main" className="aa-skip-link">Skip to main content</a>
-        <SiteHeader />
-        {children}
-        <SiteFooter />
+        <MotionProvider>
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+        </MotionProvider>
+        <NavigationFeedback />
       </body>
     </html>
   );

@@ -7,17 +7,15 @@ import {
   ArrowDownRight,
   ArrowRight,
   Check,
-  CircleAlert,
   Disc3,
   Fan,
   Gauge,
   PackageSearch,
-  ShieldCheck,
   Snowflake,
   ThermometerSnowflake,
   Wrench,
 } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
@@ -38,7 +36,6 @@ const aaModuleImages = {
     "/images/photos/wheel-alignment.jpg",
     "/images/photos/hero-workshop.jpg",
   ],
-  accident: "/images/photos/engine-bay.jpg",
 };
 
 export function ServiceScanner() {
@@ -67,7 +64,7 @@ export function ServiceScanner() {
           <b>READY</b>
         </div>
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div
+          <m.div
             key={current.value}
             className="aa-v11-scanner-focus"
             initial={reduce ? false : { opacity: 0, y: 14 }}
@@ -79,8 +76,8 @@ export function ServiceScanner() {
             <small>{current.tag}</small>
             <strong>{current.title}</strong>
             <p>{current.note}</p>
-            <Link className="aa-connected-action" href={bookingHref("mechanical-repairs", undefined, current.title)}>Enquire about this symptom <ArrowRight size={15} /></Link>
-          </motion.div>
+            <Link className="aa-connected-action" href={bookingHref("mechanical-repairs")}>Enquire about this symptom <ArrowRight size={15} /></Link>
+          </m.div>
         </AnimatePresence>
         <div className="aa-v11-scanner-meter" aria-hidden="true">
           <span /><span /><span /><span /><span /><span /><span /><span />
@@ -123,19 +120,19 @@ export function ClimateConsole() {
           <Snowflake size={17} />
         </div>
         <div className="aa-v11-climate-display">
-          <motion.strong
+          <m.strong
             key={current.temp}
             initial={reduce ? false : { opacity: 0, scale: .92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: .32, ease }}
           >
             {current.temp}
-          </motion.strong>
+          </m.strong>
           <span>REFERENCE DISPLAY</span>
         </div>
         <div className="aa-v11-airflow" aria-hidden="true">
           {[1,2,3,4,5].map((n) => (
-            <motion.i
+            <m.i
               key={n}
               animate={reduce ? undefined : { scaleY: n <= current.fan ? 1 : .28, opacity: n <= current.fan ? 1 : .25 }}
               transition={{ duration: .3, delay: n * .025 }}
@@ -145,7 +142,7 @@ export function ClimateConsole() {
         <div className="aa-v11-climate-note">
           <Fan size={17} />
           <p>{current.copy}</p>
-          <Link className="aa-connected-action" href={bookingHref("car-ac-service", undefined, current.label)}>Enquire about this symptom <ArrowRight size={15} /></Link>
+          <Link className="aa-connected-action" href={bookingHref("car-ac-service")}>Enquire about this symptom <ArrowRight size={15} /></Link>
         </div>
       </div>
 
@@ -346,7 +343,7 @@ export function WheelGeometryLab() {
 
       <div className="aa-v22-copy-panel">
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div
+          <m.div
             key={active}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -356,14 +353,14 @@ export function WheelGeometryLab() {
             <small>{current.eyebrow}</small>
             <h3>{current.title}</h3>
             <p>{current.copy}</p>
-            <Link className="aa-connected-action" href={bookingHref("wheel-alignment-balancing", undefined, current.title)}>Enquire about this symptom <ArrowRight size={15} /></Link>
+            <Link className="aa-connected-action" href={bookingHref("wheel-alignment-balancing")}>Enquire about this symptom <ArrowRight size={15} /></Link>
 
             <div className="aa-v22-readout">
               <span>{current.metricLabel}</span>
               <b>{current.metric}</b>
               <small>ILLUSTRATIVE</small>
             </div>
-          </motion.div>
+          </m.div>
         </AnimatePresence>
 
         <div className="aa-v22-tabs">
@@ -434,7 +431,7 @@ export function TyreTreadLab() {
 
       <div className="aa-v22-copy-panel">
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div
+          <m.div
             key={active}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -444,14 +441,14 @@ export function TyreTreadLab() {
             <small>{current.label}</small>
             <h3>{current.title}</h3>
             <p>{current.note}</p>
-            <Link className="aa-connected-action" href={bookingHref("tyre-care", undefined, current.title)}>Enquire about this symptom <ArrowRight size={15} /></Link>
+            <Link className="aa-connected-action" href={bookingHref("tyre-care")}>Enquire about this symptom <ArrowRight size={15} /></Link>
 
             <div className="aa-v22-readout">
               <span>{current.metricLabel}</span>
               <b>{current.metric}</b>
               <small>VISUAL GUIDE</small>
             </div>
-          </motion.div>
+          </m.div>
         </AnimatePresence>
 
         <div className="aa-v22-tabs">
@@ -511,7 +508,7 @@ export function PartsFinder() {
           <i /><i /><i />
         </div>
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div
+          <m.div
             key={groups[active].label}
             className="aa-v11-parts-details"
             initial={{ opacity: 0, x: 18 }}
@@ -525,85 +522,10 @@ export function PartsFinder() {
               {groups[active].items.map((item) => <span key={item}>{item}</span>)}
             </div>
             <p>Availability and exact fitment should be confirmed for the vehicle before travel.</p>
-            <Link className="aa-connected-action" href={bookingHref("spare-parts", undefined, groups[active].label + " parts")}>Enquire about these parts <ArrowRight size={15} /></Link>
-          </motion.div>
+            <Link className="aa-connected-action" href={bookingHref("spare-parts")}>Enquire about these parts <ArrowRight size={15} /></Link>
+          </m.div>
         </AnimatePresence>
       </div>
-    </div>
-  );
-}
-
-export function ClaimDeck() {
-  const [active, setActive] = useState(0);
-  const cards = [
-    ["ASSESS", "Vehicle damage", "Start with visible damage and the areas needing inspection."],
-    ["DOCUMENT", "Useful photos", "Prepare relevant photos and repair details where required."],
-    ["ESTIMATE", "Repair scope", "Clarify what work and components are involved."],
-    ["COORDINATE", "Case-specific steps", "Insurer or approval steps vary by the actual case."],
-    ["REPAIR", "Approved work", "Complete the agreed repair and final check."],
-  ];
-
-  return (
-    <div className="aa-v11-claim-deck">
-      <div className="aa-v11-claim-stack" aria-live="polite">
-        {cards.map(([tag, title, copy], index) => {
-          const offset = index - active;
-          return (
-            <motion.article
-              key={tag}
-              className={offset === 0 ? "is-active" : ""}
-              animate={{
-                x: Math.max(0, offset) * 14,
-                y: Math.max(0, offset) * 14,
-                scale: offset < 0 ? .96 : 1 - Math.max(0, offset) * .035,
-                opacity: offset < 0 ? 0 : 1 - Math.max(0, offset) * .14,
-              }}
-              transition={{ duration: .34, ease }}
-              style={{ zIndex: cards.length - Math.max(0, offset) }}
-            >
-              <ShieldCheck size={21} />
-              <small>0{index + 1} / {tag}</small>
-              <h3>{title}</h3>
-              <p>{copy}</p>
-            </motion.article>
-          );
-        })}
-      </div>
-      <div className="aa-v11-claim-controls">
-        {cards.map(([tag], index) => (
-          <button type="button" key={tag} className={active === index ? "is-active" : ""} onClick={() => setActive(index)}>
-            <span>0{index + 1}</span><b>{tag}</b>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export function AccidentIntakeStrip() {
-  const items = [
-    ["01", "PHOTOS", "Wide view + close damage"],
-    ["02", "VEHICLE", "Make + model"],
-    ["03", "WHAT HAPPENED", "One or two sentences"],
-    ["04", "SEND", "WhatsApp is enough to start"],
-  ];
-
-  return (
-    <div className="aa-v11-accident-strip">
-      <div className="aa-v11-accident-alert">
-        <div className="aa-v16-accident-strip-photo" aria-hidden="true">
-          <Image src={aaModuleImages.accident} alt="" fill quality={72} sizes="300px" />
-          <i />
-        </div>
-        <CircleAlert size={22} /><span>ACCIDENT INTAKE</span>
-      </div>
-      {items.map(([no, title, copy]) => (
-        <div key={no}>
-          <span>{no}</span>
-          <b>{title}</b>
-          <small>{copy}</small>
-        </div>
-      ))}
     </div>
   );
 }

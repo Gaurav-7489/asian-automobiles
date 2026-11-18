@@ -1,0 +1,23 @@
+/*
+ * Global stylesheet, imported once by app/layout.tsx.
+ * Order is the cascade: later files intentionally refine earlier ones. Keep it.
+ * Unreachable selectors were removed in the Nov 2026 audit (see docs/PERFORMANCE_SECURITY_AUDIT.md).
+ */
+@import "./globals.css";
+@import "./pro-upgrade.css";
+@import "./design-v8.css";
+@import "./inner-pages-v9.css";
+@import "./responsive-fixes.css";
+@import "./inner-pages-v10.css";
+@import "./inner-pages-v11.css";
+@import "./responsive-contrast-v12.css";
+@import "./inner-pages-v13.css";
+@import "./contrast-v14.css";
+@import "./production.css";
+@import "./connected-flow.css";
+@import "./responsive-layout.css";
+@import "./mobile-attraction.css";
+@import "./spec-design-system.css";
+@import "./audit-fixes.css";
+@import "./polish.css";
+@import "./motion.css";

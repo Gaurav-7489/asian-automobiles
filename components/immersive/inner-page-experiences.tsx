@@ -1,16 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowUpRight, ChevronDown } from "lucide-react";
-import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-} from "framer-motion";
-import { useRef, useState } from "react";
+import { ChevronDown } from "lucide-react";
+import { AnimatePresence, m, useReducedMotion, useScroll, useSpring } from "framer-motion";
+import { useState } from "react";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
@@ -34,7 +27,7 @@ export function PageProgressRail() {
     <div className="aa-page-progress" aria-hidden="true">
       <span>PAGE</span>
       <i>
-        <motion.b style={{ scaleY }} />
+        <m.b style={{ scaleY }} />
       </i>
       <span>END</span>
     </div>
@@ -82,7 +75,7 @@ export function BlueprintTimeline({ items }: { items: BlueprintTimelineItem[] })
           <i />
         </div>
         <AnimatePresence mode="wait" initial={false}>
-          <motion.article
+          <m.article
             key={items[active].no}
             initial={reduceMotion ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -92,79 +85,16 @@ export function BlueprintTimeline({ items }: { items: BlueprintTimelineItem[] })
             <span>{items[active].no} / {items[active].label}</span>
             <h3>{items[active].title}</h3>
             <p>{items[active].text}</p>
-          </motion.article>
+          </m.article>
         </AnimatePresence>
 
         <div className="aa-blueprint-timeline-meter" aria-hidden="true">
-          <motion.i
+          <m.i
             animate={{ scaleX: (active + 1) / items.length }}
             transition={{ duration: 0.42, ease }}
           />
         </div>
       </div>
-    </div>
-  );
-}
-
-export type ExpandGalleryItem = {
-  label: string;
-  eyebrow?: string;
-  image: string;
-  alt: string;
-  href?: string;
-};
-
-export function ExpandGallery({ items }: { items: ExpandGalleryItem[] }) {
-  const [active, setActive] = useState(0);
-  const reduceMotion = useReducedMotion();
-
-  return (
-    <div className="aa-expand-gallery" onPointerLeave={() => setActive(0)}>
-      {items.map((item, index) => {
-        const body = (
-          <>
-            <motion.div
-              className="aa-expand-gallery-image"
-              animate={reduceMotion ? undefined : { scale: active === index ? 1.015 : 1 }}
-              transition={{ duration: 0.5, ease }}
-            >
-              <Image
-                src={item.image}
-                alt={item.alt}
-                fill
-                quality={70}
-                sizes="(max-width: 820px) 92vw, 42vw"
-              />
-            </motion.div>
-            <div className="aa-expand-gallery-shade" />
-            <div className="aa-expand-gallery-copy">
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <div>
-                {item.eyebrow && <small>{item.eyebrow}</small>}
-                <b>{item.label}</b>
-              </div>
-              {item.href && <ArrowUpRight size={18} />}
-            </div>
-          </>
-        );
-
-        const className = active === index ? "aa-expand-gallery-card is-active" : "aa-expand-gallery-card";
-        const handlers = {
-          onPointerEnter: () => setActive(index),
-          onFocus: () => setActive(index),
-          onClick: () => setActive(index),
-        };
-
-        return item.href ? (
-          <Link key={item.label} href={item.href} className={className} {...handlers}>
-            {body}
-          </Link>
-        ) : (
-          <button type="button" key={item.label} className={className} {...handlers}>
-            {body}
-          </button>
-        );
-      })}
     </div>
   );
 }
@@ -195,7 +125,7 @@ export function MotionFaq({ items }: { items: MotionFaqItem[] }) {
             </button>
             <AnimatePresence initial={false}>
               {isOpen && (
-                <motion.div
+                <m.div
                   className="aa-motion-faq-answer"
                   initial={reduceMotion ? false : { height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
@@ -203,7 +133,7 @@ export function MotionFaq({ items }: { items: MotionFaqItem[] }) {
                   transition={{ duration: 0.32, ease }}
                 >
                   <p>{item.answer}</p>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </article>
@@ -239,12 +169,10 @@ export function ScrollRevealSection({
   children: React.ReactNode;
   className?: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
 
   return (
-    <motion.div
-      ref={ref}
+    <m.div
       className={`aa-scroll-reveal ${className}`}
       initial={reduceMotion ? false : { opacity: 1, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -252,6 +180,6 @@ export function ScrollRevealSection({
       transition={{ duration: 0.58, ease }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

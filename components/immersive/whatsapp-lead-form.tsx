@@ -2,9 +2,20 @@
 
 import { ArrowUpRight, Check, MessageCircle, Phone } from "lucide-react";
 import { FormEvent, useState } from "react";
-import { businessFacts } from "@/lib/business-facts";
+import { businessFacts, phoneTel, whatsappLink, type LeadMode } from "@/lib/business-facts";
+import { findService, serviceCatalog } from "@/lib/service-catalog";
 
-import { findService, serviceCatalog, type LeadMode } from "@/lib/service-catalog";
+/** Field limits, enforced by the inputs and again when the message is assembled. */
+const limits = { name: 80, phone: 20, vehicle: 80, requirement: 120, quantity: 4, preferred: 60, extra: 1000 } as const;
+type Field = keyof typeof limits;
+
+/** Trim, drop control characters (keeping line breaks in the free-text field) and cap the length. */
+function field(data: FormData, name: Field): string {
+  const raw = data.get(name);
+  if (typeof raw !== "string") return "";
+  const cleaned = name === "extra" ? raw.replace(/[^\P{Cc}\n]/gu, "") : raw.replace(/\p{Cc}/gu, " ");
+  return cleaned.trim().slice(0, limits[name]);
+}
 
 const modeCopy: Record<LeadMode, { eyebrow: string; title: string; helper: string; button: string }> = {
   service: {
@@ -27,9 +38,9 @@ const modeCopy: Record<LeadMode, { eyebrow: string; title: string; helper: strin
   },
 };
 
-export function WhatsAppLeadForm({ mode: initialMode = "service", selectedService, detail = "", quote = false }: { mode?: LeadMode; selectedService?: string; detail?: string; quote?: boolean }) {
-  const [serviceId, setServiceId] = useState(selectedService ?? "");
-  const [intent, setIntent] = useState(quote || initialMode === "quote" ? "quote" : "service");
+export function WhatsAppLeadForm({ mode: initialMode = "service", selectedService }: { mode?: LeadMode; selectedService?: string }) {
+  const [serviceId, setServiceId] = useState(findService(selectedService)?.id ?? "");
+  const [intent, setIntent] = useState(initialMode === "quote" ? "quote" : "service");
   const service = findService(serviceId);
   const mode: LeadMode = service?.mode === "parts"
     ? service.mode : intent === "quote" ? "quote" : service?.mode ?? "service";
@@ -43,33 +54,30 @@ export function WhatsAppLeadForm({ mode: initialMode = "service", selectedServic
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    if (!form.reportValidity()) return;
+    const data = new FormData(form);
     const lines = [
       intro,
       "",
-      `Name: ${data.get("name") || "-"}`,
-      `Phone: ${data.get("phone") || "-"}`,
-      `Vehicle: ${data.get("vehicle") || "-"}`,
+      `Name: ${field(data, "name") || "-"}`,
+      `Phone: ${field(data, "phone") || "-"}`,
+      `Vehicle: ${field(data, "vehicle") || "-"}`,
       `Service: ${service?.title ?? "Not sure yet"}`,
       `Request: ${intent === "quote" ? "Quote" : "Service / availability enquiry"}`,
-      `Requirement: ${data.get("requirement") || service?.title || "Please guide me"}`,
+      `Requirement: ${field(data, "requirement") || service?.title || "Please guide me"}`,
     ];
 
-    const preferred = data.get("preferred");
-    const extra = data.get("extra");
-    const insurer = data.get("insurer");
-    const quantity = data.get("quantity");
-
+    const preferred = field(data, "preferred");
+    const quantity = field(data, "quantity");
+    const extra = field(data, "extra");
     if (preferred) lines.push(`Preferred date / time: ${preferred}`);
-    if (insurer) lines.push(`Insurer (if applicable): ${insurer}`);
     if (quantity) lines.push(`Quantity: ${quantity}`);
     if (extra) lines.push(`More detail: ${extra}`);
+    if (mode === "quote") lines.push("", "I can attach reference / damage photos in WhatsApp.");
 
-    if (mode === "quote") {
-      lines.push("", "I can attach reference / damage photos in WhatsApp.");
-    }
-
-    const href = `https://wa.me/${businessFacts.phones.whatsappHref}?text=${encodeURIComponent(lines.join("\n"))}`;
+    const href = whatsappLink(lines.join("\n"));
+    if (!href) return;
     setOpened(true);
     window.open(href, "_blank", "noopener,noreferrer");
   }
@@ -84,7 +92,7 @@ export function WhatsAppLeadForm({ mode: initialMode = "service", selectedServic
           <MessageCircle size={17} />
           <span>WhatsApp: {businessFacts.phones.whatsappDisplay}</span>
         </div>
-        <a href={"tel:" + businessFacts.phones.primaryHref} className="aa-v10-text-action">
+        <a href={phoneTel} className="aa-v10-text-action">
           <Phone size={15} /> Prefer a call? Talk to the workshop.
         </a>
       </div>
@@ -92,17 +100,17 @@ export function WhatsAppLeadForm({ mode: initialMode = "service", selectedServic
       <form className="aa-v10-lead-form" onSubmit={submit}>
         <label>
           <span>Your name</span>
-          <input name="name" autoComplete="name" placeholder="What should we call you?" required />
+          <input name="name" autoComplete="name" placeholder="What should we call you?" maxLength={limits.name} required />
         </label>
 
         <label>
           <span>Phone</span>
-          <input name="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="A number we can reach" required />
+          <input name="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="A number we can reach" maxLength={limits.phone} pattern="[\d\s+\(\)\-]{6,20}" title="Digits, spaces, +, - and brackets only" required />
         </label>
 
         <label>
           <span>Vehicle</span>
-          <input name="vehicle" placeholder="Make + model, e.g. Hyundai i20" required />
+          <input name="vehicle" placeholder="Make + model, e.g. Hyundai i20" maxLength={limits.vehicle} required />
         </label>
 
         <label>
@@ -123,7 +131,7 @@ export function WhatsAppLeadForm({ mode: initialMode = "service", selectedServic
         {mode === "parts" && (
           <label>
             <span>Part needed</span>
-            <input name="requirement" defaultValue={selectedService === "spare-parts" ? detail : ""} placeholder="Part name or description" required />
+            <input name="requirement" placeholder="Part name or description" maxLength={limits.requirement} required />
           </label>
         )}
 
@@ -131,14 +139,14 @@ export function WhatsAppLeadForm({ mode: initialMode = "service", selectedServic
         {mode === "parts" && (
           <label>
             <span>Quantity (optional)</span>
-            <input name="quantity" inputMode="numeric" placeholder="e.g. 1" />
+            <input name="quantity" inputMode="numeric" placeholder="e.g. 1" maxLength={limits.quantity} pattern="[0-9]{1,4}" />
           </label>
         )}
 
         {mode === "service" && (
           <label>
             <span>Preferred date / time</span>
-            <input name="preferred" placeholder="Your preferred slot" />
+            <input name="preferred" placeholder="Your preferred slot" maxLength={limits.preferred} />
           </label>
         )}
 
@@ -146,7 +154,7 @@ export function WhatsAppLeadForm({ mode: initialMode = "service", selectedServic
           <span>{mode === "parts" ? "Vehicle / part details" : "Tell us what is happening"}</span>
           <textarea
             name="extra"
-            defaultValue={selectedService !== "spare-parts" ? detail : ""}
+            maxLength={limits.extra}
             placeholder={
               mode === "parts"
                 ? "Variant, model year, part number if known, or anything else useful."

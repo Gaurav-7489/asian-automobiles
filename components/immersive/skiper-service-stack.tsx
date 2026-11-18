@@ -55,7 +55,7 @@ export function SkiperServiceStack({ services }: { services: StackService[] }) {
             </div>
             <h3>{service.title}</h3>
             <p>{service.text}</p>
-            <Link data-magnetic href={service.href}>
+            <Link href={service.href}>
               Explore service <ArrowUpRight size={15} />
             </Link>
           </div>
