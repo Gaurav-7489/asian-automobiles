@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "typecheck": "tsc --noEmit",
     "test:smoke": "playwright test"
   },
   "dependencies": {
@@ -24,5 +25,8 @@
     "@types/react-dom": "^19.1.2",
     "tailwindcss": "^4.1.8",
     "typescript": "^5.8.3"
+  },
+  "overrides": {
+    "postcss": "^8.5.33"
   }
 }
