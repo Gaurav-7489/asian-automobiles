@@ -14,9 +14,9 @@
 :root:not(#_) .aa-hero2-bottom {
   grid-template-columns: minmax(0, 520px) auto !important;
   column-gap: clamp(28px, 4vw, 64px) !important;
-  align-items: end !important;
-  justify-content: start !important;
-  margin-bottom: clamp(28px, 4vh, 44px) !important;
+  align-items: end;
+  justify-content: start;
+  margin-bottom: clamp(28px, 4vh, 44px);
 }
 :root:not(#_) .aa-hero2-media img { opacity: 1 !important; }
 @media (max-width: 720px) {
@@ -36,16 +36,16 @@
   .aa-v10-section-head > .eyebrow, .aa-v10-photo-copy .eyebrow,
   .aa-v10-feature-meta span, .aa-v10-contact-actions a > span:first-child,
   .aa-v10-button span
-) { font-size: 11px !important; }
-:root:not(#_) :is(.aa-hero-v8-meta span, .aa-v10-feature-meta small, .aa-skip-card-meta, .aa-skip-card-meta span) { font-size: 10.5px !important; }
+) { font-size: 11px; }
+:root:not(#_) :is(.aa-hero-v8-meta span, .aa-v10-feature-meta small, .aa-skip-card-meta, .aa-skip-card-meta span) { font-size: 10.5px; }
 :root:not(#_) .aa-brand-name small { font-size: 9.5px !important; }
-:root:not(#_) .aa-desktop-nav :is(a, button), :root:not(#_) .aa-header-phone span { font-size: 11.5px !important; }
-:root:not(#_) .aa-mega-link span:first-child { font-size: 10px !important; }
-:root:not(#_) .aa-mega-link small { font-size: 10.5px !important; }
+:root:not(#_) .aa-desktop-nav :is(a, button), :root:not(#_) .aa-header-phone span { font-size: 11.5px; }
+:root:not(#_) .aa-mega-link span:first-child { font-size: 10px; }
+:root:not(#_) .aa-mega-link small { font-size: 10.5px; }
 
 /* ---------- 5. Service area: copy + visual instead of an empty right half ---------- */
 :root:not(#_) .aa-home-area .aa-home-area-grid {
-  display: grid !important;
+  display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   gap: clamp(32px, 5vw, 80px);
   align-items: center;

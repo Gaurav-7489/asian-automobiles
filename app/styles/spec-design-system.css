@@ -40,8 +40,8 @@
 :root:not(#_) :is(h1, h2, h3, h4, .aa-brand-name, .aa-footer-wordmark, .aa-hero2 h1, .aa-skip-card h3) {
   font-family: var(--font-manrope), Arial, sans-serif;
 }
-:root:not(#_) :is(h1, h2) { font-weight: 700 !important; }
-:root:not(#_) h3 { font-weight: 600 !important; }
+:root:not(#_) :is(h1, h2) { font-weight: 700; }
+:root:not(#_) h3 { font-weight: 600; }
 
 /* Eyebrows: amber-700 on light, amber-500 on dark */
 :root:not(#_) :is(.aa-v10-paper, .aa-v10-soft, .aa-section:not(.aa-section-dark)) :is(.eyebrow:not(.light), .aa-kicker:not(.aa-kicker-light)) { color: #9a5a1c !important; }
@@ -49,15 +49,15 @@
 
 /* ---------- Hero: flat graphite overlay on the text side (5.6 / 7.F2), no glow ---------- */
 :root:not(#_) .aa-hero2-shade {
-  background: linear-gradient(90deg, rgba(17, 24, 32, 0.88) 0%, rgba(17, 24, 32, 0.62) 55%, rgba(17, 24, 32, 0.4) 100%) !important;
+  background: linear-gradient(90deg, rgba(17, 24, 32, 0.88) 0%, rgba(17, 24, 32, 0.62) 55%, rgba(17, 24, 32, 0.4) 100%);
 }
 @media (max-width: 720px) {
-  :root:not(#_) .aa-hero2-shade { background: rgba(17, 24, 32, 0.78) !important; }
+  :root:not(#_) .aa-hero2-shade { background: rgba(17, 24, 32, 0.78); }
 }
-:root:not(#_) :is(.aa-hero2-orb, .aa-hero2-cursor-light, .aa-cursor-v4, .aa-progress, .aa-hero-vignette) { display: none !important; }
+:root:not(#_) :is(.aa-hero2-orb, .aa-hero2-cursor-light, .aa-cursor-v4, .aa-progress, .aa-hero-vignette) { display: none; }
 
 /* ---------- Shape: 4px buttons ---------- */
-:root:not(#_) :is(.aa-v10-button, .aa-header-cta, .aa-hero2-primary, .aa-light-button, .aa-outline-button, .aa-v10-contact-actions > a, .aa-connected-action) { border-radius: 4px !important; }
+:root:not(#_) :is(.aa-v10-button, .aa-header-cta, .aa-hero2-primary, .aa-light-button, .aa-outline-button, .aa-v10-contact-actions > a, .aa-connected-action) { border-radius: 4px; }
 
 /* FAQ numbers, timeline and AC-mode labels after the palette change */
 :root:not(#_) .aa-motion-faq button > span { color: #5c6670 !important; opacity: 1 !important; }
@@ -67,14 +67,14 @@
 /* ---------- Small numbers and labels (were 1.6–4.4:1) ---------- */
 
 /* Service stack cards: meta row was opacity .42 at 8px */
-:root:not(#_) .aa-skip-card-meta { opacity: 1 !important; font-size: 10px !important; }
-:root:not(#_) .aa-skip-card-meta span { color: #55544f !important; }
-:root:not(#_) .aa-skip-card:nth-child(even) .aa-skip-card-meta span { color: #b9bab4 !important; }
-:root:not(#_) .aa-skip-card:nth-child(even) p { color: #e2e4e1 !important; }
+:root:not(#_) .aa-skip-card-meta { opacity: 1 !important; font-size: 10px; }
+:root:not(#_) .aa-skip-card-meta span { color: #55544f; }
+:root:not(#_) .aa-skip-card:nth-child(even) .aa-skip-card-meta span { color: #b9bab4; }
+:root:not(#_) .aa-skip-card:nth-child(even) p { color: #e2e4e1; }
 
 /* Home section heading accent and count */
-:root:not(#_) .aa-section-head h2 em { color: #66635c !important; }
-:root:not(#_) .aa-count { color: #55534f !important; }
+:root:not(#_) .aa-section-head h2 em { color: #66635c; }
+:root:not(#_) .aa-count { color: #55534f; }
 
 /* Numbered stack lists on light sections */
 :root:not(#_) .aa-v10-stack-list > div > span { color: #55544e !important; }
@@ -120,23 +120,23 @@
 /* ---------- Mobile bottom action bar ---------- */
 
 /* Labels were 8px; the accent highlight sits on the main action */
-:root:not(#_) .aa-mobile-actions a { font-size: 11px !important; letter-spacing: 0.06em !important; color: #f5f5f2 !important; }
-:root:not(#_) .aa-mobile-actions a :is(span, svg) { color: #f5f5f2 !important; }
+:root:not(#_) .aa-mobile-actions a { font-size: 11px; letter-spacing: 0.06em; color: #f5f5f2 !important; }
+:root:not(#_) .aa-mobile-actions a :is(span, svg) { color: #f5f5f2; }
 :root:not(#_) .aa-mobile-actions a:last-child,
-:root:not(#_) .aa-mobile-actions a:last-child:is(:hover, :active, :focus-visible) { background: transparent !important; }
+:root:not(#_) .aa-mobile-actions a:last-child:is(:hover, :active, :focus-visible) { background: transparent; }
 :root:not(#_) .aa-mobile-actions a:is(:first-child, :last-child):is(:hover, :active) :is(span, svg) { color: #f5f5f2 !important; }
 :root:not(#_) .aa-mobile-actions a:nth-child(2),
-:root:not(#_) .aa-mobile-actions a:nth-child(2):is(:hover, :active) { background: #d58a3a !important; color: #111820 !important; }
-:root:not(#_) .aa-mobile-actions a:nth-child(2) :is(span, svg) { color: #111820 !important; }
+:root:not(#_) .aa-mobile-actions a:nth-child(2):is(:hover, :active) { background: #d58a3a; color: #111820 !important; }
+:root:not(#_) .aa-mobile-actions a:nth-child(2) :is(span, svg) { color: #111820; }
 
 /* ---------- General mobile readability ---------- */
 
 @media (max-width: 720px) {
   /* Tiny uppercase eyebrows were 8–9px */
-  :root:not(#_) .eyebrow, :root:not(#_) .aa-kicker { font-size: 11px !important; }
-  :root:not(#_) .aa-v10-section-head p, :root:not(#_) .aa-v10-stack-list p, :root:not(#_) .aa-v10-feature-card p { font-size: 15px !important; line-height: 1.6 !important; }
+  :root:not(#_) .eyebrow, :root:not(#_) .aa-kicker { font-size: 11px; }
+  :root:not(#_) .aa-v10-section-head p, :root:not(#_) .aa-v10-stack-list p, :root:not(#_) .aa-v10-feature-card p { font-size: 15px; line-height: 1.6; }
   /* Keep the footer clear of the fixed action bar (dark, so no light strip shows) */
-  :root:not(#_) .aa-footer { padding-bottom: calc(96px + env(safe-area-inset-bottom)) !important; }
+  :root:not(#_) .aa-footer { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
   :root:not(#_) body { padding-bottom: 0 !important; }
 }
 
@@ -151,10 +151,10 @@
 
 /* ---------- Homepage sections added from the specification ---------- */
 :root:not(#_) .aa-sr-only {
-  position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important;
-  margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important;
+  position: absolute; width: 1px; height: 1px; padding: 0;
+  margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
-:root:not(#_) .aa-home-spec .aa-home-strip { padding-block: 28px 40px !important; margin: 0 !important; }
+:root:not(#_) .aa-home-spec .aa-home-strip { padding-block: 28px 40px !important; margin: 0; }
 :root:not(#_) .aa-home-spec .aa-home-band { padding-block: 28px !important; }
 :root:not(#_) .aa-home-spec .aa-home-band-row {
   display: flex; align-items: center; justify-content: space-between; gap: 20px 32px; flex-wrap: wrap;
@@ -182,5 +182,5 @@
   border: 0; border-radius: 4px; background: #d58a3a; color: #111820; font-weight: 600; cursor: pointer;
 }
 :root:not(#_) .aa-map-reveal small { font-weight: 500; color: #111820 !important; opacity: 1 !important; font-size: 12px; }
-:root:not(#_) .aa-map-live { padding: 0 !important; overflow: hidden; }
+:root:not(#_) .aa-map-live { padding: 0; overflow: hidden; }
 :root:not(#_) .aa-map-live iframe { display: block; width: 100%; height: 100%; min-height: 360px; border: 0; }

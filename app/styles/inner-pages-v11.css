@@ -59,7 +59,7 @@
 .theme-about .aa-v10-head{
   background:
     linear-gradient(transparent,transparent),
-    #111820!important;
+    #111820;
 }
 
 .aa-v11-hero-about{
@@ -90,13 +90,13 @@
 .theme-services .aa-v10-head{
   background:
     linear-gradient(transparent,transparent),
-    linear-gradient(130deg,#111820,#111820 65%,#111820)!important;
+    linear-gradient(130deg,#111820,#111820 65%,#111820);
 }
 
 .theme-service .aa-v10-head{
   background:
     linear-gradient(transparent,transparent),
-    #111820!important;
+    #111820;
 }
 
 .theme-ac{
@@ -106,7 +106,7 @@
 .theme-ac .aa-v10-head{
   background:
     linear-gradient(transparent,transparent),
-    linear-gradient(130deg,#111820,#111820 65%,#111820)!important;
+    linear-gradient(130deg,#111820,#111820 65%,#111820);
 }
 
 .aa-v11-hero-ac{
@@ -122,7 +122,7 @@
 .theme-wheel .aa-v10-head{
   background:
     linear-gradient(transparent,transparent),
-    #111820!important;
+    #111820;
 }
 
 .theme-tyre{
@@ -132,7 +132,7 @@
 .theme-tyre .aa-v10-head{
   background:
     linear-gradient(transparent,transparent),
-    #111820!important;
+    #111820;
 }
 
 .aa-v11-hero-tyre{
@@ -147,7 +147,7 @@
 .theme-parts .aa-v10-head{
   background:
     linear-gradient(transparent,transparent),
-    #111820!important;
+    #111820;
 }
 
 .theme-contact{
@@ -156,13 +156,13 @@
 .theme-contact .aa-v10-head{
   background:
     linear-gradient(transparent,transparent),
-    #111820!important;
+    #111820;
 }
 
 /* ---------------- GENERAL SERVICE SCANNER ---------------- */
 
 .aa-v11-service-intake{
-  background:#f5f5f2!important;
+  background:#f5f5f2;
 }
 
 .aa-v11-service-scanner{
@@ -277,7 +277,7 @@
 .aa-v11-ac-console-section{
   background:
     linear-gradient(transparent,transparent),
-    #f5f5f2!important;
+    #f5f5f2;
 }
 
 .aa-v11-climate-console{
@@ -404,7 +404,7 @@
 /* ---------------- WHEEL GEOMETRY ---------------- */
 
 .aa-v11-wheel-lab-section{
-  background:#f5f5f2!important;
+  background:#f5f5f2;
 }
 
 .aa-v11-geometry-lab{
@@ -417,13 +417,13 @@
 /* ---------------- TYRE TREAD LAB ---------------- */
 
 .aa-v11-tyre-lab-section{
-  background:#f5f5f2!important;
+  background:#f5f5f2;
 }
 
 /* ---------------- PARTS FINDER ---------------- */
 
 .aa-v11-parts-finder-section{
-  background:#f5f5f2!important;
+  background:#f5f5f2;
 }
 
 .aa-v11-parts-finder{
@@ -535,7 +535,7 @@
 
 /* AC: cool palette and vent-like service rows */
 .theme-ac .aa-v10-soft{
-  background:#f5f5f2!important;
+  background:#f5f5f2;
 }
 .theme-ac .aa-v10-stack-list>div{
   min-height:138px;
@@ -574,7 +574,7 @@
 
 /* Parts: catalogue / index feeling */
 .theme-parts .aa-v10-dark{
-  background:#111820!important;
+  background:#111820;
 }
 .theme-parts .aa-hover-stat-rail>div{
   grid-template-columns:52px .6fr 1fr;

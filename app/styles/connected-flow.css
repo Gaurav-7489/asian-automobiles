@@ -29,6 +29,6 @@
 .aa-home-arrival p svg { vertical-align: middle; margin-right: 6px; }
 .aa-home-arrival .aa-text-link { color: #d58a3a; }
 @media (max-width: 800px) { .aa-home-workshop-grid { grid-template-columns: 1fr; } .aa-home-workshop-photo { min-height: 320px; } }
-.aa-home .aa-workshop-story { content-visibility: visible; contain-intrinsic-size: none; padding-top: clamp(72px, 8vw, 112px) !important; }
+.aa-home .aa-workshop-story { content-visibility: visible; contain-intrinsic-size: none; padding-top: clamp(72px, 8vw, 112px); }
 .aa-home .aa-location-copy h2 { font-size: clamp(2.7rem, 5vw, 5.2rem) !important; }
 .aa-home .aa-location-copy h2 em { color: #e2e4e1; }

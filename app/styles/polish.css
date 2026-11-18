@@ -14,17 +14,17 @@
 
 /* Toggle: two lines that morph into a cross */
 :root:not(#_) .aa-header .aa-menu-button {
-  width: 46px !important;
-  height: 46px !important;
-  border-radius: 4px !important;
-  border: 1px solid rgba(245, 245, 242, 0.2) !important;
-  background: transparent !important;
+  width: 46px;
+  height: 46px;
+  border-radius: 4px;
+  border: 1px solid rgba(245, 245, 242, 0.2);
+  background: transparent;
   color: #f5f5f2 !important;
   display: none;
   place-items: center;
   transition: background-color 0.3s var(--aa-ease), border-color 0.3s var(--aa-ease);
 }
-:root:not(#_) .aa-header.is-open .aa-menu-button { border-color: #d58a3a !important; }
+:root:not(#_) .aa-header.is-open .aa-menu-button { border-color: #d58a3a; }
 .aa-menu-icon { position: relative; display: block; width: 20px; height: 12px; }
 .aa-menu-icon i {
   position: absolute; left: 0; right: 0; height: 2px; border-radius: 2px; background: #f5f5f2;
@@ -40,10 +40,10 @@
   :root:not(#_) .aa-header .aa-menu-button { display: grid !important; }
 
   :root:not(#_) .aa-header .aa-nav-main { position: relative; z-index: 3; }
-  :root:not(#_) .aa-header.is-open .aa-nav-main { background: #111820 !important; border-color: transparent !important; box-shadow: none !important; }
+  :root:not(#_) .aa-header.is-open .aa-nav-main { background: #111820; border-color: transparent; box-shadow: none; }
 
   :root:not(#_) .aa-header .aa-mnav {
-    display: block !important;
+    display: block;
     position: fixed;
     inset: 0;
     z-index: 2;
@@ -153,19 +153,19 @@
 
   /* The floating quick bar and WhatsApp button must not sit on top of the open menu */
   .aa-header.is-open ~ .aa-mobile-actions,
-  .aa-header.is-open ~ .aa-v10-whatsapp-float { display: none !important; }
+  .aa-header.is-open ~ .aa-v10-whatsapp-float { display: none; }
 }
 
 /* =====================================================================
    2. Floating quick-action bar (mobile)
    ===================================================================== */
 :root:not(#_) .aa-mobile-actions {
-  border-radius: 14px !important;
-  background: rgba(17, 24, 32, 0.86) !important;
+  border-radius: 14px;
+  background: rgba(17, 24, 32, 0.86);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(245, 245, 242, 0.12) !important;
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(245, 245, 242, 0.12);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4);
 }
 :root:not(#_) .aa-mobile-actions a { transition: transform 0.3s var(--aa-ease), background-color 0.3s ease; }
 :root:not(#_) .aa-mobile-actions a:active { transform: scale(0.96); }
@@ -174,12 +174,12 @@
    3. About: the "MULTI-BRAND" card no longer breaks mid-word
    ===================================================================== */
 :root:not(#_) .aa-v10-year-card strong {
-  font-size: clamp(54px, 13.5vw, 132px) !important;
-  line-height: 0.88 !important;
-  letter-spacing: -0.045em !important;
-  overflow-wrap: normal !important;
-  word-break: keep-all !important;
-  hyphens: none !important;
+  font-size: clamp(54px, 13.5vw, 132px);
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  hyphens: none;
 }
 
 /* =====================================================================
@@ -189,14 +189,14 @@
 :root:not(#_) main a[href^="mailto:"] {
   overflow-wrap: anywhere;
 }
-:root:not(#_) main a[href^="mailto:"] :is(b, strong) { font-size: clamp(16px, 4.2vw, 26px) !important; }
+:root:not(#_) main a[href^="mailto:"] :is(b, strong) { font-size: clamp(16px, 4.2vw, 26px); }
 
 /* =====================================================================
    5. Inner pages + homepage sections: minimal, readable, consistent rhythm
    ===================================================================== */
 
 /* Quieter hero chrome */
-:root:not(#_) .aa-inner-v10 :is(.creative-compass, .aa-v15-photo-index, .aa-v10-reference-note) { display: none !important; }
+:root:not(#_) .aa-inner-v10 :is(.creative-compass, .aa-v15-photo-index, .aa-v10-reference-note) { display: none; }
 
 /* Section headings: one clear size, short measure */
 :root:not(#_) .aa-inner-v10 .aa-v10-section-head h2 {
@@ -208,8 +208,8 @@
 }
 :root:not(#_) .aa-inner-v10 .aa-v10-section-head p {
   max-width: 50ch;
-  font-size: 16px !important;
-  line-height: 1.6 !important;
+  font-size: 16px;
+  line-height: 1.6;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -223,7 +223,7 @@
 /* Feature cards: compact, no dead space, gentle lift */
 :root:not(#_) .aa-inner-v10 .aa-v10-feature-card {
   min-height: 0 !important;
-  padding: 24px !important;
+  padding: 24px;
   border-radius: 8px;
   transition: transform 0.5s var(--aa-ease), border-color 0.35s ease, background-color 0.35s ease;
 }
@@ -234,7 +234,7 @@
   overflow: hidden;
 }
 @media (hover: hover) {
-  :root:not(#_) .aa-inner-v10 .aa-v10-feature-card:hover { transform: translateY(-3px); border-color: rgba(213, 138, 58, 0.55) !important; }
+  :root:not(#_) .aa-inner-v10 .aa-v10-feature-card:hover { transform: translateY(-3px); border-color: rgba(213, 138, 58, 0.55); }
 }
 
 /* Photos: slow, quiet zoom on hover */
@@ -254,7 +254,7 @@
 
 /* FAQ: comfortable tap targets and readable answers */
 :root:not(#_) .aa-motion-faq button { min-height: 64px; }
-:root:not(#_) .aa-motion-faq-answer p { font-size: 15px !important; line-height: 1.65 !important; max-width: 56ch; }
+:root:not(#_) .aa-motion-faq-answer p { font-size: 15px; line-height: 1.65; max-width: 56ch; }
 
 /* Keyboard focus is always visible */
 :root:not(#_) :is(a, button, summary, [tabindex]):focus-visible { outline: 2px solid #d58a3a; outline-offset: 3px; }
@@ -310,17 +310,17 @@
    7. Contact cards: compact, values never split mid-word
    ===================================================================== */
 :root:not(#_) .aa-v10-contact-actions > a {
-  min-height: 0 !important;
-  padding: 22px 24px !important;
-  gap: 14px 12px !important;
+  min-height: 0;
+  padding: 22px 24px;
+  gap: 14px 12px;
   align-content: space-between;
   transition: transform 0.45s var(--aa-ease), border-color 0.3s ease;
 }
-:root:not(#_) .aa-v10-contact-actions > a > span { font-size: 11px !important; letter-spacing: 0.12em; }
+:root:not(#_) .aa-v10-contact-actions > a > span { font-size: 11px; letter-spacing: 0.12em; }
 :root:not(#_) .aa-v10-contact-actions > a > b {
-  max-width: none !important;
-  font-size: clamp(20px, 5vw, 30px) !important;
-  line-height: 1.15 !important;
+  max-width: none;
+  font-size: clamp(20px, 5vw, 30px);
+  line-height: 1.15;
   overflow-wrap: anywhere;
 }
 @media (hover: hover) {

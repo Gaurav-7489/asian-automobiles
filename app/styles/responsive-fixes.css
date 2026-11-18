@@ -17,11 +17,11 @@ body {
 @media (max-width: 1320px) {
   .aa-header-v5 .aa-desktop-nav-v4,
   .aa-header-v5 .aa-header-phone {
-    display: none !important;
+    display: none;
   }
 
   .aa-header-v5 .aa-header-cta {
-    display: inline-flex !important;
+    display: inline-flex;
     flex: 0 0 auto;
   }
 
@@ -29,9 +29,9 @@ body {
     display: grid !important;
     place-items: center;
     flex: 0 0 44px;
-    width: 44px !important;
-    height: 44px !important;
-    margin-left: 0 !important;
+    width: 44px;
+    height: 44px;
+    margin-left: 0;
   }
 
   .aa-header-v5 .aa-header-actions {
@@ -42,7 +42,7 @@ body {
   .aa-header-v5 .aa-header-inner {
     width: min(100% - 32px, 1380px) !important;
     margin-inline: auto !important;
-    gap: 16px !important;
+    gap: 16px;
   }
 
   .aa-header-v5 .aa-brand {
@@ -67,23 +67,23 @@ body {
   .aa-header-v5 .aa-nav-main,
   .aa-header-v5.is-scrolled .aa-nav-main {
     height: 70px !important;
-    background: rgba(17,24,32, .975) !important;
+    background: rgba(17,24,32, .975);
   }
 }
 
 /* Phones: prioritize brand + menu, remove the CTA from the top bar. */
 @media (max-width: 820px) {
   .aa-header-v5 .aa-header-cta {
-    display: none !important;
+    display: none;
   }
 
   .aa-header-v5 .aa-header-inner {
     width: calc(100% - 24px) !important;
-    gap: 10px !important;
+    gap: 10px;
   }
 
   .aa-header-v5 .aa-header-actions {
-    gap: 6px !important;
+    gap: 6px;
   }
 
   .aa-header-v5 .aa-brand-name b {
@@ -104,29 +104,29 @@ body {
 
   .aa-header-v5 .aa-brand-mark {
     flex: 0 0 34px;
-    width: 34px !important;
-    height: 34px !important;
+    width: 34px;
+    height: 34px;
   }
 
   .aa-header-v5 .aa-brand-name b {
     max-width: 46vw;
-    font-size: 7.4px !important;
-    letter-spacing: .075em !important;
+    font-size: 7.4px;
+    letter-spacing: .075em;
   }
 
   .aa-header-v5 .aa-menu-button {
     flex-basis: 40px;
-    width: 40px !important;
-    height: 40px !important;
+    width: 40px;
+    height: 40px;
   }
 
   .aa-mobile-actions {
-    left: max(6px, env(safe-area-inset-left)) !important;
-    right: max(6px, env(safe-area-inset-right)) !important;
+    left: max(6px, env(safe-area-inset-left));
+    right: max(6px, env(safe-area-inset-right));
   }
 
   .aa-mobile-actions a {
-    padding-inline: 4px !important;
+    padding-inline: 4px;
   }
 }
 
@@ -175,9 +175,9 @@ html, body {
 /* Prevent the desktop mega menu from being wider than the viewport. */
 @media (min-width: 1321px) {
   .aa-header-v5 .aa-mega {
-    width: min(1040px, calc(100vw - 40px)) !important;
-    max-width: calc(100vw - 40px) !important;
-    right: auto !important;
+    width: min(1040px, calc(100vw - 40px));
+    max-width: calc(100vw - 40px);
+    right: auto;
     transform: translateX(-50%) !important;
   }
 }
@@ -186,18 +186,18 @@ html, body {
 @media (min-width: 1101px) and (max-width: 1399px) {
   .aa-header-v5 .aa-header-inner {
     width: calc(100% - 40px) !important;
-    gap: 14px !important;
+    gap: 14px;
   }
 
-  .aa-header-v5 .aa-desktop-nav-v4 { gap: 14px !important; }
+  .aa-header-v5 .aa-desktop-nav-v4 { gap: 14px; }
   .aa-header-v5 .aa-desktop-nav-v4 a,
   .aa-header-v5 .aa-desktop-nav-v4 button,
   .aa-header-v5 .aa-header-phone {
-    font-size: 8px !important;
-    letter-spacing: .11em !important;
+    font-size: 8px;
+    letter-spacing: .11em;
   }
 
-  .aa-header-v5 .aa-brand-name b { font-size: 8px !important; }
+  .aa-header-v5 .aa-brand-name b { font-size: 8px; }
 }
 
 /* Tablet / small laptop: always use the compact header. */
@@ -216,13 +216,13 @@ html, body {
 /* Tablets: keep hero typography inside the viewport and stop giant line offsets. */
 @media (min-width: 561px) and (max-width: 1100px) {
   .aa-hero-v8 .aa-hero2-copy h1 {
-    font-size: clamp(4.3rem, 11.5vw, 8rem) !important;
+    font-size: clamp(4.3rem, 11.5vw, 8rem);
   }
 
-  .aa-hero-v8 .aa-hero2-line:nth-child(2) { padding-left: 0 !important; }
+  .aa-hero-v8 .aa-hero2-line:nth-child(2) { padding-left: 0; }
   .aa-hero-v8 .aa-hero2-bottom {
     grid-template-columns: minmax(0, 1fr) auto !important;
-    max-width: 760px !important;
+    max-width: 760px;
   }
 }
 
@@ -235,38 +235,38 @@ html, body {
 
   .aa-hero-v8 {
     min-height: 100svh !important;
-    height: 112svh !important;
+    height: 112svh;
   }
 
-  .aa-hero-v8 .aa-hero2-sticky { min-height: 100svh !important; }
+  .aa-hero-v8 .aa-hero2-sticky { min-height: 100svh; }
   .aa-hero-v8 .aa-hero2-shell { padding-top: 92px !important; }
   .aa-hero-v8 .aa-hero2-copy { padding-bottom: 8px !important; }
 
   .aa-hero-v8 .aa-hero2-copy h1 {
     max-width: 100% !important;
-    font-size: clamp(3.4rem, 16vw, 5.8rem) !important;
-    line-height: .82 !important;
+    font-size: clamp(3.4rem, 16vw, 5.8rem);
+    line-height: .82;
     overflow-wrap: normal;
     word-break: normal;
   }
 
   .aa-hero-v8 .aa-hero2-line,
   .aa-hero-v8 .aa-hero2-line:nth-child(2) {
-    padding-left: 0 !important;
+    padding-left: 0;
   }
 
   .aa-hero-v8 .aa-hero2-bottom {
-    display: grid !important;
+    display: grid;
     grid-template-columns: 1fr !important;
     gap: 18px !important;
-    max-width: 100% !important;
-    margin-top: 22px !important;
+    max-width: 100%;
+    margin-top: 22px;
   }
 
   .aa-hero-v8 .aa-hero2-bottom p {
     max-width: 100% !important;
     font-size: 12px !important;
-    line-height: 1.55 !important;
+    line-height: 1.55;
   }
 
   .aa-hero-v8 .aa-hero2-actions {
@@ -282,12 +282,12 @@ html, body {
   }
 
   .aa-hero-v8 .aa-hero-v8-grid { background-size: 26vw 26vw; }
-  .aa-hero-v8 .aa-hero2-orb { width: 220px !important; height: 220px !important; }
-  .aa-hero-v8 .aa-hero2-media img { object-position: 64% center !important; }
+  .aa-hero-v8 .aa-hero2-orb { width: 220px; height: 220px; }
+  .aa-hero-v8 .aa-hero2-media img { object-position: 64% center; }
 
   .aa-hero-v8-meta {
-    grid-template-columns: 1fr !important;
-    gap: 5px !important;
+    grid-template-columns: 1fr;
+    gap: 5px;
   }
 
   .aa-hero-v8-meta span:not(:first-child) { display: none; }
@@ -302,20 +302,20 @@ html, body {
 
   .aa-header-v5 .aa-brand-name b {
     max-width: 44vw !important;
-    font-size: 7px !important;
+    font-size: 7px;
   }
 
   .aa-hero-v8 .aa-hero2-copy h1 {
-    font-size: clamp(3rem, 15.5vw, 4.6rem) !important;
+    font-size: clamp(3rem, 15.5vw, 4.6rem);
   }
 }
 
 /* Landscape phones: give the hero enough breathing room without overflow. */
 @media (max-height: 560px) and (orientation: landscape) {
-  .aa-hero-v8 { height: 135svh !important; }
+  .aa-hero-v8 { height: 135svh; }
   .aa-hero-v8 .aa-hero2-shell { padding-top: 78px !important; }
-  .aa-hero-v8 .aa-hero2-copy h1 { font-size: clamp(3.4rem, 9.4vw, 6.5rem) !important; }
-  .aa-hero-v8 .aa-hero2-bottom { margin-top: 16px !important; }
+  .aa-hero-v8 .aa-hero2-copy h1 { font-size: clamp(3.4rem, 9.4vw, 6.5rem); }
+  .aa-hero-v8 .aa-hero2-bottom { margin-top: 16px; }
 }
 
 /* Safe-area support for iPhones with notches/home indicators. */
