@@ -39,6 +39,7 @@ jobs:
         run: npm run test:smoke -- --trace off
         env:
           CI: "true"
+          PLAYWRIGHT_MOCK_REMOTE_IMAGES: "1"
 
       - name: Upload failure diagnostics
         if: failure()
