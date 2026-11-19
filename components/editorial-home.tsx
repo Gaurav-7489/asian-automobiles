@@ -18,15 +18,30 @@ export function EditorialHome() {
       <ImmersiveHero />
       <HomeContactStrip />
 
+      <section className="aa-workshop-showcase" aria-labelledby="aa-workshop-showcase-title">
+        <div className="aa-shell">
+          <div className="aa-workshop-showcase-heading">
+            <p className="aa-editorial-label">Service · Repair · Parts</p>
+            <h2 id="aa-workshop-showcase-title">Under the bonnet.</h2>
+          </div>
+          <div className="aa-workshop-showcase-frame">
+            <Image
+              src="/images/photos/hero-workshop.jpg"
+              alt="Automotive workshop with a car in a service bay"
+              fill quality={76} sizes="(max-width: 720px) 92vw, 86vw"
+            />
+          </div>
+        </div>
+      </section>
+
       <section className="aa-proof-v3 aa-section-dark aa-workshop-story" aria-label="Workshop introduction">
         <div className="aa-shell aa-home-workshop-grid">
           <figure className="aa-home-workshop-photo">
             <Image
               src="/images/photos/engine-detail.jpg"
-              alt="Car in a workshop"
+              alt="Close-up of belts and pulleys in an engine bay"
               fill quality={72} sizes="(max-width: 800px) 94vw, 55vw"
             />
-            <figcaption>Not a dealership. Cars of many makes.</figcaption>
           </figure>
           <div className="aa-home-workshop-copy">
             <span className="aa-kicker aa-kicker-light">ABOUT THE WORKSHOP</span>
@@ -47,7 +62,7 @@ export function EditorialHome() {
               <span className="aa-kicker">WHAT WE DO</span>
               <h2 className="aa-view-reveal">Everything your car needs.<br /><em>From one workshop.</em></h2>
             </div>
-            <span className="aa-count">{services.length} SERVICES</span>
+            <Link href="/services/" className="aa-editorial-directory">View all services <ArrowUpRight size={16} aria-hidden="true" /></Link>
           </div>
           <SkiperServiceStack services={services} />
         </div>

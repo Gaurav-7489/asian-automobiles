@@ -6,6 +6,12 @@ export function SiteFooter() {
   return (
     <footer className="aa-footer">
       <div className="aa-shell">
+        <div className="aa-editorial-footer-cta">
+          <h2>Talk to the workshop.</h2>
+          <Link href="/contact/#enquiry" className="aa-editorial-button">
+            Start an enquiry <ArrowUpRight size={16} aria-hidden="true" />
+          </Link>
+        </div>
         <div className="aa-footer-top">
           <div>
             <Link href="/" className="aa-brand aa-footer-brand">
@@ -35,7 +41,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="aa-footer-wordmark">ASIAN AUTOMOBILES</div>
+        <div className="aa-footer-wordmark" aria-hidden="true">ASIAN AUTOMOBILES</div>
 
         <div className="aa-footer-bottom">
           <span>© {new Date().getFullYear()} Asian Automobiles</span>

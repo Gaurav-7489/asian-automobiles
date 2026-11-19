@@ -68,7 +68,6 @@ export function SkiperServiceStack({ services }: { services: StackService[] }) {
               quality={72}
               sizes="(max-width: 560px) 92vw, (max-width: 1320px) 48vw, 52vw"
             />
-            <div className="aa-skip-card-no">{service.no}</div>
           </div>
         </article>
       ))}

@@ -20,48 +20,30 @@ const img = {
   wheel: photo("wheel-alignment"),
 };
 
-/** Per-theme hero labels and photos: [primary label, secondary label, main photo, detail photo, context photo]. */
-const heroByTheme: Record<PageTheme, [string, string, string, string, string]> = {
-  about: ["KATTOOR ROAD", "INDEPENDENT / MULTI-BRAND", img.workshop, img.detail, img.car],
-  mechanical: ["DIAGNOSE", "BRAKES / CLUTCH / STEERING", img.repair, img.workshop, img.detail],
-  privacy: ["PRIVACY", "YOUR INFORMATION", img.detail, img.workshop, img.road],
-  services: ["SERVICE MAP", "CHOOSE BY NEED", img.repair, img.workshop, img.wheel],
-  service: ["VEHICLE CHECK", "MAINTENANCE / DIAGNOSIS", img.repair, img.detail, img.workshop],
-  ac: ["COOLING", "CABIN CLIMATE", img.detail, img.detail, img.car],
-  wheel: ["0.00°", "WHEEL GEOMETRY", img.wheel, img.car, img.road],
-  tyre: ["TREAD / WEAR", "TYRE CONDITION", img.wheel, img.road, img.detail],
-  parts: ["FITMENT", "MODEL / VARIANT / YEAR", img.workshop, img.detail, img.repair],
-  contact: ["KATTOOR ROAD", "IRINJALAKUDA", img.road, img.workshop, img.car],
+const heroByTheme: Record<PageTheme, string> = {
+  about: img.workshop,
+  mechanical: photo("mechanical-repair"),
+  privacy: img.detail,
+  services: img.car,
+  service: img.repair,
+  ac: photo("engine-bay"),
+  wheel: img.wheel,
+  tyre: img.road,
+  parts: img.detail,
+  contact: img.workshop,
 };
 
 function HeroArt({ theme }: { theme: PageTheme }) {
-  const [primary, secondary, mainPhoto, detailPhoto, contextPhoto] = heroByTheme[theme];
   return (
-    <div className={"aa-v11-hero-art aa-v11-hero-" + theme + " aa-v15-photo-hero"} aria-hidden="true">
-      <div className="aa-v15-hero-photo-main">
-        {/* The largest above-the-fold image on inner pages (the LCP element): load it first. */}
-        <Image
-          src={mainPhoto}
-          alt=""
-          fill
-          priority
-          quality={76}
-          sizes="(max-width: 720px) 92vw, (max-width: 1100px) 58vw, 520px"
-        />
-      </div>
-      <div className="aa-v15-hero-photo-stack">
-        <span className="aa-v15-hero-thumb">
-          <Image src={detailPhoto} alt="" fill quality={68} sizes="160px" />
-        </span>
-        <span className="aa-v15-hero-thumb">
-          <Image src={contextPhoto} alt="" fill quality={68} sizes="160px" />
-        </span>
-      </div>
-      <div className="aa-v15-hero-scrim" />
-      <div className="aa-v11-theme-core aa-v15-theme-core"><i /><i /><i /><i /></div>
-      <strong>{primary}</strong>
-      <small>{secondary}</small>
-      <span className="aa-v15-photo-index">PHOTO / {theme.toUpperCase()}</span>
+    <div className="aa-editorial-inner-photo" aria-hidden="true">
+      <Image
+        src={heroByTheme[theme]}
+        alt=""
+        fill
+        priority
+        quality={76}
+        sizes="(max-width: 1100px) 92vw, (max-width: 1500px) 45vw, 620px"
+      />
     </div>
   );
 }
@@ -148,7 +130,6 @@ export function Frame({
     <main id="main" tabIndex={-1} className={"creative-page immersive-page immersive-page-v9 aa-inner-v10 aa-v11-page theme-" + theme}>
       <PageProgressRail />
       <section className="creative-head aa-v10-head">
-        <div className="creative-head-grid" aria-hidden="true" />
         <div className="wrap creative-wrap aa-v10-hero-wrap">
           <Breadcrumbs trail={trail} />
           <div className="aa-v10-hero-layout">
@@ -156,9 +137,6 @@ export function Frame({
               <span className="eyebrow">{eyebrow}</span>
               <h1>{title}</h1>
               {intro && <p>{intro}</p>}
-            </div>
-            <div className="aa-v10-hero-side aa-v11-hero-side">
-              <HeroArt theme={theme} />
               <div className="aa-v10-hero-actions">
                 {actions ?? (
                   <>
@@ -168,6 +146,7 @@ export function Frame({
                 )}
               </div>
             </div>
+            <HeroArt theme={theme} />
           </div>
         </div>
       </section>

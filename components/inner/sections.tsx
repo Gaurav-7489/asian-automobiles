@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowUpRight, ChevronRight, CircleHelp } from "lucide-react";
@@ -36,6 +37,7 @@ export function FeatureCard({
   copy,
   icon,
   href,
+  image,
 }: {
   no: string;
   eyebrow: string;
@@ -43,9 +45,15 @@ export function FeatureCard({
   copy: string;
   icon?: ReactNode;
   href?: string;
+  image?: string;
 }) {
   const body = (
     <>
+      {image && (
+        <div className="aa-editorial-service-photo">
+          <Image src={image} alt="" fill quality={72} sizes="(max-width: 650px) 94vw, (max-width: 1100px) 45vw, 30vw" />
+        </div>
+      )}
       <div className="aa-v10-feature-meta">
         <span>{no}</span>
         <small>{eyebrow}</small>

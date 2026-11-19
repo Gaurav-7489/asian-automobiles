@@ -32,6 +32,7 @@ export function SiteHeader() {
   const headerRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLElement>(null);
+  const servicesButtonRef = useRef<HTMLButtonElement>(null);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [servicePreview, setServicePreview] = useState(0);
   const [scrolled, setScrolled] = useState(false);
@@ -109,6 +110,8 @@ export function SiteHeader() {
         if (menuOpen) {
           setMenuOpen(false);
           menuButtonRef.current?.focus();
+        } else if (document.activeElement?.closest(".aa-mega")) {
+          servicesButtonRef.current?.focus();
         }
         setServicesOpen(false);
       }
@@ -155,6 +158,7 @@ export function SiteHeader() {
               >
                 <button
                   type="button"
+                  ref={servicesButtonRef}
                   className={servicesActive ? "is-active" : ""}
                   aria-expanded={servicesOpen}
                   aria-controls="aa-service-mega-menu"
@@ -171,6 +175,7 @@ export function SiteHeader() {
 
                 <div
                   className="aa-mega"
+                  inert={!servicesOpen}
                   id="aa-service-mega-menu"
                   onPointerEnter={openServices}
                   onPointerLeave={scheduleServicesClose}
@@ -239,6 +244,7 @@ export function SiteHeader() {
                     key={href}
                     href={href}
                     className={active ? "is-active" : ""}
+                    aria-current={active ? "page" : undefined}
                   >
                     {label}
                   </Link>

@@ -3,16 +3,10 @@ import {
   CircleAlert,
   ClipboardCheck,
   Clock3,
-  Disc3,
-  Gauge,
   MapPin,
   MessageCircle,
-  PackageSearch,
   Phone,
   Search,
-  Settings2,
-  Wind,
-  Wrench,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
@@ -20,6 +14,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { businessFacts, landlineTel, mapsEmbedSrc, phoneTel, whatsappEnabled, whatsappLink } from "@/lib/business-facts";
 import { pageMeta, type PageKey } from "@/lib/page-meta";
+import { serviceCatalog, serviceImage } from "@/lib/service-catalog";
 import { MapReveal } from "@/components/map-reveal";
 import { Frame } from "@/components/inner/page-frame";
 import { FaqSection, FeatureCard, PageCTA, SectionHead, StackList, type QA } from "@/components/inner/sections";
@@ -124,13 +119,18 @@ function Services() {
 
       <section className="aa-v10-section aa-v10-soft">
         <div className="wrap">
-          <div className="aa-v10-feature-grid aa-v10-feature-grid-wide">
-            <FeatureCard no="01" eyebrow="SERVICING" title="Car service & maintenance" copy="Engine oil change · oil and air filters · fluid checks · general inspection." icon={<Wrench size={19} />} href="/services/car-service-maintenance/" />
-            <FeatureCard no="02" eyebrow="REPAIRS" title="Mechanical repairs" copy="Brakes · clutch · suspension and steering · engine troubleshooting." icon={<Settings2 size={19} />} href="/services/mechanical-repairs/" />
-            <FeatureCard no="03" eyebrow="AIR CONDITIONING" title="Car AC services" copy="Performance check · fault diagnosis · gas recharge · compressor-related repairs." icon={<Wind size={19} />} href="/services/car-ac-service/" />
-            <FeatureCard no="04" eyebrow="WHEELS" title="Wheel alignment & balancing" copy="Wheel alignment · balancing · steering checks · tyre wear assessment." icon={<Gauge size={19} />} href="/services/wheel-alignment-balancing/" />
-            <FeatureCard no="05" eyebrow="TYRES" title="Tyre care" copy="Tyre inspection · pressure checks · wear assessment · tyre-related advice." icon={<Disc3 size={19} />} href="/services/tyre-care/" />
-            <FeatureCard no="06" eyebrow="PARTS" title="Spare parts enquiry" copy="Genuine (OEM) and aftermarket parts for your car — tell us the make, model, year and part." icon={<PackageSearch size={19} />} href="/spare-parts/" />
+          <div className="aa-v10-feature-grid aa-v10-feature-grid-wide aa-editorial-service-grid">
+            {serviceCatalog.map((service, index) => (
+              <FeatureCard
+                key={service.id}
+                no={String(index + 1).padStart(2, "0")}
+                eyebrow={service.meta}
+                title={service.title}
+                copy={service.description}
+                href={service.href}
+                image={serviceImage(service)}
+              />
+            ))}
           </div>
         </div>
       </section>

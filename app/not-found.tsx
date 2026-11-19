@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="aa-production-404">
+    <main id="main" tabIndex={-1} className="aa-production-404">
       <div>
         <span className="eyebrow">404 / WRONG TURN</span>
         <h1>Looks like we took the scenic route.</h1>

@@ -2,7 +2,7 @@ import type { Page } from "@playwright/test";
 import { expect, test } from "./fixtures";
 
 const routes = [
-  ["/", "Precision"],
+  ["/", "Car care for every drive."],
   ["/about/", "About Asian Automobiles"],
   ["/services/", "Our car services"],
   ["/services/car-service-maintenance/", "Car service and maintenance in Irinjalakuda"],

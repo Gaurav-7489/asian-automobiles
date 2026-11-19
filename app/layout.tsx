@@ -69,8 +69,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <SiteHeader />
           {children}
           <SiteFooter />
+          <NavigationFeedback />
         </MotionProvider>
-        <NavigationFeedback />
       </body>
     </html>
   );

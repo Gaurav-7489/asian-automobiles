@@ -1,6 +1,7 @@
 "use client";
 
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { m, useReducedMotion } from "framer-motion";
 import { usePathname, useSearchParams } from "next/navigation";
 
 /**
@@ -23,6 +24,10 @@ function isPageNavigation(event: MouseEvent): boolean {
 function Tracker() {
   const pathname = usePathname();
   const search = useSearchParams().toString();
+  const [hasMounted, setHasMounted] = useState(false);
+  const reducedMotion = useReducedMotion();
+
+  useEffect(() => setHasMounted(true), []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -44,7 +49,16 @@ function Tracker() {
     delete document.documentElement.dataset.navigating;
   }, [pathname, search]);
 
-  return null;
+  return (
+    <m.div
+      key={pathname}
+      className="aa-editorial-route-sweep"
+      aria-hidden="true"
+      initial={hasMounted && !reducedMotion ? { x: "-75%", opacity: 0.28 } : false}
+      animate={{ x: "110%", opacity: 0 }}
+      transition={{ duration: 0.32, ease: [0.2, 0.75, 0.3, 1] }}
+    />
+  );
 }
 
 export function NavigationFeedback() {
