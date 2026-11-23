@@ -2,18 +2,21 @@
 
 Premium multi-page automotive service website for Asian Automobiles, Irinjalakuda.
 
-The UI is an original implementation inspired by the structural language observed in the Fixonic Webflow demo: oversized editorial typography, dark/off-white contrast, image-led sections, restrained hover interactions, horizontal proof cards, strong CTAs and technical details. It does not copy Fixonic's proprietary source/assets.
+The design is an original automotive-editorial system built for this workshop: graphite and porcelain surfaces, a restrained copper accent, expanded Archivo display type, full-bleed workshop photography, and a calibration-scale rule (the tick marks of an alignment gauge) as its one signature detail. See `docs/DESIGN_SYSTEM.md`.
 
 Content follows the *Website Development Specification v1.0*: 11 live pages (Home, About, Services, five service pages, Spare Parts, Contact, Privacy Policy), the PDF's copy, and only verified claims. Retired pages (Insurance, Facilities, Gallery, Reviews, FAQ, Book Service, Accident Repair) redirect permanently. Business facts live in `lib/business-facts.ts`; open owner questions are in `docs/OWNER_CHECKLIST.md`.
 ## Design system
 
-The template's layout and components are kept; colour, type, shape and effects follow the
-specification (chapter 5), applied in `app/styles/spec-design-system.css` and refined by `app/styles/polish.css`:
+One coherent system in `app/styles/` (six files, ordered by cascade layer; see `docs/DESIGN_SYSTEM.md`):
 
-- Palette: graphite `#111820`, charcoal `#202A32`, warm white `#F5F5F2`, white, amber `#D58A3A`
-  (actions/accents), amber-700 `#9A5A1C` (on light), grey `#87919A` / slate `#5C6670` (secondary text).
-- Type: Manrope (headings) and Inter (body), self-hosted in `app/fonts/`.
-- Shape: 4px buttons, 8px cards. No glow gradients, custom cursor, parallax or smooth-scroll effects.
+- Palette: graphite `#14191E`, charcoal `#1D252B`, steel `#27333B`, porcelain `#F2EFE8`, white,
+  copper `#B87338` (fills and rules; `#8A5223` when copper is text on light), silver `#BFC9CC`.
+  Semantic tokens (`--color-canvas`, `--color-text-secondary`, `--color-button`, …) live in `tokens.css`.
+- Type: Archivo variable (weight and width axes), self-hosted and subset to 31 KB. Expanded widths for
+  display, normal width for body, semi-expanded caps only for real data labels.
+- Shape: 2px radius on buttons, inputs and chips; photographs stay square-cornered.
+- Motion: CSS only. One orchestrated hero entrance, scroll-linked image unmasking where the browser
+  supports it, and responses to user actions. Everything respects `prefers-reduced-motion`.
 - Colour contrast is tested on every page (`tests/e2e/contrast.spec.ts`).
 
 ## Connected customer flow
@@ -35,21 +38,24 @@ Retired URLs (`lib/redirects.ts`) redirect permanently (308) to their canonical 
 
 ```text
 app/
-  layout.tsx            root layout, fonts, LocalBusiness JSON-LD, header/footer
+  layout.tsx            root layout, font, AutoRepair JSON-LD, header/footer
   page.tsx              homepage
   [...slug]/page.tsx    the ten inner pages, prerendered with generateStaticParams
-  styles/index.css      the global stylesheet (ordered cascade) + motion.css
+  styles/               the design system (tokens, base, layout, components, home, pages)
+  fonts/                Archivo subset + licence
 components/
+  home/                 hero (server), service index (client), homepage sections
+  inner/                page frame (four hero variants, breadcrumbs) and shared sections
+  interactive/          choice explorer and tyre/alignment guide (small client components)
+  enquiry/              WhatsApp enquiry form (shown only once a number is confirmed)
   ui/                   ActionLink / CallButton / DirectionsButton / WhatsAppButton, JsonLd
-  inner/                inner-page frame (breadcrumbs, hero, rail) and shared sections
-  immersive/            interactive client widgets (FAQ, timelines, labs, enquiry form)
 lib/                    business facts, service catalogue, page metadata, redirects, site URL
 next.config.ts          security headers (CSP, HSTS, …), image policy, redirects
 ```
 
 All pages are static HTML served from the CDN; internal links use Next.js client-side
-navigation with automatic prefetching. Framer Motion loads its animation features
-asynchronously (`components/motion-provider.tsx`) and respects reduced-motion settings.
+navigation with automatic prefetching. There is no animation library: motion is CSS, so the
+homepage hero ships no client JavaScript at all.
 See `docs/PERFORMANCE_SECURITY_AUDIT.md` for the audit, measurements and remaining risks.
 
 ## Verification
@@ -68,4 +74,8 @@ to test an existing server, or `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to use an
 existing Chromium binary. Tests cover every route, client-side navigation (desktop and
 mobile menus, back/forward, refresh), redirects, prefetching, security headers and CSP,
 the image optimiser policy, colour contrast, responsive layout from 320 px to 1920 px,
-and the mobile card stack.
+and the touch service index.
+
+If `next dev` is already running on port 3000, Playwright reuses that server (and `next dev`
+shares the `.next/` folder with `next build`). Stop it first, or run the production build on
+another port and set `PLAYWRIGHT_BASE_URL`.
