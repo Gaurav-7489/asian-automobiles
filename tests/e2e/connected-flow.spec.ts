@@ -11,12 +11,13 @@ const services = [
 
 test("service discovery links every published service to its page and the contact enquiry", async ({ page }) => {
   await page.goto("/services/", { waitUntil: "domcontentloaded" });
-  const board = page.locator(".aa-v13-service-board");
-  await expect(board.locator("button")).toHaveCount(services.length);
+  const items = page.locator(".aa-directory__item");
+  await expect(items).toHaveCount(services.length);
   for (const [id, route, title] of services) {
-    await board.getByRole("button", { name: new RegExp(title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")) }).click();
-    await expect(board.getByRole("link", { name: "Explore service" })).toHaveAttribute("href", route);
-    await expect(board.getByRole("link", { name: "Start enquiry" })).toHaveAttribute("href", `/contact/?service=${id}#enquiry`);
+    const item = items.filter({ has: page.getByRole("heading", { name: title, exact: true }) });
+    await expect(item).toHaveCount(1);
+    await expect(item.getByRole("link", { name: "Explore service" })).toHaveAttribute("href", route);
+    await expect(item.getByRole("link", { name: "Start enquiry" })).toHaveAttribute("href", `/contact/?service=${id}#enquiry`);
   }
 });
 

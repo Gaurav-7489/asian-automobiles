@@ -62,15 +62,15 @@ test.describe("responsive content geometry", () => {
             }
           }
 
-          const heading = document.querySelector(".creative-heading");
+          const heading = document.querySelector(".aa-page-hero__text");
           if (heading) {
-            const label = heading.querySelector(".eyebrow")!.getBoundingClientRect();
+            const crumbs = heading.querySelector(".aa-crumbs")!.getBoundingClientRect();
             const title = heading.querySelector("h1")!.getBoundingClientRect();
-            const intro = heading.querySelector("p")?.getBoundingClientRect();
-            if (Math.abs(label.left - title.left) > 2 || (intro && Math.abs(intro.left - title.left) > 2)) {
-              found.push("Hero label, title and introduction do not share the same left edge");
+            const intro = heading.querySelector(":scope > p")?.getBoundingClientRect();
+            if (Math.abs(crumbs.left - title.left) > 2 || (intro && Math.abs(intro.left - title.left) > 2)) {
+              found.push("Hero breadcrumbs, title and introduction do not share the same left edge");
             }
-            if (label.bottom > title.top || (intro && title.bottom > intro.top)) found.push("Hero text blocks overlap");
+            if (crumbs.bottom > title.top || (intro && title.bottom > intro.top)) found.push("Hero text blocks overlap");
           }
           return found;
         });
@@ -80,10 +80,10 @@ test.describe("responsive content geometry", () => {
   }
 });
 
-test("every timeline choice is visible and usable without horizontal scrolling", async ({ page }) => {
+test("every explorer choice is visible and usable without horizontal scrolling", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/about/", { waitUntil: "networkidle" });
-  const choices = page.locator(".aa-v13-about-line button");
+  const choices = page.locator(".aa-explorer__choices button");
   await expect(choices).toHaveCount(5);
   for (let i = 0; i < await choices.count(); i++) {
     const button = choices.nth(i);
@@ -93,15 +93,21 @@ test("every timeline choice is visible and usable without horizontal scrolling",
     expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(page.viewportSize()!.width);
     await button.click();
     await expect(button).toHaveAttribute("aria-pressed", "true");
-    await expect(page.locator(".aa-v16-about-copy h3")).toBeVisible();
+    await expect(page.locator(".aa-explorer__copy h3")).toBeVisible();
   }
 });
 
-test("tyre guide keeps its heading readable on the dark panel", async ({ page }) => {
+test("tyre guide switches states by keyboard and keeps its text readable", async ({ page }) => {
   await page.goto("/services/tyre-care/", { waitUntil: "networkidle" });
-  const heading = page.locator(".aa-v22-copy-panel h3");
-  await expect(heading).toHaveCSS("color", "rgb(255, 255, 255)");
-  await expect(page.locator(".aa-v22-copy-panel p").first()).toHaveCSS("color", "rgb(226, 228, 225)");
+  const copy = page.locator(".aa-tyre-guide__copy");
+  await expect(copy.locator("h3")).toHaveCSS("color", "rgb(20, 25, 30)");
+  await expect(copy.locator("p").first()).toHaveCSS("color", "rgb(78, 89, 97)");
+  const edge = page.locator(".aa-tyre-guide__choices button", { hasText: "Edge" });
+  await edge.focus();
+  await page.keyboard.press("Enter");
+  await expect(edge).toHaveAttribute("aria-pressed", "true");
+  await expect(copy.locator("h3")).toHaveText("Edge-heavy wear");
+  await expect(page.locator("svg.aa-tyre")).toHaveAttribute("aria-label", /Edge-heavy wear/);
 });
 
 test("navigation stays inside the viewport at desktop and tablet breakpoints", async ({ page }, testInfo) => {
@@ -114,7 +120,7 @@ test("navigation stays inside the viewport at desktop and tablet breakpoints", a
     await page.setViewportSize(screen);
     await page.goto("/", { waitUntil: "networkidle" });
     const menu = page.getByRole("button", { name: "Open menu" });
-    const desktop = width > 1320;
+    const desktop = width >= 1100;
     if (desktop) await page.getByRole("button", { name: "Services", exact: true }).click();
     else await menu.click();
     const panel = page.locator(desktop ? ".aa-mega" : "#aa-mobile-navigation");

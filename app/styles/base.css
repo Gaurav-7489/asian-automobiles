@@ -1,0 +1,190 @@
+/* Reset, document defaults and typography primitives. */
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  html,
+  body,
+  h1, h2, h3, h4, p, figure, blockquote, dl, dd, ol, ul {
+    margin: 0;
+  }
+  ol, ul {
+    padding: 0;
+    list-style: none;
+  }
+  img, svg, video {
+    display: block;
+    max-width: 100%;
+  }
+  input, button, textarea, select {
+    font: inherit;
+    color: inherit;
+  }
+  button {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  address {
+    font-style: normal;
+  }
+}
+
+@layer base {
+  html {
+    background: var(--color-canvas);
+    color: var(--color-text-primary);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-h) + 16px);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  body {
+    min-height: 100vh;
+    background: var(--color-canvas);
+    font-family: var(--font-sans);
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    font-kerning: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  h1, h2, h3, h4 {
+    font-weight: 700;
+    font-stretch: var(--stretch-display);
+    line-height: 1.02;
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+  }
+  h1 { font-size: var(--fs-h1); line-height: 0.96; letter-spacing: -0.03em; }
+  h2 { font-size: var(--fs-h2); line-height: 0.98; letter-spacing: -0.028em; }
+  h3 { font-size: var(--fs-h3); line-height: 1.08; }
+  h4 { font-size: var(--fs-h4); line-height: 1.2; letter-spacing: -0.01em; }
+  p { text-wrap: pretty; }
+  strong, b { font-weight: 650; }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+  main:focus {
+    outline: none;
+  }
+  ::selection {
+    background: var(--copper);
+    color: var(--graphite);
+  }
+}
+
+@layer layout {
+  .wrap {
+    width: min(100% - 2 * var(--gutter), var(--wrap));
+    margin-inline: auto;
+  }
+  .section {
+    padding-block: var(--section);
+  }
+  .section--tight {
+    padding-block: var(--section-tight);
+  }
+  .surface-canvas { background: var(--color-canvas); color: var(--color-text-primary); }
+  .surface-alt { background: var(--color-surface-alt); color: var(--color-text-primary); }
+  .surface-white { background: var(--color-surface); color: var(--color-text-primary); }
+  .surface-dark { background: var(--color-surface-dark); color: var(--color-text-inverse); }
+  .surface-dark-2 { background: var(--color-surface-dark-2); color: var(--color-text-inverse); }
+
+  .aa-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .aa-skip-link {
+    position: fixed;
+    z-index: 2000;
+    left: 16px;
+    top: 12px;
+    padding: 12px 18px;
+    background: var(--copper);
+    color: var(--graphite);
+    font-weight: 650;
+    border-radius: var(--radius);
+    transform: translateY(-200%);
+  }
+  .aa-skip-link:focus-visible {
+    transform: none;
+  }
+}
+
+@layer components {
+  /* Technical label: semi-expanded caps, reserved for data (service meta, field names). */
+  .aa-label {
+    display: inline-block;
+    font-size: var(--fs-label);
+    font-weight: 600;
+    font-stretch: var(--stretch-label);
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+  .surface-dark .aa-label,
+  .surface-dark-2 .aa-label,
+  .is-inverse .aa-label {
+    color: var(--color-text-inverse-secondary);
+  }
+
+  .aa-lead {
+    font-size: var(--fs-lead);
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    max-width: 38em;
+  }
+  .surface-dark .aa-lead,
+  .surface-dark-2 .aa-lead,
+  .is-inverse .aa-lead {
+    color: var(--color-text-inverse-secondary);
+  }
+
+  .aa-measure {
+    max-width: 36em;
+  }
+
+  /*
+   * The calibration scale: the tick marks of an alignment gauge.
+   * Minor ticks every 10px, major ticks every 50px, one baseline. The site's signature detail.
+   */
+  .aa-gauge {
+    --tick: currentColor;
+    display: block;
+    height: 14px;
+    color: var(--copper);
+    background:
+      linear-gradient(var(--tick), var(--tick)) left bottom / 100% 1px no-repeat,
+      repeating-linear-gradient(90deg, var(--tick) 0 1px, transparent 1px 50px) left bottom / 100% 14px no-repeat,
+      repeating-linear-gradient(90deg, var(--tick) 0 1px, transparent 1px 10px) left bottom / 100% 6px no-repeat;
+    opacity: 0.9;
+  }
+}

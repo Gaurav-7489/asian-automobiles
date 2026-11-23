@@ -3,7 +3,7 @@ import { expect, test } from "./fixtures";
 const screens = [{ width: 320, height: 568 }, { width: 390, height: 844 }, { width: 768, height: 1024 }, { width: 1024, height: 768 }, { width: 844, height: 390 }];
 
 for (const screen of screens) {
-  test(`expandable navigation and native card stack at ${screen.width} × ${screen.height}`, async ({ page }, testInfo) => {
+  test(`expandable navigation and touch service index at ${screen.width} × ${screen.height}`, async ({ page }, testInfo) => {
     test.skip(testInfo.project.name !== "mobile-chromium", "Touch viewport checks run once");
     await page.setViewportSize(screen);
     await page.emulateMedia({ reducedMotion: "no-preference" });
@@ -29,8 +29,8 @@ for (const screen of screens) {
     await expect(brand).toBeFocused();
     await panel.evaluate((element) => { element.scrollTop = 0; });
     if (screen.height >= 568) {
-      const booking = await panel.getByRole("link", { name: "Book a service" }).boundingBox();
-      expect(booking!.y + booking!.height, "The collapsed menu keeps booking fully visible").toBeLessThanOrEqual(screen.height);
+      const booking = await panel.getByRole("link", { name: "Make an enquiry" }).boundingBox();
+      expect(booking!.y + booking!.height, "The collapsed menu keeps the enquiry action fully visible").toBeLessThanOrEqual(screen.height);
     }
     await page.screenshot({ path: testInfo.outputPath("menu-collapsed.png") });
     await services.click();
@@ -39,7 +39,7 @@ for (const screen of screens) {
     await page.screenshot({ path: testInfo.outputPath("menu-expanded.png") });
     await expect(panel.locator("#aa-menu-services-links a")).toHaveCount(7);
     await expect(panel.locator("#aa-menu-services-links a span").first()).toHaveCSS("font-size", "17px");
-    await expect(panel.getByRole("link", { name: "Book a service" })).toHaveCSS("color", "rgb(17, 24, 32)");
+    await expect(panel.getByRole("link", { name: "Make an enquiry" })).toHaveCSS("color", "rgb(20, 25, 30)");
     for (const link of await panel.locator("#aa-menu-services-links a").all()) {
       await link.scrollIntoViewIfNeeded();
       await expect(link).toBeInViewport();
@@ -58,34 +58,21 @@ for (const screen of screens) {
     expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
 
     await page.goto("/", { waitUntil: "networkidle" });
-    const cards = page.locator(".aa-skip-card");
-    await expect(cards.first()).toHaveCSS("position", "sticky");
-    // Pin each successive card and check that the previous card remains
-    // behind it. The hit test proves actual overlap, rather than just CSS.
-    for (let index = 1; index < 6; index++) {
-      const target = cards.nth(index);
-      await target.evaluate((card) => {
-        const pin = parseFloat(getComputedStyle(card).top);
-        window.scrollTo({ top: window.scrollY + card.getBoundingClientRect().top - pin + 4, behavior: "instant" });
-      });
-      await expect.poll(async () => {
-        return target.evaluate((card) => Math.abs(card.getBoundingClientRect().top - parseFloat(getComputedStyle(card).top)));
-      }).toBeLessThan(10);
-      const previous = await cards.nth(index - 1).boundingBox();
-      const current = await target.boundingBox();
-      expect(previous!.y + previous!.height).toBeGreaterThan(current!.y + 30);
-      const topCard = await target.evaluate((card) => {
-        const box = card.getBoundingClientRect();
-        const pointY = Math.max(100, box.top + 30);
-        return document.elementFromPoint(box.left + box.width / 2, pointY)?.closest(".aa-skip-card") === card;
-      });
-      expect(topCard, `Card ${index + 1} should layer over the previous card`).toBe(true);
-      if (index === 3) await page.screenshot({ path: testInfo.outputPath("stack-middle.png") });
+    // On touch screens every service row carries its own photo and is a plain link: nothing depends on hover.
+    const rows = page.locator("a.aa-svc-row");
+    await expect(rows).toHaveCount(6);
+    for (const row of await rows.all()) {
+      await row.scrollIntoViewIfNeeded();
+      await expect(row).toBeInViewport();
+      const photo = await row.locator("img").boundingBox();
+      expect(photo!.width, "service thumbnail is shown inline").toBeGreaterThan(40);
+      expect(photo!.x + photo!.width).toBeLessThanOrEqual(screen.width);
+      expect((await row.boundingBox())!.height, "row is a comfortable tap target").toBeGreaterThanOrEqual(44);
     }
-    await page.screenshot({ path: testInfo.outputPath("stacked-services.png") });
-    // The workshop section is trimmed on phones by design; the link must still exist.
+    await page.screenshot({ path: testInfo.outputPath("service-index.png") });
+    await rows.nth(3).click();
+    await expect(page).toHaveURL(/\/services\/wheel-alignment-balancing\/$/);
+    await page.goBack();
     await expect(page.locator('a[href="/about/"]', { hasText: "More about us" })).toHaveCount(1);
-    await page.emulateMedia({ reducedMotion: "reduce" });
-    await expect(cards.first()).toHaveCSS("position", "relative");
   });
 }

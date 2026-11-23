@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { findService } from "@/lib/service-catalog";
-import { WhatsAppLeadForm } from "@/components/immersive/whatsapp-lead-form";
+import { WhatsAppLeadForm } from "@/components/enquiry/whatsapp-lead-form";
 
 /**
  * Reads `?service=` on the client so the contact page itself stays fully static.

@@ -1,95 +1,88 @@
-import Link from "next/link";
+import Image from "next/image";
 import type { ReactNode } from "react";
-import { ArrowUpRight, ChevronRight, CircleHelp } from "lucide-react";
-import { MotionFaq } from "@/components/immersive/inner-page-experiences";
+import { Plus } from "lucide-react";
 import { CallButton, type ActionTone } from "@/components/ui/action-link";
 import { JsonLd } from "@/components/ui/json-ld";
 
-/** Building blocks shared by the homepage and every inner page (`aa-v10-*` design language). */
+/** Building blocks shared by the homepage and every inner page. All server-rendered. */
 
 export function SectionHead({
-  eyebrow,
   title,
   copy,
-  light = false,
+  label,
   id,
+  className = "",
 }: {
-  eyebrow: string;
-  title: string;
-  copy?: string;
-  light?: boolean;
+  title: ReactNode;
+  copy?: ReactNode;
+  /** Optional technical label: only when it carries information the heading does not. */
+  label?: string;
   id?: string;
+  className?: string;
 }) {
   return (
-    <div className={light ? "aa-v10-section-head is-light" : "aa-v10-section-head"}>
-      <span className="eyebrow">{eyebrow}</span>
+    <div className={"aa-section-head " + className}>
+      {label && <span className="aa-label">{label}</span>}
       <h2 id={id}>{title}</h2>
-      {copy && <p>{copy}</p>}
+      {copy && <p className="aa-lead">{copy}</p>}
     </div>
   );
 }
 
-export function FeatureCard({
-  no,
-  eyebrow,
-  title,
-  copy,
-  icon,
-  href,
-}: {
-  no: string;
-  eyebrow: string;
-  title: string;
-  copy: string;
-  icon?: ReactNode;
-  href?: string;
-}) {
-  const body = (
-    <>
-      <div className="aa-v10-feature-meta">
-        <span>{no}</span>
-        <small>{eyebrow}</small>
-        {icon}
-      </div>
-      <h3>{title}</h3>
-      <p>{copy}</p>
-      {href && <ArrowUpRight className="aa-v10-feature-arrow" size={18} />}
-    </>
-  );
-
-  return href ? (
-    <Link href={href} className="aa-v10-feature-card">
-      {body}
-    </Link>
-  ) : (
-    <article className="aa-v10-feature-card">{body}</article>
+/**
+ * The "job card": ruled rows of a heading and a description, like the workshop's own
+ * paperwork. Not numbered, because the items are not a sequence.
+ */
+export function SpecList({ items, className = "" }: { items: [title: string, copy: string][]; className?: string }) {
+  return (
+    <dl className={"aa-spec " + className}>
+      {items.map(([title, copy]) => (
+        <div key={title}>
+          <dt>{title}</dt>
+          <dd>{copy}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }
 
-/** Closing call-to-action band at the end of a page. */
+/** A real sequence: numbered, joined by the calibration scale. */
+export function Steps({ items, className = "" }: { items: { title: string; text: string }[]; className?: string }) {
+  return (
+    <ol className={"aa-steps " + className} style={{ "--count": items.length } as React.CSSProperties}>
+      {items.map((item, index) => (
+        <li key={item.title}>
+          <span className="aa-steps__no" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+/** Closing call-to-action at the end of a page: a photograph with the next step over it. */
 export function PageCTA({
-  eyebrow,
   title,
   copy,
   headingId,
+  image = "/images/photos/hero-workshop.jpg",
   children,
 }: {
-  eyebrow: string;
   title: string;
   copy: string;
   headingId?: string;
+  image?: string;
   children: ReactNode;
 }) {
   return (
-    <section className="aa-v10-section aa-v10-endcap" aria-labelledby={headingId}>
-      <div className="wrap aa-v10-endcap-grid">
-        <div>
-          <span className="eyebrow light">{eyebrow}</span>
-          <h2 id={headingId}>{title}</h2>
-        </div>
-        <div>
+    <section className="aa-cta is-inverse" aria-labelledby={headingId}>
+      <Image className="aa-cta__photo" src={image} alt="" fill quality={68} sizes="100vw" />
+      <div className="wrap aa-cta__inner">
+        <h2 id={headingId}>{title}</h2>
+        <div className="aa-cta__side">
           <p>{copy}</p>
-          <div className="aa-v10-inline-actions">{children}</div>
+          <div className="aa-actions">{children}</div>
         </div>
       </div>
     </section>
@@ -98,19 +91,34 @@ export function PageCTA({
 
 export type QA = [question: string, answer: string];
 
-/** FAQ accordion with FAQPage structured data for exactly the visible questions. */
+/** Native disclosure list: no JavaScript, keyboard accessible, answers present in the HTML. */
+export function Disclosures({ items, openFirst = true }: { items: QA[]; openFirst?: boolean }) {
+  return (
+    <div className="aa-faq">
+      {items.map(([question, answer], index) => (
+        <details key={question} open={openFirst && index === 0}>
+          <summary>
+            <span>{question}</span>
+            <Plus size={20} aria-hidden="true" />
+          </summary>
+          <div className="aa-faq__answer"><p>{answer}</p></div>
+        </details>
+      ))}
+    </div>
+  );
+}
+
+/** FAQ with FAQPage structured data for exactly the visible questions. */
 export function FaqSection({
   title,
   items,
-  eyebrow = "QUESTIONS",
-  surface = "paper",
+  surface = "canvas",
   headingId,
-  callTone = "primary",
+  callTone = "dark",
 }: {
   title: string;
   items: QA[];
-  eyebrow?: string;
-  surface?: "paper" | "soft";
+  surface?: "canvas" | "alt";
   headingId?: string;
   callTone?: ActionTone;
 }) {
@@ -120,32 +128,29 @@ export function FaqSection({
     mainEntity: items.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
   };
   return (
-    <section className={"aa-v10-section aa-v10-" + surface} aria-labelledby={headingId}>
-      <div className="wrap aa-v10-faq-layout">
-        <div className="aa-v10-faq-aside">
-          <CircleHelp size={28} />
-          <span>{eyebrow}</span>
+    <section className={"section surface-" + surface} aria-labelledby={headingId}>
+      <div className="wrap aa-faq-layout">
+        <div className="aa-faq-layout__aside">
           <h2 id={headingId}>{title}</h2>
           <p>Can’t see your question? Call the workshop with your car’s make, model and year.</p>
           <CallButton tone={callTone} />
         </div>
-        <MotionFaq items={items.map(([question, answer]) => ({ question, answer }))} />
+        <Disclosures items={items} />
       </div>
       <JsonLd data={jsonLd} />
     </section>
   );
 }
 
-export function StackList({ items }: { items: [no: string, title: string, copy: string][] }) {
+/** A boxed warning for safety-critical advice. */
+export function Note({ title, children, action }: { title: string; children: ReactNode; action?: ReactNode }) {
   return (
-    <div className="aa-v10-stack-list">
-      {items.map(([no, title, copy]) => (
-        <div key={no}>
-          <span>{no}</span>
-          <div><b>{title}</b><p>{copy}</p></div>
-          <ChevronRight size={17} />
-        </div>
-      ))}
+    <div className="aa-note" role="note">
+      <div>
+        <h2>{title}</h2>
+        <p>{children}</p>
+      </div>
+      {action}
     </div>
   );
 }

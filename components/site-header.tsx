@@ -2,56 +2,55 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowRight,
-  ArrowUpRight,
-  CalendarDays,
-  ChevronDown,
-  MapPin,
-  MessageCircle,
-  Phone,
-} from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { ChevronDown, MapPin, MessageCircle, Phone } from "lucide-react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { usePathname } from "next/navigation";
 import { serviceCatalog, serviceImage } from "@/lib/service-catalog";
 import { businessFacts, directionsHref, phoneTel, whatsappEnabled, whatsappLink } from "@/lib/business-facts";
 
-const serviceLinks = serviceCatalog.map((service) => [service.title, service.href, service.meta]);
-const servicePreviewImages = serviceCatalog.map((service) => serviceImage(service));
+/** Width at which the full desktop navigation replaces the menu button (keep in sync with layout.css). */
+const DESKTOP_MIN = 1100;
 
 // Spec 6.2: About · Services ▾ · Spare Parts · Contact
 const navLinks = [
   ["About", "/about/"],
-  ["Spare Parts", "/spare-parts/"],
+  ["Spare parts", "/spare-parts/"],
   ["Contact", "/contact/"],
-];
+] as const;
+
+/** Pages that open on a dark photograph: the header starts with light text there. */
+function startsDark(pathname: string) {
+  return pathname === "/" || pathname.startsWith("/services/");
+}
 
 export function SiteHeader() {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [mobileGroup, setMobileGroup] = useState<"services" | null>(null);
+  const [servicesExpanded, setServicesExpanded] = useState(false);
+  const [megaOpen, setMegaOpen] = useState(false);
+  const [megaSeen, setMegaSeen] = useState(false);
+  const [preview, setPreview] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLElement>(null);
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const [servicePreview, setServicePreview] = useState(0);
-  const [scrolled, setScrolled] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const pathname = usePathname();
 
-  const openServices = () => {
+  const openMega = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    setServicesOpen(true);
+    setMegaOpen(true);
+    setMegaSeen(true);
+  };
+  const scheduleMegaClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setMegaOpen(false), 220);
   };
 
-  const scheduleServicesClose = () => {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => setServicesOpen(false), 260);
-  };
-
+  // Solid bar once the page has scrolled. Only flips state when the threshold is crossed.
   useEffect(() => {
     let previous = false;
     const onScroll = () => {
-      const next = window.scrollY > 18;
+      const next = window.scrollY > 24;
       if (next !== previous) {
         previous = next;
         setScrolled(next);
@@ -62,23 +61,28 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // A completed navigation closes every menu.
   useEffect(() => {
     setMenuOpen(false);
-    setMobileGroup(null);
-    setServicesOpen(false);
+    setServicesExpanded(false);
+    setMegaOpen(false);
   }, [pathname]);
 
+  // Open mobile menu: lock page scroll, move focus in, trap Tab, close on desktop resize.
   useEffect(() => {
     if (!menuOpen) return;
-    const previousBodyOverflow = document.body.style.overflow;
-    const previousHtmlOverflow = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-    panelRef.current?.querySelector<HTMLButtonElement>("button")?.focus();
+    const { body, documentElement } = document;
+    const previousBody = body.style.overflow;
+    const previousHtml = documentElement.style.overflow;
+    body.style.overflow = "hidden";
+    documentElement.style.overflow = "hidden";
+    panelRef.current?.querySelector<HTMLElement>("a, button")?.focus();
+
     const onTab = (event: KeyboardEvent) => {
       if (event.key !== "Tab") return;
-      const controls = Array.from(headerRef.current?.querySelectorAll<HTMLElement>("a[href], button") ?? [])
-        .filter((element) => !element.closest("[inert]") && element.getClientRects().length > 0 && getComputedStyle(element).visibility !== "hidden");
+      const controls = Array.from(headerRef.current?.querySelectorAll<HTMLElement>("a[href], button") ?? []).filter(
+        (element) => !element.closest("[inert]") && element.getClientRects().length > 0 && getComputedStyle(element).visibility !== "hidden",
+      );
       const first = controls[0];
       const last = controls[controls.length - 1];
       if (event.shiftKey && document.activeElement === first) {
@@ -90,182 +94,134 @@ export function SiteHeader() {
       }
     };
     const onResize = () => {
-      if (window.innerWidth > 1320) setMenuOpen(false);
+      if (window.innerWidth >= DESKTOP_MIN) setMenuOpen(false);
     };
     document.addEventListener("keydown", onTab);
     window.addEventListener("resize", onResize);
-
     return () => {
       document.removeEventListener("keydown", onTab);
       window.removeEventListener("resize", onResize);
-      document.body.style.overflow = previousBodyOverflow;
-      document.documentElement.style.overflow = previousHtmlOverflow;
+      body.style.overflow = previousBody;
+      documentElement.style.overflow = previousHtml;
     };
   }, [menuOpen]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        if (menuOpen) {
-          setMenuOpen(false);
-          menuButtonRef.current?.focus();
-        }
-        setServicesOpen(false);
+      if (event.key !== "Escape") return;
+      if (menuOpen) {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
       }
+      setMegaOpen(false);
     };
     window.addEventListener("keydown", onKeyDown);
-    return () => {
-      window.removeEventListener("keydown", onKeyDown);
-      if (closeTimer.current) clearTimeout(closeTimer.current);
-    };
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, [menuOpen]);
 
-  const servicesActive =
-    pathname.startsWith("/services") || pathname.startsWith("/spare-parts");
-  const innerPage = pathname !== "/";
+  useEffect(() => () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+  }, []);
+
+  const servicesActive = pathname.startsWith("/services");
+  const tone = !scrolled && !menuOpen && startsDark(pathname) ? "on-dark" : "on-light";
   const whatsappHref = whatsappLink("Hello Asian Automobiles, I'd like to ask about my car. Make/model: … Problem: …");
 
   return (
     <>
       <header
         ref={headerRef}
-        className={`aa-header aa-header-v4 aa-header-v5 ${scrolled ? "is-scrolled" : ""} ${menuOpen ? "is-open" : ""} ${servicesOpen ? "is-services-open" : ""}`}
+        data-tone={tone}
+        className={"aa-header" + (scrolled ? " is-scrolled" : "") + (menuOpen ? " is-open" : "") + (megaOpen ? " is-services-open" : "")}
       >
-        <div className="aa-nav-main">
-          <div className="aa-shell aa-header-inner">
-            <Link href="/" className="aa-brand">
-              <span className="aa-brand-mark" aria-hidden="true">AA</span>
-              <span className="aa-brand-name">
-                <b>ASIAN AUTOMOBILES</b>
-                <small>{businessFacts.address.locality.toUpperCase()} · {businessFacts.address.region.toUpperCase()}</small>
-              </span>
-            </Link>
+        <div className="aa-header__bar wrap">
+          <Link href="/" className="aa-brand">
+            <span className="aa-brand__mark" aria-hidden="true">AA</span>
+            <span className="aa-brand__name">Asian Automobiles</span>
+          </Link>
 
-            <nav className="aa-desktop-nav aa-desktop-nav-v4" aria-label="Primary navigation">
-              <div
-                className="aa-nav-services"
-                onPointerEnter={openServices}
-                onPointerLeave={scheduleServicesClose}
-                onFocusCapture={openServices}
-                onBlurCapture={(event) => {
-                  if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
-                    scheduleServicesClose();
-                  }
-                }}
+          <nav className="aa-nav" aria-label="Primary navigation">
+            <Link href="/about/" className={pathname.startsWith("/about") ? "is-active" : ""} aria-current={pathname === "/about/" ? "page" : undefined}>About</Link>
+
+            <div
+              className="aa-nav__services"
+              onPointerEnter={(event) => event.pointerType === "mouse" && openMega()}
+              onPointerLeave={(event) => event.pointerType === "mouse" && scheduleMegaClose()}
+              onFocusCapture={openMega}
+              onBlurCapture={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget as Node | null)) scheduleMegaClose();
+              }}
+            >
+              <button
+                type="button"
+                className={servicesActive ? "is-active" : ""}
+                aria-expanded={megaOpen}
+                aria-controls="aa-service-mega-menu"
+                onClick={openMega}
               >
-                <button
-                  type="button"
-                  className={servicesActive ? "is-active" : ""}
-                  aria-expanded={servicesOpen}
-                  aria-controls="aa-service-mega-menu"
-                  onClick={openServices}
-                >
-                  <span>Services</span> <ChevronDown size={14} />
-                </button>
+                Services <ChevronDown size={14} aria-hidden="true" />
+              </button>
 
-                <div
-                  className="aa-mega-bridge"
-                  aria-hidden="true"
-                  onPointerEnter={openServices}
-                />
-
-                <div
-                  className="aa-mega"
-                  id="aa-service-mega-menu"
-                  onPointerEnter={openServices}
-                  onPointerLeave={scheduleServicesClose}
-                >
-                  <div className="aa-mega-top">
-                    <div>
-                      <span>SERVICE DIRECTORY</span>
-                      <strong>What does the car need?</strong>
-                      <small>Pick the closest match. We’ll take it from there.</small>
-                    </div>
-                    <Link href="/services/">
-                      View all services <ArrowUpRight size={14} />
-                    </Link>
-                  </div>
-
-                  <div className="aa-mega-body">
-                    <div className="aa-mega-grid">
-                      {serviceLinks.map(([label, href, meta], index) => (
+              <div className="aa-mega" id="aa-service-mega-menu">
+                <div className="aa-mega__list">
+                  <ul>
+                    {serviceCatalog.map((service, index) => (
+                      <li key={service.id}>
                         <Link
-                          href={href}
-                          key={href}
-                          onPointerEnter={() => setServicePreview(index)}
-                          onFocus={() => setServicePreview(index)}
-                          className="aa-mega-link"
+                          href={service.href}
+                          className="aa-mega__link"
+                          aria-current={pathname === service.href ? "page" : undefined}
+                          onPointerEnter={() => setPreview(index)}
+                          onFocus={() => setPreview(index)}
                         >
-                          <span>0{index + 1}</span>
-                          <div>
-                            <b>{label}</b>
-                            <small>{meta}</small>
-                          </div>
-                          <ArrowUpRight size={16} />
+                          <b>{service.title}</b>
+                          <small>{service.description}</small>
                         </Link>
-                      ))}
-                      <Link href="/contact/#enquiry" className="aa-mega-book">
-                        <CalendarDays size={19} />
-                        <div>
-                          <span>READY TO START?</span>
-                          <b>Book a service</b>
-                        </div>
-                        <ArrowRight size={18} />
-                      </Link>
-                    </div>
-
-                    <figure className="aa-mega-preview" aria-hidden="true">
-                      <Image
-                        key={servicePreviewImages[servicePreview]}
-                        src={servicePreviewImages[servicePreview]}
-                        alt=""
-                        fill
-                        quality={66}
-                        sizes="340px"
-                      />
-                      <figcaption>
-                        <span>0{servicePreview + 1}</span>
-                        <b>{serviceLinks[servicePreview][0]}</b>
-                      </figcaption>
-                    </figure>
-                  </div>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href="/services/" className="aa-mega__all">View all services</Link>
+                </div>
+                <div className="aa-mega__preview" aria-hidden="true">
+                  {megaSeen && serviceCatalog.map((service, index) => (
+                    <Image
+                      key={service.id}
+                      src={serviceImage(service)}
+                      alt=""
+                      fill
+                      quality={66}
+                      sizes="320px"
+                      className={index === preview ? "is-active" : ""}
+                    />
+                  ))}
                 </div>
               </div>
-
-              {navLinks.map(([label, href]) => {
-                const active = pathname === href || pathname.startsWith(href);
-                return (
-                  <Link
-                    key={href}
-                    href={href}
-                    className={active ? "is-active" : ""}
-                  >
-                    {label}
-                  </Link>
-                );
-              })}
-            </nav>
-
-            <div className="aa-header-actions">
-              <a href={phoneTel} className="aa-header-phone">
-                <Phone size={14} />
-                <span>Call workshop</span>
-              </a>
-              <Link href="/contact/#enquiry" className="aa-header-cta">
-                <span>Book service</span> <ArrowUpRight size={15} />
-              </Link>
-              <button
-                ref={menuButtonRef}
-                type="button"
-                className="aa-menu-button"
-                aria-label={menuOpen ? "Close menu" : "Open menu"}
-                aria-expanded={menuOpen}
-                aria-controls="aa-mobile-navigation"
-                onClick={() => setMenuOpen((value) => !value)}
-              >
-                <span className="aa-menu-icon" aria-hidden="true"><i /><i /></span>
-              </button>
             </div>
+
+            {navLinks.slice(1).map(([label, href]) => (
+              <Link key={href} href={href} className={pathname.startsWith(href) ? "is-active" : ""} aria-current={pathname === href ? "page" : undefined}>
+                {label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="aa-header__actions">
+            <a href={phoneTel} className="aa-header__phone">
+              <Phone size={15} aria-hidden="true" />
+              <span>{businessFacts.phones.primaryDisplay}</span>
+            </a>
+            <Link href="/contact/#enquiry" className="aa-btn aa-btn--primary aa-header__cta">Make an enquiry</Link>
+            <button
+              ref={menuButtonRef}
+              type="button"
+              className="aa-menu-button"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              aria-controls="aa-mobile-navigation"
+              onClick={() => setMenuOpen((value) => !value)}
+            >
+              <span aria-hidden="true"><i /><i /></span>
+            </button>
           </div>
         </div>
 
@@ -278,88 +234,74 @@ export function SiteHeader() {
           onClick={(event) => {
             if ((event.target as HTMLElement).closest("a")) {
               setMenuOpen(false);
-              setMobileGroup(null);
+              setServicesExpanded(false);
             }
           }}
         >
-          <div className="aa-mnav-inner">
-            <ol className="aa-mnav-list">
-              <li style={{ "--i": 0 } as React.CSSProperties}>
-                <Link href="/" className="aa-mnav-link" aria-current={pathname === "/" ? "page" : undefined}>
-                  <i>01</i><span>Home</span><ArrowUpRight size={20} />
-                </Link>
+          <div className="aa-mnav__inner wrap">
+            <ul className="aa-mnav-list">
+              <li style={{ "--i": 0 } as CSSProperties}>
+                <Link href="/" className="aa-mnav-link" aria-current={pathname === "/" ? "page" : undefined}>Home</Link>
               </li>
-              <li style={{ "--i": 1 } as React.CSSProperties} className={`aa-mnav-group ${mobileGroup === "services" ? "is-expanded" : ""}`}>
+              <li style={{ "--i": 1 } as CSSProperties}>
+                <Link href="/about/" className="aa-mnav-link" aria-current={pathname === "/about/" ? "page" : undefined}>About</Link>
+              </li>
+              <li style={{ "--i": 2 } as CSSProperties} className={"aa-mnav-group" + (servicesExpanded ? " is-expanded" : "")}>
                 <button
                   type="button"
                   className="aa-mnav-link"
                   id="aa-menu-services-toggle"
-                  aria-expanded={mobileGroup === "services"}
+                  aria-expanded={servicesExpanded}
                   aria-controls="aa-menu-services-links"
-                  onClick={() => setMobileGroup(mobileGroup === "services" ? null : "services")}
+                  onClick={() => setServicesExpanded((value) => !value)}
                 >
-                  <i>02</i><span>Services</span><ChevronDown size={20} />
+                  Services <ChevronDown size={22} aria-hidden="true" />
                 </button>
-                <div className="aa-mnav-sub" inert={mobileGroup !== "services"}>
+                <div className="aa-mnav-sub" inert={!servicesExpanded}>
                   <div>
                     <ul id="aa-menu-services-links" aria-labelledby="aa-menu-services-toggle">
-                      {serviceLinks.map(([label, href], n) => (
-                        <li key={href}>
-                          <Link href={href} aria-current={pathname === href ? "page" : undefined}>
-                            <i>{String(n + 1).padStart(2, "0")}</i><span>{label}</span>
+                      {serviceCatalog.map((service) => (
+                        <li key={service.id}>
+                          <Link href={service.href} aria-current={pathname === service.href ? "page" : undefined}>
+                            <span>{service.title}</span>
                           </Link>
                         </li>
                       ))}
                       <li>
                         <Link href="/services/" aria-current={pathname === "/services/" ? "page" : undefined}>
-                          <i>—</i><span>All services</span>
+                          <span>All services</span>
                         </Link>
                       </li>
                     </ul>
                   </div>
                 </div>
               </li>
-              {navLinks.map(([label, href], n) => (
-                <li key={href} style={{ "--i": n + 2 } as React.CSSProperties}>
-                  <Link href={href} className="aa-mnav-link" aria-current={pathname === href ? "page" : undefined}>
-                    <i>{String(n + 3).padStart(2, "0")}</i><span>{label}</span><ArrowUpRight size={20} />
-                  </Link>
+              {navLinks.slice(1).map(([label, href], index) => (
+                <li key={href} style={{ "--i": index + 3 } as CSSProperties}>
+                  <Link href={href} className="aa-mnav-link" aria-current={pathname === href ? "page" : undefined}>{label}</Link>
                 </li>
               ))}
-            </ol>
-            <div className="aa-mnav-foot">
-              <Link href="/contact/#enquiry" className="aa-mnav-book">
-                <span>Book a service</span><ArrowUpRight size={20} />
-              </Link>
-              <div className="aa-mnav-quick">
-                <a href={phoneTel}><Phone size={16} /><span>Call</span></a>
-                <a href={directionsHref} target="_blank" rel="noopener noreferrer"><MapPin size={16} /><span>Directions</span></a>
+            </ul>
+
+            <div className="aa-mnav__foot">
+              <Link href="/contact/#enquiry" className="aa-btn aa-btn--primary aa-mnav__enquire">Make an enquiry</Link>
+              <div className="aa-mnav__quick">
+                <a href={phoneTel}><Phone size={16} aria-hidden="true" /><span>Call</span></a>
+                <a href={directionsHref} target="_blank" rel="noopener noreferrer"><MapPin size={16} aria-hidden="true" /><span>Directions</span></a>
               </div>
-              <p className="aa-mnav-meta">{businessFacts.hours} · {businessFacts.address.locality}</p>
+              <p>{businessFacts.hours}{businessFacts.sundayClosed ? ". Closed on Sundays." : "."}</p>
             </div>
           </div>
         </nav>
       </header>
 
-      {innerPage && whatsappEnabled && whatsappHref && (
-        <a
-          className="aa-v10-whatsapp-float"
-          href={whatsappHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Message Asian Automobiles on WhatsApp"
-        >
-          <MessageCircle size={17} />
-          <span>WhatsApp</span>
-        </a>
-      )}
-
+      {/* Phones: the three things people come for, always one tap away. */}
       <nav className="aa-mobile-actions" aria-label="Quick actions">
-        <a href={phoneTel}><Phone size={15} /><span>Call</span></a>
+        <a href={phoneTel}><Phone size={17} aria-hidden="true" /><span>Call</span></a>
         {whatsappEnabled && whatsappHref
-          ? <a href={whatsappHref} target="_blank" rel="noopener noreferrer"><MessageCircle size={15} /><span>WhatsApp</span></a>
-          : <Link href="/contact/#enquiry"><CalendarDays size={15} /><span>Book</span></Link>}
-        <a href={directionsHref} target="_blank" rel="noopener noreferrer"><MapPin size={15} /><span>Directions</span></a>
+          ? <a href={whatsappHref} target="_blank" rel="noopener noreferrer"><MessageCircle size={17} aria-hidden="true" /><span>WhatsApp</span></a>
+          : <Link href="/contact/#enquiry"><MessageCircle size={17} aria-hidden="true" /><span>Enquire</span></Link>}
+        <a href={directionsHref} target="_blank" rel="noopener noreferrer"><MapPin size={17} aria-hidden="true" /><span>Directions</span></a>
       </nav>
     </>
   );

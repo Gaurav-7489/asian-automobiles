@@ -49,7 +49,7 @@ test("unknown route returns a real 404", async ({ page }) => {
   });
   expect(response).not.toBeNull();
   expect(response!.status()).toBe(404);
-  await expect(page.getByText("404 / WRONG TURN")).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Page not found" })).toBeVisible();
 });
 
 test("mobile navigation opens, is usable, and closes", async ({ page }, testInfo) => {
@@ -67,5 +67,5 @@ test("mobile navigation opens, is usable, and closes", async ({ page }, testInfo
   await expect(panel.getByRole("link", { name: /Car service & maintenance/i })).toBeVisible();
 
   await page.getByRole("button", { name: "Close menu" }).click();
-  await expect(page.locator(".aa-header-v5")).not.toHaveClass(/is-open/);
+  await expect(page.locator(".aa-header")).not.toHaveClass(/is-open/);
 });

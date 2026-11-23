@@ -38,7 +38,7 @@ test("desktop journeys navigate client-side, and back/forward work", async ({ pa
   await expect(page).toHaveURL(/\/services\/$/);
   await expect(page.locator("h1")).toHaveText("Our car services");
 
-  await page.locator(".aa-v10-feature-card", { hasText: "Tyre care" }).click();
+  await page.locator(".aa-directory").getByRole("link", { name: "Tyre care", exact: true }).click();
   await expect(page).toHaveURL(/\/services\/tyre-care\/$/);
   await expect(page.locator("h1")).toHaveText("Tyre care for safer driving");
 
@@ -47,7 +47,7 @@ test("desktop journeys navigate client-side, and back/forward work", async ({ pa
   await expect(page).toHaveURL(/\/spare-parts\/$/);
   await expect(page.locator("h1")).toHaveText("Spare parts enquiry");
 
-  await page.getByRole("link", { name: /Book service/ }).first().click();
+  await page.getByRole("link", { name: /Make an enquiry/ }).first().click();
   await expect(page).toHaveURL(/\/contact\/#enquiry$/);
   await expect(page.locator("h1")).toHaveText("Contact and location");
   await expectSameDocument(page);

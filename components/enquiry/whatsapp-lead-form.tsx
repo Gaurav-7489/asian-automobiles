@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, Check, MessageCircle, Phone } from "lucide-react";
+import { Check, MessageCircle, Phone } from "lucide-react";
 import { FormEvent, useState } from "react";
 import { businessFacts, phoneTel, whatsappLink, type LeadMode } from "@/lib/business-facts";
 import { findService, serviceCatalog } from "@/lib/service-catalog";
@@ -83,21 +83,21 @@ export function WhatsAppLeadForm({ mode: initialMode = "service", selectedServic
   }
 
   return (
-    <div className="aa-v10-lead-shell">
-      <div className="aa-v10-lead-copy">
-        <span>{copy.eyebrow}</span>
+    <div className="aa-lead-form">
+      <div className="aa-lead-form__intro">
+        <span className="aa-label">{copy.eyebrow}</span>
         <h2>{copy.title}</h2>
         <p>{copy.helper}</p>
-        <div className="aa-v10-lead-fallback">
-          <MessageCircle size={17} />
+        <p className="aa-lead-form__number">
+          <MessageCircle size={17} aria-hidden="true" />
           <span>WhatsApp: {businessFacts.phones.whatsappDisplay}</span>
-        </div>
-        <a href={phoneTel} className="aa-v10-text-action">
-          <Phone size={15} /> Prefer a call? Talk to the workshop.
+        </p>
+        <a href={phoneTel} className="aa-link">
+          <Phone size={15} aria-hidden="true" /> Prefer a call? Talk to the workshop.
         </a>
       </div>
 
-      <form className="aa-v10-lead-form" onSubmit={submit}>
+      <form className="aa-form" onSubmit={submit}>
         <label>
           <span>Your name</span>
           <input name="name" autoComplete="name" placeholder="What should we call you?" maxLength={limits.name} required />
@@ -150,7 +150,7 @@ export function WhatsAppLeadForm({ mode: initialMode = "service", selectedServic
           </label>
         )}
 
-        <label className="aa-v10-form-wide">
+        <label className="aa-form__wide">
           <span>{mode === "parts" ? "Vehicle / part details" : "Tell us what is happening"}</span>
           <textarea
             name="extra"
@@ -163,9 +163,9 @@ export function WhatsAppLeadForm({ mode: initialMode = "service", selectedServic
           />
         </label>
 
-        <button type="submit" className="aa-v10-submit">
+        <button type="submit" className="aa-btn aa-btn--primary aa-form__submit">
+          {opened && <Check size={17} aria-hidden="true" />}
           <span>{opened ? "Open WhatsApp again" : copy.button}</span>
-          {opened ? <Check size={17} /> : <ArrowUpRight size={17} />}
         </button>
 
         <small role="status">

@@ -1,0 +1,97 @@
+/*
+ * Asian Automobiles design system: tokens.
+ *
+ * Layers keep the cascade predictable without !important:
+ *   reset → base → components → layout → pages
+ * A rule in a later layer always wins over an earlier one, regardless of selector weight.
+ */
+@layer reset, base, components, layout, pages;
+
+:root {
+  /* ---- Palette (brand) -------------------------------------------------- */
+  --graphite: #14191e;
+  --charcoal: #1d252b;
+  --steel: #27333b;
+  --porcelain: #f2efe8;
+  --porcelain-deep: #e8e4da;
+  --white: #ffffff;
+  --copper: #b87338;
+  --copper-bright: #cb8a4e;
+  --copper-ink: #8a5223; /* copper for text on light surfaces: 5.5:1 on porcelain */
+  --silver: #bfc9cc;
+  --muted: #75818a; /* decorative only: below 4.5:1 on both porcelain and graphite */
+
+  /* ---- Semantic colour -------------------------------------------------- */
+  --color-canvas: var(--porcelain);
+  --color-surface: var(--white);
+  --color-surface-alt: var(--porcelain-deep);
+  --color-surface-dark: var(--graphite);
+  --color-surface-dark-2: var(--charcoal);
+  --color-surface-dark-3: var(--steel);
+
+  --color-text-primary: var(--graphite);
+  --color-text-secondary: #4e5961; /* 6.2:1 on porcelain */
+  --color-text-inverse: var(--porcelain);
+  --color-text-inverse-secondary: var(--silver); /* 9:1 on charcoal */
+
+  --color-accent: var(--copper);
+  --color-accent-ink: var(--copper-ink);
+
+  --color-border: rgb(20 25 30 / 0.14);
+  --color-border-strong: rgb(20 25 30 / 0.34);
+  --color-border-inverse: rgb(191 201 204 / 0.2);
+  --color-border-inverse-strong: rgb(191 201 204 / 0.42);
+
+  --color-button: var(--copper);
+  --color-button-text: var(--graphite); /* 4.7:1 on copper */
+  --color-button-hover: var(--copper-bright);
+  --color-button-dark: var(--graphite);
+  --color-button-dark-text: var(--porcelain);
+  --color-button-disabled: #c9c4b8;
+  --color-button-disabled-text: #5d6266;
+
+  --color-focus: var(--copper);
+  --color-scrim: rgb(14 18 22 / 0.86);
+
+  /* ---- Type ------------------------------------------------------------- */
+  --font-sans: var(--font-archivo), "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --stretch-display: 112%;
+  --stretch-label: 108%;
+
+  --fs-label: 0.75rem;
+  --fs-small: 0.875rem;
+  --fs-body: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
+  --fs-lead: clamp(1.125rem, 1.04rem + 0.42vw, 1.375rem);
+  --fs-h4: clamp(1.1875rem, 1.12rem + 0.3vw, 1.375rem);
+  --fs-h3: clamp(1.375rem, 1.2rem + 0.85vw, 2rem);
+  --fs-h2: clamp(2rem, 1.45rem + 2.3vw, 3.75rem);
+  --fs-h1: clamp(2.375rem, 1.5rem + 3.9vw, 5.5rem);
+  --fs-hero: clamp(2.75rem, 1rem + 9vw, 7.5rem);
+
+  /* ---- Space & shape ---------------------------------------------------- */
+  --gutter: clamp(1rem, 4vw, 4rem);
+  --wrap: 1480px;
+  --section: clamp(4.5rem, 3rem + 6vw, 9.5rem);
+  --section-tight: clamp(3rem, 2rem + 4vw, 6rem);
+  --radius: 2px; /* machined edge: buttons, inputs, tags. Images stay square. */
+  --header-h: 72px;
+
+  /* ---- Motion ----------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur: 320ms;
+  --dur-slow: 900ms;
+}
+
+@media (max-width: 1099px) {
+  :root {
+    --header-h: 64px;
+  }
+}
+
+@media (max-width: 599px) {
+  :root {
+    --stretch-display: 104%;
+  }
+}

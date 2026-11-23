@@ -4,20 +4,26 @@ import "./styles/index.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { NavigationFeedback } from "@/components/navigation-feedback";
-import { MotionProvider } from "@/components/motion-provider";
 import { JsonLd } from "@/components/ui/json-ld";
 import { businessFacts, directionsHref } from "@/lib/business-facts";
 import { siteUrl } from "@/lib/site";
 
-// Spec 5.3: Manrope for headings, Inter for body. Self-hosted Latin variable fonts (OFL, Fontsource).
-const manrope = localFont({ src: "./fonts/manrope-latin-wght-normal.woff2", weight: "200 800", display: "swap", variable: "--font-manrope" });
-const inter = localFont({ src: "./fonts/inter-latin-wght-normal.woff2", weight: "100 900", display: "swap", variable: "--font-inter" });
+// Archivo (OFL): one self-hosted variable file, weight 400–800 and width 100–125 %, subset to the
+// characters the site uses (31 KB; see app/fonts/README.md). Expanded widths set the display type.
+const archivo = localFont({
+  src: "./fonts/archivo-subset.woff2",
+  weight: "400 800",
+  style: "normal",
+  display: "swap",
+  variable: "--font-archivo",
+  declarations: [{ prop: "font-stretch", value: "100% 125%" }],
+});
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#111820",
+  themeColor: "#14191e",
 };
 
 export const metadata: Metadata = {
@@ -61,15 +67,13 @@ const businessSchema = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className={`${manrope.variable} ${inter.variable}`}>
+    <html lang="en-IN" className={archivo.variable}>
       <body>
         <JsonLd data={businessSchema} />
         <a href="#main" className="aa-skip-link">Skip to main content</a>
-        <MotionProvider>
-          <SiteHeader />
-          {children}
-          <SiteFooter />
-        </MotionProvider>
+        <SiteHeader />
+        {children}
+        <SiteFooter />
         <NavigationFeedback />
       </body>
     </html>
