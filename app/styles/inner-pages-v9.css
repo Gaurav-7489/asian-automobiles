@@ -542,8 +542,8 @@
 
 .immersive-page-v9{
   --v9-text:var(--brand-ink);
-  --v9-text-muted:#4d4d47;
-  --v9-text-subtle:#62615b;
+  --v9-text-muted:#474d57;
+  --v9-text-subtle:#5b616b;
   --v9-dark-text:var(--brand-paper);
   --v9-dark-muted:rgba(255,255,255,.76);
   color:var(--v9-text);
@@ -646,8 +646,8 @@
 @media (prefers-contrast:more){
   .immersive-page-v9{
     --v9-text:#000000;
-    --v9-text-muted:#34342f;
-    --v9-text-subtle:#45443f;
+    --v9-text-muted:#273448;
+    --v9-text-subtle:#3e444e;
     --v9-dark-text:#ffffff;
     --v9-dark-muted:rgba(255,255,255,.88);
   }

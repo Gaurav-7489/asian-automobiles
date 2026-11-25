@@ -9,7 +9,7 @@
   --aa-v15-paper:var(--brand-paper);
   --aa-v15-accent:var(--brand-accent);
   --aa-v15-white:#ffffff;
-  --aa-v15-muted:#555a53;
+  --aa-v15-muted:#525963;
   --aa-v15-dark:var(--brand-ink);
   --aa-v15-line-dark:rgb(var(--brand-ink-rgb) / .18);
   --aa-v15-line-light:rgba(255,255,255,.2);
@@ -1009,7 +1009,7 @@
 }
 
 .aa-v22-stage-head :is(span,b){
-  color:#5b605a!important;
+  color:#585f69!important;
   font-size:7px;
   font-weight:800;
   letter-spacing:.16em;
@@ -1029,7 +1029,7 @@
 
 .aa-v22-groove{
   fill:none;
-  stroke:#34383a;
+  stroke:#2a384c;
   stroke-linecap:round;
   stroke-linejoin:round;
 }
@@ -1040,7 +1040,7 @@
 
 .aa-v22-groove.inner{
   stroke-width:10;
-  stroke:#2a2d2f;
+  stroke:#202d41;
 }
 
 .aa-v22-channel{
@@ -1101,7 +1101,7 @@
 
 .aa-v22-sub{
   font-size:8px;
-  fill:#656a63;
+  fill:#626973;
 }
 
 .aa-v22-wear{
@@ -1150,7 +1150,7 @@
 }
 
 .aa-v22-stage-scale span{
-  color:#5b605a!important;
+  color:#585f69!important;
   font-size:6px;
   font-weight:800;
   letter-spacing:.14em;

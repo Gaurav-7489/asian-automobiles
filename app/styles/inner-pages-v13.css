@@ -6,7 +6,7 @@
 
 .aa-inner-v10{
   --v13-ink:var(--brand-ink);
-  --v13-muted:#51544f;
+  --v13-muted:#4d535d;
   --v13-paper:var(--brand-paper);
   --v13-paper-2:var(--brand-paper);
   --v13-dark:var(--brand-ink);
@@ -42,7 +42,7 @@
   .aa-v10-paper,
   .aa-v10-soft
 ) :is(.eyebrow,.aa-v10-feature-meta,.aa-v10-card-top,small){
-  color:#62665f;
+  color:#5e656f;
 }
 
 /* -----------------------------
@@ -202,7 +202,7 @@
 /* Reference notes must follow their section background. */
 .aa-inner-v10 .aa-v10-paper .aa-v10-reference-note,
 .aa-inner-v10 .aa-v10-soft .aa-v10-reference-note{
-  color:#5b5e58!important;
+  color:#575d67!important;
 }
 
 .aa-inner-v10 .aa-v10-dark .aa-v10-reference-note{
@@ -828,7 +828,7 @@
   .aa-v10-map-road,
   .aa-v10-address-lines small
 ){
-  color:#555951!important;
+  color:#515862!important;
 }
 
 /* Dark-section labels should be visible without becoming dominant. */

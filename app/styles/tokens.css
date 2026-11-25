@@ -4,22 +4,22 @@
  *   color: var(--brand-accent);   background: rgb(var(--brand-ink-rgb) / .72);
  */
 :root {
-  --brand-ink: #111820;
-  --brand-ink-rgb: 17 24 32;
-  --brand-charcoal: #202a32;
-  --brand-charcoal-rgb: 32 42 50;
-  --brand-paper: #f5f5f2;
-  --brand-paper-rgb: 245 245 242;
-  --brand-surface: #e2e4e1;
-  --brand-surface-rgb: 226 228 225;
-  --brand-accent: #d58a3a;
-  --brand-accent-rgb: 213 138 58;
-  --brand-accent-strong: #9a5a1c;
-  --brand-accent-strong-rgb: 154 90 28;
-  --brand-accent-soft: #e8a25a;
-  --brand-accent-soft-rgb: 232 162 90;
-  --brand-muted: #87919a;
-  --brand-muted-rgb: 135 145 154;
-  --brand-slate: #5c6670;
-  --brand-slate-rgb: 92 102 112;
+  --brand-ink: #0e1a2b;
+  --brand-ink-rgb: 14 26 43;
+  --brand-charcoal: #1a2a40;
+  --brand-charcoal-rgb: 26 42 64;
+  --brand-paper: #f7f8fa;
+  --brand-paper-rgb: 247 248 250;
+  --brand-surface: #e4e8ef;
+  --brand-surface-rgb: 228 232 239;
+  --brand-accent: #f26b1d;
+  --brand-accent-rgb: 242 107 29;
+  --brand-accent-strong: #c24e0c;
+  --brand-accent-strong-rgb: 194 78 12;
+  --brand-accent-soft: #ff8a45;
+  --brand-accent-soft-rgb: 255 138 69;
+  --brand-muted: #8a94a6;
+  --brand-muted-rgb: 138 148 166;
+  --brand-slate: #5b6678;
+  --brand-slate-rgb: 91 102 120;
 }

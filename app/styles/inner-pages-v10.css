@@ -10,7 +10,7 @@
   --v10-paper-2:var(--brand-paper);
   --v10-paper-3:var(--brand-paper);
   --v10-ink:var(--brand-ink);
-  --v10-muted:#5d5d57;
+  --v10-muted:#565d67;
   --v10-line:rgb(var(--brand-ink-rgb) / .16);
   --v10-line-light:rgba(255,255,255,.16);
   --v10-accent:var(--brand-accent);
@@ -208,7 +208,7 @@
 .aa-v10-section-head>span{
   display:inline-block;
   margin-bottom:16px;
-  color:#6a6a63;
+  color:#636a74;
   font-size:8px;
   font-weight:850;
   letter-spacing:.17em;
@@ -282,7 +282,7 @@
   grid-template-columns:34px minmax(0,1fr) 20px;
   gap:10px;
   align-items:center;
-  color:#6b6a64;
+  color:#646a74;
   font-size:7px;
   font-weight:850;
   letter-spacing:.15em;
@@ -351,7 +351,7 @@
   font-size:8px;
   font-weight:850;
   letter-spacing:.16em;
-  color:#62625b;
+  color:#5b626c;
 }
 
 .aa-v10-year-card strong{
@@ -406,7 +406,7 @@
   font-size:7px;
   font-weight:850;
   letter-spacing:.16em;
-  color:#6b6a63;
+  color:#636a74;
 }
 
 .aa-v10-stack-list b{
@@ -502,7 +502,7 @@
 
 .aa-v10-photo-copy>.eyebrow{
   margin-bottom:16px;
-  color:#66655f;
+  color:#5f656f;
 }
 
 .aa-v10-photo-copy h2{
@@ -564,7 +564,7 @@
 
 .aa-v10-reference-note{
   margin:16px 0 0;
-  color:#686760;
+  color:#606771;
   font-size:10px;
   line-height:1.55;
 }
@@ -786,7 +786,7 @@
 .aa-v10-address-lines small{
   display:block;
   margin-bottom:4px;
-  color:#696861;
+  color:#616872;
   font-size:7px;
   letter-spacing:.15em;
 }
@@ -816,7 +816,7 @@
   font-size:8px;
   font-weight:850;
   letter-spacing:.16em;
-  color:#66655f;
+  color:#5f656f;
 }
 
 .aa-v10-faq-aside h2{
@@ -932,7 +932,7 @@
   display:flex;
   flex-direction:column;
   gap:8px;
-  color:#4e4d47;
+  color:#474d57;
   font-size:8px;
   font-weight:850;
   letter-spacing:.11em;
