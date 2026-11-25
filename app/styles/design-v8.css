@@ -4,13 +4,13 @@
    ========================================================= */
 
 :root{
-  --aa-v8-black:var(--aa-ink);
-  --aa-v8-carbon:var(--aa-ink);
-  --aa-v8-paper:var(--aa-paper);
-  --aa-v8-paper-2:var(--aa-paper);
-  --aa-v8-ink:var(--aa-ink);
-  --aa-v8-accent:var(--aa-accent);
-  --aa-v8-line:rgb(var(--aa-ink-rgb) / .15);
+  --aa-v8-black:var(--brand-ink);
+  --aa-v8-carbon:var(--brand-ink);
+  --aa-v8-paper:var(--brand-paper);
+  --aa-v8-paper-2:var(--brand-paper);
+  --aa-v8-ink:var(--brand-ink);
+  --aa-v8-accent:var(--brand-accent);
+  --aa-v8-line:rgb(var(--brand-ink-rgb) / .15);
   --aa-v8-line-light:rgba(255,255,255,.15);
   --aa-v8-fast:180ms;
   --aa-v8-ui:280ms;
@@ -52,7 +52,7 @@
 .aa-hero-v8{
   height:126svh;
   min-height:760px;
-  background:var(--aa-ink);
+  background:var(--brand-ink);
 }
 
 .aa-hero-v8 .aa-hero2-sticky{
@@ -186,7 +186,7 @@
 }
 
 .aa-home-v8 .aa-skip-card:nth-child(even){
-  background:var(--aa-ink);
+  background:var(--brand-ink);
 }
 
 .aa-home-v8 .aa-skip-card-copy{
@@ -244,7 +244,7 @@
 /* WORKSHOP STORY */
 .aa-workshop-story{
   padding-top:0;
-  background:var(--aa-ink);
+  background:var(--brand-ink);
 }
 
 /* TYPOGRAPHY STAGE */
@@ -261,7 +261,7 @@
 
 /* LOCATION */
 .aa-location{
-  background:var(--aa-ink);
+  background:var(--brand-ink);
 }
 
 .aa-location-grid{
@@ -490,7 +490,7 @@
     margin:0;
     overflow:hidden;
     border-left:1px solid rgba(255,255,255,.1);
-    background:var(--aa-ink);
+    background:var(--brand-ink);
   }
 
   .aa-header-v5 .aa-mega-preview img{

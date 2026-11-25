@@ -6,7 +6,7 @@
 
 /* ---------- 1. A failed image must never leave a void or leak its alt text ---------- */
 :root:not(#_) :is(.aa-hero2-media, .aa-home-workshop-photo, .aa-v10-photo-frame, .aa-skip-card-media, .aa-skip-card figure) {
-  background-color: #101c2f;
+  background-color: #151d25;
 }
 :root:not(#_) img { color: transparent; }
 
@@ -56,7 +56,7 @@
   aspect-ratio: 5 / 4;
   border-radius: 8px;
   overflow: hidden;
-  background-color: #101c2f;
+  background-color: #151d25;
 }
 :root:not(#_) .aa-home-area-visual img { object-fit: cover; }
 @media (max-width: 900px) {

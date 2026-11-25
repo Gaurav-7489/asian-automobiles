@@ -184,15 +184,15 @@ function FrontTyreGraphic({
     >
       <defs>
         <linearGradient id="aa-v22-rubber" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" style={{ stopColor: "var(--aa-charcoal)" }} />
-          <stop offset=".46" style={{ stopColor: "var(--aa-ink)" }} />
-          <stop offset="1" style={{ stopColor: "var(--aa-ink)" }} />
+          <stop offset="0" style={{ stopColor: "var(--brand-charcoal)" }} />
+          <stop offset=".46" style={{ stopColor: "var(--brand-ink)" }} />
+          <stop offset="1" style={{ stopColor: "var(--brand-ink)" }} />
         </linearGradient>
         <linearGradient id="aa-v22-shoulder" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" style={{ stopColor: "var(--aa-ink)" }} />
-          <stop offset=".18" style={{ stopColor: "var(--aa-charcoal)" }} />
-          <stop offset=".82" style={{ stopColor: "var(--aa-charcoal)" }} />
-          <stop offset="1" style={{ stopColor: "var(--aa-ink)" }} />
+          <stop offset="0" style={{ stopColor: "var(--brand-ink)" }} />
+          <stop offset=".18" style={{ stopColor: "var(--brand-charcoal)" }} />
+          <stop offset=".82" style={{ stopColor: "var(--brand-charcoal)" }} />
+          <stop offset="1" style={{ stopColor: "var(--brand-ink)" }} />
         </linearGradient>
         <filter id="aa-v22-shadow" x="-30%" y="-20%" width="160%" height="170%">
           <feDropShadow dx="0" dy="20" stdDeviation="18" floodColor="#000000" floodOpacity=".2" />

@@ -1,25 +1,25 @@
 /*
  * Brand palette — the single place to change the site's colours.
  * Every stylesheet refers to these tokens; use the -rgb variants for transparency:
- *   color: var(--aa-accent);   background: rgb(var(--aa-ink-rgb) / .72);
+ *   color: var(--brand-accent);   background: rgb(var(--brand-ink-rgb) / .72);
  */
 :root {
-  --aa-ink: #0e1a2b;
-  --aa-ink-rgb: 14 26 43;
-  --aa-charcoal: #1a2a40;
-  --aa-charcoal-rgb: 26 42 64;
-  --aa-paper: #f7f8fa;
-  --aa-paper-rgb: 247 248 250;
-  --aa-surface: #e4e8ef;
-  --aa-surface-rgb: 228 232 239;
-  --aa-accent: #f26b1d;
-  --aa-accent-rgb: 242 107 29;
-  --aa-accent-strong: #c24e0c;
-  --aa-accent-strong-rgb: 194 78 12;
-  --aa-accent-soft: #ff8a45;
-  --aa-accent-soft-rgb: 255 138 69;
-  --aa-muted: #8a94a6;
-  --aa-muted-rgb: 138 148 166;
-  --aa-slate: #5b6678;
-  --aa-slate-rgb: 91 102 120;
+  --brand-ink: #111820;
+  --brand-ink-rgb: 17 24 32;
+  --brand-charcoal: #202a32;
+  --brand-charcoal-rgb: 32 42 50;
+  --brand-paper: #f5f5f2;
+  --brand-paper-rgb: 245 245 242;
+  --brand-surface: #e2e4e1;
+  --brand-surface-rgb: 226 228 225;
+  --brand-accent: #d58a3a;
+  --brand-accent-rgb: 213 138 58;
+  --brand-accent-strong: #9a5a1c;
+  --brand-accent-strong-rgb: 154 90 28;
+  --brand-accent-soft: #e8a25a;
+  --brand-accent-soft-rgb: 232 162 90;
+  --brand-muted: #87919a;
+  --brand-muted-rgb: 135 145 154;
+  --brand-slate: #5c6670;
+  --brand-slate-rgb: 92 102 112;
 }

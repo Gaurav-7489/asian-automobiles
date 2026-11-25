@@ -5,13 +5,13 @@
    ========================================================= */
 
 .aa-v11-page{
-  --v11-blue:var(--aa-accent);
-  --v11-cyan:var(--aa-accent);
+  --v11-blue:var(--brand-accent);
+  --v11-cyan:var(--brand-accent);
   --v11-red:#b3261e;
-  --v11-orange:var(--aa-accent);
-  --v11-steel:var(--aa-surface);
-  --v11-rubber:var(--aa-charcoal);
-  --v11-green:var(--aa-accent);
+  --v11-orange:var(--brand-accent);
+  --v11-steel:var(--brand-surface);
+  --v11-rubber:var(--brand-charcoal);
+  --v11-green:var(--brand-accent);
 }
 
 /* ---------------- HERO ART / GLOBAL ---------------- */
@@ -59,7 +59,7 @@
 .theme-about .aa-v10-head{
   background:
     linear-gradient(transparent,transparent),
-    var(--aa-ink);
+    var(--brand-ink);
 }
 
 .aa-v11-hero-about{
@@ -90,13 +90,13 @@
 .theme-services .aa-v10-head{
   background:
     linear-gradient(transparent,transparent),
-    linear-gradient(130deg,var(--aa-ink),var(--aa-ink) 65%,var(--aa-ink));
+    linear-gradient(130deg,var(--brand-ink),var(--brand-ink) 65%,var(--brand-ink));
 }
 
 .theme-service .aa-v10-head{
   background:
     linear-gradient(transparent,transparent),
-    var(--aa-ink);
+    var(--brand-ink);
 }
 
 .theme-ac{
@@ -106,33 +106,33 @@
 .theme-ac .aa-v10-head{
   background:
     linear-gradient(transparent,transparent),
-    linear-gradient(130deg,var(--aa-ink),var(--aa-ink) 65%,var(--aa-ink));
+    linear-gradient(130deg,var(--brand-ink),var(--brand-ink) 65%,var(--brand-ink));
 }
 
 .aa-v11-hero-ac{
   background:
     linear-gradient(transparent,transparent),
-    rgb(var(--aa-ink-rgb) / .88);
+    rgb(var(--brand-ink-rgb) / .88);
 }
 
 .theme-wheel{
-  --v10-accent:var(--aa-accent);
+  --v10-accent:var(--brand-accent);
 }
 
 .theme-wheel .aa-v10-head{
   background:
     linear-gradient(transparent,transparent),
-    var(--aa-ink);
+    var(--brand-ink);
 }
 
 .theme-tyre{
-  --v10-accent:var(--aa-surface);
+  --v10-accent:var(--brand-surface);
 }
 
 .theme-tyre .aa-v10-head{
   background:
     linear-gradient(transparent,transparent),
-    var(--aa-ink);
+    var(--brand-ink);
 }
 
 .aa-v11-hero-tyre{
@@ -141,33 +141,33 @@
 }
 
 .theme-parts{
-  --v10-accent:var(--aa-accent);
+  --v10-accent:var(--brand-accent);
 }
 
 .theme-parts .aa-v10-head{
   background:
     linear-gradient(transparent,transparent),
-    var(--aa-ink);
+    var(--brand-ink);
 }
 
 .theme-contact{
-  --v10-accent:var(--aa-accent);
+  --v10-accent:var(--brand-accent);
 }
 .theme-contact .aa-v10-head{
   background:
     linear-gradient(transparent,transparent),
-    var(--aa-ink);
+    var(--brand-ink);
 }
 
 /* ---------------- GENERAL SERVICE SCANNER ---------------- */
 
 .aa-v11-service-intake{
-  background:var(--aa-paper);
+  background:var(--brand-paper);
 }
 
 .aa-v11-service-scanner{
   display:grid;
-  background:var(--aa-ink);
+  background:var(--brand-ink);
   color:#ffffff;
 }
 
@@ -198,7 +198,7 @@
   font-size:8px;
   letter-spacing:.15em;
 }
-.aa-v11-scanner-top b{color:var(--aa-accent)}
+.aa-v11-scanner-top b{color:var(--brand-accent)}
 
 .aa-v11-scanner-focus{
   position:absolute;
@@ -236,7 +236,7 @@
   height:2px;
   background:rgba(255,255,255,.17);
 }
-.aa-v11-scanner-meter span:nth-child(-n+4){background:var(--aa-accent)}
+.aa-v11-scanner-meter span:nth-child(-n+4){background:var(--brand-accent)}
 
 .aa-v11-scanner-menu{
   display:flex;
@@ -260,8 +260,8 @@
 .aa-v11-scanner-menu button:hover,
 .aa-v11-scanner-menu button.is-active{
   padding-left:28px;
-  background:var(--aa-accent);
-  color:var(--aa-ink);
+  background:var(--brand-accent);
+  color:var(--brand-ink);
 }
 .aa-v11-scanner-menu button>span,
 .aa-v11-scanner-menu small{
@@ -277,16 +277,16 @@
 .aa-v11-ac-console-section{
   background:
     linear-gradient(transparent,transparent),
-    var(--aa-paper);
+    var(--brand-paper);
 }
 
 .aa-v11-climate-console{
   min-height:620px;
   display:grid;
   grid-template-columns:minmax(0,1.25fr) minmax(270px,.75fr);
-  border:1px solid rgb(var(--aa-ink-rgb) / .2);
+  border:1px solid rgb(var(--brand-ink-rgb) / .2);
   overflow:hidden;
-  background:var(--aa-ink);
+  background:var(--brand-ink);
   color:#ffffff;
 }
 
@@ -295,10 +295,10 @@
   min-height:620px;
   display:grid;
   place-items:center;
-  border-right:1px solid rgb(var(--aa-accent-rgb) / .14);
+  border-right:1px solid rgb(var(--brand-accent-rgb) / .14);
   background:
     linear-gradient(transparent,transparent),
-    linear-gradient(135deg,var(--aa-ink),var(--aa-accent-strong));
+    linear-gradient(135deg,var(--brand-ink),var(--brand-accent-strong));
 }
 
 .aa-v11-climate-header{
@@ -321,11 +321,11 @@
   place-items:center;
   align-content:center;
   gap:8px;
-  border:1px solid rgb(var(--aa-accent-rgb) / .42);
+  border:1px solid rgb(var(--brand-accent-rgb) / .42);
   border-radius:50%;
   box-shadow:
-    0 0 0 38px rgb(var(--aa-accent-rgb) / .025),
-    0 0 90px rgb(var(--aa-accent-rgb) / .11);
+    0 0 0 38px rgb(var(--brand-accent-rgb) / .025),
+    0 0 90px rgb(var(--brand-accent-rgb) / .11);
 }
 .aa-v11-climate-display strong{
   font-size:clamp(5rem,9vw,8rem);
@@ -353,7 +353,7 @@
   width:14px;
   height:100%;
   transform-origin:bottom;
-  background:linear-gradient(to top,var(--v11-cyan),rgb(var(--aa-accent-rgb) / .12));
+  background:linear-gradient(to top,var(--v11-cyan),rgb(var(--brand-accent-rgb) / .12));
 }
 
 .aa-v11-climate-note{
@@ -372,7 +372,7 @@
 .aa-v11-climate-modes{
   display:flex;
   flex-direction:column;
-  background:var(--aa-accent-strong);
+  background:var(--brand-accent-strong);
 }
 .aa-v11-climate-modes button{
   flex:1;
@@ -383,7 +383,7 @@
   align-items:center;
   padding:22px;
   border:0;
-  border-bottom:1px solid rgb(var(--aa-accent-rgb) / .13);
+  border-bottom:1px solid rgb(var(--brand-accent-rgb) / .13);
   background:transparent;
   color:#ffffff;
   text-align:left;
@@ -394,7 +394,7 @@
 .aa-v11-climate-modes button.is-active{
   padding-left:30px;
   background:var(--v11-cyan);
-  color:var(--aa-ink);
+  color:var(--brand-ink);
 }
 .aa-v11-climate-modes button span{font-size:7px;letter-spacing:.15em;opacity:.55}
 .aa-v11-climate-modes button b{font-size:18px;font-weight:560;letter-spacing:-.03em}
@@ -404,32 +404,32 @@
 /* ---------------- WHEEL GEOMETRY ---------------- */
 
 .aa-v11-wheel-lab-section{
-  background:var(--aa-paper);
+  background:var(--brand-paper);
 }
 
 .aa-v11-geometry-lab{
   display:grid;
   border:1px solid rgba(0,0,0,.18);
-  background:var(--aa-ink);
+  background:var(--brand-ink);
   color:#ffffff;
 }
 
 /* ---------------- TYRE TREAD LAB ---------------- */
 
 .aa-v11-tyre-lab-section{
-  background:var(--aa-paper);
+  background:var(--brand-paper);
 }
 
 /* ---------------- PARTS FINDER ---------------- */
 
 .aa-v11-parts-finder-section{
-  background:var(--aa-paper);
+  background:var(--brand-paper);
 }
 
 .aa-v11-parts-finder{
   display:grid;
   border:1px solid rgba(0,0,0,.18);
-  background:var(--aa-ink);
+  background:var(--brand-ink);
   color:#ffffff;
 }
 
@@ -464,8 +464,8 @@
 .aa-v11-parts-index button:hover,
 .aa-v11-parts-index button.is-active{
   padding-left:28px;
-  background:var(--aa-accent);
-  color:var(--aa-ink);
+  background:var(--brand-accent);
+  color:var(--brand-ink);
 }
 .aa-v11-parts-index button span{font-size:7px;letter-spacing:.15em;opacity:.5}
 .aa-v11-parts-index button b{font-size:17px;font-weight:560;letter-spacing:-.025em}
@@ -479,7 +479,7 @@
   position:absolute;
   display:grid;
   place-items:center;
-  border:1px solid rgb(var(--aa-accent-rgb) / .34);
+  border:1px solid rgb(var(--brand-accent-rgb) / .34);
   border-radius:50%;
 }
 .aa-v11-parts-orbit i{
@@ -490,7 +490,7 @@
 .aa-v11-parts-orbit i:nth-child(1){inset:32px}
 .aa-v11-parts-orbit i:nth-child(2){inset:72px}
 .aa-v11-parts-orbit i:nth-child(3){height:1px;border-radius:0;border:0;border-top:1px solid rgba(255,255,255,.08)}
-.aa-v11-parts-orbit svg{color:var(--aa-accent)}
+.aa-v11-parts-orbit svg{color:var(--brand-accent)}
 
 .aa-v11-parts-details{
   position:absolute;
@@ -524,10 +524,10 @@
     linear-gradient(transparent,transparent),
     linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),
     linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px),
-    var(--aa-paper);
+    var(--brand-paper);
   background-size:auto,42px 42px,42px 42px,auto;
 }
-.theme-about .aa-v10-year-card strong{color:var(--aa-ink)}
+.theme-about .aa-v10-year-card strong{color:var(--brand-ink)}
 
 /* Services: bento-like command surface */
 .theme-services .aa-v10-feature-grid-wide{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -535,13 +535,13 @@
 
 /* AC: cool palette and vent-like service rows */
 .theme-ac .aa-v10-soft{
-  background:var(--aa-paper);
+  background:var(--brand-paper);
 }
 .theme-ac .aa-v10-stack-list>div{
   min-height:138px;
-  background:linear-gradient(90deg,rgb(var(--aa-accent-rgb) / .08),transparent 40%);
+  background:linear-gradient(90deg,rgb(var(--brand-accent-rgb) / .08),transparent 40%);
 }
-.theme-ac .aa-v10-stack-list>div:hover{background:var(--aa-ink);color:#ffffff}
+.theme-ac .aa-v10-stack-list>div:hover{background:var(--brand-ink);color:#ffffff}
 .theme-ac .aa-v10-stack-list>div:hover p{color:rgba(255,255,255,.68)}
 
 /* Paint: image-first, swatch language */
@@ -549,15 +549,15 @@
 /* Wheel: lab/editorial split */
 .theme-wheel .aa-v10-compare-grid{
   transform:none;
-  border-color:rgb(var(--aa-accent-rgb) / .2);
+  border-color:rgb(var(--brand-accent-rgb) / .2);
 }
 .theme-wheel .aa-v10-compare-grid>div:first-child{
-  background:linear-gradient(135deg,rgb(var(--aa-accent-rgb) / .05),transparent);
+  background:linear-gradient(135deg,rgb(var(--brand-accent-rgb) / .05),transparent);
 }
 
 /* Tyres: rubber palette */
 .theme-tyre .aa-v10-dark{
-  background:var(--aa-ink)!important;
+  background:var(--brand-ink)!important;
 }
 .theme-tyre .aa-v10-feature-grid{
   gap:8px;
@@ -566,26 +566,26 @@
 .theme-tyre .aa-v10-feature-card{
   border:1px solid var(--v10-line);
   border-radius:80px 80px 8px 8px;
-  background:var(--aa-paper);
+  background:var(--brand-paper);
 }
 .theme-tyre .aa-v10-feature-card:hover{
-  background:var(--aa-ink);
+  background:var(--brand-ink);
 }
 
 /* Parts: catalogue / index feeling */
 .theme-parts .aa-v10-dark{
-  background:var(--aa-ink);
+  background:var(--brand-ink);
 }
 .theme-parts .aa-hover-stat-rail>div{
   grid-template-columns:52px .6fr 1fr;
 }
 .theme-parts .aa-hover-stat-rail>div:hover{
-  background:var(--aa-accent)!important;
-  color:var(--aa-ink)!important;
+  background:var(--brand-accent)!important;
+  color:var(--brand-ink)!important;
 }
 .theme-parts .aa-hover-stat-rail>div:hover p,
 .theme-parts .aa-hover-stat-rail>div:hover span{
-  color:rgb(var(--aa-ink-rgb) / .66)!important;
+  color:rgb(var(--brand-ink-rgb) / .66)!important;
 }
 
 /* Facilities: technical blueprint */
@@ -596,11 +596,11 @@
 
 /* Contact: map is the page */
 .theme-contact .aa-v10-map-card{
-  background:var(--aa-paper);
+  background:var(--brand-paper);
 }
 .theme-contact .aa-v10-map-pin{
   background:var(--v11-green);
-  color:var(--aa-ink);
+  color:var(--brand-ink);
 }
 
 /* FAQ: quieter, reading-first */
@@ -736,7 +736,7 @@
   right:8%;
   top:55%;
   height:1px;
-  background:rgb(var(--aa-accent-rgb) / .55);
+  background:rgb(var(--brand-accent-rgb) / .55);
 }
 .aa-v11-hero-about .aa-v11-theme-core i{
   position:absolute;
@@ -745,8 +745,8 @@
   height:9px;
   border-radius:50%;
   transform:translate(-50%,-50%);
-  background:var(--aa-ink);
-  border:1px solid rgb(var(--aa-accent-rgb) / .7);
+  background:var(--brand-ink);
+  border:1px solid rgb(var(--brand-accent-rgb) / .7);
 }
 .aa-v11-hero-about .aa-v11-theme-core i:nth-child(1){left:8%}
 .aa-v11-hero-about .aa-v11-theme-core i:nth-child(2){left:36%}
@@ -761,7 +761,7 @@
   left:50%;
   top:52%;
   transform:translate(-50%,-50%);
-  border:1px solid rgb(var(--aa-accent-rgb) / .42);
+  border:1px solid rgb(var(--brand-accent-rgb) / .42);
   border-radius:50%;
 }
 .aa-v11-hero-services .aa-v11-theme-core:before,
@@ -790,7 +790,7 @@
 /* General service / diagnostic gauge */
 .aa-v11-hero-service .aa-v11-theme-core{
   inset:42px 36px;
-  border:1px solid rgb(var(--aa-accent-rgb) / .32);
+  border:1px solid rgb(var(--brand-accent-rgb) / .32);
   border-radius:140px 140px 8px 8px;
 }
 .aa-v11-hero-service .aa-v11-theme-core:before{
@@ -800,7 +800,7 @@
   bottom:28%;
   width:37%;
   height:2px;
-  background:var(--aa-accent);
+  background:var(--brand-accent);
   transform-origin:left;
   transform:rotate(-28deg);
 }
@@ -824,15 +824,15 @@
   left:50%;
   top:52%;
   transform:translate(-50%,-50%);
-  border:1px solid rgb(var(--aa-accent-rgb) / .55);
+  border:1px solid rgb(var(--brand-accent-rgb) / .55);
   border-radius:50%;
-  box-shadow:0 0 0 26px rgb(var(--aa-accent-rgb) / .03),0 0 50px rgb(var(--aa-accent-rgb) / .1);
+  box-shadow:0 0 0 26px rgb(var(--brand-accent-rgb) / .03),0 0 50px rgb(var(--brand-accent-rgb) / .1);
 }
 .aa-v11-hero-ac .aa-v11-theme-core:before{
   content:"";
   position:absolute;
   inset:38px;
-  border:1px solid rgb(var(--aa-accent-rgb) / .28);
+  border:1px solid rgb(var(--brand-accent-rgb) / .28);
   border-radius:50%;
 }
 .aa-v11-hero-ac .aa-v11-theme-core i{
@@ -841,7 +841,7 @@
   top:50%;
   width:1px;
   height:44%;
-  background:rgb(var(--aa-accent-rgb) / .28);
+  background:rgb(var(--brand-accent-rgb) / .28);
   transform-origin:0 0;
 }
 .aa-v11-hero-ac .aa-v11-theme-core i:nth-child(1){transform:rotate(0deg)}
@@ -861,7 +861,7 @@
   left:50%;
   top:52%;
   transform:translate(-50%,-50%);
-  border:1px solid rgb(var(--aa-accent-rgb) / .48);
+  border:1px solid rgb(var(--brand-accent-rgb) / .48);
   border-radius:50%;
 }
 .aa-v11-hero-wheel .aa-v11-theme-core:before,
@@ -872,7 +872,7 @@
   top:-26%;
   width:1px;
   height:152%;
-  background:rgb(var(--aa-accent-rgb) / .25);
+  background:rgb(var(--brand-accent-rgb) / .25);
   transform-origin:center;
 }
 .aa-v11-hero-wheel .aa-v11-theme-core:before{transform:rotate(9deg)}
@@ -892,7 +892,7 @@
   height:152px;
   inset:auto;
   transform:translate(-50%,-50%);
-  border:26px solid var(--aa-charcoal);
+  border:26px solid var(--brand-charcoal);
   border-radius:50%;
   box-shadow:0 0 0 1px rgba(255,255,255,.16);
 }
@@ -900,7 +900,7 @@
   position:absolute;
   width:30px;
   height:7px;
-  background:#444a54;
+  background:#444b51;
 }
 .aa-v11-hero-tyre .aa-v11-theme-core i:nth-child(1){left:-22px;top:22px;transform:rotate(32deg)}
 .aa-v11-hero-tyre .aa-v11-theme-core i:nth-child(2){right:-22px;top:28px;transform:rotate(-32deg)}
@@ -915,7 +915,7 @@
   left:50%;
   top:52%;
   transform:translate(-50%,-50%);
-  border:1px solid rgb(var(--aa-accent-rgb) / .42);
+  border:1px solid rgb(var(--brand-accent-rgb) / .42);
   border-radius:50%;
 }
 .aa-v11-hero-parts .aa-v11-theme-core:before,
@@ -926,12 +926,12 @@
   border-radius:50%;
 }
 .aa-v11-hero-parts .aa-v11-theme-core:before{inset:26px}
-.aa-v11-hero-parts .aa-v11-theme-core:after{inset:56px;background:rgb(var(--aa-accent-rgb) / .09)}
+.aa-v11-hero-parts .aa-v11-theme-core:after{inset:56px;background:rgb(var(--brand-accent-rgb) / .09)}
 .aa-v11-hero-parts .aa-v11-theme-core i{
   position:absolute;
   width:22px;
   height:22px;
-  border:1px solid rgb(var(--aa-accent-rgb) / .4);
+  border:1px solid rgb(var(--brand-accent-rgb) / .4);
 }
 .aa-v11-hero-parts .aa-v11-theme-core i:nth-child(1){left:-34px;top:20px}
 .aa-v11-hero-parts .aa-v11-theme-core i:nth-child(2){right:-32px;top:62px}
@@ -962,7 +962,7 @@
   border-radius:50% 50% 50% 0;
   background:var(--v11-green);
   transform:rotate(-45deg);
-  box-shadow:0 0 0 10px rgb(var(--aa-accent-rgb) / .07);
+  box-shadow:0 0 0 10px rgb(var(--brand-accent-rgb) / .07);
 }
 
 /* FAQ / question orbit */
