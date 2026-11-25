@@ -9,7 +9,7 @@
   --aa-v12-ink:var(--aa-ink);
   --aa-v12-paper:var(--aa-paper);
   --aa-v12-paper-2:var(--aa-paper);
-  --aa-v12-muted:#555751;
+  --aa-v12-muted:#505760;
   --aa-v12-dark:var(--aa-ink);
   --aa-v12-dark-2:var(--aa-ink);
   --aa-v12-light:#ffffff;
@@ -260,12 +260,12 @@ a{
 }
 
 .aa-v10-lead-form :is(input,textarea)::placeholder{
-  color:#666a67;
+  color:#636973;
   opacity:1;
 }
 
 .aa-v10-lead-form select:invalid{
-  color:#61645f;
+  color:#5d636d;
 }
 
 .aa-v10-lead-form :is(input,select,textarea):focus{
@@ -275,7 +275,7 @@ a{
 }
 
 .aa-v10-lead-form>small{
-  color:#565954!important;
+  color:#525862!important;
 }
 
 /* ---------- HEADER ---------- */
@@ -338,7 +338,7 @@ a{
 }
 
 .aa-header-v5 .aa-mega :is(small,span){
-  color:#575a55;
+  color:#535963;
 }
 
 .aa-header-v5 .aa-mega-link:hover{
@@ -472,7 +472,7 @@ a{
 
 .aa-v10-feature-card p,
 .aa-v10-stack-list p{
-  color:#555852;
+  color:#515761;
 }
 
 .aa-v10-feature-card:hover p{
@@ -484,7 +484,7 @@ a{
 }
 
 .aa-v10-stack-list>div p{
-  color:#555852;
+  color:#515761;
 }
 
 /* Timeline / FAQ contrast */
@@ -511,7 +511,7 @@ a{
 }
 
 .aa-motion-faq-answer p{
-  color:#555852!important;
+  color:#515761!important;
 }
 
 /* ---------- V11 UNIQUE INTERFACES ---------- */
@@ -1212,7 +1212,7 @@ a{
   }
 
   .aa-v10-feature-card:hover p{
-    color:#555852;
+    color:#515761;
   }
 
   .aa-v11-scanner-menu button:hover,
@@ -1322,7 +1322,7 @@ a{
 }
 
 .aa-v10-address-card p{
-  color:#555852;
+  color:#515761;
 }
 
 @media(max-width:900px){

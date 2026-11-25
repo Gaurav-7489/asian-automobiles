@@ -6,7 +6,7 @@
 
 :root{
   --aa-v14-ink:var(--aa-ink);
-  --aa-v14-muted:#4f534d;
+  --aa-v14-muted:#4c525c;
   --aa-v14-paper:var(--aa-paper);
   --aa-v14-dark:var(--aa-ink);
   --aa-v14-accent:var(--aa-accent);
@@ -77,7 +77,7 @@ textarea{
 }
 
 .aa-header-v5 .aa-mega :is(p,small,span){
-  color:#555a53!important;
+  color:#525963!important;
 }
 
 .aa-header-v5 .aa-mega-link{
@@ -178,7 +178,7 @@ textarea{
   .aa-v10-map-road,
   small
 ){
-  color:#555a53!important;
+  color:#525963!important;
 }
 
 /* =========================================================
@@ -589,12 +589,12 @@ textarea{
 }
 
 .aa-inner-v10 .aa-v10-lead-form :is(input,textarea)::placeholder{
-  color:#5d625b;
+  color:#5a616b;
   opacity:1!important;
 }
 
 .aa-inner-v10 .aa-v10-lead-form select:invalid{
-  color:#5d625b;
+  color:#5a616b;
 }
 
 .aa-inner-v10 .aa-v10-lead-form :is(input,select,textarea):focus{
@@ -603,7 +603,7 @@ textarea{
 }
 
 .aa-inner-v10 .aa-v10-lead-form>small{
-  color:#515650!important;
+  color:#4e555f!important;
 }
 
 .aa-inner-v10 .aa-motion-faq article>button{
@@ -615,7 +615,7 @@ textarea{
 }
 
 .aa-inner-v10 .aa-motion-faq-answer p{
-  color:#4c504a!important;
+  color:#494f59!important;
 }
 
 .aa-inner-v10 .aa-v10-address-card,
@@ -624,7 +624,7 @@ textarea{
 }
 
 .aa-inner-v10 .aa-v10-address-card :is(p,small){
-  color:#515650!important;
+  color:#4e555f!important;
 }
 
 /* =========================================================
