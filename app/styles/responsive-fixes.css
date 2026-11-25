@@ -67,7 +67,7 @@ body {
   .aa-header-v5 .aa-nav-main,
   .aa-header-v5.is-scrolled .aa-nav-main {
     height: 70px !important;
-    background: rgba(17,24,32, .975);
+    background: rgb(var(--aa-ink-rgb) / .975);
   }
 }
 

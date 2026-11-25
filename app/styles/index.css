@@ -3,6 +3,7 @@
  * Order is the cascade: later files intentionally refine earlier ones. Keep it.
  * Unreachable selectors were removed in the Nov 2026 audit (see docs/PERFORMANCE_SECURITY_AUDIT.md).
  */
+@import "./tokens.css";
 @import "./globals.css";
 @import "./pro-upgrade.css";
 @import "./design-v8.css";

@@ -178,7 +178,7 @@
 .aa-inner-v10 .aa-v10-soft .aa-v13-about-line button b,
 .aa-inner-v10 .aa-v13-about-readout .aa-v16-about-copy h3 { color: #ffffff !important; }
 .aa-inner-v10 .aa-v13-about-readout .aa-v16-about-copy p,
-.aa-inner-v10 .aa-v10-soft .aa-v13-about-line button span { color: #e2e4e1 !important; }
+.aa-inner-v10 .aa-v10-soft .aa-v13-about-line button span { color: var(--aa-surface) !important; }
 
 .aa-header-v5 .aa-brand-name b {
   font-size: 11px;
@@ -221,11 +221,11 @@
 .aa-inner-v10 .aa-v10-paper .aa-v22-copy-panel p,
 .aa-inner-v10 .aa-v22-readout :is(span, small),
 .aa-inner-v10 .aa-v22-tabs button:not(.is-active) span {
-  color: #e2e4e1 !important;
+  color: var(--aa-surface) !important;
 }
 
 .aa-inner-v10 .aa-v22-copy-panel > div:first-child > small {
-  color: #d58a3a !important;
+  color: var(--aa-accent) !important;
 }
 
 .aa-inner-v10 .aa-v10-lead-form :is(input, select, textarea) {
@@ -296,7 +296,7 @@
   min-height: 440px;
 }
 
-.aa-home .aa-workshop-story .aa-home-workshop-copy h2 em { color: #e2e4e1; }
+.aa-home .aa-workshop-story .aa-home-workshop-copy h2 em { color: var(--aa-surface); }
 .aa-home .aa-location-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 .aa-home .aa-location-copy { container-type: inline-size; }
 .aa-home .aa-location-copy h2 {

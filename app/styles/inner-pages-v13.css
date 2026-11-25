@@ -5,18 +5,18 @@
    ========================================================= */
 
 .aa-inner-v10{
-  --v13-ink:#111820;
+  --v13-ink:var(--aa-ink);
   --v13-muted:#51544f;
-  --v13-paper:#f5f5f2;
-  --v13-paper-2:#f5f5f2;
-  --v13-dark:#111820;
-  --v13-dark-2:#202a32;
+  --v13-paper:var(--aa-paper);
+  --v13-paper-2:var(--aa-paper);
+  --v13-dark:var(--aa-ink);
+  --v13-dark-2:var(--aa-charcoal);
   --v13-white:#ffffff;
   --v13-white-muted:rgba(255,255,255,.74);
   --v13-white-soft:rgba(255,255,255,.58);
-  --v13-line:rgba(17,24,32,.17);
+  --v13-line:rgb(var(--aa-ink-rgb) / .17);
   --v13-line-light:rgba(255,255,255,.18);
-  --v13-accent:#d58a3a;
+  --v13-accent:var(--aa-accent);
 }
 
 /* -----------------------------
@@ -146,7 +146,7 @@
   .aa-v11-parts-index,
   .aa-v11-claim-controls
 ) button:is(.is-active,:hover){
-  color:#111820;
+  color:var(--aa-ink);
 }
 
 .aa-inner-v10 :is(
@@ -156,17 +156,17 @@
   .aa-v11-parts-index,
   .aa-v11-claim-controls
 ) button:is(.is-active,:hover) :is(b,strong,span,small,svg){
-  color:#111820!important;
+  color:var(--aa-ink)!important;
 }
 
 /* Timeline contrast */
 .aa-inner-v10 .aa-blueprint-timeline-nav{
-  background:#111820;
+  background:var(--aa-ink);
   border-color:var(--v13-line-light);
 }
 
 .aa-inner-v10 .aa-blueprint-timeline-stage{
-  background:#111820;
+  background:var(--aa-ink);
   color:#ffffff;
 }
 
@@ -186,15 +186,15 @@
 
 .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card:hover{
   background:var(--v13-accent);
-  color:#111820;
+  color:var(--aa-ink);
 }
 
 .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card:hover :is(h3,b,strong,svg){
-  color:#111820!important;
+  color:var(--aa-ink)!important;
 }
 
 .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card:hover :is(p,.aa-v10-feature-meta){
-  color:rgba(17,24,32,.7)!important;
+  color:rgb(var(--aa-ink-rgb) / .7)!important;
 }
 
 /* Image overlay contrast */
@@ -212,7 +212,7 @@
 /* Contact action cards */
 
 .aa-inner-v10 .aa-v10-contact-actions>a:hover{
-  background:#111820!important;
+  background:var(--aa-ink)!important;
   color:#ffffff;
 }
 
@@ -222,11 +222,11 @@
 
 /* Address / FAQ / form readability */
 .aa-inner-v10 .aa-v10-address-card{
-  color:#111820;
+  color:var(--aa-ink);
 }
 
 .aa-inner-v10 .aa-v10-address-card :is(h2,b,strong,svg){
-  color:#111820!important;
+  color:var(--aa-ink)!important;
 }
 
 .aa-inner-v10 .aa-v10-lead-copy :is(h2,b,strong,span,svg,a){
@@ -262,7 +262,7 @@
   display:grid;
   grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);
   border:1px solid var(--v13-line);
-  background:#111820;
+  background:var(--aa-ink);
   color:#ffffff;
 }
 
@@ -283,7 +283,7 @@
   right:9%;
   top:50%;
   height:1px;
-  background:rgba(213,138,58,.45);
+  background:rgb(var(--aa-accent-rgb) / .45);
 }
 
 .aa-v13-about-line button{
@@ -305,16 +305,16 @@
   width:13px;
   height:13px;
   margin-bottom:12px;
-  border:1px solid rgba(213,138,58,.7);
+  border:1px solid rgb(var(--aa-accent-rgb) / .7);
   border-radius:50%;
-  background:#111820;
+  background:var(--aa-ink);
   transition:transform .35s cubic-bezier(.16,1,.3,1),background .25s ease;
 }
 
 .aa-v13-about-line button.is-active i{
   transform:scale(1.4);
   background:var(--v13-accent);
-  box-shadow:0 0 0 10px rgba(213,138,58,.08);
+  box-shadow:0 0 0 10px rgb(var(--aa-accent-rgb) / .08);
 }
 
 .aa-v13-about-line button span{
@@ -359,7 +359,7 @@
    ========================================================= */
 
 .theme-services .aa-v10-paper{
-  background:#f5f5f2;
+  background:var(--aa-paper);
 }
 
 .aa-v13-service-board{
@@ -367,7 +367,7 @@
   grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);
   min-height:640px;
   border:1px solid var(--v13-line);
-  background:#111820;
+  background:var(--aa-ink);
   color:#ffffff;
 }
 
@@ -378,7 +378,7 @@
   border-right:1px solid var(--v13-line-light);
   background:
     linear-gradient(transparent,transparent),
-    #111820;
+    var(--aa-ink);
 }
 
 .aa-v13-service-grid{
@@ -450,18 +450,18 @@
 
 .aa-v13-service-pulse i{
   position:absolute;
-  border:1px solid rgba(213,138,58,.18);
+  border:1px solid rgb(var(--aa-accent-rgb) / .18);
   border-radius:50%;
 }
 
 .aa-v13-service-pulse i:nth-child(1){inset:0}
 .aa-v13-service-pulse i:nth-child(2){inset:38px}
-.aa-v13-service-pulse i:nth-child(3){inset:78px;background:rgba(213,138,58,.08)}
+.aa-v13-service-pulse i:nth-child(3){inset:78px;background:rgb(var(--aa-accent-rgb) / .08)}
 
 .aa-v13-service-index{
   display:flex;
   flex-direction:column;
-  background:#111820;
+  background:var(--aa-ink);
 }
 
 .aa-v13-service-index button{
@@ -503,12 +503,12 @@
 .aa-v13-service-index button.is-active{
   padding-left:28px;
   background:var(--v13-accent);
-  color:#111820;
+  color:var(--aa-ink);
 }
 
 .aa-v13-service-index button:hover :is(span,b,svg),
 .aa-v13-service-index button.is-active :is(span,b,svg){
-  color:#111820!important;
+  color:var(--aa-ink)!important;
 }
 
 /* =========================================================
@@ -539,11 +539,11 @@
 }
 
 .theme-contact .aa-v10-contact-actions>a:nth-child(1){
-  background:#f5f5f2!important;
+  background:var(--aa-paper)!important;
 }
 
 .theme-contact .aa-v10-contact-actions>a:nth-child(2){
-  background:#111820!important;
+  background:var(--aa-ink)!important;
   color:#ffffff;
 }
 
@@ -555,7 +555,7 @@
   background:
     linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),
     linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px),
-    #f5f5f2!important;
+    var(--aa-paper)!important;
   background-size:36px 36px;
 }
 
@@ -734,7 +734,7 @@
 
   .aa-v13-service-index button.is-active{
     background:var(--v13-accent);
-    color:#111820;
+    color:var(--aa-ink);
   }
 }
 
@@ -780,7 +780,7 @@
 
 /* AC list rows turn dark on hover. */
 .aa-inner-v10.theme-ac .aa-v10-stack-list>div:hover{
-  background:#111820;
+  background:var(--aa-ink);
   color:#ffffff;
 }
 
@@ -796,11 +796,11 @@
 
 .aa-inner-v10 .aa-v10-submit:hover{
   background:var(--v13-accent);
-  color:#111820;
+  color:var(--aa-ink);
 }
 
 .aa-inner-v10 .aa-v10-submit:hover :is(span,svg){
-  color:#111820;
+  color:var(--aa-ink);
 }
 
 /* Insurance icon disc is a dark circular island on a light card. */

@@ -4,34 +4,34 @@
  * sets palette, type, shape and effects. Selectors start with :root:not(#_) to outrank the
  * older stylesheets. Loaded last.
  *
- * Palette (5.2): graphite-900 #111820 · charcoal-800 #202A32 · warm-50 #F5F5F2 · white
- *   amber-500 #D58A3A (actions, accents on dark) · amber-700 #9A5A1C (links/eyebrows on light)
- *   grey-400 #87919A (secondary on dark) · slate-600 #5C6670 (secondary on light) · line-200 #E2E4E1
+ * Palette (5.2): graphite-900 var(--aa-ink) · charcoal-800 var(--aa-charcoal) · warm-50 var(--aa-paper) · white
+ *   amber-500 var(--aa-accent) (actions, accents on dark) · amber-700 var(--aa-accent-strong) (links/eyebrows on light)
+ *   grey-400 var(--aa-muted) (secondary on dark) · slate-600 var(--aa-slate) (secondary on light) · line-200 var(--aa-surface)
  * Type (5.3): Manrope for headings, Inter for everything else.
  * Shape (5.4): 4px buttons/inputs, 8px cards. Effects (5.1, 5.7): no glows, no parallax, no cursor effects.
  */
 
 /* ---------- Palette variables used by the template ---------- */
 :root:not(#_) {
-  --aa-accent: #d58a3a;
-  --accent: #d58a3a;
-  --aa-black: #111820;
-  --ink: #111820;
-  --paper: #f5f5f2;
-  --aa-paper: #f5f5f2;
+  --aa-accent: var(--aa-accent);
+  --accent: var(--aa-accent);
+  --aa-black: var(--aa-ink);
+  --ink: var(--aa-ink);
+  --paper: var(--aa-paper);
+  --aa-paper: var(--aa-paper);
   --aa-white: #ffffff;
-  --aa-muted: #5c6670;
+  --aa-muted: var(--aa-slate);
   --aa-muted-light: #c3c9ce;
 }
 :root:not(#_) .aa-inner-v10 {
-  --v10-black: #111820;
-  --v10-black-2: #202a32;
+  --v10-black: var(--aa-ink);
+  --v10-black-2: var(--aa-charcoal);
   --v10-paper: #ffffff;
-  --v10-paper-2: #f5f5f2;
-  --v10-paper-3: #f5f5f2;
-  --v10-ink: #111820;
-  --v10-muted: #5c6670;
-  --v10-accent: #d58a3a;
+  --v10-paper-2: var(--aa-paper);
+  --v10-paper-3: var(--aa-paper);
+  --v10-ink: var(--aa-ink);
+  --v10-muted: var(--aa-slate);
+  --v10-accent: var(--aa-accent);
 }
 
 /* ---------- Typography ---------- */
@@ -44,15 +44,15 @@
 :root:not(#_) h3 { font-weight: 600; }
 
 /* Eyebrows: amber-700 on light, amber-500 on dark */
-:root:not(#_) :is(.aa-v10-paper, .aa-v10-soft, .aa-section:not(.aa-section-dark)) :is(.eyebrow:not(.light), .aa-kicker:not(.aa-kicker-light)) { color: #9a5a1c !important; }
-:root:not(#_) :is(.aa-v10-dark, .aa-section-dark, .aa-v10-endcap, .aa-v10-head, .aa-hero2) :is(.eyebrow, .aa-kicker) { color: #d58a3a !important; }
+:root:not(#_) :is(.aa-v10-paper, .aa-v10-soft, .aa-section:not(.aa-section-dark)) :is(.eyebrow:not(.light), .aa-kicker:not(.aa-kicker-light)) { color: var(--aa-accent-strong) !important; }
+:root:not(#_) :is(.aa-v10-dark, .aa-section-dark, .aa-v10-endcap, .aa-v10-head, .aa-hero2) :is(.eyebrow, .aa-kicker) { color: var(--aa-accent) !important; }
 
 /* ---------- Hero: flat graphite overlay on the text side (5.6 / 7.F2), no glow ---------- */
 :root:not(#_) .aa-hero2-shade {
-  background: linear-gradient(90deg, rgba(17, 24, 32, 0.88) 0%, rgba(17, 24, 32, 0.62) 55%, rgba(17, 24, 32, 0.4) 100%);
+  background: linear-gradient(90deg, rgb(var(--aa-ink-rgb) / 0.88) 0%, rgb(var(--aa-ink-rgb) / 0.62) 55%, rgb(var(--aa-ink-rgb) / 0.4) 100%);
 }
 @media (max-width: 720px) {
-  :root:not(#_) .aa-hero2-shade { background: rgba(17, 24, 32, 0.78); }
+  :root:not(#_) .aa-hero2-shade { background: rgb(var(--aa-ink-rgb) / 0.78); }
 }
 :root:not(#_) :is(.aa-hero2-orb, .aa-hero2-cursor-light, .aa-cursor-v4, .aa-progress, .aa-hero-vignette) { display: none; }
 
@@ -60,9 +60,9 @@
 :root:not(#_) :is(.aa-v10-button, .aa-header-cta, .aa-hero2-primary, .aa-light-button, .aa-outline-button, .aa-v10-contact-actions > a, .aa-connected-action) { border-radius: 4px; }
 
 /* FAQ numbers, timeline and AC-mode labels after the palette change */
-:root:not(#_) .aa-motion-faq button > span { color: #5c6670 !important; opacity: 1 !important; }
-:root:not(#_) .aa-blueprint-timeline-nav .is-active :is(span, small, b) { color: #111820 !important; opacity: 1 !important; }
-:root:not(#_) .aa-v11-climate-modes button:not(.is-active) > span { color: #f5f5f2 !important; }
+:root:not(#_) .aa-motion-faq button > span { color: var(--aa-slate) !important; opacity: 1 !important; }
+:root:not(#_) .aa-blueprint-timeline-nav .is-active :is(span, small, b) { color: var(--aa-ink) !important; opacity: 1 !important; }
+:root:not(#_) .aa-v11-climate-modes button:not(.is-active) > span { color: var(--aa-paper) !important; }
 
 /* ---------- Small numbers and labels (were 1.6–4.4:1) ---------- */
 
@@ -70,7 +70,7 @@
 :root:not(#_) .aa-skip-card-meta { opacity: 1 !important; font-size: 10px; }
 :root:not(#_) .aa-skip-card-meta span { color: #55544f; }
 :root:not(#_) .aa-skip-card:nth-child(even) .aa-skip-card-meta span { color: #b9bab4; }
-:root:not(#_) .aa-skip-card:nth-child(even) p { color: #e2e4e1; }
+:root:not(#_) .aa-skip-card:nth-child(even) p { color: var(--aa-surface); }
 
 /* Home section heading accent and count */
 :root:not(#_) .aa-section-head h2 em { color: #66635c; }
@@ -83,7 +83,7 @@
 :root:not(#_) .aa-v10-contact-actions a > span { color: inherit !important; opacity: 0.85 !important; }
 
 /* Map pin label on the accent */
-:root:not(#_) .aa-v10-map-pin b { color: #111820 !important; }
+:root:not(#_) .aa-v10-map-pin b { color: var(--aa-ink) !important; }
 
 /* Interactive lab menus (symptom scanner, AC modes, parts index, wheel/tyre tabs) on dark */
 :root:not(#_) .aa-v11-scanner-menu button > span,
@@ -98,19 +98,19 @@
 :root:not(#_) .aa-v11-scanner-menu button.is-active small,
 :root:not(#_) .aa-v11-climate-modes button.is-active > span,
 :root:not(#_) .aa-v11-parts-index button.is-active > span,
-:root:not(#_) .aa-v22-tabs button.is-active :is(span, small) { color: #111820 !important; opacity: 1 !important; }
+:root:not(#_) .aa-v22-tabs button.is-active :is(span, small) { color: var(--aa-ink) !important; opacity: 1 !important; }
 
 /* Lab buttons turn amber on hover: keep their text dark there */
 :root:not(#_) .aa-v11-scanner-menu button:hover :is(b, span, small, svg),
 :root:not(#_) .aa-v11-climate-modes button:hover :is(b, span, svg),
-:root:not(#_) .aa-v11-parts-index button:hover :is(b, span, svg) { color: #111820 !important; }
-:root:not(#_) .aa-v22-tabs button.is-active, :root:not(#_) .aa-v22-tabs button.is-active b { color: #111820 !important; }
+:root:not(#_) .aa-v11-parts-index button:hover :is(b, span, svg) { color: var(--aa-ink) !important; }
+:root:not(#_) .aa-v22-tabs button.is-active, :root:not(#_) .aa-v22-tabs button.is-active b { color: var(--aa-ink) !important; }
 
 /* ---------- Footer ---------- */
 
 /* "AA" mark was white on the white disc */
-:root:not(#_) .aa-footer .aa-brand-mark { color: #111820 !important; }
-:root:not(#_) .aa-footer p, :root:not(#_) .aa-footer a { color: #e2e4e1; }
+:root:not(#_) .aa-footer .aa-brand-mark { color: var(--aa-ink) !important; }
+:root:not(#_) .aa-footer p, :root:not(#_) .aa-footer a { color: var(--aa-surface); }
 :root:not(#_) .aa-footer a:hover { color: #ffffff; }
 
 /* ---------- Mobile menu ---------- */
@@ -120,14 +120,14 @@
 /* ---------- Mobile bottom action bar ---------- */
 
 /* Labels were 8px; the accent highlight sits on the main action */
-:root:not(#_) .aa-mobile-actions a { font-size: 11px; letter-spacing: 0.06em; color: #f5f5f2 !important; }
-:root:not(#_) .aa-mobile-actions a :is(span, svg) { color: #f5f5f2; }
+:root:not(#_) .aa-mobile-actions a { font-size: 11px; letter-spacing: 0.06em; color: var(--aa-paper) !important; }
+:root:not(#_) .aa-mobile-actions a :is(span, svg) { color: var(--aa-paper); }
 :root:not(#_) .aa-mobile-actions a:last-child,
 :root:not(#_) .aa-mobile-actions a:last-child:is(:hover, :active, :focus-visible) { background: transparent; }
-:root:not(#_) .aa-mobile-actions a:is(:first-child, :last-child):is(:hover, :active) :is(span, svg) { color: #f5f5f2; }
+:root:not(#_) .aa-mobile-actions a:is(:first-child, :last-child):is(:hover, :active) :is(span, svg) { color: var(--aa-paper); }
 :root:not(#_) .aa-mobile-actions a:nth-child(2),
-:root:not(#_) .aa-mobile-actions a:nth-child(2):is(:hover, :active) { background: #d58a3a; color: #111820 !important; }
-:root:not(#_) .aa-mobile-actions a:nth-child(2) :is(span, svg) { color: #111820; }
+:root:not(#_) .aa-mobile-actions a:nth-child(2):is(:hover, :active) { background: var(--aa-accent); color: var(--aa-ink) !important; }
+:root:not(#_) .aa-mobile-actions a:nth-child(2) :is(span, svg) { color: var(--aa-ink); }
 
 /* ---------- General mobile readability ---------- */
 
@@ -144,7 +144,7 @@
 
 /* "View all services" turned white on the cream panel when hovered */
 :root:not(#_) .aa-mega-top > a { color: #3f3e3a !important; }
-:root:not(#_) .aa-mega-top > a:is(:hover, :focus-visible) { color: #111820 !important; text-decoration: underline; text-underline-offset: 4px; }
+:root:not(#_) .aa-mega-top > a:is(:hover, :focus-visible) { color: var(--aa-ink) !important; text-decoration: underline; text-underline-offset: 4px; }
 :root:not(#_) .aa-mega-top small { color: #55544f !important; }
 
 /* Mobile menu direct links: older rules sized the inner text at ~9px */
@@ -159,7 +159,7 @@
 :root:not(#_) .aa-home-spec .aa-home-band-row {
   display: flex; align-items: center; justify-content: space-between; gap: 20px 32px; flex-wrap: wrap;
 }
-:root:not(#_) .aa-home-spec .aa-home-band-row p { margin: 0; max-width: 640px; font-size: 18px; line-height: 1.5; color: #111820; }
+:root:not(#_) .aa-home-spec .aa-home-band-row p { margin: 0; max-width: 640px; font-size: 18px; line-height: 1.5; color: var(--aa-ink); }
 :root:not(#_) .aa-home-spec .aa-home-area .aa-v10-section-head p { max-width: 68ch; }
 @media (max-width: 720px) {
   :root:not(#_) .aa-home-spec .aa-home-band-row { flex-direction: column; align-items: stretch; }
@@ -170,17 +170,17 @@
 /* Skip link (spec 25.2): first focusable element, visible on focus */
 :root:not(#_) .aa-skip-link {
   position: absolute; left: 16px; top: -100px; z-index: 1000; padding: 12px 18px; border-radius: 4px;
-  background: #d58a3a; color: #111820; font-weight: 600; text-decoration: none;
+  background: var(--aa-accent); color: var(--aa-ink); font-weight: 600; text-decoration: none;
 }
-:root:not(#_) .aa-skip-link:focus { top: 12px; outline: 2px solid #f5f5f2; outline-offset: 2px; }
+:root:not(#_) .aa-skip-link:focus { top: 12px; outline: 2px solid var(--aa-paper); outline-offset: 2px; }
 
 /* Click-to-load map on Contact */
 :root:not(#_) .aa-v10-map-card { position: relative; }
 :root:not(#_) .aa-map-reveal {
   position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 2;
   display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 18px;
-  border: 0; border-radius: 4px; background: #d58a3a; color: #111820; font-weight: 600; cursor: pointer;
+  border: 0; border-radius: 4px; background: var(--aa-accent); color: var(--aa-ink); font-weight: 600; cursor: pointer;
 }
-:root:not(#_) .aa-map-reveal small { font-weight: 500; color: #111820 !important; opacity: 1 !important; font-size: 12px; }
+:root:not(#_) .aa-map-reveal small { font-weight: 500; color: var(--aa-ink) !important; opacity: 1 !important; font-size: 12px; }
 :root:not(#_) .aa-map-live { padding: 0; overflow: hidden; }
 :root:not(#_) .aa-map-live iframe { display: block; width: 100%; height: 100%; min-height: 360px; border: 0; }

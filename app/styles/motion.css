@@ -13,7 +13,7 @@
    takes longer than 150 ms, so instant (prefetched) navigations never flash. */
 .aa-nav-progress {
   position: fixed; z-index: 2000; inset: 0 0 auto; height: 2px;
-  background: #d58a3a; transform: scaleX(0); transform-origin: 0 50%; pointer-events: none;
+  background: var(--aa-accent); transform: scaleX(0); transform-origin: 0 50%; pointer-events: none;
 }
 html[data-navigating] .aa-nav-progress { animation: aa-nav-progress 8s cubic-bezier(.1, .7, .2, 1) .15s both; }
 @keyframes aa-nav-progress { from { transform: scaleX(0); } 4% { transform: scaleX(.3); } to { transform: scaleX(.94); } }

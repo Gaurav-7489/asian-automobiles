@@ -1,0 +1,25 @@
+/*
+ * Brand palette — the single place to change the site's colours.
+ * Every stylesheet refers to these tokens; use the -rgb variants for transparency:
+ *   color: var(--aa-accent);   background: rgb(var(--aa-ink-rgb) / .72);
+ */
+:root {
+  --aa-ink: #111820;
+  --aa-ink-rgb: 17 24 32;
+  --aa-charcoal: #202a32;
+  --aa-charcoal-rgb: 32 42 50;
+  --aa-paper: #f5f5f2;
+  --aa-paper-rgb: 245 245 242;
+  --aa-surface: #e2e4e1;
+  --aa-surface-rgb: 226 228 225;
+  --aa-accent: #d58a3a;
+  --aa-accent-rgb: 213 138 58;
+  --aa-accent-strong: #9a5a1c;
+  --aa-accent-strong-rgb: 154 90 28;
+  --aa-accent-soft: #e8a25a;
+  --aa-accent-soft-rgb: 232 162 90;
+  --aa-muted: #87919a;
+  --aa-muted-rgb: 135 145 154;
+  --aa-slate: #5c6670;
+  --aa-slate-rgb: 92 102 112;
+}
