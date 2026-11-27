@@ -9,7 +9,7 @@
   --aa-v15-paper:var(--brand-paper);
   --aa-v15-accent:var(--brand-accent);
   --aa-v15-white:var(--brand-paper);
-  --aa-v15-muted:#4e5c57;
+  --aa-v15-muted:#585858;
   --aa-v15-dark:var(--brand-ink);
   --aa-v15-line-dark:rgb(var(--brand-ink-rgb) / .18);
   --aa-v15-line-light:rgba(255,255,255,.2);
@@ -283,7 +283,7 @@
   .aa-v13-review-tabs
 ) button:is(.is-active,[aria-pressed="true"]){
   background:var(--aa-v15-accent);
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
   border-color:var(--aa-v15-accent);
 }
 
@@ -297,16 +297,16 @@
   .aa-v13-damage-tabs,
   .aa-v13-review-tabs
 ) button:is(.is-active,[aria-pressed="true"]) :is(b,strong,small,span,svg){
-  color:var(--brand-ink)!important;
+  color:var(--brand-on-accent)!important;
 }
 
 .aa-inner-v10 .aa-v10-button-primary,
 .aa-inner-v10 .aa-v10-button-whatsapp{
-  color:var(--brand-ink)!important;
+  color:var(--brand-on-accent)!important;
 }
 .aa-inner-v10 .aa-v10-button-primary :is(span,b,strong,svg),
 .aa-inner-v10 .aa-v10-button-whatsapp :is(span,b,strong,svg){
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 
 .aa-inner-v10 :is(.aa-v10-dark,.aa-v10-endcap,.aa-v10-head) .aa-v10-button-ghost{
@@ -585,7 +585,7 @@
 .aa-v11-scanner-menu button:is(:hover,.is-active){
   padding-left:26px!important;
   background:var(--aa-v16-accent);
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 
 /* BLUEPRINT TIMELINES — remove the giant empty dashboard feeling */
@@ -746,7 +746,7 @@
 .aa-v11-parts-details p{color:rgba(255,255,255,.78)}
 .aa-v11-parts-index button:is(:hover,.is-active){
   background:var(--aa-v16-accent);
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 
 /* ABOUT TIMELINE */
@@ -942,7 +942,7 @@
   min-height:48px;
   padding:0 18px;
   background:var(--aa-v16-accent);
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
   font-size:11px;
   font-weight:800;
   letter-spacing:.08em;
@@ -1009,7 +1009,7 @@
 }
 
 .aa-v22-stage-head :is(span,b){
-  color:#54625d!important;
+  color:#5e5e5e!important;
   font-size:7px;
   font-weight:800;
   letter-spacing:.16em;
@@ -1029,7 +1029,7 @@
 
 .aa-v22-groove{
   fill:none;
-  stroke:#203e35;
+  stroke:#373737;
   stroke-linecap:round;
   stroke-linejoin:round;
 }
@@ -1040,7 +1040,7 @@
 
 .aa-v22-groove.inner{
   stroke-width:10;
-  stroke:#14332a;
+  stroke:#2c2c2c;
 }
 
 .aa-v22-channel{
@@ -1101,7 +1101,7 @@
 
 .aa-v22-sub{
   font-size:8px;
-  fill:#5e6c67;
+  fill:#686868;
 }
 
 .aa-v22-wear{
@@ -1150,7 +1150,7 @@
 }
 
 .aa-v22-stage-scale span{
-  color:#54625d!important;
+  color:#5e5e5e!important;
   font-size:6px;
   font-weight:800;
   letter-spacing:.14em;
@@ -1274,7 +1274,7 @@
 }
 
 .aa-v22-tabs button.is-active :is(span,b,small){
-  color:var(--brand-ink)!important;
+  color:var(--brand-on-accent)!important;
 }
 
 @media(hover:hover) and (pointer:fine){

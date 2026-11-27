@@ -6,7 +6,7 @@
 
 :root{
   --aa-v14-ink:var(--brand-ink);
-  --aa-v14-muted:#485550;
+  --aa-v14-muted:#515151;
   --aa-v14-paper:var(--brand-paper);
   --aa-v14-dark:var(--brand-ink);
   --aa-v14-accent:var(--brand-accent);
@@ -59,11 +59,11 @@ textarea{
 
 .aa-header-v5 .aa-header-cta{
   background:var(--aa-v14-accent);
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 
 .aa-header-v5 .aa-header-cta :is(span,b,strong,svg){
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 
 .aa-header-v5 .aa-mega{
@@ -77,7 +77,7 @@ textarea{
 }
 
 .aa-header-v5 .aa-mega :is(p,small,span){
-  color:#4e5c57!important;
+  color:#585858!important;
 }
 
 .aa-header-v5 .aa-mega-link{
@@ -99,11 +99,11 @@ textarea{
 
 .aa-header-v5 .aa-mega-book{
   background:var(--aa-v14-accent);
-  color:var(--brand-ink)!important;
+  color:var(--brand-on-accent)!important;
 }
 
 .aa-header-v5 .aa-mega-book :is(b,strong,small,span,svg){
-  color:var(--brand-ink)!important;
+  color:var(--brand-on-accent)!important;
 }
 
 /* =========================================================
@@ -178,7 +178,7 @@ textarea{
   .aa-v10-map-road,
   small
 ){
-  color:#4e5c57!important;
+  color:#585858!important;
 }
 
 /* =========================================================
@@ -338,11 +338,11 @@ textarea{
 
   .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card:hover{
     background:var(--aa-v14-accent);
-    color:var(--brand-ink);
+    color:var(--brand-on-accent);
   }
 
   .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card:hover :is(h3,h4,b,strong,p,small,span,svg,.aa-v10-feature-meta){
-    color:var(--brand-ink)!important;
+    color:var(--brand-on-accent)!important;
   }
 
   .aa-inner-v10.theme-ac .aa-v10-stack-list>div:hover{
@@ -435,7 +435,7 @@ textarea{
   .aa-v13-service-index,
   .aa-v13-review-tabs
 ) button:is(.is-active,:hover,:focus-visible){
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 
 .aa-inner-v10 :is(
@@ -447,7 +447,7 @@ textarea{
   .aa-v13-service-index,
   .aa-v13-review-tabs
 ) button:is(.is-active,:hover,:focus-visible) :is(b,strong,small,span,svg){
-  color:var(--brand-ink)!important;
+  color:var(--brand-on-accent)!important;
 }
 
 /* Keyboard focus gets the same champagne fill as hover, so the ink label above stays readable */
@@ -491,11 +491,11 @@ textarea{
 
 .aa-inner-v10 .aa-blueprint-timeline-nav button.is-active{
   background:var(--aa-v14-accent);
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 
 .aa-inner-v10 .aa-blueprint-timeline-nav button.is-active :is(b,strong,span,small,svg){
-  color:var(--brand-ink)!important;
+  color:var(--brand-on-accent)!important;
 }
 
 /* =========================================================
@@ -505,6 +505,11 @@ textarea{
 .aa-v10-button-whatsapp,
 .aa-v10-button-primary,
 .aa-light-button{
+  color:var(--brand-on-accent)!important;
+}
+
+/* .aa-light-button inverts to a porcelain fill on hover (pro-upgrade.css): carbon text there */
+.aa-light-button:hover{
   color:var(--brand-ink)!important;
 }
 
@@ -561,11 +566,11 @@ textarea{
 
 .aa-inner-v10 .aa-v10-submit:is(:hover,:focus-visible){
   background:var(--aa-v14-accent);
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 
 .aa-inner-v10 .aa-v10-submit:is(:hover,:focus-visible) :is(span,svg){
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 
 /* =========================================================
@@ -607,12 +612,12 @@ textarea{
 }
 
 .aa-inner-v10 .aa-v10-lead-form :is(input,textarea)::placeholder{
-  color:#56645f;
+  color:#606060;
   opacity:1!important;
 }
 
 .aa-inner-v10 .aa-v10-lead-form select:invalid{
-  color:#56645f;
+  color:#606060;
 }
 
 .aa-inner-v10 .aa-v10-lead-form :is(input,select,textarea):focus{
@@ -621,7 +626,7 @@ textarea{
 }
 
 .aa-inner-v10 .aa-v10-lead-form>small{
-  color:#4a5853!important;
+  color:#545454!important;
 }
 
 .aa-inner-v10 .aa-motion-faq article>button{
@@ -633,7 +638,7 @@ textarea{
 }
 
 .aa-inner-v10 .aa-motion-faq-answer p{
-  color:#45524d!important;
+  color:#4e4e4e!important;
 }
 
 .aa-inner-v10 .aa-v10-address-card,
@@ -642,7 +647,7 @@ textarea{
 }
 
 .aa-inner-v10 .aa-v10-address-card :is(p,small){
-  color:#4a5853!important;
+  color:#545454!important;
 }
 
 /* =========================================================
@@ -658,7 +663,7 @@ textarea{
 }
 
 .aa-footer a:is(:hover,:focus-visible){
-  color:var(--aa-v14-accent)!important;
+  color:var(--brand-accent-soft)!important;
 }
 
 .aa-mobile-actions a{
@@ -671,7 +676,7 @@ textarea{
 
 .aa-mobile-actions a:last-child{
   background:var(--aa-v14-accent);
-  color:var(--brand-ink)!important;
+  color:var(--brand-on-accent)!important;
 }
 
 .aa-mobile-actions a:last-child :is(span,svg){
@@ -712,12 +717,12 @@ textarea{
 @media (hover:hover) and (pointer:fine){
   .aa-inner-v10.theme-wheel .aa-v10-compare-grid>div:hover,
   .aa-inner-v10.theme-wheel .aa-v10-compare-grid>div:focus-within{
-    color:var(--brand-ink)!important;
+    color:var(--brand-on-accent)!important;
   }
 
   .aa-inner-v10.theme-wheel .aa-v10-compare-grid>div:hover :is(h2,h3,h4,b,strong,p,small,span,svg),
   .aa-inner-v10.theme-wheel .aa-v10-compare-grid>div:focus-within :is(h2,h3,h4,b,strong,p,small,span,svg){
-    color:var(--brand-ink)!important;
+    color:var(--brand-on-accent)!important;
   }
 
   .aa-inner-v10.theme-wheel .aa-v10-compare-grid>div:hover :is(p,small,span),
@@ -732,12 +737,12 @@ textarea{
   .aa-inner-v10.theme-about .aa-v10-dark .aa-hover-stat-rail>div:hover,
   .aa-inner-v10.theme-about .aa-v10-dark .aa-hover-stat-rail>div:focus-within{
     background:var(--aa-v14-accent);
-    color:var(--brand-ink);
+    color:var(--brand-on-accent);
   }
 
   .aa-inner-v10.theme-about .aa-v10-dark .aa-hover-stat-rail>div:hover :is(b,strong,p,small,span,svg),
   .aa-inner-v10.theme-about .aa-v10-dark .aa-hover-stat-rail>div:focus-within :is(b,strong,p,small,span,svg){
-    color:var(--brand-ink)!important;
+    color:var(--brand-on-accent)!important;
   }
 
   .aa-inner-v10.theme-about .aa-v10-dark .aa-hover-stat-rail>div:hover :is(p,small,span),

@@ -4,9 +4,8 @@
  * sets palette, type, shape and effects. Selectors start with :root:not(#_) to outrank the
  * older stylesheets. Loaded last.
  *
- * Palette (5.2): graphite-900 var(--brand-ink) · charcoal-800 var(--brand-charcoal) · warm-50 var(--brand-paper) · white
- *   amber-500 var(--brand-accent) (actions, accents on dark) · amber-700 var(--brand-accent-strong) (links/eyebrows on light)
- *   grey-400 var(--brand-muted) (secondary on dark) · slate-600 var(--brand-slate) (secondary on light) · line-200 var(--brand-surface)
+ * Palette: see tokens.css (carbon black, porcelain white, burnt orange). Burnt orange is a FILL
+ *   with --brand-on-accent text; orange text uses --brand-accent-strong on light, --brand-accent-soft on dark.
  * Type (5.3): Manrope for headings, Inter for everything else.
  * Shape (5.4): 4px buttons/inputs, 8px cards. Effects (5.1, 5.7): no glows, no parallax, no cursor effects.
  */
@@ -21,14 +20,14 @@
   --aa-paper: var(--brand-paper);
   --aa-white: var(--brand-paper);
   --aa-muted: var(--brand-slate);
-  --aa-muted-light: #bdccc7;
+  --aa-muted-light: #c8c8c8;
 }
 :root:not(#_) .aa-inner-v10 {
   --v10-black: var(--brand-ink);
   --v10-black-2: var(--brand-charcoal);
   --v10-paper: var(--brand-paper);
-  --v10-paper-2: #edf0ea; /* porcelain stepped 45% toward --brand-surface */
-  --v10-paper-3: #edf0ea;
+  --v10-paper-2: var(--brand-surface);
+  --v10-paper-3: var(--brand-surface);
   --v10-ink: var(--brand-ink);
   --v10-muted: var(--brand-slate);
   --v10-accent: var(--brand-accent);
@@ -43,9 +42,9 @@
 :root:not(#_) :is(h1, h2) { font-weight: 700; }
 :root:not(#_) h3 { font-weight: 600; }
 
-/* Eyebrows: amber-700 on light, amber-500 on dark */
+/* Eyebrows: accessible orange on light, soft orange on dark (burnt orange is 3.8:1 on carbon) */
 :root:not(#_) :is(.aa-v10-paper, .aa-v10-soft, .aa-section:not(.aa-section-dark)) :is(.eyebrow:not(.light), .aa-kicker:not(.aa-kicker-light)) { color: var(--brand-accent-strong) !important; }
-:root:not(#_) :is(.aa-v10-dark, .aa-section-dark, .aa-v10-endcap, .aa-v10-head, .aa-hero2) :is(.eyebrow, .aa-kicker) { color: var(--brand-accent) !important; }
+:root:not(#_) :is(.aa-v10-dark, .aa-section-dark, .aa-v10-endcap, .aa-v10-head, .aa-hero2) :is(.eyebrow, .aa-kicker) { color: var(--brand-accent-soft) !important; }
 
 /* ---------- Hero: flat graphite overlay on the text side (5.6 / 7.F2), no glow ---------- */
 :root:not(#_) .aa-hero2-shade {
@@ -61,29 +60,29 @@
 
 /* FAQ numbers, timeline and AC-mode labels after the palette change */
 :root:not(#_) .aa-motion-faq button > span { color: var(--brand-slate) !important; opacity: 1 !important; }
-:root:not(#_) .aa-blueprint-timeline-nav .is-active :is(span, small, b) { color: var(--brand-ink) !important; opacity: 1 !important; }
+:root:not(#_) .aa-blueprint-timeline-nav .is-active :is(span, small, b) { color: var(--brand-on-accent) !important; opacity: 1 !important; }
 :root:not(#_) .aa-v11-climate-modes button:not(.is-active) > span { color: var(--brand-paper) !important; }
 
 /* ---------- Small numbers and labels (were 1.6–4.4:1) ---------- */
 
 /* Service stack cards: meta row was opacity .42 at 8px */
 :root:not(#_) .aa-skip-card-meta { opacity: 1 !important; font-size: 10px; }
-:root:not(#_) .aa-skip-card-meta span { color: #4a5752; }
-:root:not(#_) .aa-skip-card:nth-child(even) .aa-skip-card-meta span { color: #aebdb8; }
+:root:not(#_) .aa-skip-card-meta span { color: #535353; }
+:root:not(#_) .aa-skip-card:nth-child(even) .aa-skip-card-meta span { color: #b9b9b9; }
 :root:not(#_) .aa-skip-card:nth-child(even) p { color: var(--brand-surface); }
 
 /* Home section heading accent and count */
-:root:not(#_) .aa-section-head h2 em { color: #596762; }
-:root:not(#_) .aa-count { color: #4a5752; }
+:root:not(#_) .aa-section-head h2 em { color: #636363; }
+:root:not(#_) .aa-count { color: #535353; }
 
 /* Numbered stack lists on light sections */
-:root:not(#_) .aa-v10-stack-list > div > span { color: #4a5752 !important; }
+:root:not(#_) .aa-v10-stack-list > div > span { color: #535353 !important; }
 
 /* Contact action labels follow their card colour (light card, dark card and dark hover) */
 :root:not(#_) .aa-v10-contact-actions a > span { color: inherit !important; opacity: 0.85 !important; }
 
 /* Map pin label on the accent */
-:root:not(#_) .aa-v10-map-pin b { color: var(--brand-ink) !important; }
+:root:not(#_) .aa-v10-map-pin b { color: var(--brand-on-accent) !important; }
 
 /* Interactive lab menus (symptom scanner, AC modes, parts index, wheel/tyre tabs) on dark */
 :root:not(#_) .aa-v11-scanner-menu button > span,
@@ -91,22 +90,21 @@
 :root:not(#_) .aa-v11-climate-modes button > span,
 :root:not(#_) .aa-v11-parts-index button > span,
 :root:not(#_) .aa-v22-tabs button > span,
-:root:not(#_) .aa-v22-tabs button small { color: #a1afaa !important; opacity: 1 !important; }
+:root:not(#_) .aa-v22-tabs button small { color: #ababab !important; opacity: 1 !important; }
 
-/* Same labels on the amber active state */
+/* Same labels on the orange active state */
 :root:not(#_) .aa-v11-scanner-menu button.is-active > span,
 :root:not(#_) .aa-v11-scanner-menu button.is-active small,
 :root:not(#_) .aa-v11-climate-modes button.is-active > span,
 :root:not(#_) .aa-v11-parts-index button.is-active > span,
-:root:not(#_) .aa-v22-tabs button.is-active :is(span, small) { color: var(--brand-ink) !important; opacity: 1 !important; }
+:root:not(#_) .aa-v22-tabs button.is-active :is(span, small) { color: var(--brand-on-accent) !important; opacity: 1 !important; }
 
-/* Lab buttons turn amber on hover: keep their text dark there */
+/* Lab buttons turn orange on hover and keyboard focus: porcelain text there */
 :root:not(#_) .aa-v11-scanner-menu button:hover :is(b, span, small, svg),
 :root:not(#_) .aa-v11-climate-modes button:hover :is(b, span, svg),
 :root:not(#_) .aa-v11-parts-index button:hover :is(b, span, svg),
-/* ...and on keyboard focus, which now shares the champagne fill */
-:root:not(#_) :is(.aa-v11-scanner-menu, .aa-v11-climate-modes, .aa-v11-geometry-controls, .aa-v11-parts-index, .aa-v11-claim-controls, .aa-v13-service-index, .aa-v13-review-tabs) button:focus-visible :is(b, strong, span, small, svg) { color: var(--brand-ink) !important; }
-:root:not(#_) .aa-v22-tabs button.is-active, :root:not(#_) .aa-v22-tabs button.is-active b { color: var(--brand-ink) !important; }
+:root:not(#_) :is(.aa-v11-scanner-menu, .aa-v11-climate-modes, .aa-v11-geometry-controls, .aa-v11-parts-index, .aa-v11-claim-controls, .aa-v13-service-index, .aa-v13-review-tabs) button:focus-visible :is(b, strong, span, small, svg) { color: var(--brand-on-accent) !important; }
+:root:not(#_) .aa-v22-tabs button.is-active, :root:not(#_) .aa-v22-tabs button.is-active b { color: var(--brand-on-accent) !important; }
 
 /* ---------- Footer ---------- */
 
@@ -128,8 +126,8 @@
 :root:not(#_) .aa-mobile-actions a:last-child:is(:hover, :active, :focus-visible) { background: transparent; }
 :root:not(#_) .aa-mobile-actions a:is(:first-child, :last-child):is(:hover, :active) :is(span, svg) { color: var(--brand-paper); }
 :root:not(#_) .aa-mobile-actions a:nth-child(2),
-:root:not(#_) .aa-mobile-actions a:nth-child(2):is(:hover, :active) { background: var(--brand-accent); color: var(--brand-ink) !important; }
-:root:not(#_) .aa-mobile-actions a:nth-child(2) :is(span, svg) { color: var(--brand-ink); }
+:root:not(#_) .aa-mobile-actions a:nth-child(2):is(:hover, :active) { background: var(--brand-accent); color: var(--brand-on-accent) !important; }
+:root:not(#_) .aa-mobile-actions a:nth-child(2) :is(span, svg) { color: var(--brand-on-accent); }
 
 /* ---------- General mobile readability ---------- */
 
@@ -145,9 +143,9 @@
 /* ---------- Desktop services dropdown ---------- */
 
 /* "View all services" turned white on the cream panel when hovered */
-:root:not(#_) .aa-mega-top > a { color: #34413c !important; }
+:root:not(#_) .aa-mega-top > a { color: #3e3e3e !important; }
 :root:not(#_) .aa-mega-top > a:is(:hover, :focus-visible) { color: var(--brand-ink) !important; text-decoration: underline; text-underline-offset: 4px; }
-:root:not(#_) .aa-mega-top small { color: #4a5752 !important; }
+:root:not(#_) .aa-mega-top small { color: #535353 !important; }
 
 /* Mobile menu direct links: older rules sized the inner text at ~9px */
 
@@ -172,7 +170,7 @@
 /* Skip link (spec 25.2): first focusable element, visible on focus */
 :root:not(#_) .aa-skip-link {
   position: absolute; left: 16px; top: -100px; z-index: 1000; padding: 12px 18px; border-radius: 4px;
-  background: var(--brand-accent); color: var(--brand-ink); font-weight: 600; text-decoration: none;
+  background: var(--brand-accent); color: var(--brand-on-accent); font-weight: 600; text-decoration: none;
 }
 :root:not(#_) .aa-skip-link:focus { top: 12px; outline: 2px solid var(--brand-paper); outline-offset: 2px; }
 
@@ -181,8 +179,8 @@
 :root:not(#_) .aa-map-reveal {
   position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 2;
   display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 18px;
-  border: 0; border-radius: 4px; background: var(--brand-accent); color: var(--brand-ink); font-weight: 600; cursor: pointer;
+  border: 0; border-radius: 4px; background: var(--brand-accent); color: var(--brand-on-accent); font-weight: 600; cursor: pointer;
 }
-:root:not(#_) .aa-map-reveal small { font-weight: 500; color: var(--brand-ink) !important; opacity: 1 !important; font-size: 12px; }
+:root:not(#_) .aa-map-reveal small { font-weight: 500; color: var(--brand-on-accent) !important; opacity: 1 !important; font-size: 12px; }
 :root:not(#_) .aa-map-live { padding: 0; overflow: hidden; }
 :root:not(#_) .aa-map-live iframe { display: block; width: 100%; height: 100%; min-height: 360px; border: 0; }

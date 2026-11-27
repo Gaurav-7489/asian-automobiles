@@ -6,7 +6,7 @@
 
 .aa-inner-v10{
   --v13-ink:var(--brand-ink);
-  --v13-muted:#495651;
+  --v13-muted:#525252;
   --v13-paper:var(--brand-paper);
   --v13-paper-2:var(--brand-paper);
   --v13-dark:var(--brand-ink);
@@ -42,7 +42,7 @@
   .aa-v10-paper,
   .aa-v10-soft
 ) :is(.eyebrow,.aa-v10-feature-meta,.aa-v10-card-top,small){
-  color:#5a6863;
+  color:#646464;
 }
 
 /* -----------------------------
@@ -146,7 +146,7 @@
   .aa-v11-parts-index,
   .aa-v11-claim-controls
 ) button:is(.is-active,:hover){
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 
 .aa-inner-v10 :is(
@@ -156,7 +156,7 @@
   .aa-v11-parts-index,
   .aa-v11-claim-controls
 ) button:is(.is-active,:hover) :is(b,strong,span,small,svg){
-  color:var(--brand-ink)!important;
+  color:var(--brand-on-accent)!important;
 }
 
 /* Timeline contrast */
@@ -186,11 +186,11 @@
 
 .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card:hover{
   background:var(--v13-accent);
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 
 .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card:hover :is(h3,b,strong,svg){
-  color:var(--brand-ink)!important;
+  color:var(--brand-on-accent)!important;
 }
 
 .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card:hover :is(p,.aa-v10-feature-meta){
@@ -202,7 +202,7 @@
 /* Reference notes must follow their section background. */
 .aa-inner-v10 .aa-v10-paper .aa-v10-reference-note,
 .aa-inner-v10 .aa-v10-soft .aa-v10-reference-note{
-  color:#53605b!important;
+  color:#5c5c5c!important;
 }
 
 .aa-inner-v10 .aa-v10-dark .aa-v10-reference-note{
@@ -503,12 +503,12 @@
 .aa-v13-service-index button.is-active{
   padding-left:28px;
   background:var(--v13-accent);
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 
 .aa-v13-service-index button:hover :is(span,b,svg),
 .aa-v13-service-index button.is-active :is(span,b,svg){
-  color:var(--brand-ink)!important;
+  color:var(--brand-on-accent)!important;
 }
 
 /* =========================================================
@@ -734,7 +734,7 @@
 
   .aa-v13-service-index button.is-active{
     background:var(--v13-accent);
-    color:var(--brand-ink);
+    color:var(--brand-on-accent);
   }
 }
 
@@ -796,11 +796,11 @@
 
 .aa-inner-v10 .aa-v10-submit:hover{
   background:var(--v13-accent);
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 
 .aa-inner-v10 .aa-v10-submit:hover :is(span,svg){
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 
 /* Insurance icon disc is a dark circular island on a light card. */
@@ -828,7 +828,7 @@
   .aa-v10-map-road,
   .aa-v10-address-lines small
 ){
-  color:#4d5b56!important;
+  color:#575757!important;
 }
 
 /* Dark-section labels should be visible without becoming dominant. */

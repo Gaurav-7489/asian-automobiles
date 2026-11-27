@@ -2,9 +2,9 @@
 .aa-service-connections { padding-block: 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
 .aa-service-connections h2 { font-size: clamp(24px, 3vw, 40px); line-height: 1.15; margin-top: 12px; }
 .aa-service-connection-links { display: grid; gap: 12px; }
-.aa-service-connection-links a { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 20px; border: 1px solid #abbab5; color: var(--brand-charcoal); background: var(--brand-paper); text-decoration: none; }
+.aa-service-connection-links a { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 20px; border: 1px solid #b6b6b6; color: var(--brand-charcoal); background: var(--brand-paper); text-decoration: none; }
 .aa-router-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
-.aa-router-actions a, .aa-connected-action { display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; background: var(--brand-accent); color: var(--brand-ink); border: 1px solid var(--brand-accent); text-decoration: none; font-size: 13px; font-weight: 600; }
+.aa-router-actions a, .aa-connected-action { display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; background: var(--brand-accent); color: var(--brand-on-accent); border: 1px solid var(--brand-accent); text-decoration: none; font-size: 13px; font-weight: 600; }
 .aa-service-connections a:focus-visible,
 .aa-router-actions a:focus-visible,
 .aa-connected-action:focus-visible { outline: 3px solid var(--brand-accent-strong); outline-offset: 4px; }
@@ -27,7 +27,7 @@
 .aa-home-arrival > svg { color: var(--brand-accent); margin-bottom: 24px; }
 .aa-home-arrival h3 { color: var(--brand-paper); font-size: clamp(28px, 3vw, 42px); line-height: 1.15; margin-block: 20px; }
 .aa-home-arrival p svg { vertical-align: middle; margin-right: 6px; }
-.aa-home-arrival .aa-text-link { color: var(--brand-accent); }
+.aa-home-arrival .aa-text-link { color: var(--brand-accent-soft); }
 @media (max-width: 800px) { .aa-home-workshop-grid { grid-template-columns: 1fr; } .aa-home-workshop-photo { min-height: 320px; } }
 .aa-home .aa-workshop-story { content-visibility: visible; contain-intrinsic-size: none; padding-top: clamp(72px, 8vw, 112px); }
 .aa-home .aa-location-copy h2 { font-size: clamp(2.7rem, 5vw, 5.2rem) !important; }

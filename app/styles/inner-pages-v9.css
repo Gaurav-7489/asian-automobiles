@@ -216,7 +216,7 @@
 .aa-blueprint-timeline-nav button.is-active{
   padding-left:15px;
   background:var(--v9-accent);
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 
 .aa-blueprint-timeline-nav button.is-active>i{
@@ -542,8 +542,8 @@
 
 .immersive-page-v9{
   --v9-text:var(--brand-ink);
-  --v9-text-muted:#43504b;
-  --v9-text-subtle:#57645f;
+  --v9-text-muted:#4c4c4c;
+  --v9-text-subtle:#606060;
   --v9-dark-text:var(--brand-paper);
   --v9-dark-muted:rgba(255,255,255,.76);
   color:var(--v9-text);
@@ -646,8 +646,8 @@
 @media (prefers-contrast:more){
   .immersive-page-v9{
     --v9-text:#000000;
-    --v9-text-muted:#1c3a31;
-    --v9-text-subtle:#3a4742;
+    --v9-text-muted:#333333;
+    --v9-text-subtle:#434343;
     --v9-dark-text:var(--brand-paper);
     --v9-dark-muted:rgba(255,255,255,.88);
   }

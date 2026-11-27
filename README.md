@@ -10,8 +10,24 @@ Content follows the *Website Development Specification v1.0*: 11 live pages (Hom
 The template's layout and components are kept; colour, type, shape and effects follow the
 specification (chapter 5), applied in `app/styles/spec-design-system.css` and refined by `app/styles/polish.css`:
 
-- Palette: graphite `#111820`, charcoal `#202A32`, warm white `#F5F5F2`, white, amber `#D58A3A`
-  (actions/accents), amber-700 `#9A5A1C` (on light), grey `#87919A` / slate `#5C6670` (secondary text).
+- Palette (final, approved): carbon black, porcelain white and burnt orange, roughly 55% light /
+  40% dark / 5% orange. `app/styles/tokens.css` is the single source; every stylesheet uses its
+  `--brand-*` tokens (and the `-rgb` variants for transparency).
+
+  | Token | Value | Use |
+  |---|---|---|
+  | `--brand-ink` | `#101010` | Carbon black: dark sections, headings on light |
+  | `--brand-charcoal` | `#1C1C1C` | Elevated dark surface (cards, panels) |
+  | `--brand-paper` | `#F5F5F5` | Porcelain white: light sections, text on dark |
+  | `--brand-surface` | `#EAEAEA` | Secondary light surface |
+  | `--brand-line` / `--brand-line-dark` | `#DADADA` / `#303030` | Borders on light / on dark |
+  | `--brand-slate` / `--brand-muted` | `#595959` / `#B3B3B3` | Secondary text on light / on dark |
+  | `--brand-accent` | `#B94D20` | Burnt orange **fills**: primary actions, active states, small marks |
+  | `--brand-on-accent` | `#F5F5F5` | Text on burnt orange (carbon fails 4.5:1 there) |
+  | `--brand-accent-strong` | `#A33D16` | Orange **text/icons on light** surfaces |
+  | `--brand-accent-soft` | `#E58A5C` | Orange **text/icons on dark** surfaces (burnt orange is 3.8:1 on carbon) |
+  | `--brand-photo-grade` | CSS filter | One static cinematic grade applied to every photograph |
+
 - Type: Manrope (headings) and Inter (body), self-hosted in `app/fonts/`.
 - Shape: 4px buttons, 8px cards. No glow gradients, custom cursor, parallax or smooth-scroll effects.
 - Colour contrast is tested on every page (`tests/e2e/contrast.spec.ts`).

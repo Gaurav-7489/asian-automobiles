@@ -95,12 +95,12 @@
   .aa-mnav-link > span { flex: 1; min-width: 0; }
   .aa-mnav-link > svg { flex: none; color: var(--brand-muted); transition: transform 0.4s var(--aa-ease), color 0.3s ease; }
   .aa-mnav-link:focus-visible { outline: none; }
-  .aa-mnav-link:is(:hover, :focus-visible) { color: var(--brand-accent); padding-left: 6px; }
+  .aa-mnav-link:is(:hover, :focus-visible) { color: var(--brand-accent-soft); padding-left: 6px; }
   .aa-mnav-link:is(:hover, :focus-visible) > i,
-  .aa-mnav-link:is(:hover, :focus-visible) > svg { color: var(--brand-accent); }
-  .aa-mnav-link[aria-current="page"] { color: var(--brand-accent); }
-  .aa-mnav-link[aria-current="page"] > i { color: var(--brand-accent); }
-  .aa-mnav-group.is-expanded > .aa-mnav-link > svg { transform: rotate(180deg); color: var(--brand-accent); }
+  .aa-mnav-link:is(:hover, :focus-visible) > svg { color: var(--brand-accent-soft); }
+  .aa-mnav-link[aria-current="page"] { color: var(--brand-accent-soft); }
+  .aa-mnav-link[aria-current="page"] > i { color: var(--brand-accent-soft); }
+  .aa-mnav-group.is-expanded > .aa-mnav-link > svg { transform: rotate(180deg); color: var(--brand-accent-soft); }
 
   /* Services accordion */
   .aa-mnav-sub { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.5s var(--aa-ease); }
@@ -113,8 +113,8 @@
     transition: color 0.25s ease, transform 0.35s var(--aa-ease);
   }
   .aa-mnav-sub a i { width: 22px; }
-  .aa-mnav-sub a:is(:hover, :focus-visible) { color: var(--brand-accent); transform: translateX(4px); }
-  .aa-mnav-sub a[aria-current="page"] { color: var(--brand-accent); }
+  .aa-mnav-sub a:is(:hover, :focus-visible) { color: var(--brand-accent-soft); transform: translateX(4px); }
+  .aa-mnav-sub a[aria-current="page"] { color: var(--brand-accent-soft); }
 
   /* Staggered entrance */
   .aa-mnav-list > li { opacity: 0; transform: translateY(18px); }
@@ -134,7 +134,7 @@
   .aa-mnav-book {
     display: flex; align-items: center; justify-content: space-between;
     min-height: 62px; padding: 0 22px; border-radius: 4px;
-    background: var(--brand-accent); color: var(--brand-ink);
+    background: var(--brand-accent); color: var(--brand-on-accent);
     font-size: 16px; font-weight: 700; letter-spacing: 0.01em;
     transition: transform 0.35s var(--aa-ease), filter 0.3s ease;
   }
@@ -147,8 +147,8 @@
     color: var(--brand-paper); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
     transition: border-color 0.3s ease, color 0.3s ease;
   }
-  .aa-mnav-quick a svg { color: var(--brand-accent); }
-  .aa-mnav-quick a:is(:hover, :focus-visible) { border-color: var(--brand-accent); color: var(--brand-accent); }
+  .aa-mnav-quick a svg { color: var(--brand-accent-soft); }
+  .aa-mnav-quick a:is(:hover, :focus-visible) { border-color: var(--brand-accent); color: var(--brand-accent-soft); }
   .aa-mnav-meta { margin: 6px 0 0; text-align: center; color: var(--brand-muted); font-size: 12px; letter-spacing: 0.04em; }
 
   /* The floating quick bar and WhatsApp button must not sit on top of the open menu */
@@ -272,7 +272,7 @@
 .aa-visual-rail img { object-fit: cover; transition: transform 1.2s var(--aa-ease); }
 .aa-visual-rail figure::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgb(var(--brand-ink-rgb) / 0.85), rgb(var(--brand-ink-rgb) / 0) 55%); pointer-events: none; }
 .aa-visual-rail figcaption { position: absolute; z-index: 2; left: 18px; right: 18px; bottom: 16px; display: flex; align-items: baseline; gap: 12px; color: var(--brand-paper); }
-.aa-visual-rail figcaption i { font-style: normal; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: var(--brand-accent); }
+.aa-visual-rail figcaption i { font-style: normal; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: var(--brand-accent-soft); }
 .aa-visual-rail figcaption span { font-family: var(--font-manrope), Arial, sans-serif; font-size: clamp(17px, 1.7vw, 22px); font-weight: 600; letter-spacing: -0.02em; }
 @media (hover: hover) { .aa-visual-rail li:hover img { transform: scale(1.05); } }
 @media (max-width: 900px) {
@@ -341,3 +341,24 @@
 }
 @keyframes aa-stage-in { from { opacity: 0; transform: scale(1.06); } to { opacity: 0.5; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .aa-v13-service-stage-img { animation: none; } }
+
+/* ---------- Final visual system (carbon black · porcelain · burnt orange) ----------
+ * Colours come from tokens.css. This block only adds what no older layer expresses:
+ * one photographic grade, and label colours that older layers set for light sections
+ * but which also match inside dark panels. Static values only: no animation changes.
+ */
+
+/* One cinematic grade for every photograph (overrides the legacy `filter:none!important`
+   rules; identical at rest and on hover, so no existing transition is altered). */
+:root:not(#_) :is(main, .aa-header) img:not([src$=".svg"]) { filter: var(--brand-photo-grade) !important; }
+
+/* Labels inside the dark scanner screen and parts stage (were mid-grey, 2.7:1) */
+:root:not(#_) :is(.aa-v11-scanner-focus, .aa-v11-parts-details) small { color: var(--brand-muted) !important; }
+
+/* Hero location strip: 38% white (3.6:1) raised to the secondary-on-dark tone */
+:root:not(#_) .aa-hero-v8-meta span { color: rgb(var(--brand-paper-rgb) / 0.66); }
+
+/* Service stack: the card number becomes the small burnt-orange detail
+   (accessible orange on the porcelain cards, soft orange on the carbon cards) */
+:root:not(#_) .aa-skip-card-meta span:first-child { color: var(--brand-accent-strong); }
+:root:not(#_) .aa-skip-card:nth-child(even) .aa-skip-card-meta span:first-child { color: var(--brand-accent-soft); }

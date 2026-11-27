@@ -261,7 +261,7 @@
 .aa-v11-scanner-menu button.is-active{
   padding-left:28px;
   background:var(--brand-accent);
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 .aa-v11-scanner-menu button>span,
 .aa-v11-scanner-menu small{
@@ -394,7 +394,7 @@
 .aa-v11-climate-modes button.is-active{
   padding-left:30px;
   background:var(--v11-cyan);
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 .aa-v11-climate-modes button span{font-size:7px;letter-spacing:.15em;opacity:.55}
 .aa-v11-climate-modes button b{font-size:18px;font-weight:560;letter-spacing:-.03em}
@@ -465,7 +465,7 @@
 .aa-v11-parts-index button.is-active{
   padding-left:28px;
   background:var(--brand-accent);
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 .aa-v11-parts-index button span{font-size:7px;letter-spacing:.15em;opacity:.5}
 .aa-v11-parts-index button b{font-size:17px;font-weight:560;letter-spacing:-.025em}
@@ -581,7 +581,7 @@
 }
 .theme-parts .aa-hover-stat-rail>div:hover{
   background:var(--brand-accent)!important;
-  color:var(--brand-ink)!important;
+  color:var(--brand-on-accent)!important;
 }
 .theme-parts .aa-hover-stat-rail>div:hover p,
 .theme-parts .aa-hover-stat-rail>div:hover span{
@@ -600,7 +600,7 @@
 }
 .theme-contact .aa-v10-map-pin{
   background:var(--v11-green);
-  color:var(--brand-ink);
+  color:var(--brand-on-accent);
 }
 
 /* FAQ: quieter, reading-first */
@@ -900,7 +900,7 @@
   position:absolute;
   width:30px;
   height:7px;
-  background:#404d48;
+  background:#494949;
 }
 .aa-v11-hero-tyre .aa-v11-theme-core i:nth-child(1){left:-22px;top:22px;transform:rotate(32deg)}
 .aa-v11-hero-tyre .aa-v11-theme-core i:nth-child(2){right:-22px;top:28px;transform:rotate(-32deg)}

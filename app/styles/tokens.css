@@ -1,33 +1,46 @@
 /*
- * Brand palette — the single place to change the site's colours.
+ * Brand palette — the single, authoritative place to change the site's colours.
  * Every stylesheet refers to these tokens; use the -rgb variants for transparency:
- *   color: var(--brand-accent);   background: rgb(var(--brand-ink-rgb) / .72);
+ *   color: var(--brand-accent-soft);   background: rgb(var(--brand-ink-rgb) / .72);
  *
- * Racing green, porcelain and champagne. Every other shade is a tonal derivative:
- *   ink / charcoal        deep racing green and its lifted surface tone
- *   paper / surface       soft porcelain and its green-tinted panel tone
- *   accent / -strong / -soft   muted champagne; bronze for accent text on light
- *                              backgrounds (champagne fails 4.5:1 there); a lighter
- *                              champagne for accent text on dark backgrounds
- *   muted / slate         green-greys for secondary text on dark / light
+ * Carbon black, porcelain white and burnt orange (≈ 55% light / 40% dark / 5% orange).
+ *
+ *   ink / charcoal          carbon black and the elevated dark surface
+ *   paper / surface         porcelain white and the secondary light surface
+ *   line / line-dark        hairline borders on light / on dark surfaces
+ *   slate / muted           secondary text on light / on dark surfaces
+ *   accent                  burnt orange FILLS (buttons, active states, small marks);
+ *                           text on it is --brand-on-accent (carbon text fails 4.5:1)
+ *   accent-strong           orange TEXT/ICONS on light surfaces (5.5:1 on porcelain)
+ *   accent-soft             orange TEXT/ICONS on dark surfaces (7.3:1 on carbon;
+ *                           burnt orange itself is only 2.6:1 there)
  */
 :root {
-  --brand-ink: #102923;
-  --brand-ink-rgb: 16 41 35;
-  --brand-charcoal: #1a3730;
-  --brand-charcoal-rgb: 26 55 48;
-  --brand-paper: #f4f5f0;
-  --brand-paper-rgb: 244 245 240;
-  --brand-surface: #e4e9e3;
-  --brand-surface-rgb: 228 233 227;
-  --brand-accent: #c9a66b;
-  --brand-accent-rgb: 201 166 107;
-  --brand-accent-strong: #775723;
-  --brand-accent-strong-rgb: 119 87 35;
-  --brand-accent-soft: #d9be92;
-  --brand-accent-soft-rgb: 217 190 146;
-  --brand-muted: #a9b7b1;
-  --brand-muted-rgb: 169 183 177;
-  --brand-slate: #52655d;
-  --brand-slate-rgb: 82 101 93;
+  --brand-ink: #101010;
+  --brand-ink-rgb: 16 16 16;
+  --brand-charcoal: #1c1c1c;
+  --brand-charcoal-rgb: 28 28 28;
+  --brand-paper: #f5f5f5;
+  --brand-paper-rgb: 245 245 245;
+  --brand-surface: #eaeaea;
+  --brand-surface-rgb: 234 234 234;
+  --brand-line: #dadada;
+  --brand-line-rgb: 218 218 218;
+  --brand-line-dark: #303030;
+  --brand-line-dark-rgb: 48 48 48;
+  --brand-accent: #b94d20;
+  --brand-accent-rgb: 185 77 32;
+  --brand-accent-strong: #a33d16;
+  --brand-accent-strong-rgb: 163 61 22;
+  --brand-accent-soft: #e58a5c;
+  --brand-accent-soft-rgb: 229 138 92;
+  --brand-on-accent: #f5f5f5;
+  --brand-muted: #b3b3b3;
+  --brand-muted-rgb: 179 179 179;
+  --brand-slate: #595959;
+  --brand-slate-rgb: 89 89 89;
+
+  /* One cinematic grade for every photograph: neutral blacks, slightly lifted contrast,
+     controlled saturation and a faint warm cast in the highlights. Static (never animated). */
+  --brand-photo-grade: contrast(1.06) saturate(0.86) sepia(0.08) brightness(1.01);
 }
