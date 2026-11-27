@@ -176,7 +176,7 @@
 }
 
 .aa-inner-v10 .aa-v10-soft .aa-v13-about-line button b,
-.aa-inner-v10 .aa-v13-about-readout .aa-v16-about-copy h3 { color: #ffffff !important; }
+.aa-inner-v10 .aa-v13-about-readout .aa-v16-about-copy h3 { color: var(--brand-paper) !important; }
 .aa-inner-v10 .aa-v13-about-readout .aa-v16-about-copy p,
 .aa-inner-v10 .aa-v10-soft .aa-v13-about-line button span { color: var(--brand-surface) !important; }
 
@@ -215,7 +215,7 @@
 
 .aa-inner-v10 .aa-v10-paper .aa-v22-copy-panel h3,
 .aa-inner-v10 .aa-v22-tabs button:not(.is-active) b {
-  color: #ffffff !important;
+  color: var(--brand-paper) !important;
 }
 
 .aa-inner-v10 .aa-v10-paper .aa-v22-copy-panel p,

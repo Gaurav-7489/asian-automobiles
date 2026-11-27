@@ -46,7 +46,7 @@
 .aa-page-progress>i>b{
   position:absolute;
   inset:0;
-  background:#ffffff;
+  background:var(--brand-paper);
   transform-origin:top;
 }
 
@@ -56,7 +56,7 @@
   display:flex;
   align-items:flex-end;
   background:var(--brand-ink);
-  color:#ffffff;
+  color:var(--brand-paper);
   overflow:hidden;
   isolation:isolate;
 }
@@ -90,7 +90,7 @@
 }
 
 .immersive-page-v9 .back:hover{
-  color:#ffffff;
+  color:var(--brand-paper);
   transform:translateX(-3px);
 }
 
@@ -329,7 +329,7 @@
 .aa-hover-stat-rail>div:hover{
   padding-inline:14px;
   background:var(--brand-ink);
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-hover-stat-rail span{
@@ -542,8 +542,8 @@
 
 .immersive-page-v9{
   --v9-text:var(--brand-ink);
-  --v9-text-muted:#474d57;
-  --v9-text-subtle:#5b616b;
+  --v9-text-muted:#43504b;
+  --v9-text-subtle:#57645f;
   --v9-dark-text:var(--brand-paper);
   --v9-dark-muted:rgba(255,255,255,.76);
   color:var(--v9-text);
@@ -646,9 +646,9 @@
 @media (prefers-contrast:more){
   .immersive-page-v9{
     --v9-text:#000000;
-    --v9-text-muted:#273448;
-    --v9-text-subtle:#3e444e;
-    --v9-dark-text:#ffffff;
+    --v9-text-muted:#1c3a31;
+    --v9-text-subtle:#3a4742;
+    --v9-dark-text:var(--brand-paper);
     --v9-dark-muted:rgba(255,255,255,.88);
   }
 

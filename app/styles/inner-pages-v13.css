@@ -6,12 +6,12 @@
 
 .aa-inner-v10{
   --v13-ink:var(--brand-ink);
-  --v13-muted:#4d535d;
+  --v13-muted:#495651;
   --v13-paper:var(--brand-paper);
   --v13-paper-2:var(--brand-paper);
   --v13-dark:var(--brand-ink);
   --v13-dark-2:var(--brand-charcoal);
-  --v13-white:#ffffff;
+  --v13-white:var(--brand-paper);
   --v13-white-muted:rgba(255,255,255,.74);
   --v13-white-soft:rgba(255,255,255,.58);
   --v13-line:rgb(var(--brand-ink-rgb) / .17);
@@ -42,7 +42,7 @@
   .aa-v10-paper,
   .aa-v10-soft
 ) :is(.eyebrow,.aa-v10-feature-meta,.aa-v10-card-top,small){
-  color:#5e656f;
+  color:#5a6863;
 }
 
 /* -----------------------------
@@ -55,7 +55,7 @@
   .aa-v13-facility-gallery-section,
   .aa-v13-booking-journey-section
 ){
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-inner-v10 :is(
@@ -64,7 +64,7 @@
   .aa-v13-facility-gallery-section,
   .aa-v13-booking-journey-section
 ) :is(h1,h2,h3,h4,h5,b,strong){
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-inner-v10 :is(
@@ -101,7 +101,7 @@
   .aa-v13-floor-explorer,
   .aa-v13-booking-journey
 ){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-inner-v10 :is(
@@ -118,7 +118,7 @@
   .aa-v13-floor-explorer,
   .aa-v13-booking-journey
 ) :is(h1,h2,h3,h4,h5,b,strong){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-inner-v10 :is(
@@ -167,11 +167,11 @@
 
 .aa-inner-v10 .aa-blueprint-timeline-stage{
   background:var(--brand-ink);
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-inner-v10 .aa-blueprint-timeline-stage :is(h3,b,strong){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-inner-v10 .aa-blueprint-timeline-stage p{
@@ -181,7 +181,7 @@
 /* Dark feature card sets */
 
 .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card :is(h3,b,strong,svg){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card:hover{
@@ -202,7 +202,7 @@
 /* Reference notes must follow their section background. */
 .aa-inner-v10 .aa-v10-paper .aa-v10-reference-note,
 .aa-inner-v10 .aa-v10-soft .aa-v10-reference-note{
-  color:#575d67!important;
+  color:#53605b!important;
 }
 
 .aa-inner-v10 .aa-v10-dark .aa-v10-reference-note{
@@ -213,11 +213,11 @@
 
 .aa-inner-v10 .aa-v10-contact-actions>a:hover{
   background:var(--brand-ink)!important;
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-inner-v10 .aa-v10-contact-actions>a:hover :is(b,strong,span,svg){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 /* Address / FAQ / form readability */
@@ -230,12 +230,12 @@
 }
 
 .aa-inner-v10 .aa-v10-lead-copy :is(h2,b,strong,span,svg,a){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-inner-v10 .aa-v10-lead-fallback,
 .aa-inner-v10 .aa-v10-text-action{
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 /* =========================================================
@@ -263,7 +263,7 @@
   grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);
   border:1px solid var(--v13-line);
   background:var(--brand-ink);
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-v13-about-line{
@@ -297,7 +297,7 @@
   gap:9px;
   border:0;
   background:transparent;
-  color:#ffffff;
+  color:var(--brand-paper);
   cursor:pointer;
 }
 
@@ -368,7 +368,7 @@
   min-height:640px;
   border:1px solid var(--v13-line);
   background:var(--brand-ink);
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-v13-service-stage{
@@ -425,7 +425,7 @@
 
 .aa-v13-service-stage-copy h3{
   margin:0;
-  color:#ffffff;
+  color:var(--brand-paper);
   letter-spacing:-.075em;
   font-weight:540;
 }
@@ -475,7 +475,7 @@
   border:0;
   border-bottom:1px solid rgba(255,255,255,.13);
   background:transparent;
-  color:#ffffff;
+  color:var(--brand-paper);
   text-align:left;
   cursor:pointer;
   transition:background .25s ease,color .25s ease,padding .35s cubic-bezier(.16,1,.3,1);
@@ -490,7 +490,7 @@
 }
 
 .aa-v13-service-index button b{
-  color:#ffffff;
+  color:var(--brand-paper);
   font-size:14px;
   font-weight:570;
 }
@@ -544,11 +544,11 @@
 
 .theme-contact .aa-v10-contact-actions>a:nth-child(2){
   background:var(--brand-ink)!important;
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .theme-contact .aa-v10-contact-actions>a:nth-child(2) :is(b,strong,span,svg){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .theme-contact .aa-v10-contact-actions>a:nth-child(3){
@@ -724,7 +724,7 @@
 @media(pointer:coarse){
   .aa-v13-service-index button:hover{
     background:transparent;
-    color:#ffffff;
+    color:var(--brand-paper);
     padding-left:20px;
   }
 
@@ -753,11 +753,11 @@
 /* Generic cards become dark on hover; explicit light-surface heading rules
    must not keep their titles black after the surface flips. */
 .aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover{
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover :is(h3,h4,b,strong,svg){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover :is(p,.aa-v10-feature-meta,.aa-v10-card-top,small,span){
@@ -768,11 +768,11 @@
 
 /* Dark modules that live inside .aa-v10-paper / .aa-v10-soft. */
 .aa-inner-v10 .aa-v10-map-pin{
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-inner-v10 .aa-v10-map-pin :is(b,strong,svg){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 /* Gallery's main visual section is intentionally dark even though it uses
@@ -781,11 +781,11 @@
 /* AC list rows turn dark on hover. */
 .aa-inner-v10.theme-ac .aa-v10-stack-list>div:hover{
   background:var(--brand-ink);
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-inner-v10.theme-ac .aa-v10-stack-list>div:hover :is(b,strong,svg){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-inner-v10.theme-ac .aa-v10-stack-list>div:hover :is(p,span,small){
@@ -806,7 +806,7 @@
 /* Insurance icon disc is a dark circular island on a light card. */
 .aa-inner-v10 .aa-v10-icon-disc,
 .aa-inner-v10 .aa-v10-icon-disc svg{
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 /* Hero support copy was still too faint on some page themes. */
@@ -828,7 +828,7 @@
   .aa-v10-map-road,
   .aa-v10-address-lines small
 ){
-  color:#515862!important;
+  color:#4d5b56!important;
 }
 
 /* Dark-section labels should be visible without becoming dominant. */

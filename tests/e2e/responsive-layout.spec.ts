@@ -100,8 +100,8 @@ test("every timeline choice is visible and usable without horizontal scrolling",
 test("tyre guide keeps its heading readable on the dark panel", async ({ page }) => {
   await page.goto("/services/tyre-care/", { waitUntil: "networkidle" });
   const heading = page.locator(".aa-v22-copy-panel h3");
-  await expect(heading).toHaveCSS("color", "rgb(255, 255, 255)");
-  await expect(page.locator(".aa-v22-copy-panel p").first()).toHaveCSS("color", "rgb(228, 232, 239)");
+  await expect(heading).toHaveCSS("color", "rgb(244, 245, 240)");
+  await expect(page.locator(".aa-v22-copy-panel p").first()).toHaveCSS("color", "rgb(228, 233, 227)");
 });
 
 test("navigation stays inside the viewport at desktop and tablet breakpoints", async ({ page }, testInfo) => {

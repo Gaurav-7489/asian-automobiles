@@ -2,24 +2,32 @@
  * Brand palette — the single place to change the site's colours.
  * Every stylesheet refers to these tokens; use the -rgb variants for transparency:
  *   color: var(--brand-accent);   background: rgb(var(--brand-ink-rgb) / .72);
+ *
+ * Racing green, porcelain and champagne. Every other shade is a tonal derivative:
+ *   ink / charcoal        deep racing green and its lifted surface tone
+ *   paper / surface       soft porcelain and its green-tinted panel tone
+ *   accent / -strong / -soft   muted champagne; bronze for accent text on light
+ *                              backgrounds (champagne fails 4.5:1 there); a lighter
+ *                              champagne for accent text on dark backgrounds
+ *   muted / slate         green-greys for secondary text on dark / light
  */
 :root {
-  --brand-ink: #0e1a2b;
-  --brand-ink-rgb: 14 26 43;
-  --brand-charcoal: #1a2a40;
-  --brand-charcoal-rgb: 26 42 64;
-  --brand-paper: #f7f8fa;
-  --brand-paper-rgb: 247 248 250;
-  --brand-surface: #e4e8ef;
-  --brand-surface-rgb: 228 232 239;
-  --brand-accent: #f26b1d;
-  --brand-accent-rgb: 242 107 29;
-  --brand-accent-strong: #c24e0c;
-  --brand-accent-strong-rgb: 194 78 12;
-  --brand-accent-soft: #ff8a45;
-  --brand-accent-soft-rgb: 255 138 69;
-  --brand-muted: #8a94a6;
-  --brand-muted-rgb: 138 148 166;
-  --brand-slate: #5b6678;
-  --brand-slate-rgb: 91 102 120;
+  --brand-ink: #102923;
+  --brand-ink-rgb: 16 41 35;
+  --brand-charcoal: #1a3730;
+  --brand-charcoal-rgb: 26 55 48;
+  --brand-paper: #f4f5f0;
+  --brand-paper-rgb: 244 245 240;
+  --brand-surface: #e4e9e3;
+  --brand-surface-rgb: 228 233 227;
+  --brand-accent: #c9a66b;
+  --brand-accent-rgb: 201 166 107;
+  --brand-accent-strong: #775723;
+  --brand-accent-strong-rgb: 119 87 35;
+  --brand-accent-soft: #d9be92;
+  --brand-accent-soft-rgb: 217 190 146;
+  --brand-muted: #a9b7b1;
+  --brand-muted-rgb: 169 183 177;
+  --brand-slate: #52655d;
+  --brand-slate-rgb: 82 101 93;
 }

@@ -6,11 +6,11 @@
 
 :root{
   --aa-v14-ink:var(--brand-ink);
-  --aa-v14-muted:#4c525c;
+  --aa-v14-muted:#485550;
   --aa-v14-paper:var(--brand-paper);
   --aa-v14-dark:var(--brand-ink);
   --aa-v14-accent:var(--brand-accent);
-  --aa-v14-white:#ffffff;
+  --aa-v14-white:var(--brand-paper);
   --aa-v14-white-muted:rgba(255,255,255,.78);
   --aa-v14-white-soft:rgba(255,255,255,.66);
   --aa-v14-line-dark:rgb(var(--brand-ink-rgb) / .2);
@@ -41,7 +41,7 @@ textarea{
 
 .aa-header-v5,
 .aa-header-v5 .aa-nav-main{
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-header-v5 .aa-brand-name :is(b,small),
@@ -54,7 +54,7 @@ textarea{
 .aa-header-v5 .aa-desktop-nav-v4 :is(a,button):is(:hover,:focus-visible,.is-active),
 .aa-header-v5 .aa-header-phone:is(:hover,:focus-visible),
 .aa-header-v5 .aa-menu-button:is(:hover,:focus-visible){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-header-v5 .aa-header-cta{
@@ -77,7 +77,7 @@ textarea{
 }
 
 .aa-header-v5 .aa-mega :is(p,small,span){
-  color:#525963!important;
+  color:#4e5c57!important;
 }
 
 .aa-header-v5 .aa-mega-link{
@@ -90,11 +90,11 @@ textarea{
 
 .aa-header-v5 .aa-mega-link:is(:hover,:focus-visible){
   background:var(--brand-charcoal);
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-header-v5 .aa-mega-link:is(:hover,:focus-visible) :is(b,strong,small,span,svg){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-header-v5 .aa-mega-book{
@@ -111,11 +111,11 @@ textarea{
    ========================================================= */
 
 .aa-inner-v10 .aa-v10-head{
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-inner-v10 .aa-v10-head :is(h1,h2,h3,h4,h5,b,strong){
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-inner-v10 .aa-v10-head :is(.back,.eyebrow,.creative-compass){
@@ -178,7 +178,7 @@ textarea{
   .aa-v10-map-road,
   small
 ){
-  color:#525963!important;
+  color:#4e5c57!important;
 }
 
 /* =========================================================
@@ -192,7 +192,7 @@ textarea{
   .aa-v13-facility-gallery-section,
   .aa-v13-booking-journey-section
 ){
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 :is(.aa-section-dark,.aa-final,.aa-footer) :is(h1,h2,h3,h4,h5,h6,b,strong),
@@ -202,7 +202,7 @@ textarea{
   .aa-v13-facility-gallery-section,
   .aa-v13-booking-journey-section
 ) :is(h1,h2,h3,h4,h5,h6,b,strong){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 :is(.aa-section-dark,.aa-final,.aa-footer) p,
@@ -242,7 +242,7 @@ textarea{
   .aa-v10-tyre-graphic,
   .aa-v10-map-pin
 ){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-inner-v10 :is(
@@ -262,7 +262,7 @@ textarea{
   .aa-v10-tyre-graphic,
   .aa-v10-map-pin
 ) :is(h1,h2,h3,h4,h5,h6,b,strong,svg){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-inner-v10 :is(
@@ -307,12 +307,12 @@ textarea{
 
 .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card{
   background:var(--brand-ink);
-  color:#ffffff;
+  color:var(--brand-paper);
   border-color:var(--aa-v14-line-light);
 }
 
 .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card :is(h3,h4,b,strong,svg){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card p{
@@ -325,11 +325,11 @@ textarea{
 
 @media (hover:hover) and (pointer:fine){
   .aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover{
-    color:#ffffff;
+    color:var(--brand-paper);
   }
 
   .aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover :is(h3,h4,b,strong,svg){
-    color:#ffffff!important;
+    color:var(--brand-paper)!important;
   }
 
   .aa-inner-v10 :is(.aa-v10-paper,.aa-v10-soft) :is(.aa-v10-signal-card,.aa-v10-feature-card):hover :is(p,.aa-v10-feature-meta,.aa-v10-card-top,small,span){
@@ -347,11 +347,11 @@ textarea{
 
   .aa-inner-v10.theme-ac .aa-v10-stack-list>div:hover{
     background:var(--brand-ink);
-    color:#ffffff;
+    color:var(--brand-paper);
   }
 
   .aa-inner-v10.theme-ac .aa-v10-stack-list>div:hover :is(h3,h4,b,strong,svg){
-    color:#ffffff!important;
+    color:var(--brand-paper)!important;
   }
 
   .aa-inner-v10.theme-ac .aa-v10-stack-list>div:hover :is(p,small,span){
@@ -375,11 +375,11 @@ textarea{
 
   .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card:hover{
     background:var(--brand-ink);
-    color:#ffffff;
+    color:var(--brand-paper);
   }
 
   .aa-inner-v10 .aa-v10-feature-grid-dark .aa-v10-feature-card:hover :is(h3,h4,b,strong,p,small,span,svg,.aa-v10-feature-meta){
-    color:#ffffff!important;
+    color:var(--brand-paper)!important;
   }
 }
 
@@ -397,7 +397,7 @@ textarea{
   .aa-v13-damage-tabs,
   .aa-v13-review-tabs
 ) button{
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-inner-v10 :is(
@@ -410,7 +410,7 @@ textarea{
   .aa-v13-damage-tabs,
   .aa-v13-review-tabs
 ) button :is(b,strong,svg){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-inner-v10 :is(
@@ -450,25 +450,43 @@ textarea{
   color:var(--brand-ink)!important;
 }
 
+/* Keyboard focus gets the same champagne fill as hover, so the ink label above stays readable */
+.aa-inner-v10 :is(
+  .aa-v11-scanner-menu,
+  .aa-v11-climate-modes,
+  .aa-v11-geometry-controls,
+  .aa-v11-parts-index,
+  .aa-v11-claim-controls,
+  .aa-v13-service-index,
+  .aa-v13-review-tabs
+) button:focus-visible{
+  background:var(--brand-accent);
+}
+
 /* Timeline */
 .aa-inner-v10 .aa-blueprint-timeline-nav,
 .aa-inner-v10 .aa-blueprint-timeline-stage{
   background:var(--brand-ink);
-  color:#ffffff;
+  color:var(--brand-paper);
   border-color:var(--aa-v14-line-light);
 }
 
 .aa-inner-v10 .aa-blueprint-timeline-nav button{
-  color:#ffffff;
+  color:var(--brand-paper);
   border-color:var(--aa-v14-line-light);
 }
 
 .aa-inner-v10 .aa-blueprint-timeline-nav button :is(b,strong){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-inner-v10 .aa-blueprint-timeline-nav button :is(span,small){
   color:var(--aa-v14-white-soft);
+}
+
+/* These labels also sit at 0.7 opacity; .74 (not the shared .66) keeps them above 4.5:1 on racing green */
+.aa-inner-v10 .aa-blueprint-timeline .aa-blueprint-timeline-nav button :is(span,small){
+  color:rgb(var(--brand-paper-rgb) / .74)!important;
 }
 
 .aa-inner-v10 .aa-blueprint-timeline-nav button.is-active{
@@ -497,15 +515,15 @@ textarea{
 }
 
 .aa-v10-button-dark{
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-v10-button-dark :is(span,b,strong,svg){
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-inner-v10 .aa-v10-button-ghost{
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
   border-color:rgba(255,255,255,.32)!important;
 }
 
@@ -525,20 +543,20 @@ textarea{
 
 .aa-inner-v10 .aa-v10-contact-actions>a:is(:hover,:focus-visible){
   background:var(--brand-ink)!important;
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-inner-v10 .aa-v10-contact-actions>a:is(:hover,:focus-visible) :is(b,strong,span,svg){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-inner-v10 .aa-v10-submit{
   background:var(--brand-ink);
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-inner-v10 .aa-v10-submit :is(span,svg){
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-inner-v10 .aa-v10-submit:is(:hover,:focus-visible){
@@ -556,11 +574,11 @@ textarea{
 
 .aa-inner-v10 .aa-v10-lead-copy{
   background:var(--brand-ink);
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-inner-v10 .aa-v10-lead-copy :is(h1,h2,h3,h4,b,strong,a,svg){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-inner-v10 .aa-v10-lead-copy p{
@@ -581,7 +599,7 @@ textarea{
 }
 
 .aa-inner-v10 .aa-v10-lead-form :is(input,select,textarea){
-  background:#ffffff!important;
+  background:var(--brand-paper)!important;
   color:var(--aa-v14-ink);
   caret-color:var(--aa-v14-ink);
   border-color:rgb(var(--brand-ink-rgb) / .34);
@@ -589,12 +607,12 @@ textarea{
 }
 
 .aa-inner-v10 .aa-v10-lead-form :is(input,textarea)::placeholder{
-  color:#5a616b;
+  color:#56645f;
   opacity:1!important;
 }
 
 .aa-inner-v10 .aa-v10-lead-form select:invalid{
-  color:#5a616b;
+  color:#56645f;
 }
 
 .aa-inner-v10 .aa-v10-lead-form :is(input,select,textarea):focus{
@@ -603,7 +621,7 @@ textarea{
 }
 
 .aa-inner-v10 .aa-v10-lead-form>small{
-  color:#4e555f!important;
+  color:#4a5853!important;
 }
 
 .aa-inner-v10 .aa-motion-faq article>button{
@@ -615,7 +633,7 @@ textarea{
 }
 
 .aa-inner-v10 .aa-motion-faq-answer p{
-  color:#494f59!important;
+  color:#45524d!important;
 }
 
 .aa-inner-v10 .aa-v10-address-card,
@@ -624,7 +642,7 @@ textarea{
 }
 
 .aa-inner-v10 .aa-v10-address-card :is(p,small){
-  color:#4e555f!important;
+  color:#4a5853!important;
 }
 
 /* =========================================================
@@ -632,7 +650,7 @@ textarea{
    ========================================================= */
 
 .aa-footer :is(h1,h2,h3,h4,b,strong,a){
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-footer :is(p,small,span){
@@ -644,11 +662,11 @@ textarea{
 }
 
 .aa-mobile-actions a{
-  color:#ffffff!important;
+  color:var(--brand-paper)!important;
 }
 
 .aa-mobile-actions a :is(span,svg){
-  color:#ffffff;
+  color:var(--brand-paper);
 }
 
 .aa-mobile-actions a:last-child{
@@ -734,11 +752,11 @@ textarea{
 
   .aa-inner-v10.theme-wheel .aa-v10-compare-grid>div:hover{
     background:transparent!important;
-    color:#ffffff!important;
+    color:var(--brand-paper)!important;
   }
 
   .aa-inner-v10.theme-wheel .aa-v10-compare-grid>div:hover :is(h2,h3,h4,b,strong,svg){
-    color:#ffffff!important;
+    color:var(--brand-paper)!important;
   }
 
   .aa-inner-v10.theme-wheel .aa-v10-compare-grid>div:hover :is(p,small,span){
@@ -747,11 +765,11 @@ textarea{
 
   .aa-inner-v10.theme-about .aa-v10-dark .aa-hover-stat-rail>div:hover{
     background:transparent;
-    color:#ffffff;
+    color:var(--brand-paper);
   }
 
   .aa-inner-v10.theme-about .aa-v10-dark .aa-hover-stat-rail>div:hover :is(b,strong,svg){
-    color:#ffffff!important;
+    color:var(--brand-paper)!important;
   }
 
   .aa-inner-v10.theme-about .aa-v10-dark .aa-hover-stat-rail>div:hover :is(p,small,span){
